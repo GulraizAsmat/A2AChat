@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import app.unduit.a2achatapp.R
-import kotlinx.android.synthetic.main.fragment_favourite.*
 
 
 class FavouriteFragment : Fragment() ,View.OnClickListener {
@@ -35,7 +34,7 @@ class FavouriteFragment : Fragment() ,View.OnClickListener {
         listeners()
     }
     fun listeners(){
-        back_icon.setOnClickListener(this)
+//        back_icon.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {

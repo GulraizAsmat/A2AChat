@@ -33,9 +33,9 @@ class SignupFragment : Fragment() {
         val adapter = UserCategoryAdapter(requireContext())
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         binding.spinnerUserType.adapter = adapter
-        binding.spinnerUserType.setOnItemClickListener { parent, view, position, id ->
-            //Logic for selection
-        }
+//        binding.spinnerUserType.setOnItemClickListener { parent, view, position, id ->
+//            //Logic for selection
+//        }
 
         binding.btnBack.setOnClickListener {
             requireActivity().onBackPressed()
