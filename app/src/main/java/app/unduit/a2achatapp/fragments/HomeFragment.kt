@@ -13,7 +13,7 @@ import app.unduit.a2achatapp.adapters.HomeSwiperAdapter
 import app.unduit.a2achatapp.listeners.AdapterListener
 
 import com.yuyakaido.android.cardstackview.*
-import kotlinx.android.synthetic.main.fragment_home.*
+//import kotlinx.android.synthetic.main.fragment_home.*
 
 
 class HomeFragment : Fragment() ,View.OnClickListener, CardStackListener,AdapterListener {
@@ -63,12 +63,12 @@ var homeSwipeList=ArrayList<Int>()
     }
 
     private fun listeners(){
-        favourite_icon.setOnClickListener(this)
-        notification_icon.setOnClickListener(this)
-        profile_image.setOnClickListener(this)
-        property_list.setOnClickListener(this)
-        add_property.setOnClickListener(this)
-        chat.setOnClickListener(this)
+//        favourite_icon.setOnClickListener(this)
+//        notification_icon.setOnClickListener(this)
+//        profile_image.setOnClickListener(this)
+//        property_list.setOnClickListener(this)
+//        add_property.setOnClickListener(this)
+//        chat.setOnClickListener(this)
     }
 
     private fun sliderManager() {

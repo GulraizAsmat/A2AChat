@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import app.unduit.a2achatapp.R
-import kotlinx.android.synthetic.main.fragment_notification.*
 
 
 class NotificationFragment : Fragment() ,View.OnClickListener {
@@ -36,7 +35,7 @@ class NotificationFragment : Fragment() ,View.OnClickListener {
         listeners()
     }
     private fun listeners(){
-        back_icon.setOnClickListener(this)
+//        back_icon.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {

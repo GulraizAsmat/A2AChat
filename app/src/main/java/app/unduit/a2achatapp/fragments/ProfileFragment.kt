@@ -7,10 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import app.unduit.a2achatapp.R
-import kotlinx.android.synthetic.main.fragment_notification.*
-import kotlinx.android.synthetic.main.fragment_profile.*
-import kotlinx.android.synthetic.main.fragment_profile.back_icon
-import kotlinx.android.synthetic.main.fragment_profile.screen_title
 
 class ProfileFragment : Fragment(),View.OnClickListener {
 
@@ -40,12 +36,12 @@ class ProfileFragment : Fragment(),View.OnClickListener {
     }
 
     fun listeners(){
-        back_icon.setOnClickListener(this)
+//        back_icon.setOnClickListener(this)
     }
 
     private fun setScreenTitle(){
 
-        screen_title.text="Profile"
+//        screen_title.text="Profile"
     }
 
     override fun onClick(v: View?) {
