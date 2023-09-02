@@ -7,7 +7,53 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="app.unduit.a2achatapp.HomeFragment"
+        android:name="app.unduit.a2achatapp.fragments.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_notificationFragment"
+            app:destination="@id/notificationFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_favouriteFragment"
+            app:destination="@id/favouriteFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_propertyListFragment"
+            app:destination="@id/propertyListFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_chatFragment"
+            app:destination="@id/chatFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="app.unduit.a2achatapp.fragments.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/notificationFragment"
+        android:name="app.unduit.a2achatapp.fragments.NotificationFragment"
+        android:label="fragment_notification"
+        tools:layout="@layout/fragment_notification" />
+    <fragment
+        android:id="@+id/favouriteFragment"
+        android:name="app.unduit.a2achatapp.fragments.FavouriteFragment"
+        android:label="fragment_favourite"
+        tools:layout="@layout/fragment_favourite" />
+    <fragment
+        android:id="@+id/propertyListFragment"
+        android:name="app.unduit.a2achatapp.fragments.PropertyListFragment"
+        android:label="fragment_property_list"
+        tools:layout="@layout/fragment_property_list" />
+    <fragment
+        android:id="@+id/addPropertyFragment"
+        android:name="app.unduit.a2achatapp.fragments.AddPropertyFragment"
+        android:label="fragment_add_property"
+        tools:layout="@layout/fragment_add_property" />
+    <fragment
+        android:id="@+id/chatFragment"
+        android:name="app.unduit.a2achatapp.fragments.ChatFragment"
+        android:label="fragment_chat"
+        tools:layout="@layout/fragment_chat" />
 </navigation>
