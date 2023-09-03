@@ -1,5 +1,6 @@
 package app.unduit.a2achatapp.fragments
 
+import android.app.AlertDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,7 +10,7 @@ import androidx.navigation.fragment.findNavController
 import app.unduit.a2achatapp.R
 import app.unduit.a2achatapp.databinding.FragmentProfileBinding
 
-class ProfileFragment : Fragment(),View.OnClickListener {
+class ProfileFragment : Fragment(), View.OnClickListener {
 
     private lateinit var binding: FragmentProfileBinding
 
@@ -32,31 +33,48 @@ class ProfileFragment : Fragment(),View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-    init()
+        init()
     }
 
-    private fun init(){
+    private fun init() {
         setScreenTitle()
         listeners()
     }
 
-    fun listeners(){
+    fun listeners() {
         binding.backIcon.setOnClickListener(this)
+        binding.clProfile.setOnClickListener(this)
+        binding.clVerify.setOnClickListener(this)
     }
 
-    private fun setScreenTitle(){
-        binding.screenTitle.text="Profile"
+    private fun setScreenTitle() {
+        binding.screenTitle.text = "Profile"
+    }
+
+    private fun verificationRequestDialog() {
+        val builder = androidx.appcompat.app.AlertDialog.Builder(requireContext())
+        builder.setMessage("Your verification request has been sent to the administrator")
+        builder.setPositiveButton("Okay") { dialog, which ->
+
+        }
+
+        builder.show()
     }
 
     override fun onClick(v: View?) {
-            when(v!!.id){
-                R.id.back_icon->{
-                    findNavController().popBackStack()
-                }
-
-
-
+        when (v!!.id) {
+            R.id.back_icon -> {
+                findNavController().popBackStack()
             }
+
+            R.id.cl_profile -> {
+                findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToEditProfileFragment())
+            }
+
+            R.id.cl_verify -> {
+                verificationRequestDialog()
+            }
+        }
     }
 
 

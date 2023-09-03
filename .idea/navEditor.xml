@@ -53,6 +53,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="editProfileFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="1046" />
+                            <option name="y" value="232" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="favouriteFragment">
                     <value>
                       <LayoutPositions>
@@ -190,6 +202,15 @@
                             <option name="x" value="784" />
                             <option name="y" value="232" />
                           </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_profileFragment_to_editProfileFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                       </LayoutPositions>
                     </value>
