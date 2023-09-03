@@ -72,7 +72,11 @@
         android:id="@+id/profileFragment"
         android:name="app.unduit.a2achatapp.fragments.ProfileFragment"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
+    </fragment>
     <fragment
         android:id="@+id/notificationFragment"
         android:name="app.unduit.a2achatapp.fragments.NotificationFragment"
@@ -229,4 +233,8 @@
             app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="true" />
     </fragment>
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="app.unduit.a2achatapp.fragments.EditProfileFragment"
+        android:label="EditProfileFragment" />
 </navigation>
