@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/splashFragment"
-        android:name="app.unduit.a2achatapp.SplashFragment"
+        android:name="app.unduit.a2achatapp.fragments.SplashFragment"
         android:label="fragment_splash"
         tools:layout="@layout/fragment_splash" >
         <action
@@ -15,21 +15,35 @@
             app:destination="@id/loginFragment"
             app:popUpTo="@id/navigation"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_splashFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/navigation"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="app.unduit.a2achatapp.LoginFragment"
+        android:name="app.unduit.a2achatapp.fragments.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
             android:id="@+id/action_loginFragment_to_signupFragment"
             app:destination="@id/signupFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/navigation"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/signupFragment"
-        android:name="app.unduit.a2achatapp.SignupFragment"
+        android:name="app.unduit.a2achatapp.fragments.SignupFragment"
         android:label="fragment_signup"
-        tools:layout="@layout/fragment_signup" />
+        tools:layout="@layout/fragment_signup" >
+        <action
+            android:id="@+id/action_signupFragment_to_certificationCheckFragment"
+            app:destination="@id/certificationCheckFragment" />
+    </fragment>
     <fragment
         android:id="@+id/homeFragment"
         android:name="app.unduit.a2achatapp.fragments.HomeFragment"
@@ -81,4 +95,61 @@
         android:name="app.unduit.a2achatapp.fragments.ChatFragment"
         android:label="fragment_chat"
         tools:layout="@layout/fragment_chat" />
+    <fragment
+        android:id="@+id/certificationCheckFragment"
+        android:name="app.unduit.a2achatapp.fragments.CertificationCheckFragment"
+        android:label="CertificationCheckFragment" >
+        <action
+            android:id="@+id/action_certificationCheckFragment_to_signupSpecialityFragment"
+            app:destination="@id/signupSpecialityFragment" />
+        <argument
+            android:name="userData"
+            app:argType="app.unduit.a2achatapp.models.User" />
+    </fragment>
+    <fragment
+        android:id="@+id/signupSpecialityFragment"
+        android:name="app.unduit.a2achatapp.fragments.SignupSpecialityFragment"
+        android:label="SignupSpecialityFragment" >
+        <action
+            android:id="@+id/action_signupSpecialityFragment_to_signupAreasFragment"
+            app:destination="@id/signupAreasFragment" />
+        <argument
+            android:name="userData"
+            app:argType="app.unduit.a2achatapp.models.User" />
+    </fragment>
+    <fragment
+        android:id="@+id/signupAreasFragment"
+        android:name="app.unduit.a2achatapp.fragments.SignupAreasFragment"
+        android:label="SignupAreasFragment" >
+        <action
+            android:id="@+id/action_signupAreasFragment_to_signupExperienceFragment"
+            app:destination="@id/signupExperienceFragment" />
+        <argument
+            android:name="userData"
+            app:argType="app.unduit.a2achatapp.models.User" />
+    </fragment>
+    <fragment
+        android:id="@+id/signupExperienceFragment"
+        android:name="app.unduit.a2achatapp.fragments.SignupExperienceFragment"
+        android:label="SignupExperienceFragment" >
+        <action
+            android:id="@+id/action_signupExperienceFragment_to_signupProfilePicFragment"
+            app:destination="@id/signupProfilePicFragment" />
+        <argument
+            android:name="userData"
+            app:argType="app.unduit.a2achatapp.models.User" />
+    </fragment>
+    <fragment
+        android:id="@+id/signupProfilePicFragment"
+        android:name="app.unduit.a2achatapp.fragments.SignupProfilePicFragment"
+        android:label="SignupProfilePicFragment" >
+        <action
+            android:id="@+id/action_signupProfilePicFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/navigation"
+            app:popUpToInclusive="true" />
+        <argument
+            android:name="userData"
+            app:argType="app.unduit.a2achatapp.models.User" />
+    </fragment>
 </navigation>
