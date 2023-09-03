@@ -10,17 +10,19 @@ import android.view.animation.LinearInterpolator
 import androidx.navigation.fragment.findNavController
 import app.unduit.a2achatapp.R
 import app.unduit.a2achatapp.adapters.HomeSwiperAdapter
+import app.unduit.a2achatapp.databinding.FragmentHomeBinding
+
 import app.unduit.a2achatapp.listeners.AdapterListener
 
 import com.yuyakaido.android.cardstackview.*
-//import kotlinx.android.synthetic.main.fragment_home.*
+
 
 
 class HomeFragment : Fragment() ,View.OnClickListener, CardStackListener,AdapterListener {
 
 
-
-var homeSwipeList=ArrayList<Int>()
+    private lateinit var binding:FragmentHomeBinding
+    var homeSwipeList=ArrayList<Int>()
 
     private val cardStackView by lazy { requireActivity().findViewById<CardStackView>(R.id.card_stack_view) }
     private val manager by lazy { CardStackLayoutManager(requireContext(), this) }
@@ -46,14 +48,20 @@ var homeSwipeList=ArrayList<Int>()
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        binding = FragmentHomeBinding.inflate(inflater)
+        binding.lifecycleOwner = this
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
     init()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        sliderManager()
     }
 
     private fun init(){
@@ -63,19 +71,16 @@ var homeSwipeList=ArrayList<Int>()
     }
 
     private fun listeners(){
-//        favourite_icon.setOnClickListener(this)
-//        notification_icon.setOnClickListener(this)
-//        profile_image.setOnClickListener(this)
-//        property_list.setOnClickListener(this)
-//        add_property.setOnClickListener(this)
-//        chat.setOnClickListener(this)
+        binding.favouriteIcon.setOnClickListener(this)
+        binding.notificationIcon.setOnClickListener(this)
+        binding.profileImage.setOnClickListener(this)
+        binding.propertyList.setOnClickListener(this)
+        binding.addProperty.setOnClickListener(this)
+        binding.chat.setOnClickListener(this)
+
     }
 
     private fun sliderManager() {
-
-
-
-
 
 
         manager.setStackFrom(StackFrom.Bottom)
@@ -113,7 +118,7 @@ var homeSwipeList=ArrayList<Int>()
                 findNavController().navigate(R.id.action_homeFragment_to_propertyListFragment)
             }
              R.id.add_property->{
-//                 findNavController().navigate(R.id)
+                 findNavController().navigate(R.id.action_homeFragment_to_propertyBottomSheetFragment)
             }
              R.id.chat->{
                  findNavController().navigate(R.id.action_homeFragment_to_chatFragment)

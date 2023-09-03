@@ -17,6 +17,7 @@
     <color name="color_purple_shade_3">#545454</color>
     <color name="color_purple_shade_4">#F7F0FE</color>
     <color name="color_purple_shade_5">#3C1663</color>
+    <color name="color_purple_shade_6">#CBABEC</color>
 
 
     <color name="color_blue_shade_1">#B3C2D6</color>
@@ -28,9 +29,12 @@
 
     <color name="color_black">#000000</color>
     <color name="color_black_shade_1">#1E1E1E</color>
+    <color name="color_orange_shade_1">#FD7B02</color>
+    <color name="color_orange_shade_2">#40FD7B02</color>
+    <color name="color_red_shade_1">#DA0404</color>
 
 
-
+    <color name="color_white_shade_1">#FFFFFFFF</color>
 
 
 

@@ -1,25 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable/aa.xml" value="0.1965" />
         <entry key="app/src/main/res/drawable/aa_ic_round_corner_search_bar.xml" value="0.1965" />
+        <entry key="app/src/main/res/drawable/bg_bottom_purple.xml" value="0.2405" />
         <entry key="app/src/main/res/drawable/ic_add_property.xml" value="0.1965" />
         <entry key="app/src/main/res/drawable/ic_back_icon_without_bg.xml" value="0.1935" />
+        <entry key="app/src/main/res/drawable/ic_bulk_upload.xml" value="0.2405" />
         <entry key="app/src/main/res/drawable/ic_chat.xml" value="0.1965" />
+        <entry key="app/src/main/res/drawable/ic_commercial.xml" value="0.2405" />
+        <entry key="app/src/main/res/drawable/ic_commercial_white.xml" value="0.2405" />
+        <entry key="app/src/main/res/drawable/ic_cross.xml" value="0.2405" />
+        <entry key="app/src/main/res/drawable/ic_dark_purple_bg.xml" value="0.2405" />
         <entry key="app/src/main/res/drawable/ic_gray_bg.xml" value="0.1935" />
         <entry key="app/src/main/res/drawable/ic_heart.xml" value="0.1965" />
         <entry key="app/src/main/res/drawable/ic_icon_bg.xml" value="0.1965" />
+        <entry key="app/src/main/res/drawable/ic_labour_camp.xml" value="0.2405" />
+        <entry key="app/src/main/res/drawable/ic_light_orange_bg_1.xml" value="0.2405" />
         <entry key="app/src/main/res/drawable/ic_light_purple_bg.xml" value="0.1935" />
+        <entry key="app/src/main/res/drawable/ic_light_purple_bg_1.xml" value="0.2405" />
+        <entry key="app/src/main/res/drawable/ic_office.xml" value="0.2405" />
+        <entry key="app/src/main/res/drawable/ic_orange_btn_bg.xml" value="0.2405" />
+        <entry key="app/src/main/res/drawable/ic_penthouse.xml" value="0.2405" />
+        <entry key="app/src/main/res/drawable/ic_process_step.xml" value="0.2405" />
         <entry key="app/src/main/res/drawable/ic_profile_without_bg.xml" value="0.1935" />
         <entry key="app/src/main/res/drawable/ic_profile_without_icon.xml" value="0.1935" />
+        <entry key="app/src/main/res/drawable/ic_resident.xml" value="0.2405" />
+        <entry key="app/src/main/res/drawable/ic_resident_purple.xml" value="0.2405" />
         <entry key="app/src/main/res/drawable/ic_round_corner_search_bar.xml" value="0.1935" />
+        <entry key="app/src/main/res/drawable/ic_shop.xml" value="0.2405" />
+        <entry key="app/src/main/res/drawable/ic_warehouse.xml" value="0.2405" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.3729166666666667" />
+        <entry key="app/src/main/res/layout/fragment_certification_check.xml" value="0.15364583333333334" />
         <entry key="app/src/main/res/layout/fragment_favourite.xml" value="0.335" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.3086313883463542" />
+        <entry key="app/src/main/res/layout/fragment_login.xml" value="0.15364583333333334" />
         <entry key="app/src/main/res/layout/fragment_notification.xml" value="0.3880208333333333" />
+        <entry key="app/src/main/res/layout/fragment_post.xml" value="0.3140625" />
+        <entry key="app/src/main/res/layout/fragment_post_property_step1.xml" value="0.335" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.34176422119140626" />
+        <entry key="app/src/main/res/layout/fragment_property_bottom_sheet.xml" value="0.3140625" />
+        <entry key="app/src/main/res/layout/fragment_signup.xml" value="0.3140625" />
         <entry key="app/src/main/res/layout/item_card_swipe.xml" value="0.19270833333333334" />
+        <entry key="app/src/main/res/layout/item_property_type.xml" value="0.3140625" />
       </map>
     </option>
   </component>

@@ -39,7 +39,7 @@ class SignupFragment : Fragment() {
         binding = FragmentSignupBinding.inflate(inflater)
         binding.lifecycleOwner = this
 
-        auth = Firebase.auth
+//        auth = Firebase.auth/
 
         return binding.root
     }
