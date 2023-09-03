@@ -7,9 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import app.unduit.a2achatapp.R
+import app.unduit.a2achatapp.databinding.FragmentProfileBinding
 
 class ProfileFragment : Fragment(),View.OnClickListener {
 
+    private lateinit var binding: FragmentProfileBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,7 +23,10 @@ class ProfileFragment : Fragment(),View.OnClickListener {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false)
+        binding = FragmentProfileBinding.inflate(inflater)
+        binding.lifecycleOwner = this
+
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -36,12 +41,11 @@ class ProfileFragment : Fragment(),View.OnClickListener {
     }
 
     fun listeners(){
-//        back_icon.setOnClickListener(this)
+        binding.backIcon.setOnClickListener(this)
     }
 
     private fun setScreenTitle(){
-
-//        screen_title.text="Profile"
+        binding.screenTitle.text="Profile"
     }
 
     override fun onClick(v: View?) {
