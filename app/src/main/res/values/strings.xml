@@ -13,7 +13,9 @@
     <string name="text_email">Email<font color='#DA0404'>*</font></string>
     <string name="text_password">Password<font color='#DA0404'>*</font></string>
     <string name="text_phone">Phone number<font color='#DA0404'>*</font></string>
+    <string name="text_whatsapp">Whatsapp number<font color='#DA0404'>*</font></string>
     <string name="text_signup_as">Sign up as<font color='#DA0404'>*</font></string>
+    <string name="text_company">Company name (Optional)</string>
     <string name="text_select_option">Select option</string>
     <string name="text_next">Next</string>
 </resources>

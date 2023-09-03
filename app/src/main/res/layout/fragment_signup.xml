@@ -6,7 +6,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".SignupFragment">
+        tools:context=".fragments.SignupFragment">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/appCompatImageView"
@@ -36,7 +36,7 @@
             android:text="@string/text_create_account"
             android:textColor="#000000"
             android:textSize="@dimen/_18ssp"
-            android:layout_marginTop="@dimen/_48sdp"
+            android:layout_marginTop="@dimen/_30sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
@@ -63,7 +63,7 @@
                     android:text="@string/text_name"
                     android:textColor="#3C1663"
                     android:textSize="@dimen/_12ssp"
-                    android:layout_marginTop="@dimen/_48sdp"
+                    android:layout_marginTop="@dimen/_25sdp"
                     android:layout_marginStart="@dimen/_30sdp"
                     app:layout_constraintHorizontal_chainStyle="packed"
                     app:layout_constraintStart_toStartOf="parent"
@@ -189,9 +189,48 @@
                     android:paddingHorizontal="@dimen/_8sdp"
                     android:textColor="#3C1663"
                     android:textSize="@dimen/_13ssp"
+                    android:maxLength="13"
+                    android:drawableStart="@drawable/ic_uae"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/tv_phone" />
+
+                <TextView
+                    android:id="@+id/tv_whatsapp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:text="@string/text_whatsapp"
+                    android:textColor="#3C1663"
+                    android:textSize="@dimen/_12ssp"
+                    android:layout_marginTop="@dimen/_14sdp"
+                    android:layout_marginStart="@dimen/_30sdp"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/et_phone" />
+
+                <EditText
+                    android:id="@+id/et_whatsapp"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_marginHorizontal="@dimen/_30sdp"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:background="@drawable/bg_text_view_signup"
+                    android:drawablePadding="@dimen/_12sdp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:gravity="center_vertical"
+                    android:inputType="phone"
+                    android:maxLines="1"
+                    android:paddingHorizontal="@dimen/_8sdp"
+                    android:textColor="#3C1663"
+                    android:textSize="@dimen/_13ssp"
+                    android:maxLength="13"
+                    android:drawableStart="@drawable/ic_uae"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_whatsapp" />
 
                 <TextView
                     android:id="@+id/tv_signup_as"
@@ -206,7 +245,7 @@
                     android:layout_marginTop="@dimen/_14sdp"
                     android:layout_marginStart="@dimen/_30sdp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/et_phone" />
+                    app:layout_constraintTop_toBottomOf="@id/et_whatsapp" />
 
                 <Spinner
                     android:id="@+id/spinner_user_type"
@@ -223,6 +262,41 @@
                     />
 
                 <TextView
+                    android:id="@+id/tv_company"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:gravity="center"
+                    android:maxLines="1"
+                    android:text="@string/text_company"
+                    android:textColor="#3C1663"
+                    android:textSize="@dimen/_12ssp"
+                    android:layout_marginTop="@dimen/_14sdp"
+                    android:layout_marginStart="@dimen/_30sdp"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/spinner_user_type" />
+
+                <EditText
+                    android:id="@+id/et_company"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_marginHorizontal="@dimen/_30sdp"
+                    android:layout_marginTop="@dimen/_2sdp"
+                    android:background="@drawable/bg_text_view_signup"
+                    android:drawablePadding="@dimen/_12sdp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:gravity="center_vertical"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:paddingHorizontal="@dimen/_8sdp"
+                    android:textColor="#3C1663"
+                    android:textSize="@dimen/_13ssp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_company" />
+
+                <TextView
                     android:id="@+id/btn_next"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_30sdp"
@@ -237,7 +311,7 @@
                     android:textSize="@dimen/_13ssp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/spinner_user_type" />
+                    app:layout_constraintTop_toBottomOf="@+id/et_company" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
