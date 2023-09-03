@@ -72,7 +72,8 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_tick"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/circle1_line"
+
+            app:layout_constraintEnd_toStartOf="@+id/circle3_line"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -84,10 +85,12 @@
             android:layout_height="1dp"
             android:background="@color/color_purple_shade_2"
             app:layout_constraintBottom_toBottomOf="@+id/circle1"
-            app:layout_constraintEnd_toStartOf="@+id/circle2"
+
+            app:layout_constraintEnd_toStartOf="@+id/circle3"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/circle1"
-            app:layout_constraintTop_toTopOf="@+id/circle1" />
+            app:layout_constraintStart_toEndOf="@+id/circle2"
+            app:layout_constraintTop_toTopOf="@+id/circle1"
+            tools:ignore="MissingConstraints" />
 
         <ImageView
             android:id="@+id/circle2"
@@ -95,9 +98,10 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_current_process_step"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/circle2_line"
+
+            app:layout_constraintEnd_toStartOf="@+id/circle1_line"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/circle1_line"
+            app:layout_constraintStart_toEndOf="@+id/circle3_line"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="MissingConstraints" />
 
@@ -107,9 +111,10 @@
             android:layout_height="1dp"
             android:background="@color/color_purple_shade_2"
             app:layout_constraintBottom_toBottomOf="@+id/circle2"
-            app:layout_constraintEnd_toStartOf="@+id/circle3"
+            app:layout_constraintEnd_toStartOf="@+id/circle4"
+
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/circle2"
+            app:layout_constraintStart_toEndOf="@+id/circle3"
             app:layout_constraintTop_toTopOf="@+id/circle2" />
 
 
@@ -119,9 +124,10 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_next_process_step"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/circle3_line"
+
+            app:layout_constraintEnd_toStartOf="@+id/circle2_line"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/circle2_line"
+            app:layout_constraintStart_toEndOf="@+id/circle1_line"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="MissingConstraints" />
 
@@ -131,10 +137,13 @@
             android:layout_height="1dp"
             android:background="@color/color_purple_shade_2"
             app:layout_constraintBottom_toBottomOf="@+id/circle3"
-            app:layout_constraintEnd_toStartOf="@+id/circle4"
+
+            app:layout_constraintEnd_toStartOf="@+id/circle2"
+
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/circle3"
-            app:layout_constraintTop_toTopOf="@+id/circle3" />
+            app:layout_constraintStart_toEndOf="@+id/circle1"
+            app:layout_constraintTop_toTopOf="@+id/circle3"
+            tools:ignore="MissingConstraints" />
 
 
         <ImageView
@@ -143,9 +152,10 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_coming_process"
             app:layout_constraintBottom_toBottomOf="parent"
+
             app:layout_constraintEnd_toStartOf="@+id/circle4_line"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/circle3_line"
+            app:layout_constraintStart_toEndOf="@+id/circle2_line"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="MissingConstraints" />
 
@@ -155,6 +165,7 @@
             android:layout_height="1dp"
             android:background="@color/color_purple_shade_2"
             app:layout_constraintBottom_toBottomOf="@+id/circle4"
+
             app:layout_constraintEnd_toStartOf="@+id/circle5"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/circle4"
@@ -167,14 +178,62 @@
             android:layout_height="wrap_content"
             android:src="@drawable/ic_coming_process"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/circle5_line"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/circle4_line"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="MissingConstraints" />
 
+        <View
+            android:id="@+id/circle5_line"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@color/color_purple_shade_2"
+            app:layout_constraintBottom_toBottomOf="@+id/circle4"
+            app:layout_constraintEnd_toStartOf="@+id/circle6"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/circle5"
+            app:layout_constraintTop_toTopOf="@+id/circle5" />
+
+
+        <ImageView
+            android:id="@+id/circle6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_coming_process"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/circle6_line"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/circle5_line"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints" />
+
+        <View
+            android:id="@+id/circle6_line"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@color/color_purple_shade_2"
+            app:layout_constraintBottom_toBottomOf="@+id/circle6"
+            app:layout_constraintEnd_toStartOf="@+id/circle7"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/circle6"
+            app:layout_constraintTop_toTopOf="@+id/circle6" />
+
+
+        <ImageView
+            android:id="@+id/circle7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_coming_process"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/circle6_line"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 
     <androidx.constraintlayout.widget.ConstraintLayout

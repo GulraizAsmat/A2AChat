@@ -175,7 +175,58 @@
     </fragment>
     <fragment
         android:id="@+id/postFragment"
-        android:name="app.unduit.a2achatapp.PostFragment"
+        android:name="app.unduit.a2achatapp.fragments.PostPropertyStep2Fragment"
         android:label="fragment_post"
-        tools:layout="@layout/fragment_post_property_step2" />
+        tools:layout="@layout/fragment_post_property_step2" >
+        <action
+            android:id="@+id/action_postFragment_to_postPropertyStep3Fragment"
+            app:destination="@id/postPropertyStep3Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/postPropertyStep3Fragment"
+        android:name="app.unduit.a2achatapp.fragments.PostPropertyStep3Fragment"
+        android:label="fragment_post_property_step3"
+        tools:layout="@layout/fragment_post_property_step3" >
+        <action
+            android:id="@+id/action_postPropertyStep3Fragment_to_postPropertyStep4Fragment"
+            app:destination="@id/postPropertyStep4Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/postPropertyStep4Fragment"
+        android:name="app.unduit.a2achatapp.PostPropertyStep4Fragment"
+        android:label="fragment_post_property_step4"
+        tools:layout="@layout/fragment_post_property_step4" >
+        <action
+            android:id="@+id/action_postPropertyStep4Fragment_to_postPropertyStep5Fragment"
+            app:destination="@id/postPropertyStep5Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/postPropertyStep5Fragment"
+        android:name="app.unduit.a2achatapp.PostPropertyStep5Fragment"
+        android:label="fragment_post_property_step5"
+        tools:layout="@layout/fragment_post_property_step5" >
+        <action
+            android:id="@+id/action_postPropertyStep5Fragment_to_postPropertyStep6Fragment"
+            app:destination="@id/postPropertyStep6Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/postPropertyStep6Fragment"
+        android:name="app.unduit.a2achatapp.PostPropertyStep6Fragment"
+        android:label="fragment_post_property_step6"
+        tools:layout="@layout/fragment_post_property_step6" >
+        <action
+            android:id="@+id/action_postPropertyStep6Fragment_to_postPropertyStep7Fragment"
+            app:destination="@id/postPropertyStep7Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/postPropertyStep7Fragment"
+        android:name="app.unduit.a2achatapp.PostPropertyStep7Fragment"
+        android:label="fragment_post_property_step7"
+        tools:layout="@layout/fragment_post_property_step7" >
+        <action
+            android:id="@+id/action_postPropertyStep7Fragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>
