@@ -31,7 +31,7 @@ class PostPropertyStep7Fragment : Fragment() {
 
         binding.postListBtn.setOnClickListener {
 
-            findNavController().navigate(R.id.action_postPropertyStep6Fragment_to_postPropertyStep7Fragment)
+            findNavController().navigate(R.id.action_postPropertyStep7Fragment_to_homeFragment)
         }
     }
 
