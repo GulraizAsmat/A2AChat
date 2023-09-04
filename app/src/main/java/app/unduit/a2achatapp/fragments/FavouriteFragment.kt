@@ -158,6 +158,7 @@ class FavouriteFragment : Fragment() ,View.OnClickListener ,AdapterListener{
     }
 
     override fun onAdapterItemClicked(key: String, position: Int) {
-        TODO("Not yet implemented")
+        findNavController().navigate(FavouriteFragmentDirections.actionFavouriteFragmentToPropertyDetailFragment(
+            propertylist[position].image))
     }
 }

@@ -39,9 +39,10 @@ class PropertyListAdapter(
         holder.binding.itemLocation.text=propertyItem.location
 
         // Set a click listener on the root view if needed
-//        holder.binding.root.setOnClickListener {
+        holder.binding.root.setOnClickListener {
 //            listener.onItemClick(propertyItem)
-//        }
+            listener.onAdapterItemClicked("", position)
+        }
 
         // Execute pending bindings to update the UI
         holder.binding.executePendingBindings()

@@ -255,5 +255,8 @@
         <action
             android:id="@+id/action_propertyDetailFragment_to_chatFragment"
             app:destination="@id/chatFragment" />
+        <argument
+            android:name="image"
+            app:argType="reference" />
     </fragment>
 </navigation>
