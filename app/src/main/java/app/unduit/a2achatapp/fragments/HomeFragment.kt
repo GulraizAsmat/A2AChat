@@ -14,29 +14,32 @@ import app.unduit.a2achatapp.databinding.FragmentHomeBinding
 import app.unduit.a2achatapp.helpers.Const
 
 import app.unduit.a2achatapp.listeners.AdapterListener
+import app.unduit.a2achatapp.models.User
+import com.bumptech.glide.Glide
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 import com.yuyakaido.android.cardstackview.*
 
 
+class HomeFragment : Fragment(), View.OnClickListener, CardStackListener, AdapterListener {
 
-class HomeFragment : Fragment() ,View.OnClickListener, CardStackListener,AdapterListener {
 
-
-    private lateinit var binding:FragmentHomeBinding
-    var homeSwipeList=ArrayList<Int>()
+    private lateinit var binding: FragmentHomeBinding
+    var homeSwipeList = ArrayList<Int>()
 
     private val cardStackView by lazy { requireActivity().findViewById<CardStackView>(R.id.card_stack_view) }
     private val manager by lazy { CardStackLayoutManager(requireContext(), this) }
 
 
-
     private val homeSliderAdapter by lazy {
-        HomeSwiperAdapter(requireContext(),
+        HomeSwiperAdapter(
+            requireContext(),
             this,
-            homeSwipeList)
+            homeSwipeList
+        )
     }
-
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,7 +60,7 @@ class HomeFragment : Fragment() ,View.OnClickListener, CardStackListener,Adapter
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-    init()
+        init()
     }
 
     override fun onResume() {
@@ -65,13 +68,14 @@ class HomeFragment : Fragment() ,View.OnClickListener, CardStackListener,Adapter
         sliderManager()
     }
 
-    private fun init(){
-        Log.e("Tag2345","init :: ")
+    private fun init() {
+        Log.e("Tag2345", "init :: ")
+        loadUserProfileImage()
         listeners()
         sliderManager()
     }
 
-    private fun listeners(){
+    private fun listeners() {
         binding.favouriteIcon.setOnClickListener(this)
         binding.notificationIcon.setOnClickListener(this)
         binding.profileImage.setOnClickListener(this)
@@ -101,32 +105,36 @@ class HomeFragment : Fragment() ,View.OnClickListener, CardStackListener,Adapter
     }
 
 
-
     override fun onClick(v: View?) {
-        when(v!!.id){
+        when (v!!.id) {
 
-            R.id.favourite_icon->{
+            R.id.favourite_icon -> {
                 Const.screenName="favourite_icon"
                 findNavController().navigate(R.id.action_homeFragment_to_favouriteFragment)
 
             }
-            R.id.notification_icon->{
+
+            R.id.notification_icon -> {
                 Const.screenName="notification_icon"
                 findNavController().navigate(R.id.action_homeFragment_to_notificationFragment)
             }
-            R.id.profile_image->{
+
+            R.id.profile_image -> {
                 Const.screenName="profile_image"
                 findNavController().navigate(R.id.action_homeFragment_to_profileFragment)
             }
-            R.id.property_list->{
+
+            R.id.property_list -> {
                 Const.screenName="property_list"
                 findNavController().navigate(R.id.action_homeFragment_to_propertyListFragment)
             }
-            R.id.add_property->{
+
+            R.id.add_property -> {
                 Const.screenName="add_property"
                 findNavController().navigate(R.id.action_homeFragment_to_propertyBottomSheetFragment)
             }
-            R.id.chat->{
+
+            R.id.chat -> {
                 Const.screenName="chat"
                 findNavController().navigate(R.id.action_homeFragment_to_chatFragment)
             }
@@ -137,36 +145,59 @@ class HomeFragment : Fragment() ,View.OnClickListener, CardStackListener,Adapter
     }
 
     override fun onCardDragging(direction: Direction?, ratio: Float) {
-        Log.e("Tag2345","onCardDragging :: "+ direction!!.name)
+        Log.e("Tag2345", "onCardDragging :: " + direction!!.name)
 
     }
 
     override fun onCardSwiped(direction: Direction?) {
-        Log.e("Tag2345","onCardSwiped ::" )
+        Log.e("Tag2345", "onCardSwiped ::")
     }
 
     override fun onCardRewound() {
-        Log.e("Tag2345","onCardRewound :: ")
+        Log.e("Tag2345", "onCardRewound :: ")
 
     }
 
     override fun onCardCanceled() {
-        Log.e("Tag2345","onCardCanceled :: ")
+        Log.e("Tag2345", "onCardCanceled :: ")
 
     }
 
     override fun onCardAppeared(view: View?, position: Int) {
-        Log.e("Tag2345","onCardAppeared :: ")
+        Log.e("Tag2345", "onCardAppeared :: ")
 
     }
 
     override fun onCardDisappeared(view: View?, position: Int) {
-        Log.e("Tag2345","onCardDisappeared :: ")
+        Log.e("Tag2345", "onCardDisappeared :: ")
 
     }
 
     override fun onAdapterItemClicked(key: String, position: Int) {
         TODO("Not yet implemented")
+    }
+
+    private fun loadUserProfileImage() {
+        val auth = Firebase.auth
+        val currentUser = auth.currentUser
+
+        currentUser?.let { cUser ->
+            val db = Firebase.firestore
+            val ref = db.collection("users").document(cUser.uid)
+
+            ref.get().addOnSuccessListener { snapshot ->
+                snapshot?.let {
+                    val data = it.data
+
+                    val image = data?.get("profile_image") as String
+                    Glide.with(this).load(image)
+                        .fallback(R.drawable.ic_deafult_profile_icon)
+                        .placeholder(R.drawable.ic_deafult_profile_icon)
+                        .into(binding.profileImage)
+
+                }
+            }
+        }
     }
 
 
