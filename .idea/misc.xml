@@ -12,6 +12,7 @@
         <entry key="app/src/main/res/drawable/ic_add_property.xml" value="0.1965" />
         <entry key="app/src/main/res/drawable/ic_arrow_down.xml" value="0.201" />
         <entry key="app/src/main/res/drawable/ic_back_icon_without_bg.xml" value="0.1935" />
+        <entry key="app/src/main/res/drawable/ic_black_light_bg.xml" value="0.201" />
         <entry key="app/src/main/res/drawable/ic_bulk_upload.xml" value="0.2405" />
         <entry key="app/src/main/res/drawable/ic_chat.xml" value="0.1965" />
         <entry key="app/src/main/res/drawable/ic_commercial.xml" value="0.2405" />
@@ -25,6 +26,8 @@
         <entry key="app/src/main/res/drawable/ic_light_orange_bg_1.xml" value="0.2405" />
         <entry key="app/src/main/res/drawable/ic_light_purple_bg.xml" value="0.1935" />
         <entry key="app/src/main/res/drawable/ic_light_purple_bg_1.xml" value="0.2405" />
+        <entry key="app/src/main/res/drawable/ic_map_pin.xml" value="0.201" />
+        <entry key="app/src/main/res/drawable/ic_map_pin_white.xml" value="0.201" />
         <entry key="app/src/main/res/drawable/ic_office.xml" value="0.2405" />
         <entry key="app/src/main/res/drawable/ic_orange_btn_bg.xml" value="0.2405" />
         <entry key="app/src/main/res/drawable/ic_penthouse.xml" value="0.2405" />
@@ -42,6 +45,7 @@
         <entry key="app/src/main/res/drawable/selector_checkbox_text_color.xml" value="0.201" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.3729166666666667" />
         <entry key="app/src/main/res/layout/fragment_certification_check.xml" value="0.15364583333333334" />
+        <entry key="app/src/main/res/layout/fragment_edit_profile.xml" value="0.3140625" />
         <entry key="app/src/main/res/layout/fragment_favourite.xml" value="0.335" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.3086313883463542" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.15364583333333334" />
@@ -61,6 +65,7 @@
         <entry key="app/src/main/res/layout/item_baths_spinner.xml" value="0.3140625" />
         <entry key="app/src/main/res/layout/item_bedrooms_spinner.xml" value="0.3140625" />
         <entry key="app/src/main/res/layout/item_card_swipe.xml" value="0.19270833333333334" />
+        <entry key="app/src/main/res/layout/item_property_list.xml" value="0.4180199939716233" />
         <entry key="app/src/main/res/layout/item_property_type.xml" value="0.3140625" />
         <entry key="app/src/main/res/layout/item_user_category_spinner.xml" value="0.3140625" />
       </map>
