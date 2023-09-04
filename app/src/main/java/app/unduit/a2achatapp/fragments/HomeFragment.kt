@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import app.unduit.a2achatapp.R
 import app.unduit.a2achatapp.adapters.HomeSwiperAdapter
 import app.unduit.a2achatapp.databinding.FragmentHomeBinding
+import app.unduit.a2achatapp.helpers.Const
 
 import app.unduit.a2achatapp.listeners.AdapterListener
 
@@ -81,7 +82,7 @@ class HomeFragment : Fragment() ,View.OnClickListener, CardStackListener,Adapter
     }
 
     private fun sliderManager() {
-
+        Const.screenName=""
 
         manager.setStackFrom(StackFrom.Bottom)
         manager.setVisibleCount(3)
@@ -105,24 +106,31 @@ class HomeFragment : Fragment() ,View.OnClickListener, CardStackListener,Adapter
         when(v!!.id){
 
             R.id.favourite_icon->{
+                Const.screenName="favourite_icon"
                 findNavController().navigate(R.id.action_homeFragment_to_favouriteFragment)
 
             }
             R.id.notification_icon->{
+                Const.screenName="notification_icon"
                 findNavController().navigate(R.id.action_homeFragment_to_notificationFragment)
             }
             R.id.profile_image->{
+                Const.screenName="profile_image"
                 findNavController().navigate(R.id.action_homeFragment_to_profileFragment)
             }
             R.id.property_list->{
+                Const.screenName="property_list"
                 findNavController().navigate(R.id.action_homeFragment_to_propertyListFragment)
             }
-             R.id.add_property->{
-                 findNavController().navigate(R.id.action_homeFragment_to_propertyBottomSheetFragment)
+            R.id.add_property->{
+                Const.screenName="add_property"
+                findNavController().navigate(R.id.action_homeFragment_to_propertyBottomSheetFragment)
             }
-             R.id.chat->{
-                 findNavController().navigate(R.id.action_homeFragment_to_chatFragment)
+            R.id.chat->{
+                Const.screenName="chat"
+                findNavController().navigate(R.id.action_homeFragment_to_chatFragment)
             }
+
 
 
         }
