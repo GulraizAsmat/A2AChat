@@ -67,6 +67,9 @@
         <action
             android:id="@+id/action_homeFragment_to_propertyBottomSheetFragment"
             app:destination="@id/propertyBottomSheetFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_propertyDetailFragment"
+            app:destination="@id/propertyDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileFragment"
@@ -86,12 +89,20 @@
         android:id="@+id/favouriteFragment"
         android:name="app.unduit.a2achatapp.fragments.FavouriteFragment"
         android:label="fragment_favourite"
-        tools:layout="@layout/fragment_favourite" />
+        tools:layout="@layout/fragment_favourite" >
+        <action
+            android:id="@+id/action_favouriteFragment_to_propertyDetailFragment"
+            app:destination="@id/propertyDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/propertyListFragment"
         android:name="app.unduit.a2achatapp.fragments.PropertyListFragment"
         android:label="fragment_property_list"
-        tools:layout="@layout/fragment_property_list" />
+        tools:layout="@layout/fragment_property_list" >
+        <action
+            android:id="@+id/action_propertyListFragment_to_propertyDetailFragment"
+            app:destination="@id/propertyDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/addPropertyFragment"
         android:name="app.unduit.a2achatapp.fragments.AddPropertyFragment"
@@ -237,4 +248,12 @@
         android:id="@+id/editProfileFragment"
         android:name="app.unduit.a2achatapp.fragments.EditProfileFragment"
         android:label="EditProfileFragment" />
+    <fragment
+        android:id="@+id/propertyDetailFragment"
+        android:name="app.unduit.a2achatapp.fragments.PropertyDetailFragment"
+        android:label="PropertyDetailFragment" >
+        <action
+            android:id="@+id/action_propertyDetailFragment_to_chatFragment"
+            app:destination="@id/chatFragment" />
+    </fragment>
 </navigation>

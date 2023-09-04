@@ -74,6 +74,15 @@
                             <option name="y" value="1436" />
                           </Point>
                         </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_favouriteFragment_to_propertyDetailFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
                       </LayoutPositions>
                     </value>
                   </entry>
@@ -109,6 +118,11 @@
                               </value>
                             </entry>
                             <entry key="action_homeFragment_to_propertyBottomSheetFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_homeFragment_to_propertyDetailFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -292,9 +306,18 @@
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="-2550" />
-                            <option name="y" value="1178" />
+                            <option name="x" value="-1704" />
+                            <option name="y" value="880" />
                           </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_postPropertyStep7Fragment_to_homeFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                       </LayoutPositions>
                     </value>
@@ -341,6 +364,27 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="propertyDetailFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="776" />
+                            <option name="y" value="640" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_propertyDetailFragment_to_chatFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="propertyListFragment">
                     <value>
                       <LayoutPositions>
@@ -349,6 +393,15 @@
                             <option name="x" value="500" />
                             <option name="y" value="368" />
                           </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_propertyListFragment_to_propertyDetailFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
                         </option>
                       </LayoutPositions>
                     </value>
