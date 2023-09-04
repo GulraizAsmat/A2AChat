@@ -7,6 +7,8 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import android.view.View
 import androidx.core.content.ContextCompat
+import androidx.navigation.fragment.NavHostFragment
+import app.unduit.a2achatapp.helpers.Const
 
 class MainActivity : AppCompatActivity() {
 
@@ -37,8 +39,23 @@ class MainActivity : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
 
+        if(Const.screenName=="favourite_icon " ||Const.screenName== "notification_icon"
+            ||Const.screenName== "profile_image" ||Const.screenName== "property_list"
+            ||Const.screenName== "add_property" ||Const.screenName== "chat"){
 
-//        findNavController().navigate(R.)
+
+            val navHostFragment =
+                supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
+            val navController = navHostFragment.navController
+
+            val navGraph = navController.navInflater.inflate(R.navigation.navigation)
+            navGraph.setStartDestination(R.id.homeFragment)
+            navController.graph = navGraph
+            this.navController = navController
+
+
+
+        }
 
 
     }
