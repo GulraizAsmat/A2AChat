@@ -10,6 +10,7 @@ import app.unduit.a2achatapp.databinding.FragmentEditProfileBinding
 import app.unduit.a2achatapp.helpers.ProgressDialog
 import app.unduit.a2achatapp.helpers.showToast
 import app.unduit.a2achatapp.models.User
+import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
@@ -76,6 +77,7 @@ class EditProfileFragment : Fragment() {
                     userData?.phone = data["phone"] as String
                     userData?.whatsapp = data["whatsapp"] as String
                     userData?.company = data["company"] as String
+                    userData?.profile_image = data["profile_image"] as String
 
 
                     setUserData()
@@ -100,6 +102,8 @@ class EditProfileFragment : Fragment() {
             binding.etPhone.setText(user.phone)
             binding.etWhatsapp.setText(user.whatsapp)
             binding.etCompany.setText(user.company)
+
+            Glide.with(this).load(user.profile_image).into(binding.profileImage)
         }
 
         progressDialog.progressBarVisibility(false)

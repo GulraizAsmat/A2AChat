@@ -23,7 +23,7 @@
         app:layout_constraintTop_toTopOf="@id/top_guideline"
         tools:ignore="MissingConstraints">
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profile_image"
             android:layout_width="@dimen/_28sdp"
             android:layout_height="@dimen/_28sdp"
