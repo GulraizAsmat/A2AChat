@@ -29,6 +29,7 @@
 
     <color name="color_black">#000000</color>
     <color name="color_black_shade_1">#1E1E1E</color>
+    <color name="color_black_shade_2">#731E1E1E</color>
     <color name="color_orange_shade_1">#FD7B02</color>
     <color name="color_orange_shade_2">#40FD7B02</color>
     <color name="color_red_shade_1">#DA0404</color>
