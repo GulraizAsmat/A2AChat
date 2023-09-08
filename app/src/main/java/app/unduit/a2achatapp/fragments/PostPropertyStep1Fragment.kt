@@ -26,6 +26,7 @@ class PostPropertyStep1Fragment : Fragment() , View.OnClickListener,AdapterListe
     var propertyType=true //forResidents-> true , forCommercial -> false
 
     var propertyItemList=ArrayList<PropertyType>()
+    var previousPosition=0
 
 
     private val propertyTypeAdapter by lazy {
@@ -119,6 +120,7 @@ class PostPropertyStep1Fragment : Fragment() , View.OnClickListener,AdapterListe
 
 
     private fun showResidentProperty(){
+        previousPosition=0
         propertyItemList.clear()
 
         propertyItemList.add(PropertyType(name="House", image =R.drawable.ic_resident_purple , selected = true))
@@ -130,6 +132,7 @@ class PostPropertyStep1Fragment : Fragment() , View.OnClickListener,AdapterListe
     }
 
     private fun showCommercialProperty(){
+        previousPosition=0
         propertyItemList.clear()
 
         propertyItemList.add(PropertyType(name="Office", image =R.drawable.ic_office , selected = true))
@@ -167,7 +170,20 @@ class PostPropertyStep1Fragment : Fragment() , View.OnClickListener,AdapterListe
     }
 
     override fun onAdapterItemClicked(key: String, position: Int) {
-        TODO("Not yet implemented")
+        when(key){
+            "click_on_item"->{
+
+                propertyItemList[previousPosition].selected=false
+
+                    if(!propertyItemList[position].selected){
+                        propertyItemList[position].selected=true
+                        previousPosition=position
+                    }
+
+                propertyTypeAdapter.notifyDataSetChanged()
+
+            }
+        }
     }
 
 }

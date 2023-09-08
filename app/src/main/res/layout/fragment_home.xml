@@ -130,6 +130,7 @@
             android:textSize="@dimen/_11sdp"
                android:paddingTop="@dimen/_5sdp"
             android:hint="Search..."
+            android:textColor="@color/color_black_shade_1"
             android:textColorHint="@color/color_purple_shade_3"
             android:background="@android:color/transparent"
             app:layout_constraintEnd_toStartOf="@+id/search_icon"

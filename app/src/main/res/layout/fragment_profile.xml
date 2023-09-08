@@ -307,7 +307,7 @@
                     android:textColor="@color/color_black_shade_1"
                     android:textSize="@dimen/_12sdp"
                     app:layout_constraintBottom_toBottomOf="@+id/report_problem_icon"
-                    app:layout_constraintStart_toStartOf="@+id/textView2"
+                    app:layout_constraintStart_toStartOf="@+id/logout"
                     app:layout_constraintTop_toTopOf="@+id/report_problem_icon" />
 
 
@@ -322,7 +322,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/report_problem" />
 
                 <TextView
-                    android:id="@+id/textView2"
+                    android:id="@+id/logout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_10sdp"

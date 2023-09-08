@@ -9,6 +9,9 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import app.unduit.a2achatapp.R
 import app.unduit.a2achatapp.databinding.FragmentProfileBinding
+import app.unduit.a2achatapp.helpers.Const
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 
 class ProfileFragment : Fragment(), View.OnClickListener {
 
@@ -37,6 +40,7 @@ class ProfileFragment : Fragment(), View.OnClickListener {
     }
 
     private fun init() {
+        Const.screenName="profile_image"
         setScreenTitle()
         listeners()
     }
@@ -45,6 +49,7 @@ class ProfileFragment : Fragment(), View.OnClickListener {
         binding.backIcon.setOnClickListener(this)
         binding.clProfile.setOnClickListener(this)
         binding.clVerify.setOnClickListener(this)
+        binding.logout.setOnClickListener(this)
     }
 
     private fun setScreenTitle() {
@@ -64,15 +69,35 @@ class ProfileFragment : Fragment(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v!!.id) {
             R.id.back_icon -> {
-                findNavController().popBackStack()
+                requireActivity().onBackPressed()
+
             }
 
             R.id.cl_profile -> {
+                Const.screenName=""
                 findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToEditProfileFragment())
             }
 
             R.id.cl_verify -> {
+
                 verificationRequestDialog()
+            }
+
+            R.id.logout->{
+                 val auth = FirebaseAuth.getInstance()
+                auth.signOut()
+
+                val user: FirebaseUser? = auth.currentUser
+                if (user == null) {
+
+                    findNavController().navigate(R.id.action_profileFragment_to_loginFragment)
+                } else {
+                    // The user is still authenticated
+                    // This could happen in case of a network error or other issues
+                    // Handle accordingly
+                }
+
+
             }
         }
     }

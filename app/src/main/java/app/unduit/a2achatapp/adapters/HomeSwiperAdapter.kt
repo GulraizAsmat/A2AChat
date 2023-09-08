@@ -6,41 +6,45 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import app.unduit.a2achatapp.R
+import app.unduit.a2achatapp.databinding.ItemCardSwipeBinding
 import app.unduit.a2achatapp.listeners.AdapterListener
+import app.unduit.a2achatapp.models.PropertyData
+
 
 class HomeSwiperAdapter(
     val context: Context,
     private val listener: AdapterListener,
-    private val homeSwipeList: ArrayList<Int>,
+    private val homeSwipeList: ArrayList<PropertyData>
 ) :
-    RecyclerView.Adapter<HomeSwiperAdapter.MyHolder>(), View.OnClickListener {
+    RecyclerView.Adapter<HomeSwiperAdapter.ViewHolder>() {
 
+    inner class ViewHolder(val binding: ItemCardSwipeBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
-    inner class MyHolder(v: View) : RecyclerView.ViewHolder(v) {
-        var view: View = v
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val binding = ItemCardSwipeBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(binding)
     }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyHolder {
-        val view = LayoutInflater.from(context).inflate(R.layout.item_card_swipe, parent, false)
-        return MyHolder(view)
-    }
-
 
     override fun getItemCount(): Int {
-        // Return the number of cards in your stack
-
-        return 10 /* number of cards */
+        return homeSwipeList.size // Return the number of items in your data list
     }
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        // Initialize your card item views here
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val propertyData = homeSwipeList[position]
+
+        holder.binding.itemImage.setImageResource(propertyData.image)
+        holder.binding.itemBhk.text=propertyData.bhk
+        holder.binding.itemSqft.text=propertyData.sqft
+        holder.binding.itemLocation.text=propertyData.location
+
+        // Set a click listener on the root view if needed
+        holder.binding.root.setOnClickListener {
+            listener.onAdapterItemClicked("",position)
+        }
+
+        // Execute pending bindings to update the UI
+        holder.binding.executePendingBindings()
     }
 
-    override fun onClick(p0: View?) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onBindViewHolder(holder: MyHolder, position: Int) {
-
-    }
 }

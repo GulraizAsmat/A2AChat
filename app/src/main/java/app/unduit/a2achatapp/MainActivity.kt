@@ -3,6 +3,7 @@ package app.unduit.a2achatapp
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import android.view.View
@@ -38,10 +39,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-
-        if(Const.screenName=="favourite_icon " ||Const.screenName== "notification_icon"
+        Log.e("Tag324","onBackPressed")
+        if(Const.screenName=="favourite_icon" ||Const.screenName== "notification_icon"
             ||Const.screenName== "profile_image" ||Const.screenName== "property_list"
-            ||Const.screenName== "add_property" ||Const.screenName== "chat"){
+            ||Const.screenName== "add_property" ||Const.screenName== "chat" || Const.screenName=="Property_detail"){
 
 
             val navHostFragment =
@@ -56,6 +57,7 @@ class MainActivity : AppCompatActivity() {
 
 
         }
+
 
 
     }

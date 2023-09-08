@@ -18,7 +18,7 @@ enum class UserExperience(val category: String) {
     FOUR("4"),
     FIVE("5"),
     FIVE_PLUS("5+"),
-    TEN_PLUS("10")
+    TEN_PLUS("10+")
 }
 
 class UserExperienceAdapter(

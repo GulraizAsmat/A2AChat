@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import app.unduit.a2achatapp.R
 import app.unduit.a2achatapp.databinding.FragmentPropertyBottomSheetBinding
+import app.unduit.a2achatapp.helpers.Const
 
 
 class PropertyBottomSheetFragment : Fragment(), View.OnClickListener {
@@ -35,6 +36,7 @@ class PropertyBottomSheetFragment : Fragment(), View.OnClickListener {
 
 
     fun init(){
+        Const.screenName="add_property"
         listeners()
     }
     fun listeners(){
@@ -48,14 +50,17 @@ class PropertyBottomSheetFragment : Fragment(), View.OnClickListener {
         when (v!!.id) {
 
             R.id.cl_bottom_sheet -> {
-                findNavController().popBackStack()
+
+                requireActivity().onBackPressed()
 
             }
             R.id.close_bottom_sheet -> {
-                findNavController().popBackStack()
+
+            requireActivity().onBackPressed()
 
             }
             R.id.post_property -> {
+                Const.screenName=""
                 findNavController().navigate(R.id.action_propertyBottomSheetFragment_to_postPropertyStep1Fragment)
 
             }

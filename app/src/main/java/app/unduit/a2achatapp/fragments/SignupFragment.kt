@@ -94,14 +94,18 @@ class SignupFragment : Fragment() {
             requireContext().showToast("Please enter whatsapp number")
         } else if(userCategory?.isEmpty() == true || userCategory == getString(R.string.text_select_option)) {
             requireContext().showToast("Please select a role")
-        } else {
+        }
+        else if(binding.etPassword.text.toString().length<8){
+            requireContext().showToast("Password should be 8 character")
+        }
+        else {
             createUser()
         }
     }
 
     private fun createUser(){
         progressDialog.progressBarVisibility(true)
-
+         auth = FirebaseAuth.getInstance()
         val email = binding.etEmail.text.toString()
         val password = binding.etPassword.text.toString()
 

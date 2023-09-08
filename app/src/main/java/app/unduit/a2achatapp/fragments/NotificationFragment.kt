@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import app.unduit.a2achatapp.R
 import app.unduit.a2achatapp.adapters.NotificationAdapter
 import app.unduit.a2achatapp.databinding.FragmentNotificationBinding
+
 import app.unduit.a2achatapp.models.Notification
 
 
@@ -89,7 +90,7 @@ class NotificationFragment : Fragment() ,View.OnClickListener {
     override fun onClick(v: View?) {
         when(v!!.id){
             R.id.btn_back->{
-                findNavController().popBackStack()
+                requireActivity().onBackPressed()
             }
 
 

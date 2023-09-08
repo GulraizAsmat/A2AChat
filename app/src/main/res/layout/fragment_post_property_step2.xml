@@ -188,6 +188,7 @@
             android:id="@+id/circle5_line"
             android:layout_width="0dp"
             android:layout_height="1dp"
+            android:visibility="gone"
             android:background="@color/color_purple_shade_2"
             app:layout_constraintBottom_toBottomOf="@+id/circle4"
             app:layout_constraintEnd_toStartOf="@+id/circle6"
@@ -200,6 +201,7 @@
             android:id="@+id/circle6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:src="@drawable/ic_coming_process"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/circle6_line"
@@ -212,6 +214,7 @@
             android:id="@+id/circle6_line"
             android:layout_width="0dp"
             android:layout_height="1dp"
+            android:visibility="gone"
             android:background="@color/color_purple_shade_2"
             app:layout_constraintBottom_toBottomOf="@+id/circle6"
             app:layout_constraintEnd_toStartOf="@+id/circle7"
@@ -222,6 +225,7 @@
 
         <ImageView
             android:id="@+id/circle7"
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_coming_process"
@@ -233,7 +237,6 @@
             tools:ignore="MissingConstraints" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -251,7 +254,7 @@
             android:id="@+id/area_community_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_regular"
+            android:fontFamily="@font/poppins_semibold"
             android:text="Area / Community"
             android:textColor="@color/color_black_shade_1"
             android:textSize="@dimen/_11sdp"
@@ -292,8 +295,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_15sdp"
-            android:fontFamily="@font/poppins_regular"
-            android:text="Building"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="Project"
             android:textColor="@color/color_black_shade_1"
             android:textSize="@dimen/_11sdp"
             app:layout_constraintStart_toStartOf="parent"
@@ -328,52 +331,179 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/building_title" />
 
+
         <TextView
-            android:id="@+id/type_series_title"
+            android:id="@+id/bedrooms_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_15sdp"
-            android:fontFamily="@font/poppins_regular"
-            android:text="Type / Series"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="Bedrooms"
             android:textColor="@color/color_black_shade_1"
             android:textSize="@dimen/_11sdp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/building" />
 
         <TextView
-            android:id="@+id/building_title_optional"
+            android:id="@+id/bedrooms_title_star"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_regular"
-            android:text=" (Optional)"
-            android:textColor="@color/color_purple_shade_2"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="*"
+            android:textColor="@color/color_red_shade_1"
             android:textSize="@dimen/_11sdp"
-            app:layout_constraintBottom_toBottomOf="@+id/type_series_title"
-            app:layout_constraintStart_toEndOf="@+id/type_series_title"
-            app:layout_constraintTop_toTopOf="@+id/type_series_title" />
+            app:layout_constraintStart_toEndOf="@+id/bedrooms_title"
+            app:layout_constraintTop_toTopOf="@+id/bedrooms_title" />
 
-        <EditText
-            android:id="@+id/type_series"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_30sdp"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:layout_marginBottom="@dimen/_10sdp"
-            android:background="@drawable/bg_text_view_signup"
-            android:drawablePadding="@dimen/_12sdp"
-            android:fontFamily="@font/poppins_regular"
-            android:gravity="center_vertical"
-            android:inputType="text"
-            android:maxLines="1"
-            android:paddingHorizontal="@dimen/_8sdp"
-            android:textColor="#3C1663"
-            android:textSize="@dimen/_13ssp"
-            app:layout_constraintBottom_toBottomOf="parent"
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_bed"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/type_series_title" />
+            app:layout_constraintTop_toBottomOf="@+id/bedrooms_title" />
 
+
+        <TextView
+            android:id="@+id/baths_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="Baths"
+            android:textColor="@color/color_black_shade_1"
+            android:textSize="@dimen/_11sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rv_bed" />
+
+        <TextView
+            android:id="@+id/baths_title_star"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="*"
+            android:textColor="@color/color_red_shade_1"
+            android:textSize="@dimen/_11sdp"
+            app:layout_constraintStart_toEndOf="@+id/baths_title"
+            app:layout_constraintTop_toTopOf="@+id/baths_title" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_bath"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/baths_title" />
+
+
+
+        <TextView
+            android:id="@+id/property_dev_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="Property Development Status"
+            android:textColor="@color/color_black_shade_1"
+            android:textSize="@dimen/_11sdp"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rv_bath" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_off_plan"
+            android:layout_width="0dp"
+
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_10sdp"
+            android:layout_marginVertical="@dimen/_10sdp"
+            android:background="@drawable/ic_dark_purple_bg"
+            android:padding="@dimen/_5sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+
+            app:layout_constraintEnd_toEndOf="@+id/purpose_mid_guideline"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/property_dev_title">
+
+
+            <ImageView
+                android:id="@+id/resident_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                app:layout_constraintBottom_toBottomOf="parent"
+
+
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/residents_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="Off-Plan "
+                android:textColor="@color/color_white_shade_1"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_ready"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_10sdp"
+            android:layout_marginVertical="@dimen/_10sdp"
+            android:background="@drawable/ic_light_purple_bg_1"
+            android:padding="@dimen/_5sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/cl_off_plan"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/purpose_mid_guideline"
+            app:layout_constraintTop_toTopOf="@+id/cl_off_plan">
+
+
+            <ImageView
+                android:id="@+id/commercial_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/commercial_title"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/commercial_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="Ready"
+                android:textColor="@color/color_purple_shade_1"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/purpose_mid_guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 
     <androidx.appcompat.widget.AppCompatButton
@@ -381,13 +511,13 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_30sdp"
         android:background="@drawable/ic_dark_purple_bg"
         android:fontFamily="@font/poppins_semibold"
         android:stateListAnimator="@null"
         android:text="Next"
         android:textAllCaps="false"
         android:textColor="@color/color_white_shade_1"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_guideline"
         app:layout_constraintEnd_toStartOf="@+id/end_guideline"
 
         app:layout_constraintStart_toStartOf="@+id/start_guideline"

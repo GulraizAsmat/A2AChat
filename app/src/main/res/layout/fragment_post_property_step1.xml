@@ -186,6 +186,7 @@
             android:id="@+id/circle5_line"
             android:layout_width="0dp"
             android:layout_height="1dp"
+            android:visibility="gone"
             android:background="@color/color_purple_shade_2"
             app:layout_constraintBottom_toBottomOf="@+id/circle4"
             app:layout_constraintEnd_toStartOf="@+id/circle6"
@@ -196,6 +197,7 @@
 
         <ImageView
             android:id="@+id/circle6"
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_coming_process"
@@ -210,6 +212,7 @@
             android:id="@+id/circle6_line"
             android:layout_width="0dp"
             android:layout_height="1dp"
+            android:visibility="gone"
             android:background="@color/color_purple_shade_2"
             app:layout_constraintBottom_toBottomOf="@+id/circle6"
             app:layout_constraintEnd_toStartOf="@+id/circle7"
@@ -220,6 +223,7 @@
 
         <ImageView
             android:id="@+id/circle7"
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_coming_process"

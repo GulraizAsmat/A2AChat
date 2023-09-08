@@ -103,7 +103,8 @@ class EditProfileFragment : Fragment() {
             binding.etWhatsapp.setText(user.whatsapp)
             binding.etCompany.setText(user.company)
 
-            Glide.with(this).load(user.profile_image).into(binding.profileImage)
+            Glide.with(this).load(user.profile_image).fallback(R.drawable.ic_profile_pic_placeholder)
+                .placeholder(R.drawable.ic_profile_pic_placeholder).into(binding.profileImage)
         }
 
         progressDialog.progressBarVisibility(false)

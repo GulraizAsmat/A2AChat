@@ -7,6 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
+
   >
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -185,6 +186,7 @@
             android:id="@+id/circle5_line"
             android:layout_width="0dp"
             android:layout_height="1dp"
+            android:visibility="gone"
             android:background="@color/color_purple_shade_2"
             app:layout_constraintBottom_toBottomOf="@+id/circle4"
             app:layout_constraintEnd_toStartOf="@+id/circle6"
@@ -198,6 +200,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_coming_process"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/circle6_line"
             app:layout_constraintHorizontal_bias="0.5"
@@ -208,6 +211,7 @@
         <View
             android:id="@+id/circle6_line"
             android:layout_width="0dp"
+            android:visibility="gone"
             android:layout_height="1dp"
             android:background="@color/color_purple_shade_2"
             app:layout_constraintBottom_toBottomOf="@+id/circle6"
@@ -221,6 +225,7 @@
             android:id="@+id/circle7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:src="@drawable/ic_coming_process"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -243,69 +248,75 @@
         tools:ignore="MissingConstraints" >
 
 
-
         <TextView
-            android:id="@+id/occupancy_title"
+            android:id="@+id/building_title_optional"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_semibold"
-            android:text="Occupancy"
+            android:text="Service Charges"
             android:textColor="@color/color_black_shade_1"
             android:textSize="@dimen/_11sdp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/occupancy_title_star"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_semibold"
-            android:text="*"
-            android:textColor="@color/color_red_shade_1"
-            android:textSize="@dimen/_11sdp"
-            app:layout_constraintStart_toEndOf="@+id/occupancy_title" />
-
-        <Spinner
-            android:id="@+id/spinner_occupancy"
+        <EditText
+            android:id="@+id/area"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_30sdp"
-            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_10sdp"
             android:background="@drawable/bg_text_view_signup"
-            android:spinnerMode="dropdown"
+            android:drawablePadding="@dimen/_12sdp"
+            android:fontFamily="@font/poppins_regular"
+            android:gravity="center_vertical"
+            android:inputType="numberDecimal"
+            android:maxLength="20"
+            android:maxLines="1"
+            android:paddingHorizontal="@dimen/_8sdp"
+            android:textColor="#3C1663"
+            android:textSize="@dimen/_13ssp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/occupancy_title"
-            tools:listitem="@layout/item_bedrooms_spinner" />
+            app:layout_constraintTop_toBottomOf="@+id/building_title_optional" />
 
 
         <TextView
-            android:id="@+id/finishing_title"
+            android:id="@+id/sq_feet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_semibold"
-            android:text="Finishing"
-            android:layout_marginTop="@dimen/_20sdp"
-            android:textColor="@color/color_black_shade_1"
-            android:textSize="@dimen/_11sdp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/spinner_occupancy" />
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:fontFamily="@font/poppins_regular"
+            android:text="Sq ft"
+            android:textColor="@color/color_gray_shade_1"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/area"
+            app:layout_constraintEnd_toEndOf="@+id/area"
+            app:layout_constraintTop_toTopOf="@+id/area" />
 
 
+        <TextView
+            android:id="@+id/aed_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_7sdp"
+            android:fontFamily="@font/poppins_regular"
+            android:text="AED"
+            android:textColor="@color/color_gray_shade_1"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/area"
+            app:layout_constraintEnd_toStartOf="@+id/view_line"
+            app:layout_constraintTop_toTopOf="@+id/area" />
 
-        <Spinner
-            android:id="@+id/spinner_finishing"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_30sdp"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:background="@drawable/bg_text_view_signup"
-            android:spinnerMode="dropdown"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/finishing_title"
-            tools:listitem="@layout/item_bedrooms_spinner" />
 
-
-
+        <View
+            android:id="@+id/view_line"
+            android:layout_width="0.4dp"
+            android:layout_height="0dp"
+            android:layout_marginVertical="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:background="@color/color_purple_shade_3"
+            app:layout_constraintBottom_toBottomOf="@+id/area"
+            app:layout_constraintEnd_toStartOf="@+id/sq_feet"
+            app:layout_constraintTop_toTopOf="@+id/area" />
 
         <TextView
             android:id="@+id/floor_title"
@@ -313,18 +324,19 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_semibold"
             android:text="Floor"
-            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_15sdp"
             android:textColor="@color/color_black_shade_1"
             android:textSize="@dimen/_11sdp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/spinner_finishing" />
+            app:layout_constraintTop_toBottomOf="@+id/area"
+      />
 
 
 
         <Spinner
             android:id="@+id/spinner_floor"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_30sdp"
+            android:layout_height="@dimen/_35sdp"
             android:layout_marginTop="@dimen/_5sdp"
             android:background="@drawable/bg_text_view_signup"
             android:spinnerMode="dropdown"
@@ -334,7 +346,16 @@
             tools:listitem="@layout/item_bedrooms_spinner" />
 
 
-
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/floor_ic_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/_14sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/spinner_floor"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/spinner_floor"
+            app:srcCompat="@drawable/ic_arrow_down_white" />
 
         <TextView
             android:id="@+id/payment_terms_title"
@@ -342,11 +363,159 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_semibold"
             android:text="Payment Terms"
-            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_15sdp"
             android:textColor="@color/color_black_shade_1"
             android:textSize="@dimen/_11sdp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/spinner_floor" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_payment_plans"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/payment_terms_title">
+
+
+            <TextView
+                android:id="@+id/during_construction_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:text="1: During Construction"
+                android:textColor="@color/color_black_shade_1"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintBottom_toBottomOf="@+id/during_construction"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/during_construction" />
+
+            <EditText
+                android:id="@+id/during_construction"
+
+                android:layout_height="@dimen/_25sdp"
+                android:paddingTop="@dimen/_3sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_7sdp"
+                android:layout_width="@dimen/_70sdp"
+                android:maxLength="8"
+                android:textSize="@dimen/_10sdp"
+                android:inputType="numberDecimal"
+                android:textColor="@color/color_black_shade_1"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="center_horizontal"
+                android:background="@drawable/bg_text_view_signup"
+                app:layout_constraintEnd_toStartOf="@+id/during_construction_percent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <TextView
+                android:id="@+id/during_construction_percent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:fontFamily="@font/poppins_semibold"
+
+                android:text="%"
+                android:textColor="@color/color_black_shade_1"
+                android:textSize="@dimen/_12sdp"
+                app:layout_constraintBottom_toBottomOf="@+id/during_construction"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/during_construction" />
+
+            <TextView
+                android:id="@+id/on_handover_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:text="2: On Handover"
+                android:textColor="@color/color_black_shade_1"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintBottom_toBottomOf="@+id/on_handover"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/on_handover" />
+
+            <EditText
+                android:id="@+id/on_handover"
+
+                android:layout_height="@dimen/_25sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_width="@dimen/_70sdp"
+                android:paddingTop="@dimen/_3sdp"
+                android:textColor="@color/color_black_shade_1"
+                android:textSize="@dimen/_10sdp"
+                android:maxLength="8"
+                android:inputType="numberDecimal"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="center_horizontal"
+                android:background="@drawable/bg_text_view_signup"
+                app:layout_constraintEnd_toStartOf="@+id/on_handover_percent"
+                app:layout_constraintTop_toBottomOf="@+id/during_construction" />
+
+
+            <TextView
+                android:id="@+id/on_handover_percent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:fontFamily="@font/poppins_semibold"
+
+                android:text="%"
+                android:textColor="@color/color_black_shade_1"
+                android:textSize="@dimen/_12sdp"
+                app:layout_constraintBottom_toBottomOf="@+id/on_handover"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/on_handover" />
+
+
+            <TextView
+                android:id="@+id/post_handover_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:text="3: Post Handover"
+                android:textColor="@color/color_black_shade_1"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintBottom_toBottomOf="@+id/post_handover"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/post_handover" />
+
+
+            <EditText
+                android:id="@+id/post_handover"
+
+                android:layout_height="@dimen/_25sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_width="@dimen/_70sdp"
+                android:paddingTop="@dimen/_3sdp"
+                android:textColor="@color/color_black_shade_1"
+                android:maxLength="8"
+                android:textSize="@dimen/_10sdp"
+                android:inputType="numberDecimal"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="center_horizontal"
+                android:background="@drawable/bg_text_view_signup"
+                app:layout_constraintEnd_toStartOf="@+id/on_handover_percent"
+                app:layout_constraintTop_toBottomOf="@+id/on_handover" />
+
+
+            <TextView
+                android:id="@+id/post_handover_percent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:fontFamily="@font/poppins_semibold"
+
+                android:text="%"
+                android:textColor="@color/color_black_shade_1"
+                android:textSize="@dimen/_12sdp"
+                app:layout_constraintBottom_toBottomOf="@+id/post_handover"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/post_handover" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 
@@ -357,9 +526,10 @@
             android:layout_marginTop="@dimen/_5sdp"
             android:background="@drawable/bg_text_view_signup"
             android:spinnerMode="dropdown"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/payment_terms_title"
+            app:layout_constraintTop_toBottomOf="@+id/cl_payment_plans"
             tools:listitem="@layout/item_bedrooms_spinner" />
 
         <TextView
@@ -368,7 +538,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_15sdp"
             android:fontFamily="@font/poppins_semibold"
-            android:text="Payment Plan"
+            android:text="Year of Handover"
             android:textColor="@color/color_black_shade_1"
             android:textSize="@dimen/_11sdp"
             app:layout_constraintStart_toStartOf="parent"
@@ -376,24 +546,30 @@
 
 
 
-        <EditText
-            android:id="@+id/payment_plan"
+
+        <Spinner
+            android:id="@+id/payment_plan_spinner"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_30sdp"
+            android:layout_height="@dimen/_35sdp"
             android:layout_marginTop="@dimen/_5sdp"
             android:background="@drawable/bg_text_view_signup"
-            android:drawablePadding="@dimen/_12sdp"
-            android:fontFamily="@font/poppins_regular"
-            android:gravity="center_vertical"
-            android:inputType="text"
-            android:maxLines="1"
-            android:paddingHorizontal="@dimen/_8sdp"
-            android:textColor="#3C1663"
-            android:textSize="@dimen/_13ssp"
+            android:spinnerMode="dropdown"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/payment_plan_title" />
+            app:layout_constraintTop_toBottomOf="@+id/payment_plan_title"
+            tools:listitem="@layout/item_bedrooms_spinner" />
 
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/handover_year_ic_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/_14sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/payment_plan_spinner"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/payment_plan_spinner"
+            app:srcCompat="@drawable/ic_arrow_down_white" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

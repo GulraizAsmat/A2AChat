@@ -14,6 +14,7 @@ import app.unduit.a2achatapp.adapters.HomeSwiperAdapter
 import app.unduit.a2achatapp.adapters.PropertyListAdapter
 import app.unduit.a2achatapp.databinding.FragmentFavouriteBinding
 import app.unduit.a2achatapp.databinding.FragmentHomeBinding
+import app.unduit.a2achatapp.helpers.Const
 import app.unduit.a2achatapp.listeners.AdapterListener
 import app.unduit.a2achatapp.models.PropertyData
 
@@ -22,6 +23,10 @@ class FavouriteFragment : Fragment() ,View.OnClickListener ,AdapterListener{
 
     private lateinit var binding: FragmentFavouriteBinding
         var propertylist=ArrayList<PropertyData>()
+
+
+
+
 
     private val propertyListAdapter by lazy {
         PropertyListAdapter(requireContext(),
@@ -143,7 +148,8 @@ class FavouriteFragment : Fragment() ,View.OnClickListener ,AdapterListener{
     override fun onClick(v: View?) {
         when(v!!.id){
             R.id.back_icon->{
-                findNavController().popBackStack()
+
+            requireActivity().onBackPressed()
             }
             R.id.cl_favorite->{
                 selectFavourite()

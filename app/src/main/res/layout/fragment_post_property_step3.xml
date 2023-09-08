@@ -184,6 +184,7 @@
             android:id="@+id/circle5_line"
             android:layout_width="0dp"
             android:layout_height="1dp"
+            android:visibility="gone"
             android:background="@color/color_purple_shade_2"
             app:layout_constraintBottom_toBottomOf="@+id/circle4"
             app:layout_constraintEnd_toStartOf="@+id/circle6"
@@ -197,6 +198,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_coming_process"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/circle6_line"
             app:layout_constraintHorizontal_bias="0.5"
@@ -208,6 +210,7 @@
             android:id="@+id/circle6_line"
             android:layout_width="0dp"
             android:layout_height="1dp"
+            android:visibility="gone"
             android:background="@color/color_purple_shade_2"
             app:layout_constraintBottom_toBottomOf="@+id/circle6"
             app:layout_constraintEnd_toStartOf="@+id/circle7"
@@ -220,6 +223,7 @@
             android:id="@+id/circle7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             android:src="@drawable/ic_coming_process"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -233,81 +237,69 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout5"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_marginTop="@dimen/_20sdp"
+        app:layout_constraintBottom_toTopOf="@+id/next_btn"
         app:layout_constraintEnd_toStartOf="@+id/end_guideline"
         app:layout_constraintStart_toStartOf="@+id/start_guideline"
         app:layout_constraintTop_toBottomOf="@+id/cl_process_bar"
         tools:ignore="MissingConstraints">
 
         <TextView
-            android:id="@+id/bedrooms_title"
+            android:id="@+id/building_title_optional"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_semibold"
-            android:text="Bedrooms"
+            android:text=" Area Size"
             android:textColor="@color/color_black_shade_1"
             android:textSize="@dimen/_11sdp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/bedrooms_title_star"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_semibold"
-            android:text="*"
-            android:textColor="@color/color_red_shade_1"
-            android:textSize="@dimen/_11sdp"
-            app:layout_constraintStart_toEndOf="@+id/bedrooms_title" />
-
-        <Spinner
-            android:id="@+id/spinner_bedrooms"
+        <EditText
+            android:id="@+id/area"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_30sdp"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:background="@drawable/bg_text_view_signup"
-            android:spinnerMode="dropdown"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/bedrooms_title"
-            tools:listitem="@layout/item_bedrooms_spinner" />
-
-
-        <TextView
-            android:id="@+id/baths_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
-            android:fontFamily="@font/poppins_semibold"
-            android:text="Baths"
-            android:textColor="@color/color_black_shade_1"
-            android:textSize="@dimen/_11sdp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/spinner_bedrooms" />
-
-        <TextView
-            android:id="@+id/baths_title_star"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_semibold"
-            android:text="*"
-            android:textColor="@color/color_red_shade_1"
-            android:textSize="@dimen/_11sdp"
-            app:layout_constraintStart_toEndOf="@+id/baths_title"
-            app:layout_constraintTop_toTopOf="@+id/baths_title" />
-
-        <Spinner
-            android:id="@+id/spinner_baths"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_30sdp"
-            android:layout_marginTop="@dimen/_5sdp"
             android:background="@drawable/bg_text_view_signup"
-            android:spinnerMode="dropdown"
+            android:drawablePadding="@dimen/_12sdp"
+            android:fontFamily="@font/poppins_regular"
+            android:gravity="center_vertical"
+            android:inputType="numberDecimal"
+            android:maxLength="20"
+            android:maxLines="1"
+            android:paddingHorizontal="@dimen/_8sdp"
+            android:textColor="#3C1663"
+            android:textSize="@dimen/_13ssp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/baths_title"
-            tools:listitem="@layout/item_baths_spinner" />
+            app:layout_constraintTop_toBottomOf="@+id/building_title_optional" />
+
+
+        <TextView
+            android:id="@+id/sq_feet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:fontFamily="@font/poppins_regular"
+            android:text="Sq ft"
+            android:textColor="@color/color_gray_shade_1"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/area"
+            app:layout_constraintEnd_toEndOf="@+id/area"
+            app:layout_constraintTop_toTopOf="@+id/area" />
+
+
+        <View
+            android:layout_width="0.4dp"
+            android:layout_height="0dp"
+            android:layout_marginVertical="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:background="@color/color_purple_shade_3"
+            app:layout_constraintBottom_toBottomOf="@+id/area"
+            app:layout_constraintEnd_toStartOf="@+id/sq_feet"
+            app:layout_constraintTop_toTopOf="@+id/area" />
+
 
         <View
             android:id="@+id/view_line_1"
@@ -317,13 +309,14 @@
             android:background="@color/color_purple_shade_2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/spinner_baths" />
+            app:layout_constraintTop_toBottomOf="@id/area" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cl_maid_section"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_100sdp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view_line_1">
 
@@ -435,63 +428,89 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cl_maid_section" />
 
+
         <TextView
-            android:id="@+id/building_title_optional"
+            android:id="@+id/occupancy_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_10sdp"
             android:fontFamily="@font/poppins_semibold"
-            android:text=" Area Size"
+            android:text="Occupancy"
+            android:layout_marginTop="@dimen/_15sdp"
             android:textColor="@color/color_black_shade_1"
             android:textSize="@dimen/_11sdp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view_line_2" />
 
-        <EditText
-            android:id="@+id/area"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_30sdp"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:layout_marginBottom="@dimen/_10sdp"
-            android:background="@drawable/bg_text_view_signup"
-            android:drawablePadding="@dimen/_12sdp"
-            android:fontFamily="@font/poppins_regular"
-            android:gravity="center_vertical"
-            android:inputType="number"
-            android:maxLength="20"
-            android:maxLines="1"
-            android:paddingHorizontal="@dimen/_8sdp"
-            android:textColor="#3C1663"
-            android:textSize="@dimen/_13ssp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/building_title_optional" />
-
-
         <TextView
-            android:id="@+id/sq_feet"
+            android:id="@+id/occupancy_title_star"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/_10sdp"
-            android:fontFamily="@font/poppins_regular"
-            android:text="Sq ft"
-            android:textColor="@color/color_gray_shade_1"
-            android:textSize="@dimen/_12sdp"
-            app:layout_constraintBottom_toBottomOf="@+id/area"
-            app:layout_constraintEnd_toEndOf="@+id/area"
-            app:layout_constraintTop_toTopOf="@+id/area" />
+            android:fontFamily="@font/poppins_semibold"
+            android:text="*"
+            android:textColor="@color/color_red_shade_1"
+            android:textSize="@dimen/_11sdp"
+            app:layout_constraintStart_toEndOf="@+id/occupancy_title" />
+
+        <Spinner
+            android:id="@+id/spinner_occupancy"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_35sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:background="@drawable/bg_text_view_signup"
+            android:spinnerMode="dropdown"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/occupancy_title"
+            tools:listitem="@layout/item_bedrooms_spinner" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/occupancy_ic_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/_14sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/spinner_occupancy"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/spinner_occupancy"
+            app:srcCompat="@drawable/ic_arrow_down_white" />
+
+        <TextView
+            android:id="@+id/finishing_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="Finishing"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:textColor="@color/color_black_shade_1"
+            android:textSize="@dimen/_11sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spinner_occupancy" />
 
 
-        <View
-            android:layout_width="0.4dp"
-            android:layout_height="0dp"
-            android:layout_marginVertical="@dimen/_5sdp"
-            android:layout_marginEnd="@dimen/_10sdp"
-            android:background="@color/color_purple_shade_3"
-            app:layout_constraintBottom_toBottomOf="@+id/area"
-            app:layout_constraintEnd_toStartOf="@+id/sq_feet"
-            app:layout_constraintTop_toTopOf="@+id/area" />
+
+        <Spinner
+            android:id="@+id/spinner_finishing"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_35sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:background="@drawable/bg_text_view_signup"
+            android:spinnerMode="dropdown"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/finishing_title"
+            tools:listitem="@layout/item_bedrooms_spinner" />
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/finishing_ic_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/_14sdp"
+            app:layout_constraintBottom_toBottomOf="@+id/spinner_finishing"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/spinner_finishing"
+            app:srcCompat="@drawable/ic_arrow_down_white" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -504,6 +523,7 @@
         android:layout_marginHorizontal="@dimen/_20sdp"
         android:background="@drawable/ic_dark_purple_bg"
         android:fontFamily="@font/poppins_semibold"
+        android:layout_marginBottom="@dimen/_20sdp"
         android:stateListAnimator="@null"
         android:text="Next"
         android:textAllCaps="false"
@@ -512,7 +532,6 @@
 
         app:layout_constraintEnd_toStartOf="@+id/end_guideline"
         app:layout_constraintStart_toStartOf="@+id/start_guideline"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout5"
         tools:ignore="MissingConstraints" />
 
     <androidx.constraintlayout.widget.Guideline
