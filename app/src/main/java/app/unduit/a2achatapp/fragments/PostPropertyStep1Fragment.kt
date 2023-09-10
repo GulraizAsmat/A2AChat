@@ -69,6 +69,7 @@ class PostPropertyStep1Fragment : Fragment() , View.OnClickListener,AdapterListe
         binding.clCommercial.setOnClickListener(this)
         binding.clForRent.setOnClickListener(this)
         binding.clForSale.setOnClickListener(this)
+        binding.backIcon.setOnClickListener(this)
         binding.clResident.setOnClickListener(this)
         binding.nextBtn.setOnClickListener(this)
     }
@@ -162,6 +163,9 @@ class PostPropertyStep1Fragment : Fragment() , View.OnClickListener,AdapterListe
             }
             R.id.next_btn->{
                 findNavController().navigate(R.id.action_postPropertyStep1Fragment_to_postFragment)
+            }
+            R.id.back_icon->{
+                requireActivity().onBackPressed()
             }
             
             

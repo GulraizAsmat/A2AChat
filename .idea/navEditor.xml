@@ -97,6 +97,11 @@
                         </option>
                         <option name="myPositions">
                           <map>
+                            <entry key="action_homeFragment_self">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_homeFragment_to_chatFragment">
                               <value>
                                 <LayoutPositions />
@@ -159,6 +164,18 @@
                               </value>
                             </entry>
                           </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="myPropertyFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="1156" />
+                            <option name="y" value="594" />
+                          </Point>
                         </option>
                       </LayoutPositions>
                     </value>
@@ -270,6 +287,11 @@
                         </option>
                         <option name="myPositions">
                           <map>
+                            <entry key="action_postPropertyStep5Fragment_to_homeFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_postPropertyStep5Fragment_to_postPropertyStep6Fragment">
                               <value>
                                 <LayoutPositions />
@@ -322,18 +344,40 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="postRequestFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="180" />
+                            <option name="y" value="1412" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="profileFragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
                           <Point>
-                            <option name="x" value="784" />
-                            <option name="y" value="232" />
+                            <option name="x" value="757" />
+                            <option name="y" value="287" />
                           </Point>
                         </option>
                         <option name="myPositions">
                           <map>
                             <entry key="action_profileFragment_to_editProfileFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_profileFragment_to_loginFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_profileFragment_to_myPropertyFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -355,6 +399,11 @@
                         <option name="myPositions">
                           <map>
                             <entry key="action_propertyBottomSheetFragment_to_postPropertyStep1Fragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_propertyBottomSheetFragment_to_postRequestFragment">
                               <value>
                                 <LayoutPositions />
                               </value>

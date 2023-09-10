@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import app.unduit.a2achatapp.R
 import app.unduit.a2achatapp.databinding.ItemCardSwipeBinding
+
 import app.unduit.a2achatapp.listeners.AdapterListener
 import app.unduit.a2achatapp.models.PropertyData
 
@@ -39,7 +40,7 @@ class HomeSwiperAdapter(
         holder.binding.itemLocation.text=propertyData.location
 
         // Set a click listener on the root view if needed
-        holder.binding.root.setOnClickListener {
+        holder.binding.viewDetail.setOnClickListener {
             listener.onAdapterItemClicked("",position)
         }
 

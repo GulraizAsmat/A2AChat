@@ -60,13 +60,14 @@ class PropertyBottomSheetFragment : Fragment(), View.OnClickListener {
 
             }
             R.id.post_property -> {
-                Const.screenName=""
+
                 findNavController().navigate(R.id.action_propertyBottomSheetFragment_to_postPropertyStep1Fragment)
 
             }
             R.id.post_request -> {
 
 
+                findNavController().navigate(R.id.action_propertyBottomSheetFragment_to_postRequestFragment)
             }
             R.id.bulk_upload -> {
 

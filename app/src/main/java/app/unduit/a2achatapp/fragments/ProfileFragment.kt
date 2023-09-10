@@ -50,6 +50,7 @@ class ProfileFragment : Fragment(), View.OnClickListener {
         binding.clProfile.setOnClickListener(this)
         binding.clVerify.setOnClickListener(this)
         binding.logout.setOnClickListener(this)
+        binding.clProperty.setOnClickListener(this)
     }
 
     private fun setScreenTitle() {
@@ -98,6 +99,9 @@ class ProfileFragment : Fragment(), View.OnClickListener {
                 }
 
 
+            }
+            R.id.cl_property->{
+                findNavController().navigate(R.id.action_profileFragment_to_myPropertyFragment)
             }
         }
     }

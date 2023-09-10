@@ -88,6 +88,9 @@
             app:destination="@id/loginFragment"
             app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_profileFragment_to_myPropertyFragment"
+            app:destination="@id/myPropertyFragment" />
     </fragment>
     <fragment
         android:id="@+id/notificationFragment"
@@ -187,6 +190,9 @@
         <action
             android:id="@+id/action_propertyBottomSheetFragment_to_postPropertyStep1Fragment"
             app:destination="@id/postPropertyStep1Fragment" />
+        <action
+            android:id="@+id/action_propertyBottomSheetFragment_to_postRequestFragment"
+            app:destination="@id/postRequestFragment" />
     </fragment>
     <fragment
         android:id="@+id/postPropertyStep1Fragment"
@@ -273,4 +279,14 @@
             android:name="image"
             app:argType="reference" />
     </fragment>
+    <fragment
+        android:id="@+id/myPropertyFragment"
+        android:name="app.unduit.a2achatapp.MyPropertyFragment"
+        android:label="fragment_my_property"
+        tools:layout="@layout/fragment_my_property" />
+    <fragment
+        android:id="@+id/postRequestFragment"
+        android:name="app.unduit.a2achatapp.PostRequestFragment"
+        android:label="fragment_post_request"
+        tools:layout="@layout/fragment_post_request" />
 </navigation>
