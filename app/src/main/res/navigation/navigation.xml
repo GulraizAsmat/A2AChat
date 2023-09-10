@@ -73,6 +73,12 @@
         <action
             android:id="@+id/action_homeFragment_self"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_postPropertyStep1Fragment"
+            app:destination="@id/postPropertyStep1Fragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_postRequestFragment"
+            app:destination="@id/postRequestFragment" />
 
     </fragment>
     <fragment
@@ -293,7 +299,7 @@
     </fragment>
     <fragment
         android:id="@+id/myPropertyFragment"
-        android:name="app.unduit.a2achatapp.MyPropertyFragment"
+        android:name="app.unduit.a2achatapp.fragments.MyPropertyFragment"
         android:label="fragment_my_property"
         tools:layout="@layout/fragment_my_property" />
     <fragment

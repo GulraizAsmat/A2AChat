@@ -149,7 +149,7 @@ class FavouriteFragment : Fragment() ,View.OnClickListener ,AdapterListener{
         when(v!!.id){
             R.id.back_icon->{
 
-            requireActivity().onBackPressed()
+                requireActivity().onBackPressedDispatcher.onBackPressed()
             }
             R.id.cl_favorite->{
                 selectFavourite()

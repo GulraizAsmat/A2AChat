@@ -14,6 +14,7 @@ import app.unduit.a2achatapp.adapters.HomeSwiperAdapter
 import app.unduit.a2achatapp.adapters.PropertyTypeItemAdapter
 import app.unduit.a2achatapp.databinding.FragmentHomeBinding
 import app.unduit.a2achatapp.databinding.FragmentPostPropertyStep1Binding
+import app.unduit.a2achatapp.helpers.Const
 import app.unduit.a2achatapp.listeners.AdapterListener
 import app.unduit.a2achatapp.models.PropertyData
 import app.unduit.a2achatapp.models.PropertyType
@@ -64,6 +65,8 @@ class PostPropertyStep1Fragment : Fragment(), View.OnClickListener, AdapterListe
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        Const.screenName = "add_property"
 
         init()
     }

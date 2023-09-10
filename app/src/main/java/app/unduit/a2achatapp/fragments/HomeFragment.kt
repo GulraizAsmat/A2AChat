@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.LinearInterpolator
 import android.widget.Toast
+import androidx.appcompat.widget.AppCompatButton
 import androidx.navigation.fragment.findNavController
 import app.unduit.a2achatapp.R
 import app.unduit.a2achatapp.adapters.HomeSwiperAdapter
@@ -18,6 +19,7 @@ import app.unduit.a2achatapp.listeners.AdapterListener
 import app.unduit.a2achatapp.models.PropertyData
 import app.unduit.a2achatapp.models.User
 import com.bumptech.glide.Glide
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -146,7 +148,33 @@ class HomeFragment : Fragment(), View.OnClickListener, CardStackListener, Adapte
 
             R.id.add_property -> {
                 Const.screenName="add_property"
-                findNavController().navigate(R.id.action_homeFragment_to_propertyBottomSheetFragment)
+//                findNavController().navigate(R.id.action_homeFragment_to_propertyBottomSheetFragment)
+
+                val dialog = BottomSheetDialog(requireContext(), R.style.BottomSheetDialogStyle)
+                val view = layoutInflater.inflate(R.layout.item_bottomsheet_home, null)
+
+                val btnPostProperty = view.findViewById<AppCompatButton>(R.id.post_property)
+                val btnPostRequest = view.findViewById<AppCompatButton>(R.id.post_request)
+                val btnBulk = view.findViewById<AppCompatButton>(R.id.bulk_upload)
+
+                btnPostProperty.setOnClickListener {
+                    dialog.dismiss()
+                    findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToPostPropertyStep1Fragment())
+                }
+
+                btnPostRequest.setOnClickListener {
+                    dialog.dismiss()
+                    findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToPostRequestFragment())
+                }
+
+                btnBulk.setOnClickListener {
+                    dialog.dismiss()
+                    //TODO
+                }
+
+                dialog.setContentView(view)
+                dialog.show()
+
             }
 
             R.id.chat -> {

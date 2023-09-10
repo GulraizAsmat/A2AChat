@@ -16,6 +16,7 @@ import app.unduit.a2achatapp.databinding.ItemMyPropertyListBinding
 
 import app.unduit.a2achatapp.listeners.AdapterListener
 import app.unduit.a2achatapp.models.PropertyData
+import com.bumptech.glide.Glide
 
 class MyPropertyListAdapter(
     val context: Context,
@@ -24,24 +25,33 @@ class MyPropertyListAdapter(
 ) :
     RecyclerView.Adapter<MyPropertyListAdapter.ViewHolder>() {
 
-    inner class ViewHolder(val binding: app.unduit.a2achatapp.databinding.ItemMyPropertyListBinding) :
+    inner class ViewHolder(val binding: ItemMyPropertyListBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = app.unduit.a2achatapp.databinding.ItemMyPropertyListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = ItemMyPropertyListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
     override fun getItemCount(): Int {
 //        return propertyList.size // Return the number of items in your data list
-        return 10 // Return the number of items in your data list
+        return propertyList.size // Return the number of items in your data list
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-//        val propertyItem = propertyList[position]
+        val propertyItem = propertyList[position]
 
         // Bind your data to the layout using data binding
+        holder.binding.propertyType.text = propertyItem.property_type
+        holder.binding.propertyPrice.text = "${propertyItem.price} AED"
+        holder.binding.itemLocation.text = propertyItem.area_community
+        holder.binding.bedrooms.text = propertyItem.bedrooms
+        holder.binding.bathroom.text = propertyItem.bathrooms
+        holder.binding.sqFeet.text = "${propertyItem.area_size}sqft"
 
+        if(propertyItem.property_images?.isNotEmpty() == true) {
+            Glide.with(holder.binding.itemPropertyImage).load(propertyItem.property_images?.get(0)).into(holder.binding.itemPropertyImage)
+        }
 
         // Set a click listener on the root view if needed
         holder.binding.menu.setOnClickListener {

@@ -48,7 +48,7 @@ class EditProfileFragment : Fragment() {
 
     private fun init() {
         binding.btnBack.setOnClickListener {
-            requireActivity().onBackPressed()
+            requireActivity().onBackPressedDispatcher.onBackPressed()
         }
 
         binding.btnSave.setOnClickListener {

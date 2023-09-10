@@ -15,6 +15,7 @@ import app.unduit.a2achatapp.adapters.BathroomItemAdapter
 import app.unduit.a2achatapp.adapters.BedroomItemAdapter
 import app.unduit.a2achatapp.databinding.FragmentPostPropertyStep1Binding
 import app.unduit.a2achatapp.databinding.FragmentPostPropertyStep2Binding
+import app.unduit.a2achatapp.helpers.Const
 import app.unduit.a2achatapp.helpers.showToast
 import app.unduit.a2achatapp.listeners.AdapterListener
 import app.unduit.a2achatapp.models.BathBedType
@@ -70,6 +71,7 @@ class PostPropertyStep2Fragment : Fragment(), View.OnClickListener, AdapterListe
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        Const.screenName = ""
         init()
     }
 
@@ -193,12 +195,16 @@ class PostPropertyStep2Fragment : Fragment(), View.OnClickListener, AdapterListe
     private fun verifyData() {
         val areaCommunity = binding.areaCommunity.text.toString()
         val project = binding.building.text.toString()
-        if(areaCommunity.isEmpty()) {
+        val price = binding.price.text.toString()
+        if(price.isEmpty()) {
+            requireContext().showToast("Please enter a Price")
+        } else if(areaCommunity.isEmpty()) {
             requireContext().showToast("Please enter Area/Community")
         } else if(project.isEmpty()) {
             requireContext().showToast("Please enter Project")
         } else {
 
+            propertyData.price = price
             propertyData.area_community = areaCommunity
             propertyData.project = project
             propertyData.bedrooms = bedroomStr
@@ -225,7 +231,7 @@ class PostPropertyStep2Fragment : Fragment(), View.OnClickListener, AdapterListe
             }
 
             R.id.back_icon -> {
-                requireActivity().onBackPressed()
+                requireActivity().onBackPressedDispatcher.onBackPressed()
             }
         }
     }

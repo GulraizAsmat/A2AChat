@@ -62,7 +62,7 @@ class PostPropertyStep4Fragment : Fragment() {
         }
 
         binding.backIcon.setOnClickListener {
-            requireActivity().onBackPressed()
+            requireActivity().onBackPressedDispatcher.onBackPressed()
         }
     }
 

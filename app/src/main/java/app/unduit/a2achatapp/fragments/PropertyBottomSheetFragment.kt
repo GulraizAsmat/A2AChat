@@ -51,12 +51,12 @@ class PropertyBottomSheetFragment : Fragment(), View.OnClickListener {
 
             R.id.cl_bottom_sheet -> {
 
-                requireActivity().onBackPressed()
+                requireActivity().onBackPressedDispatcher.onBackPressed()
 
             }
             R.id.close_bottom_sheet -> {
 
-            requireActivity().onBackPressed()
+                requireActivity().onBackPressedDispatcher.onBackPressed()
 
             }
             R.id.post_property -> {

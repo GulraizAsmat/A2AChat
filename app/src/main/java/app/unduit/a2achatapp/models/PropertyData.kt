@@ -38,6 +38,7 @@ class PropertyData(
     var sp: String = "",
     var roi: String = "",
     var negotiation: String = "",
-    var property_title: String = ""
+    var property_title: String = "",
+    var property_images: List<String>? = null
 
 ): Parcelable

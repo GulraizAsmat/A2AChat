@@ -206,13 +206,11 @@
                     android:id="@+id/property_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
                     android:fontFamily="@font/poppins_regular"
-                    android:text="1 min ago"
+                    tools:text="1 min ago"
                     android:textColor="@color/color_black_shade_1"
                     android:textSize="@dimen/_9sdp"
                     app:layout_constraintBottom_toBottomOf="@+id/property_type"
-
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/property_type" />
 

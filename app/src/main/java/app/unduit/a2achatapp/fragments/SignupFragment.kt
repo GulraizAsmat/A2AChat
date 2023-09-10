@@ -72,7 +72,7 @@ class SignupFragment : Fragment() {
         }
 
         binding.btnBack.setOnClickListener {
-            requireActivity().onBackPressed()
+            requireActivity().onBackPressedDispatcher.onBackPressed()
         }
 
         binding.btnNext.setOnClickListener {

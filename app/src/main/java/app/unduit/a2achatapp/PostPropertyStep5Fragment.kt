@@ -21,8 +21,16 @@ import app.unduit.a2achatapp.helpers.ProgressDialog
 import app.unduit.a2achatapp.helpers.SpinnersHelper
 import app.unduit.a2achatapp.helpers.showToast
 import app.unduit.a2achatapp.models.PropertyData
+import com.esafirm.imagepicker.features.ImagePicker
+import com.esafirm.imagepicker.features.ImagePickerConfig
+import com.esafirm.imagepicker.features.IpCons
+import com.esafirm.imagepicker.features.ReturnMode
+import com.esafirm.imagepicker.features.registerImagePicker
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.ktx.storage
 
 
 class PostPropertyStep5Fragment : Fragment() {
@@ -42,6 +50,7 @@ class PostPropertyStep5Fragment : Fragment() {
         PostPropertyImagesAdapter()
     }
     private var propertyImages = ArrayList<Uri>()
+    private var propertyImagesStr: ArrayList<String>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,36 +85,29 @@ class PostPropertyStep5Fragment : Fragment() {
         }
 
         binding.backIcon.setOnClickListener {
-            requireActivity().onBackPressed()
+            requireActivity().onBackPressedDispatcher.onBackPressed()
         }
 
         binding.btnUpload.setOnClickListener {
-//            if (Build.VERSION.SDK_INT < 19) {
-//                val intent = Intent()
-//                intent.type = "image/*"
-//                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
-//                intent.action = Intent.ACTION_GET_CONTENT
-//                startActivityForResult(
-//                    Intent.createChooser(intent, "Select Picture"), 10000
-//                )
-//            } else {
-//                val intent = Intent(Intent.ACTION_OPEN_DOCUMENT)
-//                intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
-//                intent.addCategory(Intent.CATEGORY_OPENABLE)
-//                intent.type = "image/*"
-//                startActivityForResult(intent, 10000)
-//            }
-            val intent = Intent()
-            intent.type = "image/*"
-            intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
-            intent.action = Intent.ACTION_GET_CONTENT
-            startActivityForResult(
-                Intent.createChooser(intent, "Select Picture"), 10000
-            )
+
+            imagePickerLauncher.launch(ImagePickerConfig() {
+                isShowCamera = false
+                doneButtonText = "DONE"
+                imageTitle = "Tap to select"
+            })
         }
 
         binding.rvImages.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
         binding.rvImages.adapter = adapter
+    }
+
+    private val imagePickerLauncher = registerImagePicker { images ->
+
+        images.forEach {
+            propertyImages.add(it.uri)
+        }
+        adapter.submitList(null)
+        adapter.submitList(propertyImages)
     }
 
     private fun spinnerManager() {
@@ -134,7 +136,7 @@ class PostPropertyStep5Fragment : Fragment() {
             }
     }
 
-    private fun uploadData(){
+    private fun uploadData() {
         val spStr = binding.sp.text.toString()
         val title = binding.propertyTitle.text.toString()
 
@@ -144,64 +146,81 @@ class PostPropertyStep5Fragment : Fragment() {
             requireContext().showToast("Please enter a title")
         } else {
 
-            progressDialog.progressBarVisibility(true)
-
-            propertyData.op = binding.op.text.toString()
-            propertyData.sp = binding.sp.text.toString()
-            propertyData.roi = binding.roi.text.toString()
-            propertyData.negotiation = negotiationStr
-            propertyData.property_title = title
-
             val db = Firebase.firestore
             val id: String = db.collection("properties").document().id
 
-            propertyData.uid = id
+            val totalImages = propertyImages.size
 
-            db.collection("properties")
-                .document(id)
-                .set(propertyData)
-                .addOnSuccessListener {
-                    progressDialog.progressBarVisibility(false)
-                    requireContext().showToast("Property Posted!")
-                    findNavController().navigate(R.id.action_postPropertyStep5Fragment_to_homeFragment)
-                }.addOnFailureListener {e ->
-                    progressDialog.progressBarVisibility(false)
-                    requireContext().showToast(e.localizedMessage.toString())
+            if(propertyImages.size > 0) {
+
+                propertyImagesStr = ArrayList()
+
+                progressDialog.progressBarVisibility(true)
+                val storage = Firebase.storage
+                val storageRef = storage.reference
+
+                var count = 0
+                propertyImages.forEach { uri ->
+                    val time = System.currentTimeMillis()
+                    val imagesRef: StorageReference? = storageRef.child("property_images/${id}/image_${time}")
+
+                    val uploadTask = imagesRef?.putFile(uri)
+
+                    val urlTask = uploadTask?.continueWithTask { task ->
+                        if (!task.isSuccessful) {
+                            task.exception?.let {
+                                throw it
+                            }
+                        }
+                        imagesRef.downloadUrl
+                    }?.addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            val downloadUri = task.result
+
+                            propertyImagesStr!!.add(downloadUri.toString())
+                            count++
+
+                            if(count == propertyImages.size) {
+                                propertyData.property_images = propertyImagesStr
+                                uploadToDatabase(db, id)
+                            }
+                        } else {
+                            // Handle failures
+                            requireContext().showToast("Upload failed. Please try again")
+                            progressDialog.progressBarVisibility(false)
+                        }
+                    }
                 }
 
+            } else {
+                progressDialog.progressBarVisibility(true)
+                uploadToDatabase(db, id)
+            }
 //            findNavController().navigate(R.id.action_postPropertyStep5Fragment_to_homeFragment)
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 10000 && resultCode == RESULT_OK) {
+    private fun uploadToDatabase(db: FirebaseFirestore,id: String) {
 
-            if (data?.clipData != null) {
-                val count = data.clipData?.itemCount
-                for (i in 0 until count!!) {
-                    val imageUri: Uri = data.clipData!!.getItemAt(i).uri
-                    propertyImages.add(imageUri)
-                }
-                adapter.submitList(null)
-                adapter.submitList(propertyImages)
+        propertyData.op = binding.op.text.toString()
+        propertyData.sp = binding.sp.text.toString()
+        propertyData.roi = binding.roi.text.toString()
+        propertyData.negotiation = negotiationStr
+        propertyData.property_title = binding.propertyTitle.text.toString()
+
+        propertyData.uid = id
+
+        db.collection("properties")
+            .document(id)
+            .set(propertyData)
+            .addOnSuccessListener {
+                progressDialog.progressBarVisibility(false)
+                requireContext().showToast("Property Posted!")
+                findNavController().navigate(R.id.action_postPropertyStep5Fragment_to_homeFragment)
+            }.addOnFailureListener {e ->
+                progressDialog.progressBarVisibility(false)
+                requireContext().showToast(e.localizedMessage.toString())
             }
-
-//            val result = MultiImagePicker.Result(data)
-//            if (result.isSuccess()) {
-//                val imageListInUri = result.getImageList() // List os selected images as content Uri format
-//
-//                propertyImages.addAll(imageListInUri)
-//                adapter.submitList(null)
-//                adapter.submitList(propertyImages)
-//
-//
-//                //You can also request list as absolute filepath instead of Uri as below
-//                val imageListInAbsFilePath = result.getImageListAsAbsolutePath(requireContext())
-//
-//                //do your stuff from the selected images list received
-//            }
-        }
     }
 
 }
