@@ -9,6 +9,7 @@ import android.view.WindowManager
 import android.widget.AdapterView
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import app.unduit.a2achatapp.R
@@ -17,21 +18,23 @@ import app.unduit.a2achatapp.adapters.BedroomItemAdapter
 import app.unduit.a2achatapp.adapters.CustomSpinnerAdapter
 import app.unduit.a2achatapp.databinding.FragmentPostPropertyStep3Binding
 import app.unduit.a2achatapp.helpers.SpinnersHelper
+import app.unduit.a2achatapp.helpers.showToast
 import app.unduit.a2achatapp.listeners.AdapterListener
 import app.unduit.a2achatapp.models.BathBedType
+import app.unduit.a2achatapp.models.PropertyData
 
 
-class PostPropertyStep3Fragment : Fragment(){
+class PostPropertyStep3Fragment : Fragment() {
 
 
     private lateinit var binding: FragmentPostPropertyStep3Binding
 
+    private val args: PostPropertyStep3FragmentArgs by navArgs()
 
+    private lateinit var propertyData: PropertyData
 
-
-
-
-
+    var occupancyStr = "Vacant"
+    var furnishingStr = "Unfurnished"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,15 +49,13 @@ class PostPropertyStep3Fragment : Fragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-    init()
-
-        binding.nextBtn.setOnClickListener {
-
-            findNavController().navigate(R.id.action_postPropertyStep3Fragment_to_postPropertyStep4Fragment)
-        }
+        init()
+        listeners()
     }
 
-    fun init(){
+    fun init() {
+
+        propertyData = args.propertyData
 
         requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
 
@@ -67,9 +68,9 @@ class PostPropertyStep3Fragment : Fragment(){
     }
 
 
-    private fun byDefaultData(){
-        binding.cbMaidNo.isChecked=true
-        binding.cbBalconyNo.isChecked=true
+    private fun byDefaultData() {
+        binding.cbMaidNo.isChecked = true
+        binding.cbBalconyNo.isChecked = true
     }
 
 
@@ -79,7 +80,7 @@ class PostPropertyStep3Fragment : Fragment(){
 
     }
 
-    private fun occupancySpinner(){
+    private fun occupancySpinner() {
 
 
         val adapter = CustomSpinnerAdapter(requireContext(), SpinnersHelper.occupancyList())
@@ -94,10 +95,7 @@ class PostPropertyStep3Fragment : Fragment(){
                     id: Long
                 ) {
                     val selectedItem = SpinnersHelper.occupancyList()[position]
-                    // Handle the selected item here
-                ""
-
-                    // Do something with the selected data, like displaying it or performing an action
+                    occupancyStr = selectedItem
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -106,7 +104,7 @@ class PostPropertyStep3Fragment : Fragment(){
             }
     }
 
-    private fun finishingSpinner(){
+    private fun finishingSpinner() {
 
 
         val adapter = CustomSpinnerAdapter(requireContext(), SpinnersHelper.finishingList())
@@ -121,10 +119,7 @@ class PostPropertyStep3Fragment : Fragment(){
                     id: Long
                 ) {
                     val selectedItem = SpinnersHelper.finishingList()[position]
-                    // Handle the selected item here
-                ""
-
-                    // Do something with the selected data, like displaying it or performing an action
+                    furnishingStr = selectedItem
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -133,51 +128,61 @@ class PostPropertyStep3Fragment : Fragment(){
             }
     }
 
-    private fun maidCheckManager(){
+    private fun maidCheckManager() {
 
         binding.cbMaidYes.setOnCheckedChangeListener { _, b ->
-
             binding.cbMaidNo.isChecked = !b
 
         }
 
         binding.cbMaidNo.setOnCheckedChangeListener { _, b ->
-
             binding.cbMaidYes.isChecked = !b
 
         }
 
 
-
     }
 
-    private fun balconyCheckManager(){
+    private fun balconyCheckManager() {
 
         binding.cbBalconyYes.setOnCheckedChangeListener { _, b ->
-
             binding.cbBalconyNo.isChecked = !b
 
         }
 
         binding.cbBalconyNo.setOnCheckedChangeListener { _, b ->
-
             binding.cbBalconyYes.isChecked = !b
 
         }
 
 
+    }
 
+    private fun verifyData(){
+        val area = binding.area.text.toString()
+        if(area.isEmpty()) {
+            requireContext().showToast("Please enter Area Size")
+        } else {
+
+            propertyData.area_size = area
+            propertyData.maidroom = binding.cbMaidYes.isChecked
+            propertyData.balcony = binding.cbBalconyYes.isChecked
+            propertyData.occupancy = occupancyStr
+            propertyData.furnishing = furnishingStr
+
+            findNavController().navigate(PostPropertyStep3FragmentDirections.actionPostPropertyStep3FragmentToPostPropertyStep4Fragment(propertyData))
+        }
     }
 
 
+    fun listeners() {
+        binding.nextBtn.setOnClickListener {
+            verifyData()
+        }
 
-
-
-    fun listeners(){
-
+        binding.backIcon.setOnClickListener {
+            requireActivity().onBackPressed()
+        }
     }
-
-
-
 
 }

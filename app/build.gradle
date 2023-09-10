@@ -92,6 +92,7 @@ dependencies {
 
     //Image picker
     implementation 'com.github.dhaval2404:imagepicker:2.1'
+    implementation 'com.github.esafirm:android-image-picker:3.1.0'
 
     //Circle imageview
     implementation 'de.hdodenhof:circleimageview:3.1.0'
