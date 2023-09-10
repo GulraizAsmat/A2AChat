@@ -8,15 +8,24 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import app.unduit.a2achatapp.adapters.CustomSpinnerAdapter
 import app.unduit.a2achatapp.adapters.UserExperienceAdapter
 import app.unduit.a2achatapp.databinding.FragmentPostPropertyStep3Binding
 import app.unduit.a2achatapp.databinding.FragmentPostPropertyStep4Binding
 import app.unduit.a2achatapp.helpers.SpinnersHelper
+import app.unduit.a2achatapp.models.PropertyData
 
 class PostPropertyStep4Fragment : Fragment() {
 
     private lateinit var binding: FragmentPostPropertyStep4Binding
+
+    private val args: PostPropertyStep4FragmentArgs by navArgs()
+
+    private lateinit var propertyData: PropertyData
+
+    var floorStr = "Low"
+    var handoverYearStr = "2010"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,18 +45,25 @@ class PostPropertyStep4Fragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.nextBtn.setOnClickListener {
-
-            findNavController().navigate(R.id.action_postPropertyStep4Fragment_to_postPropertyStep5Fragment)
-        }
-
         init()
+        listeners()
     }
 
 
     fun init() {
+        propertyData = args.propertyData
 
         spinnerManager()
+    }
+
+    fun listeners() {
+        binding.nextBtn.setOnClickListener {
+            setData()
+        }
+
+        binding.backIcon.setOnClickListener {
+            requireActivity().onBackPressed()
+        }
     }
 
     private fun spinnerManager() {
@@ -57,8 +73,7 @@ class PostPropertyStep4Fragment : Fragment() {
     }
 
 
-
-    private fun floorSpinner(){
+    private fun floorSpinner() {
 
 
         val adapter = CustomSpinnerAdapter(requireContext(), SpinnersHelper.floorList())
@@ -73,10 +88,7 @@ class PostPropertyStep4Fragment : Fragment() {
                     id: Long
                 ) {
                     val selectedItem = SpinnersHelper.floorList()[position]
-                    // Handle the selected item here
-                ""
-
-                    // Do something with the selected data, like displaying it or performing an action
+                    floorStr = selectedItem
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -84,7 +96,8 @@ class PostPropertyStep4Fragment : Fragment() {
                 }
             }
     }
-    private fun handOverPaymentYearSpinner(){
+
+    private fun handOverPaymentYearSpinner() {
 
 
         val adapter = CustomSpinnerAdapter(requireContext(), SpinnersHelper.yearList())
@@ -99,16 +112,25 @@ class PostPropertyStep4Fragment : Fragment() {
                     id: Long
                 ) {
                     val selectedItem = SpinnersHelper.yearList()[position]
-                    // Handle the selected item here
-                ""
-
-                    // Do something with the selected data, like displaying it or performing an action
+                    handoverYearStr = selectedItem
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
                     // This method is called when nothing is selected, if needed
                 }
             }
+    }
+
+    private fun setData() {
+
+        propertyData.service_charge = binding.serviceCharge.text.toString()
+        propertyData.floor = floorStr
+        propertyData.handover_year = handoverYearStr
+        propertyData.payment_during_construction = binding.duringConstruction.text.toString()
+        propertyData.payment_on_handover = binding.onHandover.text.toString()
+        propertyData.payment_post_handover = binding.postHandover.text.toString()
+
+        findNavController().navigate(PostPropertyStep4FragmentDirections.actionPostPropertyStep4FragmentToPostPropertyStep5Fragment(propertyData))
     }
 
 }

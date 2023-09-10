@@ -260,7 +260,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/area"
+            android:id="@+id/service_charge"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_30sdp"
             android:layout_marginTop="@dimen/_10sdp"
@@ -288,9 +288,9 @@
             android:text="Sq ft"
             android:textColor="@color/color_gray_shade_1"
             android:textSize="@dimen/_12sdp"
-            app:layout_constraintBottom_toBottomOf="@+id/area"
-            app:layout_constraintEnd_toEndOf="@+id/area"
-            app:layout_constraintTop_toTopOf="@+id/area" />
+            app:layout_constraintBottom_toBottomOf="@+id/service_charge"
+            app:layout_constraintEnd_toEndOf="@+id/service_charge"
+            app:layout_constraintTop_toTopOf="@+id/service_charge" />
 
 
         <TextView
@@ -302,9 +302,9 @@
             android:text="AED"
             android:textColor="@color/color_gray_shade_1"
             android:textSize="@dimen/_12sdp"
-            app:layout_constraintBottom_toBottomOf="@+id/area"
+            app:layout_constraintBottom_toBottomOf="@+id/service_charge"
             app:layout_constraintEnd_toStartOf="@+id/view_line"
-            app:layout_constraintTop_toTopOf="@+id/area" />
+            app:layout_constraintTop_toTopOf="@+id/service_charge" />
 
 
         <View
@@ -314,9 +314,9 @@
             android:layout_marginVertical="@dimen/_5sdp"
             android:layout_marginEnd="@dimen/_10sdp"
             android:background="@color/color_purple_shade_3"
-            app:layout_constraintBottom_toBottomOf="@+id/area"
+            app:layout_constraintBottom_toBottomOf="@+id/service_charge"
             app:layout_constraintEnd_toStartOf="@+id/sq_feet"
-            app:layout_constraintTop_toTopOf="@+id/area" />
+            app:layout_constraintTop_toTopOf="@+id/service_charge" />
 
         <TextView
             android:id="@+id/floor_title"
@@ -328,7 +328,7 @@
             android:textColor="@color/color_black_shade_1"
             android:textSize="@dimen/_11sdp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/area"
+            app:layout_constraintTop_toBottomOf="@+id/service_charge"
       />
 
 

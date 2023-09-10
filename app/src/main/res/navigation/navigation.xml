@@ -205,6 +205,9 @@
         <action
             android:id="@+id/action_postFragment_to_postPropertyStep3Fragment"
             app:destination="@id/postPropertyStep3Fragment" />
+        <argument
+            android:name="propertyData"
+            app:argType="app.unduit.a2achatapp.models.PropertyData" />
     </fragment>
     <fragment
         android:id="@+id/postPropertyStep3Fragment"
@@ -214,6 +217,9 @@
         <action
             android:id="@+id/action_postPropertyStep3Fragment_to_postPropertyStep4Fragment"
             app:destination="@id/postPropertyStep4Fragment" />
+        <argument
+            android:name="propertyData"
+            app:argType="app.unduit.a2achatapp.models.PropertyData" />
     </fragment>
     <fragment
         android:id="@+id/postPropertyStep4Fragment"
@@ -223,6 +229,9 @@
         <action
             android:id="@+id/action_postPropertyStep4Fragment_to_postPropertyStep5Fragment"
             app:destination="@id/postPropertyStep5Fragment" />
+        <argument
+            android:name="propertyData"
+            app:argType="app.unduit.a2achatapp.models.PropertyData" />
     </fragment>
     <fragment
         android:id="@+id/postPropertyStep5Fragment"
@@ -237,6 +246,9 @@
             app:destination="@id/homeFragment"
             app:popUpTo="@id/homeFragment"
             app:popUpToInclusive="true" />
+        <argument
+            android:name="propertyData"
+            app:argType="app.unduit.a2achatapp.models.PropertyData" />
     </fragment>
     <fragment
         android:id="@+id/postPropertyStep6Fragment"
