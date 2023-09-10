@@ -37,7 +37,6 @@ class PostPropertyStep1Fragment : Fragment(), View.OnClickListener, AdapterListe
     var property_type: String = "House"
 
 
-
     private val propertyTypeAdapter by lazy {
         PropertyTypeItemAdapter(
             requireContext(),
@@ -83,6 +82,7 @@ class PostPropertyStep1Fragment : Fragment(), View.OnClickListener, AdapterListe
         binding.backIcon.setOnClickListener(this)
         binding.clResident.setOnClickListener(this)
         binding.nextBtn.setOnClickListener(this)
+    }
 
 
     private fun recyclerViewManager() {
@@ -259,7 +259,11 @@ class PostPropertyStep1Fragment : Fragment(), View.OnClickListener, AdapterListe
                 propertyData.purpose_type = purpose_type
                 propertyData.property_type = property_type
 
-                findNavController().navigate(PostPropertyStep1FragmentDirections.actionPostPropertyStep1FragmentToPostFragment(propertyData))
+                findNavController().navigate(
+                    PostPropertyStep1FragmentDirections.actionPostPropertyStep1FragmentToPostFragment(
+                        propertyData
+                    )
+                )
             }
 
             R.id.back_icon -> {
