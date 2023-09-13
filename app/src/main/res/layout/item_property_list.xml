@@ -28,14 +28,15 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
+
             android:layout_height="match_parent">
 
 
             <ImageView
                 android:id="@+id/item_property_image"
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:scaleType="fitXY"
+                android:layout_height="220dp"
+                android:background="@color/color_black"
                 android:src="@drawable/image"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -231,7 +232,7 @@
                     android:id="@+id/cl_contact"
                     android:layout_width="@dimen/_100sdp"
                     android:layout_height="0dp"
-
+                    android:visibility="visible"
                     android:layout_marginTop="@dimen/_7sdp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -282,6 +283,31 @@
                         app:layout_constraintTop_toTopOf="parent"
                         app:srcCompat="@drawable/ic_chat_filled" />
 
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/pending_btn"
+                    android:layout_width="@dimen/_100sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:background="@drawable/bg_btn_pending"
+                    android:visibility="gone"
+
+                    app:layout_constraintBottom_toBottomOf="@+id/user_name"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/user_name" >
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="Pending"
+                        android:textSize="@dimen/_10sdp"
+                        android:textColor="@color/color_black_shade_1"
+                        android:textAllCaps="false"
+                        android:fontFamily="@font/poppins_regular"
+
+                        />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>

@@ -20,8 +20,10 @@
     <color name="color_purple_shade_6">#CBABEC</color>
     <color name="color_purple_shade_7">#407B48B0</color>
 
+
     <color name="color_blue_shade_1">#B3C2D6</color>
     <color name="color_blue_shade_2">#347AE2</color>
+    <color name="color_blue_shade_3">#40B3C2D6</color>
 
     <color name="color_gray_shade_1">#434343</color>
     <color name="color_gray_shade_2">#F4F5FA</color>

@@ -7,48 +7,53 @@
 <androidx.constraintlayout.widget.ConstraintLayout
 
     android:layout_width="wrap_content"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
 >
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_item"
-        android:layout_width="@dimen/_50sdp"
-        android:layout_height="@dimen/_50sdp"
-        android:layout_margin="@dimen/_10sdp"
-
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_7sdp"
+        android:background="@drawable/bg_btn_login_disabled"
+        android:paddingHorizontal="@dimen/_10sdp"
+        android:paddingVertical="@dimen/_5sdp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
+        app:layout_constraintTop_toTopOf="parent">
 
 
         <ImageView
             android:id="@+id/item_icon"
-            android:layout_margin="@dimen/_10sdp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_margin="@dimen/_10sdp"
             android:src="@drawable/ic_penthouse"
-            />
+            android:visibility="gone" />
 
+
+        <TextView
+            android:id="@+id/item_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:fontFamily="@font/poppins_semibold"
+            android:gravity="center_horizontal"
+            android:text="House"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_10sdp"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-    <TextView
-        android:id="@+id/item_name"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/poppins_semibold"
-        android:text="House"
-        android:gravity="center_horizontal"
-        android:ellipsize="end"
-        android:layout_marginTop="@dimen/_5sdp"
-        android:textColor="@color/color_black_shade_1"
-        android:textSize="@dimen/_7sdp"
-        app:layout_constraintEnd_toEndOf="@+id/cl_item"
-
-        app:layout_constraintStart_toStartOf="@+id/cl_item"
-        app:layout_constraintTop_toBottomOf="@+id/cl_item"
-        tools:ignore="MissingConstraints" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

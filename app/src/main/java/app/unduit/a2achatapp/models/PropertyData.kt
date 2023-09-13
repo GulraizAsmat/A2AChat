@@ -1,6 +1,7 @@
 package app.unduit.a2achatapp.models
 
 import android.os.Parcelable
+import app.unduit.a2achatapp.helpers.DateHelper
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
@@ -39,6 +40,8 @@ class PropertyData(
     var roi: String = "",
     var negotiation: String = "",
     var property_title: String = "",
-    var property_images: List<String>? = null
+    var property_images: List<String>? = null,
+    var property_status :String=""
+//    var created_date : String=""
 
 ): Parcelable
