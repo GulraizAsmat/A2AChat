@@ -66,7 +66,7 @@ class CertificationCheckFragment : Fragment() {
                 binding.groupBottomsheet.gone()
             } else {
                 isEnabled = false
-                requireActivity().onBackPressed()
+                requireActivity().onBackPressedDispatcher.onBackPressed()
             }
         }
 
@@ -91,7 +91,7 @@ class CertificationCheckFragment : Fragment() {
         }
 
         binding.btnBack.setOnClickListener {
-            requireActivity().onBackPressed()
+            requireActivity().onBackPressedDispatcher.onBackPressed()
         }
 
         binding.btnNext.setOnClickListener {

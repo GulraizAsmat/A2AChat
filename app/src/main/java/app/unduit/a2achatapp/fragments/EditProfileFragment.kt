@@ -48,7 +48,7 @@ class EditProfileFragment : Fragment() {
 
     private fun init() {
         binding.btnBack.setOnClickListener {
-            requireActivity().onBackPressed()
+            requireActivity().onBackPressedDispatcher.onBackPressed()
         }
 
         binding.btnSave.setOnClickListener {
@@ -72,12 +72,12 @@ class EditProfileFragment : Fragment() {
 
                     userData = User()
                     userData?.uid = cUser.uid
-                    userData?.name = data?.get("name") as String
-                    userData?.email = data["email"] as String
-                    userData?.phone = data["phone"] as String
-                    userData?.whatsapp = data["whatsapp"] as String
-                    userData?.company = data["company"] as String
-                    userData?.profile_image = data["profile_image"] as String
+                    userData?.name = data?.get("name") as String?
+                    userData?.email = data?.get("email") as String?
+                    userData?.phone = data?.get("phone") as String?
+                    userData?.whatsapp = data?.get("whatsapp") as String?
+                    userData?.company = data?.get("company") as String?
+                    userData?.profile_image = data?.get("profile_image") as String?
 
 
                     setUserData()

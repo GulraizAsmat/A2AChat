@@ -249,6 +249,45 @@
         app:layout_constraintTop_toBottomOf="@+id/cl_process_bar"
         tools:ignore="MissingConstraints">
 
+        <TextView
+            android:id="@+id/price_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="Price (AED)"
+            android:textColor="@color/color_black_shade_1"
+            android:textSize="@dimen/_11sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/price_title_star"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_regular"
+            android:text="*"
+            android:textColor="@color/color_red_shade_1"
+            android:textSize="@dimen/_11sdp"
+            app:layout_constraintStart_toEndOf="@+id/price_title" />
+
+        <EditText
+            android:id="@+id/price"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:background="@drawable/bg_text_view_signup"
+            android:drawablePadding="@dimen/_12sdp"
+            android:fontFamily="@font/poppins_regular"
+            android:gravity="center_vertical"
+            android:inputType="number"
+            android:maxLines="1"
+            android:paddingHorizontal="@dimen/_8sdp"
+            android:textColor="#3C1663"
+            android:textSize="@dimen/_13ssp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/price_title" />
+
 
         <TextView
             android:id="@+id/area_community_title"
@@ -258,8 +297,9 @@
             android:text="Area / Community"
             android:textColor="@color/color_black_shade_1"
             android:textSize="@dimen/_11sdp"
+            android:layout_marginTop="@dimen/_15sdp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/price" />
 
         <TextView
             android:id="@+id/area_community_title_star"
@@ -269,6 +309,7 @@
             android:text="*"
             android:textColor="@color/color_red_shade_1"
             android:textSize="@dimen/_11sdp"
+            app:layout_constraintTop_toTopOf="@id/area_community_title"
             app:layout_constraintStart_toEndOf="@+id/area_community_title" />
 
         <EditText

@@ -46,7 +46,7 @@ class SignupExperienceFragment : Fragment() {
         userData = args.userData
 
         binding.btnBack.setOnClickListener {
-            requireActivity().onBackPressed()
+            requireActivity().onBackPressedDispatcher.onBackPressed()
         }
 
         binding.btnNext.setOnClickListener {

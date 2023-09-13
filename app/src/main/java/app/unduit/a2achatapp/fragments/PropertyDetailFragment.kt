@@ -38,7 +38,7 @@ class PropertyDetailFragment : Fragment() {
         binding.ivProperty.setImageDrawable(ContextCompat.getDrawable(requireContext(), image))
 
         binding.btnBack.setOnClickListener {
-            requireActivity().onBackPressed()
+            requireActivity().onBackPressedDispatcher.onBackPressed()
         }
     }
 }

@@ -8,12 +8,12 @@ plugins {
 }
 
 android {
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "app.unduit.a2achatapp"
         minSdk 21
-        targetSdk 32
+        targetSdk 33
         versionCode 7
         versionName "7.0"
 
@@ -92,6 +92,7 @@ dependencies {
 
     //Image picker
     implementation 'com.github.dhaval2404:imagepicker:2.1'
+    implementation 'com.github.esafirm:android-image-picker:3.1.0'
 
     //Circle imageview
     implementation 'de.hdodenhof:circleimageview:3.1.0'
