@@ -91,7 +91,7 @@ class PostPropertyStep1Fragment : Fragment(), View.OnClickListener, AdapterListe
         showResidentProperty()
         listeners()
 
-        if(isEdit) {
+        if (isEdit) {
             setData()
         }
     }
@@ -292,13 +292,13 @@ class PostPropertyStep1Fragment : Fragment(), View.OnClickListener, AdapterListe
 
     private fun setData() {
         propertyData?.let { data ->
-            if(data.purpose.equals("Rent", true)) {
+            if (data.purpose.equals("Rent", true)) {
                 selectForRentOption()
             } else {
                 selectForSaleOption()
             }
 
-            if(data.purpose_type.equals("Residential", true)) {
+            if (data.purpose_type.equals("Residential", true)) {
                 selectResidents()
                 showResidentProperty()
             } else {
@@ -308,7 +308,7 @@ class PostPropertyStep1Fragment : Fragment(), View.OnClickListener, AdapterListe
 
             val propertyType = data.property_type
             propertyItemList.forEachIndexed { index, type ->
-                if(type.name.equals(propertyType, true)) {
+                if (type.name.equals(propertyType, true)) {
                     propertyItemList[previousPosition].selected = false
 
                     if (!propertyItemList[index].selected) {
@@ -321,14 +321,15 @@ class PostPropertyStep1Fragment : Fragment(), View.OnClickListener, AdapterListe
         }
     }
 
-    fun bottomSheet(){
+    fun bottomSheet() {
 
         val dialog = BottomSheetDialog(requireContext(), R.style.BottomSheetDialogStyle)
         val view = layoutInflater.inflate(R.layout.item_bottomsheet_add_property_step1, null)
 
         val rvPropertyType = view.findViewById<RecyclerView>(R.id.rv_property_type)
         val layoutManager = FlexboxLayoutManager(requireContext())
-        layoutManager.flexWrap = FlexWrap.WRAP  // Items will wrap to the next line if there's not enough space
+        layoutManager.flexWrap =
+            FlexWrap.WRAP  // Items will wrap to the next line if there's not enough space
         layoutManager.flexDirection = FlexDirection.ROW
         rvPropertyType.layoutManager = layoutManager
 
@@ -362,35 +363,37 @@ class PostPropertyStep1Fragment : Fragment(), View.OnClickListener, AdapterListe
             }
 
             R.id.next_btn -> {
-            if(binding.selectedPropertyType.text!="Please Select Property Type") {
-                val auth = Firebase.auth
-                val currentUser = auth.currentUser
+                if (binding.selectedPropertyType.text != "Please Select Property Type") {
+                    val auth = Firebase.auth
+                    val currentUser = auth.currentUser
 
-                propertyData?.user_id = currentUser?.uid
-                propertyData?.purpose = purpose
-                propertyData?.purpose_type = purpose_type
-                propertyData?.property_type = property_type
+                    propertyData?.user_id = currentUser?.uid
+                    propertyData?.purpose = purpose
+                    propertyData?.purpose_type = purpose_type
+                    propertyData?.property_type = property_type
 
-                propertyData?.let {
-                    findNavController().navigate(
-                        PostPropertyStep1FragmentDirections.actionPostPropertyStep1FragmentToPostFragment(
-                            it, isEdit
+                    propertyData?.let {
+                        findNavController().navigate(
+                            PostPropertyStep1FragmentDirections.actionPostPropertyStep1FragmentToPostFragment(
+                                it, isEdit
+                            )
                         )
-                    )
+                    }
+                } else {
+                    Toast.makeText(
+                        requireContext(),
+                        "Please select property type",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
-            }else {
-                Toast.makeText(requireContext(),"Please select property type",Toast.LENGTH_LONG).show()
-            }
 
             }
 
             R.id.back_icon -> {
-
-
                 requireActivity().onBackPressed()
             }
 
-            R.id.selected_property_type->{
+            R.id.selected_property_type -> {
                 bottomSheet()
             }
         }
@@ -409,9 +412,14 @@ class PostPropertyStep1Fragment : Fragment(), View.OnClickListener, AdapterListe
                 }
 
                 property_type = propertyItemList[previousPosition].name
-                binding.selectedPropertyType.text=property_type
+                binding.selectedPropertyType.text = property_type
                 binding.selectedPropertyType.setBackgroundResource(R.drawable.bg_btn_login)
-                binding.selectedPropertyType.setTextColor(ContextCompat.getColor(requireContext(),R.color.color_white_shade_1))
+                binding.selectedPropertyType.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.color_white_shade_1
+                    )
+                )
                 propertyTypeAdapter.notifyDataSetChanged()
 
             }
