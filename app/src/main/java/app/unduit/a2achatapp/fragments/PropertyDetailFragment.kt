@@ -35,7 +35,7 @@ class PropertyDetailFragment : Fragment() {
     private fun init() {
         val image = args.image
 
-        binding.ivProperty.setImageDrawable(ContextCompat.getDrawable(requireContext(), image))
+        if(image != -1) binding.ivProperty.setImageDrawable(ContextCompat.getDrawable(requireContext(), image))
 
         binding.btnBack.setOnClickListener {
             requireActivity().onBackPressedDispatcher.onBackPressed()

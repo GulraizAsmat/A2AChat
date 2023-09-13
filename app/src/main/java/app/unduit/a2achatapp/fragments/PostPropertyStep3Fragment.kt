@@ -32,6 +32,7 @@ class PostPropertyStep3Fragment : Fragment() {
     private val args: PostPropertyStep3FragmentArgs by navArgs()
 
     private lateinit var propertyData: PropertyData
+    var isEdit = false
 
     var occupancyStr = "Vacant"
     var furnishingStr = "Unfurnished"
@@ -55,6 +56,7 @@ class PostPropertyStep3Fragment : Fragment() {
 
     fun init() {
 
+        isEdit = args.isEdit
         propertyData = args.propertyData
 
         requireActivity().window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN)
@@ -65,6 +67,9 @@ class PostPropertyStep3Fragment : Fragment() {
         balconyCheckManager()
         spinnerManager()
 
+        if(isEdit) {
+            setData()
+        }
     }
 
 
@@ -158,6 +163,38 @@ class PostPropertyStep3Fragment : Fragment() {
 
     }
 
+    private fun setData() {
+        binding.area.setText(propertyData.area_size)
+
+        if(propertyData.maidroom) {
+            binding.cbMaidNo.isChecked = false
+            binding.cbMaidYes.isChecked = true
+        } else {
+            binding.cbMaidNo.isChecked = true
+            binding.cbMaidYes.isChecked = false
+        }
+
+        if(propertyData.balcony) {
+            binding.cbBalconyNo.isChecked = false
+            binding.cbBalconyYes.isChecked = true
+        } else {
+            binding.cbBalconyNo.isChecked = true
+            binding.cbBalconyYes.isChecked = false
+        }
+
+        SpinnersHelper.occupancyList().forEachIndexed { index, item ->
+            if(item.equals(propertyData.occupancy, true)) {
+                binding.spinnerOccupancy.setSelection(index)
+            }
+        }
+
+        SpinnersHelper.finishingList().forEachIndexed { index, item ->
+            if(item.equals(propertyData.furnishing, true)) {
+                binding.spinnerFinishing.setSelection(index)
+            }
+        }
+    }
+
     private fun verifyData(){
         val area = binding.area.text.toString()
         if(area.isEmpty()) {
@@ -170,7 +207,7 @@ class PostPropertyStep3Fragment : Fragment() {
             propertyData.occupancy = occupancyStr
             propertyData.furnishing = furnishingStr
 
-            findNavController().navigate(PostPropertyStep3FragmentDirections.actionPostPropertyStep3FragmentToPostPropertyStep4Fragment(propertyData))
+            findNavController().navigate(PostPropertyStep3FragmentDirections.actionPostPropertyStep3FragmentToPostPropertyStep4Fragment(propertyData, isEdit))
         }
     }
 

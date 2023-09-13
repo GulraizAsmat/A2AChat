@@ -2,6 +2,8 @@ package app.unduit.a2achatapp.fragments
 
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
@@ -13,8 +15,10 @@ import android.view.View
 import android.view.ViewGroup
 
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
+import app.unduit.a2achatapp.R
 import app.unduit.a2achatapp.adapters.MyPropertyListAdapter
 import app.unduit.a2achatapp.helpers.ProgressDialog
 import app.unduit.a2achatapp.helpers.showToast
@@ -74,6 +78,10 @@ class MyPropertyFragment : Fragment(), AdapterListener {
         recyclerViewManager()
         getData()
 
+        binding.btnBack.setOnClickListener {
+            requireActivity().onBackPressedDispatcher.onBackPressed()
+        }
+
     }
 
     private fun getData() {
@@ -115,12 +123,67 @@ class MyPropertyFragment : Fragment(), AdapterListener {
         binding.rvMyProperty.adapter = propertyListAdapter
     }
 
+    private fun deleteProperty(position: Int) {
+        AlertDialog.Builder(requireContext(), androidx.appcompat.R.style.Theme_AppCompat_Light_Dialog)
+            .setTitle("Are you sure you want to delete?")
+            .setMessage("You will not be able to recover this property")
+            .setNegativeButton("Cancel") { view, _ ->
+                view.dismiss()
+            }
+            .setPositiveButton("Delete") { view, _ ->
+                progressDialog.progressBarVisibility(true)
+                val item = propertylist[position]
+
+                val db = Firebase.firestore
+                val ref = db.collection("properties").document(item.uid)
+                ref.delete().addOnCompleteListener { task ->
+                    progressDialog.progressBarVisibility(false)
+                    if (task.isSuccessful) {
+
+                        propertylist.removeAt(position)
+                        propertyListAdapter.notifyItemRemoved(position)
+
+                        requireContext().showToast("Property Deleted!")
+                    } else {
+                        requireContext().showToast("An error occurred. Please try again later")
+                    }
+                    view.dismiss()
+                }.addOnFailureListener { exception ->
+                    Log.w(TAG, "Error getting documents: ", exception)
+                    requireContext().showToast("An error occurred. Please try again later")
+                    progressDialog.progressBarVisibility(false)
+                    view.dismiss()
+                }
+            }
+            .show()
+    }
+
 
     override fun onAdapterItemClicked(key: String, position: Int) {
         when (key) {
-            "menu" -> {
-                Log.e("open", "menu $position")
+            "open" -> {
+                Log.e(TAG, "open $position")
+                findNavController().navigate(
+                    MyPropertyFragmentDirections.actionMyPropertyFragmentToPropertyDetailFragment(
+                        -1,
+                        propertylist[position]
+                    )
+                )
 
+            }
+
+            "edit" -> {
+                Log.e(TAG, "edit $position")
+                findNavController().navigate(
+                    MyPropertyFragmentDirections.actionMyPropertyFragmentToPostPropertyStep1Fragment(
+                        propertylist[position]
+                    )
+                )
+            }
+
+            "delete" -> {
+                Log.e(TAG, "delete $position")
+                deleteProperty(position)
             }
         }
     }

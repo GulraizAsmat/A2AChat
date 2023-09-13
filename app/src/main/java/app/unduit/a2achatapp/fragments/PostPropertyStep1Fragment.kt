@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import app.unduit.a2achatapp.R
@@ -24,6 +25,7 @@ import com.google.firebase.ktx.Firebase
 
 class PostPropertyStep1Fragment : Fragment(), View.OnClickListener, AdapterListener {
 
+    val args: PostPropertyStep1FragmentArgs by navArgs()
 
     var salePurpose = true // forSale-> true , forRent -> false
     var propertyType = true //forResidents-> true , forCommercial -> false
@@ -31,7 +33,8 @@ class PostPropertyStep1Fragment : Fragment(), View.OnClickListener, AdapterListe
     var propertyItemList = ArrayList<PropertyType>()
     var previousPosition = 0
 
-    val propertyData = PropertyData()
+    private var propertyData: PropertyData? = null
+    private var isEdit = false
 
     var purpose: String = "Sale"
     var purpose_type: String = "Residential"
@@ -73,9 +76,16 @@ class PostPropertyStep1Fragment : Fragment(), View.OnClickListener, AdapterListe
 
     fun init() {
 
+        isEdit = args.propertyData != null
+        propertyData = args.propertyData ?: PropertyData()
+
         recyclerViewManager()
         showResidentProperty()
         listeners()
+
+        if(isEdit) {
+            setData()
+        }
     }
 
     fun listeners() {
@@ -232,6 +242,37 @@ class PostPropertyStep1Fragment : Fragment(), View.OnClickListener, AdapterListe
 
     }
 
+    private fun setData() {
+        propertyData?.let { data ->
+            if(data.purpose.equals("Rent", true)) {
+                selectForRentOption()
+            } else {
+                selectForSaleOption()
+            }
+
+            if(data.purpose_type.equals("Residential", true)) {
+                selectResidents()
+                showResidentProperty()
+            } else {
+                selectCommercial()
+                showCommercialProperty()
+            }
+
+            val propertyType = data.property_type
+            propertyItemList.forEachIndexed { index, type ->
+                if(type.name.equals(propertyType, true)) {
+                    propertyItemList[previousPosition].selected = false
+
+                    if (!propertyItemList[index].selected) {
+                        propertyItemList[index].selected = true
+                        previousPosition = index
+                    }
+                    property_type = propertyItemList[previousPosition].name
+                }
+            }
+        }
+    }
+
     override fun onClick(v: View?) {
         when (v!!.id) {
             R.id.cl_for_sale -> {
@@ -257,16 +298,19 @@ class PostPropertyStep1Fragment : Fragment(), View.OnClickListener, AdapterListe
                 val auth = Firebase.auth
                 val currentUser = auth.currentUser
 
-                propertyData.user_id = currentUser?.uid
-                propertyData.purpose = purpose
-                propertyData.purpose_type = purpose_type
-                propertyData.property_type = property_type
+                propertyData?.user_id = currentUser?.uid
+                propertyData?.purpose = purpose
+                propertyData?.purpose_type = purpose_type
+                propertyData?.property_type = property_type
 
-                findNavController().navigate(
-                    PostPropertyStep1FragmentDirections.actionPostPropertyStep1FragmentToPostFragment(
-                        propertyData
+                propertyData?.let {
+                    findNavController().navigate(
+                        PostPropertyStep1FragmentDirections.actionPostPropertyStep1FragmentToPostFragment(
+                            it, isEdit
+                        )
                     )
-                )
+                }
+
             }
 
             R.id.back_icon -> {
