@@ -1,6 +1,7 @@
 package app.unduit.a2achatapp.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,17 +16,26 @@ import app.unduit.a2achatapp.adapters.PropertyListAdapter
 import app.unduit.a2achatapp.databinding.FragmentFavouriteBinding
 import app.unduit.a2achatapp.databinding.FragmentHomeBinding
 import app.unduit.a2achatapp.helpers.Const
+import app.unduit.a2achatapp.helpers.ProgressDialog
+import app.unduit.a2achatapp.helpers.showToast
 import app.unduit.a2achatapp.listeners.AdapterListener
 import app.unduit.a2achatapp.models.PropertyData
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 
 class FavouriteFragment : Fragment() ,View.OnClickListener ,AdapterListener{
-
+    private val TAG = "FavouriteFragment"
     private lateinit var binding: FragmentFavouriteBinding
         var propertylist=ArrayList<PropertyData>()
 
+    private lateinit var auth: FirebaseAuth
 
-
+    private val progressDialog by lazy {
+        ProgressDialog(requireContext())
+    }
 
 
     private val propertyListAdapter by lazy {
@@ -85,13 +95,15 @@ class FavouriteFragment : Fragment() ,View.OnClickListener ,AdapterListener{
         favDummyList()
     }
     fun selectRequest(){
+        propertylist.clear()
         binding.clFavorite.setBackgroundResource(R.color.white)
         binding.clRequest.setBackgroundResource(R.drawable.ic_dark_purple_bg)
         binding.clMatch.setBackgroundResource(R.color.white)
         binding.favourite.setTextColor(ContextCompat.getColor(requireContext(), R.color.color_black_shade_1))
         binding.request.setTextColor(ContextCompat.getColor(requireContext(), R.color.color_white_shade_1))
         binding.match.setTextColor(ContextCompat.getColor(requireContext(), R.color.color_black_shade_1))
-        reqDummyList()
+//        reqDummyList()
+        getRequestData()
     }
 
     fun selectMatch(){
@@ -145,11 +157,46 @@ class FavouriteFragment : Fragment() ,View.OnClickListener ,AdapterListener{
     }
 
 
+
+    fun getRequestData(){
+
+        progressDialog.progressBarVisibility(true)
+
+        auth = Firebase.auth
+        val currentUser = auth.currentUser
+
+        currentUser?.let { cUser ->
+            val db = Firebase.firestore
+            val ref = db.collection("requests/${cUser.uid}/posts")
+
+            ref.get()
+                .addOnSuccessListener { documents ->
+                    for (document in documents) {
+                        Log.e(TAG, "${document.id} => ${document.data}")
+
+                        propertylist.add(document.toObject(PropertyData::class.java))
+                    }
+
+                    propertyListAdapter.notifyDataSetChanged()
+                    Log.d(TAG, "propertylist size => ${propertylist.size}")
+                    progressDialog.progressBarVisibility(false)
+                }
+                .addOnFailureListener { exception ->
+                    Log.w(TAG, "Error getting documents: ", exception)
+                    requireContext().showToast("An error occurred. Please try again later")
+                    progressDialog.progressBarVisibility(false)
+                }
+        }
+
+
+
+
+    }
     override fun onClick(v: View?) {
         when(v!!.id){
             R.id.back_icon->{
 
-                requireActivity().onBackPressedDispatcher.onBackPressed()
+                requireActivity().onBackPressed()
             }
             R.id.cl_favorite->{
                 selectFavourite()

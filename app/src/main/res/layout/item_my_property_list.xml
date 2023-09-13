@@ -35,7 +35,7 @@
                 android:id="@+id/item_property_image"
                 android:layout_width="match_parent"
                 android:layout_height="220dp"
-                android:scaleType="fitXY"
+            android:background="@color/color_black"
                 android:src="@drawable/image"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

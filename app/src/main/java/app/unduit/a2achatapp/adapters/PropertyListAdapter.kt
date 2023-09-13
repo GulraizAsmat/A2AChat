@@ -9,6 +9,7 @@ import app.unduit.a2achatapp.R
 import app.unduit.a2achatapp.databinding.ItemPropertyListBinding
 import app.unduit.a2achatapp.listeners.AdapterListener
 import app.unduit.a2achatapp.models.PropertyData
+import com.bumptech.glide.Glide
 
 class PropertyListAdapter(
     val context: Context,
@@ -33,11 +34,27 @@ class PropertyListAdapter(
         val propertyItem = propertyList[position]
 
         // Bind your data to the layout using data binding
-        holder.binding.itemPropertyImage.setImageResource(propertyItem.image)
-        holder.binding.itemBhk.text=propertyItem.bhk
-        holder.binding.itemSqft.text=propertyItem.sqft
-        holder.binding.itemLocation.text=propertyItem.location
 
+
+
+
+
+        if(propertyItem.property_status=="sender"){
+            holder.binding.propertyType.text = propertyItem.property_type
+            holder.binding.propertyPrice.text = "${propertyItem.price} AED"
+            holder.binding.itemLocation.text = propertyItem.area_community
+            holder.binding.bedrooms.text = propertyItem.bedrooms
+            holder.binding.bathroom.text = propertyItem.bathrooms
+            holder.binding.sqFeet.text = "${propertyItem.area_size}sqft"
+
+                holder.binding.clContact.visibility=View.GONE
+                holder.binding.pendingBtn.visibility=View.VISIBLE
+        }
+
+
+        if(propertyItem.property_images?.isNotEmpty() == true) {
+            Glide.with(holder.binding.itemPropertyImage).load(propertyItem.property_images?.get(0)).into(holder.binding.itemPropertyImage)
+        }
         // Set a click listener on the root view if needed
         holder.binding.root.setOnClickListener {
 //            listener.onItemClick(propertyItem)

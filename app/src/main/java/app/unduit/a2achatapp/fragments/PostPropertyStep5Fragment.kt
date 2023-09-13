@@ -15,6 +15,7 @@ import app.unduit.a2achatapp.R
 import app.unduit.a2achatapp.adapters.CustomSpinnerAdapter
 import app.unduit.a2achatapp.adapters.PostPropertyImagesAdapter
 import app.unduit.a2achatapp.databinding.FragmentPostPropertyStep5Binding
+import app.unduit.a2achatapp.helpers.DateHelper
 import app.unduit.a2achatapp.helpers.ProgressDialog
 import app.unduit.a2achatapp.helpers.SpinnersHelper
 import app.unduit.a2achatapp.helpers.gone
@@ -239,6 +240,7 @@ class PostPropertyStep5Fragment : Fragment() {
         propertyData.roi = binding.roi.text.toString()
         propertyData.negotiation = negotiationStr
         propertyData.property_title = binding.property.text.toString()
+//        propertyData.created = DateHelper.getCurrentDateTime()
 
         propertyData.uid = id
 

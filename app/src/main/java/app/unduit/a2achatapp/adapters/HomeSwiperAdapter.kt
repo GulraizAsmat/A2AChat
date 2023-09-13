@@ -10,6 +10,7 @@ import app.unduit.a2achatapp.databinding.ItemCardSwipeBinding
 
 import app.unduit.a2achatapp.listeners.AdapterListener
 import app.unduit.a2achatapp.models.PropertyData
+import com.bumptech.glide.Glide
 
 
 class HomeSwiperAdapter(
@@ -32,15 +33,26 @@ class HomeSwiperAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val propertyData = homeSwipeList[position]
+        val propertyItem = homeSwipeList[position]
 
-        holder.binding.itemImage.setImageResource(propertyData.image)
-        holder.binding.itemBhk.text=propertyData.bhk
-        holder.binding.itemSqft.text=propertyData.sqft
-        holder.binding.itemLocation.text=propertyData.location
+        holder.binding.propertyType.text = propertyItem.property_type
+        holder.binding.propertyPrice.text = "${propertyItem.price} AED"
+        holder.binding.itemLocation.text = propertyItem.area_community
+        holder.binding.bedrooms.text = propertyItem.bedrooms
+        holder.binding.bathroom.text = propertyItem.bathrooms
+        holder.binding.sqFeet.text = "${propertyItem.area_size}sqft"
+
+        if(propertyItem.property_images?.isNotEmpty() == true) {
+            Glide.with(holder.binding.itemImage).load(propertyItem.property_images?.get(0)).into(holder.binding.itemImage)
+        }
 
         // Set a click listener on the root view if needed
         holder.binding.viewDetail.setOnClickListener {
+            listener.onAdapterItemClicked("view_detail",position)
+        }
+
+        // Set a click listener on the root view if needed
+        holder.binding.root.setOnClickListener {
             listener.onAdapterItemClicked("",position)
         }
 

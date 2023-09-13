@@ -9,9 +9,10 @@ import androidx.navigation.fragment.findNavController
 import app.unduit.a2achatapp.R
 import app.unduit.a2achatapp.databinding.FragmentPropertyBottomSheetBinding
 import app.unduit.a2achatapp.helpers.Const
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 
-class PropertyBottomSheetFragment : Fragment(), View.OnClickListener {
+class PropertyBottomSheetFragment : BottomSheetDialogFragment(), View.OnClickListener {
 
     private lateinit var binding: FragmentPropertyBottomSheetBinding
     override fun onCreate(savedInstanceState: Bundle?) {

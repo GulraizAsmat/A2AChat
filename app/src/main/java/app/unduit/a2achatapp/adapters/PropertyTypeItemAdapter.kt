@@ -32,10 +32,10 @@ class PropertyTypeItemAdapter(
 
 
         if(propertyTypeList[position].selected){
-            holder.binding.clItem.setBackgroundResource(R.drawable.ic_light_orange_bg_1)
+            holder.binding.clItem.setBackgroundResource(R.drawable.bg_btn_login)
         }
         else {
-            holder.binding.clItem.setBackgroundResource(R.color.color_white_shade_1)
+            holder.binding.clItem.setBackgroundResource(R.drawable.bg_btn_login_disabled)
         }
 
         holder.binding.clItem.setOnClickListener {
