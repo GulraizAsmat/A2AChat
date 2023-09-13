@@ -1,9 +1,6 @@
-package app.unduit.a2achatapp
+package app.unduit.a2achatapp.fragments
 
-import android.app.Activity.RESULT_OK
-import android.content.Intent
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,18 +11,18 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import app.unduit.a2achatapp.R
 import app.unduit.a2achatapp.adapters.CustomSpinnerAdapter
 import app.unduit.a2achatapp.adapters.PostPropertyImagesAdapter
 import app.unduit.a2achatapp.databinding.FragmentPostPropertyStep5Binding
 import app.unduit.a2achatapp.helpers.DateHelper
 import app.unduit.a2achatapp.helpers.ProgressDialog
 import app.unduit.a2achatapp.helpers.SpinnersHelper
+import app.unduit.a2achatapp.helpers.gone
 import app.unduit.a2achatapp.helpers.showToast
+import app.unduit.a2achatapp.helpers.visible
 import app.unduit.a2achatapp.models.PropertyData
-import com.esafirm.imagepicker.features.ImagePicker
 import com.esafirm.imagepicker.features.ImagePickerConfig
-import com.esafirm.imagepicker.features.IpCons
-import com.esafirm.imagepicker.features.ReturnMode
 import com.esafirm.imagepicker.features.registerImagePicker
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
@@ -40,6 +37,7 @@ class PostPropertyStep5Fragment : Fragment() {
     private val args: PostPropertyStep5FragmentArgs by navArgs()
 
     private lateinit var propertyData: PropertyData
+    private var isEdit = false
 
     private var negotiationStr = "Negotiable"
 
@@ -50,8 +48,8 @@ class PostPropertyStep5Fragment : Fragment() {
     val adapter : PostPropertyImagesAdapter  by lazy {
         PostPropertyImagesAdapter()
     }
-    private var propertyImages = ArrayList<Uri>()
-    private var propertyImagesStr: ArrayList<String>? = null
+    private var propertyImages = ArrayList<Any>()
+    private var propertyImagesStr: ArrayList<String>? = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -78,6 +76,7 @@ class PostPropertyStep5Fragment : Fragment() {
 
     fun init() {
 
+        isEdit = args.isEdit
         propertyData = args.propertyData
 
         spinnerManager()
@@ -100,6 +99,13 @@ class PostPropertyStep5Fragment : Fragment() {
 
         binding.rvImages.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
         binding.rvImages.adapter = adapter
+
+        if(isEdit) {
+            setData()
+            binding.saveDraft.gone()
+            binding.postListBtn.gone()
+            binding.postListBtnEdit.visible()
+        }
     }
 
     private val imagePickerLauncher = registerImagePicker { images ->
@@ -137,9 +143,30 @@ class PostPropertyStep5Fragment : Fragment() {
             }
     }
 
+    private fun setData(){
+        binding.op.setText(propertyData.op)
+        binding.sp.setText(propertyData.sp)
+        binding.roi.setText(propertyData.roi)
+        binding.property.setText(propertyData.property_title)
+
+        SpinnersHelper.negotiationList().forEachIndexed { index, item ->
+            if(item.equals(propertyData.negotiation, true)) {
+                binding.spinnerNegotiation.setSelection(index)
+            }
+        }
+
+        propertyData.property_images?.forEach {
+            propertyImages.add(it)
+            propertyImagesStr?.add(it)
+        }
+        adapter.submitList(null)
+        adapter.submitList(propertyImages)
+
+    }
+
     private fun uploadData() {
         val spStr = binding.sp.text.toString()
-        val title = binding.propertyTitle.text.toString()
+        val title = binding.property.text.toString()
 
         if(spStr.isEmpty()) {
             requireContext().showToast("Please enter a value for SP")
@@ -148,13 +175,11 @@ class PostPropertyStep5Fragment : Fragment() {
         } else {
 
             val db = Firebase.firestore
-            val id: String = db.collection("properties").document().id
+            val id: String = if(isEdit) propertyData.uid else db.collection("properties").document().id
 
             val totalImages = propertyImages.size
 
             if(propertyImages.size > 0) {
-
-                propertyImagesStr = ArrayList()
 
                 progressDialog.progressBarVisibility(true)
                 val storage = Firebase.storage
@@ -163,32 +188,40 @@ class PostPropertyStep5Fragment : Fragment() {
                 var count = 0
                 propertyImages.forEach { uri ->
                     val time = System.currentTimeMillis()
-                    val imagesRef: StorageReference? = storageRef.child("property_images/${id}/image_${time}")
+                    val imagesRef: StorageReference = storageRef.child("property_images/${id}/image_${time}")
 
-                    val uploadTask = imagesRef?.putFile(uri)
+                    if(uri is Uri) {
+                        val uploadTask = imagesRef?.putFile(uri)
 
-                    val urlTask = uploadTask?.continueWithTask { task ->
-                        if (!task.isSuccessful) {
-                            task.exception?.let {
-                                throw it
+                        val urlTask = uploadTask?.continueWithTask { task ->
+                            if (!task.isSuccessful) {
+                                task.exception?.let {
+                                    throw it
+                                }
+                            }
+                            imagesRef.downloadUrl
+                        }?.addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                val downloadUri = task.result
+
+                                propertyImagesStr!!.add(downloadUri.toString())
+                                count++
+
+                                if(count == propertyImages.size) {
+                                    propertyData.property_images = propertyImagesStr
+                                    uploadToDatabase(db, id)
+                                }
+                            } else {
+                                // Handle failures
+                                requireContext().showToast("Upload failed. Please try again")
+                                progressDialog.progressBarVisibility(false)
                             }
                         }
-                        imagesRef.downloadUrl
-                    }?.addOnCompleteListener { task ->
-                        if (task.isSuccessful) {
-                            val downloadUri = task.result
-
-                            propertyImagesStr!!.add(downloadUri.toString())
-                            count++
-
-                            if(count == propertyImages.size) {
-                                propertyData.property_images = propertyImagesStr
-                                uploadToDatabase(db, id)
-                            }
-                        } else {
-                            // Handle failures
-                            requireContext().showToast("Upload failed. Please try again")
-                            progressDialog.progressBarVisibility(false)
+                    } else {
+                        count++
+                        if(count == propertyImages.size) {
+                            propertyData.property_images = propertyImagesStr
+                            uploadToDatabase(db, id)
                         }
                     }
                 }
@@ -197,17 +230,16 @@ class PostPropertyStep5Fragment : Fragment() {
                 progressDialog.progressBarVisibility(true)
                 uploadToDatabase(db, id)
             }
-//            findNavController().navigate(R.id.action_postPropertyStep5Fragment_to_homeFragment)
         }
     }
 
-    private fun uploadToDatabase(db: FirebaseFirestore,id: String) {
+    private fun uploadToDatabase(db: FirebaseFirestore, id: String) {
 
         propertyData.op = binding.op.text.toString()
         propertyData.sp = binding.sp.text.toString()
         propertyData.roi = binding.roi.text.toString()
         propertyData.negotiation = negotiationStr
-        propertyData.property_title = binding.propertyTitle.text.toString()
+        propertyData.property_title = binding.property.text.toString()
 //        propertyData.created = DateHelper.getCurrentDateTime()
 
         propertyData.uid = id
@@ -223,6 +255,10 @@ class PostPropertyStep5Fragment : Fragment() {
                 progressDialog.progressBarVisibility(false)
                 requireContext().showToast(e.localizedMessage.toString())
             }
+    }
+
+    private fun updateDatabase(db: FirebaseFirestore, id: String){
+
     }
 
 }

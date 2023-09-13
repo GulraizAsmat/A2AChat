@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -32,6 +33,7 @@ import com.google.firebase.ktx.Firebase
 
 class PostPropertyStep1Fragment : Fragment(), View.OnClickListener, AdapterListener {
 
+    val args: PostPropertyStep1FragmentArgs by navArgs()
 
     var salePurpose = true // forSale-> true , forRent -> false
     var propertyType = true //forResidents-> true , forCommercial -> false
@@ -39,7 +41,8 @@ class PostPropertyStep1Fragment : Fragment(), View.OnClickListener, AdapterListe
     var propertyItemList = ArrayList<PropertyType>()
     var previousPosition = 0
 
-    private lateinit var  propertyData : PropertyData
+    private var propertyData: PropertyData? = null
+    private var isEdit = false
 
     var purpose: String = "Sale"
     var purpose_type: String = "Residential"
@@ -81,9 +84,16 @@ class PostPropertyStep1Fragment : Fragment(), View.OnClickListener, AdapterListe
 
     fun init() {
 
+        isEdit = args.propertyData != null
+        propertyData = args.propertyData ?: PropertyData()
+
         recyclerViewManager()
         showResidentProperty()
         listeners()
+
+        if (isEdit) {
+            setData()
+        }
     }
 
     fun listeners() {
@@ -280,16 +290,46 @@ class PostPropertyStep1Fragment : Fragment(), View.OnClickListener, AdapterListe
 
     }
 
+    private fun setData() {
+        propertyData?.let { data ->
+            if (data.purpose.equals("Rent", true)) {
+                selectForRentOption()
+            } else {
+                selectForSaleOption()
+            }
 
+            if (data.purpose_type.equals("Residential", true)) {
+                selectResidents()
+                showResidentProperty()
+            } else {
+                selectCommercial()
+                showCommercialProperty()
+            }
 
-    fun bottomSheet(){
+            val propertyType = data.property_type
+            propertyItemList.forEachIndexed { index, type ->
+                if (type.name.equals(propertyType, true)) {
+                    propertyItemList[previousPosition].selected = false
+
+                    if (!propertyItemList[index].selected) {
+                        propertyItemList[index].selected = true
+                        previousPosition = index
+                    }
+                    property_type = propertyItemList[previousPosition].name
+                }
+            }
+        }
+    }
+
+    fun bottomSheet() {
 
         val dialog = BottomSheetDialog(requireContext(), R.style.BottomSheetDialogStyle)
         val view = layoutInflater.inflate(R.layout.item_bottomsheet_add_property_step1, null)
 
         val rvPropertyType = view.findViewById<RecyclerView>(R.id.rv_property_type)
         val layoutManager = FlexboxLayoutManager(requireContext())
-        layoutManager.flexWrap = FlexWrap.WRAP  // Items will wrap to the next line if there's not enough space
+        layoutManager.flexWrap =
+            FlexWrap.WRAP  // Items will wrap to the next line if there's not enough space
         layoutManager.flexDirection = FlexDirection.ROW
         rvPropertyType.layoutManager = layoutManager
 
@@ -323,32 +363,37 @@ class PostPropertyStep1Fragment : Fragment(), View.OnClickListener, AdapterListe
             }
 
             R.id.next_btn -> {
-            if(binding.selectedPropertyType.text!="Please Select Property Type") {
-                val auth = Firebase.auth
-                val currentUser = auth.currentUser
+                if (binding.selectedPropertyType.text != "Please Select Property Type") {
+                    val auth = Firebase.auth
+                    val currentUser = auth.currentUser
 
-                propertyData.user_id = currentUser?.uid
-                propertyData.purpose = purpose
-                propertyData.purpose_type = purpose_type
-                propertyData.property_type = property_type
+                    propertyData?.user_id = currentUser?.uid
+                    propertyData?.purpose = purpose
+                    propertyData?.purpose_type = purpose_type
+                    propertyData?.property_type = property_type
 
-                findNavController().navigate(
-                    PostPropertyStep1FragmentDirections.actionPostPropertyStep1FragmentToPostFragment(
-                        propertyData
-                    )
-                )
-            }else {
-                Toast.makeText(requireContext(),"Please select property type",Toast.LENGTH_LONG).show()
-            }
+                    propertyData?.let {
+                        findNavController().navigate(
+                            PostPropertyStep1FragmentDirections.actionPostPropertyStep1FragmentToPostFragment(
+                                it, isEdit
+                            )
+                        )
+                    }
+                } else {
+                    Toast.makeText(
+                        requireContext(),
+                        "Please select property type",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+
             }
 
             R.id.back_icon -> {
-
-
                 requireActivity().onBackPressed()
             }
 
-            R.id.selected_property_type->{
+            R.id.selected_property_type -> {
                 bottomSheet()
             }
         }
@@ -367,9 +412,14 @@ class PostPropertyStep1Fragment : Fragment(), View.OnClickListener, AdapterListe
                 }
 
                 property_type = propertyItemList[previousPosition].name
-                binding.selectedPropertyType.text=property_type
+                binding.selectedPropertyType.text = property_type
                 binding.selectedPropertyType.setBackgroundResource(R.drawable.bg_btn_login)
-                binding.selectedPropertyType.setTextColor(ContextCompat.getColor(requireContext(),R.color.color_white_shade_1))
+                binding.selectedPropertyType.setTextColor(
+                    ContextCompat.getColor(
+                        requireContext(),
+                        R.color.color_white_shade_1
+                    )
+                )
                 propertyTypeAdapter.notifyDataSetChanged()
 
             }

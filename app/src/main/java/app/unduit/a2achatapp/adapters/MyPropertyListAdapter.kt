@@ -55,15 +55,18 @@ class MyPropertyListAdapter(
 
         // Set a click listener on the root view if needed
         holder.binding.menu.setOnClickListener {
-//            listener.onItemClick(propertyItem)
             showPopupMenu(holder.binding.menu,position)
+        }
+
+        holder.binding.layoutParent.setOnClickListener {
+            listener.onAdapterItemClicked("open", position)
         }
 
         // Execute pending bindings to update the UI
         holder.binding.executePendingBindings()
     }
 
-    private fun showPopupMenu(view: View, item: Int) {
+    private fun showPopupMenu(view: View, position: Int) {
         val popupWrapper = ContextThemeWrapper( view.context, R.style.PopupMenuStyle)
         val popupMenu = PopupMenu(popupWrapper, view)
         popupMenu.inflate(R.menu.property_menu)
@@ -73,11 +76,13 @@ class MyPropertyListAdapter(
                 R.id.menu_item1 -> {
                     // Handle the Edit action
                     // You can pass 'item' to the edit function or perform your edit operation here.
+                    listener.onAdapterItemClicked("edit", position)
                     true
                 }
-                R.id.menu_item1 -> {
+                R.id.menu_item2 -> {
                     // Handle the Delete action
                     // You can pass 'item' to the delete function or perform your delete operation here.
+                    listener.onAdapterItemClicked("delete", position)
                     true
                 }
                 else -> false

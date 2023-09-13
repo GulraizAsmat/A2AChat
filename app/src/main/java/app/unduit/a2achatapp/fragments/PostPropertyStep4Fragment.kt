@@ -1,4 +1,4 @@
-package app.unduit.a2achatapp
+package app.unduit.a2achatapp.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,12 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
-import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import app.unduit.a2achatapp.adapters.CustomSpinnerAdapter
-import app.unduit.a2achatapp.adapters.UserExperienceAdapter
-import app.unduit.a2achatapp.databinding.FragmentPostPropertyStep3Binding
 import app.unduit.a2achatapp.databinding.FragmentPostPropertyStep4Binding
 import app.unduit.a2achatapp.helpers.SpinnersHelper
 import app.unduit.a2achatapp.models.PropertyData
@@ -23,6 +20,7 @@ class PostPropertyStep4Fragment : Fragment() {
     private val args: PostPropertyStep4FragmentArgs by navArgs()
 
     private lateinit var propertyData: PropertyData
+    private var isEdit = false
 
     var floorStr = "Low"
     var handoverYearStr = "2010"
@@ -51,14 +49,19 @@ class PostPropertyStep4Fragment : Fragment() {
 
 
     fun init() {
+        isEdit = args.isEdit
         propertyData = args.propertyData
 
         spinnerManager()
+
+        if(isEdit) {
+            setData()
+        }
     }
 
     fun listeners() {
         binding.nextBtn.setOnClickListener {
-            setData()
+            setPropertyData()
         }
 
         binding.backIcon.setOnClickListener {
@@ -122,6 +125,25 @@ class PostPropertyStep4Fragment : Fragment() {
     }
 
     private fun setData() {
+        binding.serviceCharge.setText(propertyData.service_charge)
+        binding.duringConstruction.setText(propertyData.payment_during_construction)
+        binding.onHandover.setText(propertyData.payment_on_handover)
+        binding.postHandover.setText(propertyData.payment_post_handover)
+
+        SpinnersHelper.floorList().forEachIndexed { index, item ->
+            if(item.equals(propertyData.floor, true)) {
+                binding.spinnerFloor.setSelection(index)
+            }
+        }
+
+        SpinnersHelper.yearList().forEachIndexed { index, item ->
+            if(item.equals(propertyData.handover_year, true)) {
+                binding.paymentPlanSpinner.setSelection(index)
+            }
+        }
+    }
+
+    private fun setPropertyData() {
 
         propertyData.service_charge = binding.serviceCharge.text.toString()
         propertyData.floor = floorStr
@@ -130,7 +152,7 @@ class PostPropertyStep4Fragment : Fragment() {
         propertyData.payment_on_handover = binding.onHandover.text.toString()
         propertyData.payment_post_handover = binding.postHandover.text.toString()
 
-        findNavController().navigate(PostPropertyStep4FragmentDirections.actionPostPropertyStep4FragmentToPostPropertyStep5Fragment(propertyData))
+        findNavController().navigate(PostPropertyStep4FragmentDirections.actionPostPropertyStep4FragmentToPostPropertyStep5Fragment(propertyData, isEdit))
     }
 
 }

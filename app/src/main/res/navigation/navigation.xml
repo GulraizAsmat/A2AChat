@@ -209,6 +209,11 @@
         <action
             android:id="@+id/action_postPropertyStep1Fragment_to_postFragment"
             app:destination="@id/postFragment" />
+        <argument
+            android:name="propertyData"
+            app:argType="app.unduit.a2achatapp.models.PropertyData"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/postFragment"
@@ -221,6 +226,9 @@
         <argument
             android:name="propertyData"
             app:argType="app.unduit.a2achatapp.models.PropertyData" />
+        <argument
+            android:name="isEdit"
+            app:argType="boolean" />
     </fragment>
     <fragment
         android:id="@+id/postPropertyStep3Fragment"
@@ -233,10 +241,13 @@
         <argument
             android:name="propertyData"
             app:argType="app.unduit.a2achatapp.models.PropertyData" />
+        <argument
+            android:name="isEdit"
+            app:argType="boolean" />
     </fragment>
     <fragment
         android:id="@+id/postPropertyStep4Fragment"
-        android:name="app.unduit.a2achatapp.PostPropertyStep4Fragment"
+        android:name="app.unduit.a2achatapp.fragments.PostPropertyStep4Fragment"
         android:label="fragment_post_property_step4"
         tools:layout="@layout/fragment_post_property_step4" >
         <action
@@ -245,10 +256,13 @@
         <argument
             android:name="propertyData"
             app:argType="app.unduit.a2achatapp.models.PropertyData" />
+        <argument
+            android:name="isEdit"
+            app:argType="boolean" />
     </fragment>
     <fragment
         android:id="@+id/postPropertyStep5Fragment"
-        android:name="app.unduit.a2achatapp.PostPropertyStep5Fragment"
+        android:name="app.unduit.a2achatapp.fragments.PostPropertyStep5Fragment"
         android:label="fragment_post_property_step5"
         tools:layout="@layout/fragment_post_property_step5" >
         <action
@@ -262,6 +276,9 @@
         <argument
             android:name="propertyData"
             app:argType="app.unduit.a2achatapp.models.PropertyData" />
+        <argument
+            android:name="isEdit"
+            app:argType="boolean" />
     </fragment>
     <fragment
         android:id="@+id/postPropertyStep6Fragment"
@@ -297,12 +314,24 @@
         <argument
             android:name="image"
             app:argType="reference" />
+        <argument
+            android:name="propertyData"
+            app:argType="app.unduit.a2achatapp.models.PropertyData"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/myPropertyFragment"
         android:name="app.unduit.a2achatapp.fragments.MyPropertyFragment"
         android:label="fragment_my_property"
-        tools:layout="@layout/fragment_my_property" />
+        tools:layout="@layout/fragment_my_property" >
+        <action
+            android:id="@+id/action_myPropertyFragment_to_propertyDetailFragment"
+            app:destination="@id/propertyDetailFragment" />
+        <action
+            android:id="@+id/action_myPropertyFragment_to_postPropertyStep1Fragment"
+            app:destination="@id/postPropertyStep1Fragment" />
+    </fragment>
     <fragment
         android:id="@+id/postRequestFragment"
         android:name="app.unduit.a2achatapp.PostRequestFragment"

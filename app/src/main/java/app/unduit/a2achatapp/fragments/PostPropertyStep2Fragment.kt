@@ -52,6 +52,8 @@ class PostPropertyStep2Fragment : Fragment(), View.OnClickListener, AdapterListe
         )
     }
 
+    var isEdit = false
+
     private lateinit var propertyData: PropertyData
 
     private lateinit var binding: FragmentPostPropertyStep2Binding
@@ -78,6 +80,7 @@ class PostPropertyStep2Fragment : Fragment(), View.OnClickListener, AdapterListe
 
     fun init() {
 
+        isEdit = args.isEdit
         propertyData = args.propertyData
 
         listeners()
@@ -85,6 +88,10 @@ class PostPropertyStep2Fragment : Fragment(), View.OnClickListener, AdapterListe
         bathRecyclerViewManager()
         bedRoomData()
         bathRoomData()
+
+        if(isEdit) {
+            setData()
+        }
     }
 
 
@@ -211,7 +218,49 @@ class PostPropertyStep2Fragment : Fragment(), View.OnClickListener, AdapterListe
             propertyData.bathrooms = bathroomStr
             propertyData.development_status = if(developmentStatus) "Ready" else "Off-plan"
 
-            findNavController().navigate(PostPropertyStep2FragmentDirections.actionPostFragmentToPostPropertyStep3Fragment(propertyData))
+            findNavController().navigate(PostPropertyStep2FragmentDirections.actionPostFragmentToPostPropertyStep3Fragment(propertyData, isEdit))
+        }
+    }
+
+    private fun setData() {
+        binding.price.setText(propertyData.price)
+        binding.areaCommunity.setText(propertyData.area_community)
+        binding.building.setText(propertyData.project)
+
+        if(propertyData.development_status.equals("Ready", true)) {
+            selectReady()
+        } else {
+            selectOffPlan()
+        }
+
+        bedRoomList.forEachIndexed { index, type ->
+            if(type.name.equals(propertyData.bedrooms, true)) {
+                bedRoomList[bedRoomPreviousPosition].selected = false
+
+                if (!bedRoomList[index].selected) {
+
+                    bedRoomList[index].selected = true
+                    bedRoomPreviousPosition = index
+                }
+                bedroomStr = bedRoomList[bedRoomPreviousPosition].name
+
+                bedRoomAdapter.notifyDataSetChanged()
+            }
+        }
+
+        bathRoomList.forEachIndexed { index, type ->
+            if(type.name.equals(propertyData.bathrooms, true)) {
+                bathRoomList[bathRoomPreviousPosition].selected = false
+
+                if (!bathRoomList[index].selected) {
+
+                    bathRoomList[index].selected = true
+                    bathRoomPreviousPosition = index
+                }
+                bathroomStr =  bathRoomList[bathRoomPreviousPosition].name
+
+                bathRoomAdapter.notifyDataSetChanged()
+            }
         }
     }
 

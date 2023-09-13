@@ -1,5 +1,6 @@
 package app.unduit.a2achatapp.adapters
 
+import android.annotation.SuppressLint
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
@@ -9,8 +10,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import app.unduit.a2achatapp.R
+import com.bumptech.glide.Glide
 
-class PostPropertyImagesAdapter() : ListAdapter<Uri, PostPropertyImagesAdapter.ViewHolder>(
+class PostPropertyImagesAdapter() : ListAdapter<Any, PostPropertyImagesAdapter.ViewHolder>(
     DiffCallback()
 ) {
 
@@ -27,16 +29,21 @@ class PostPropertyImagesAdapter() : ListAdapter<Uri, PostPropertyImagesAdapter.V
 
         val item = currentList[position]
 
-        holder.imageView.setImageURI(item)
+        if(item is Uri) {
+            holder.imageView.setImageURI(item)
+        } else if(item is String) {
+            Glide.with(holder.imageView).load(item).into(holder.imageView)
+        }
 
     }
 
-    private class DiffCallback : DiffUtil.ItemCallback<Uri>() {
+    private class DiffCallback : DiffUtil.ItemCallback<Any>() {
 
-        override fun areItemsTheSame(oldItem: Uri, newItem: Uri) =
+        override fun areItemsTheSame(oldItem: Any, newItem: Any) =
             oldItem == newItem
 
-        override fun areContentsTheSame(oldItem: Uri, newItem: Uri) =
+        @SuppressLint("DiffUtilEquals")
+        override fun areContentsTheSame(oldItem: Any, newItem: Any) =
             oldItem == newItem
 
     }
