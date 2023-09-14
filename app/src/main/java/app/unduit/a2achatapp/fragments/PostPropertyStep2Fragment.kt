@@ -89,7 +89,7 @@ class PostPropertyStep2Fragment : Fragment(), View.OnClickListener, AdapterListe
         bedRoomData()
         bathRoomData()
 
-        if(isEdit) {
+        if (isEdit) {
             setData()
         }
     }
@@ -202,23 +202,29 @@ class PostPropertyStep2Fragment : Fragment(), View.OnClickListener, AdapterListe
     private fun verifyData() {
         val areaCommunity = binding.areaCommunity.text.toString()
         val project = binding.building.text.toString()
-        val price = binding.price.text.toString()
-        if(price.isEmpty()) {
-            requireContext().showToast("Please enter a Price")
-        } else if(areaCommunity.isEmpty()) {
+//        val price = binding.price.text.toString()
+//        if(price.isEmpty()) {
+//            requireContext().showToast("Please enter a Price")
+//        } else
+        if (areaCommunity.isEmpty()) {
             requireContext().showToast("Please enter Area/Community")
-        } else if(project.isEmpty()) {
+        } else if (project.isEmpty()) {
             requireContext().showToast("Please enter Project")
         } else {
 
-            propertyData.price = price
+//            propertyData.price = price
             propertyData.area_community = areaCommunity
             propertyData.project = project
             propertyData.bedrooms = bedroomStr
             propertyData.bathrooms = bathroomStr
-            propertyData.development_status = if(developmentStatus) "Ready" else "Off-plan"
+            propertyData.development_status = if (developmentStatus) "Ready" else "Off-plan"
 
-            findNavController().navigate(PostPropertyStep2FragmentDirections.actionPostFragmentToPostPropertyStep3Fragment(propertyData, isEdit))
+            findNavController().navigate(
+                PostPropertyStep2FragmentDirections.actionPostFragmentToPostPropertyStep3Fragment(
+                    propertyData,
+                    isEdit
+                )
+            )
         }
     }
 
@@ -227,14 +233,14 @@ class PostPropertyStep2Fragment : Fragment(), View.OnClickListener, AdapterListe
         binding.areaCommunity.setText(propertyData.area_community)
         binding.building.setText(propertyData.project)
 
-        if(propertyData.development_status.equals("Ready", true)) {
+        if (propertyData.development_status.equals("Ready", true)) {
             selectReady()
         } else {
             selectOffPlan()
         }
 
         bedRoomList.forEachIndexed { index, type ->
-            if(type.name.equals(propertyData.bedrooms, true)) {
+            if (type.name.equals(propertyData.bedrooms, true)) {
                 bedRoomList[bedRoomPreviousPosition].selected = false
 
                 if (!bedRoomList[index].selected) {
@@ -249,7 +255,7 @@ class PostPropertyStep2Fragment : Fragment(), View.OnClickListener, AdapterListe
         }
 
         bathRoomList.forEachIndexed { index, type ->
-            if(type.name.equals(propertyData.bathrooms, true)) {
+            if (type.name.equals(propertyData.bathrooms, true)) {
                 bathRoomList[bathRoomPreviousPosition].selected = false
 
                 if (!bathRoomList[index].selected) {
@@ -257,7 +263,7 @@ class PostPropertyStep2Fragment : Fragment(), View.OnClickListener, AdapterListe
                     bathRoomList[index].selected = true
                     bathRoomPreviousPosition = index
                 }
-                bathroomStr =  bathRoomList[bathRoomPreviousPosition].name
+                bathroomStr = bathRoomList[bathRoomPreviousPosition].name
 
                 bathRoomAdapter.notifyDataSetChanged()
             }
@@ -311,7 +317,7 @@ class PostPropertyStep2Fragment : Fragment(), View.OnClickListener, AdapterListe
                 }
                 bathRoomAdapter.notifyDataSetChanged()
 
-                bathroomStr =  bathRoomList[bathRoomPreviousPosition].name
+                bathroomStr = bathRoomList[bathRoomPreviousPosition].name
             }
         }
     }

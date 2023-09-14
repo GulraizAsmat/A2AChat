@@ -256,151 +256,40 @@
                 app:layout_constraintTop_toBottomOf="@+id/cl_process_bar"
                 tools:ignore="MissingConstraints">
 
-
                 <TextView
-                    android:id="@+id/op_title"
+                    android:id="@+id/finishing_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
                     android:fontFamily="@font/poppins_semibold"
-                    android:text="OP"
+                    android:text="Furnishing"
                     android:textColor="@color/color_black_shade_1"
                     android:textSize="@dimen/_11sdp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/op_optional"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_regular"
-                    android:text=" (Optional)"
-                    android:textColor="@color/color_purple_shade_2"
-                    android:textSize="@dimen/_11sdp"
-                    app:layout_constraintBottom_toBottomOf="@+id/op_title"
-                    app:layout_constraintStart_toEndOf="@+id/op_title"
-                    app:layout_constraintTop_toTopOf="@+id/op_title" />
-
-                <EditText
-                    android:id="@+id/op"
+                <Spinner
+                    android:id="@+id/spinner_finishing"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_30sdp"
+                    android:layout_height="@dimen/_35sdp"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:background="@drawable/bg_text_view_signup"
-                    android:drawablePadding="@dimen/_12sdp"
-                    android:fontFamily="@font/poppins_regular"
-                    android:gravity="center_vertical"
-                    android:inputType="text"
-                    android:maxLines="1"
-                    android:paddingHorizontal="@dimen/_8sdp"
-                    android:textColor="#3C1663"
-                    android:textSize="@dimen/_13ssp"
+                    android:spinnerMode="dropdown"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/op_title" />
+                    app:layout_constraintTop_toBottomOf="@+id/finishing_title"
+                    tools:listitem="@layout/item_bedrooms_spinner" />
 
 
-                <TextView
-                    android:id="@+id/sp_title"
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/finishing_ic_arrow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_15sdp"
-                    android:fontFamily="@font/poppins_semibold"
-                    android:text="SP"
-                    android:textColor="@color/color_black_shade_1"
-                    android:textSize="@dimen/_11sdp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/op" />
-
-                <TextView
-                    android:id="@+id/sp_star"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_regular"
-                    android:text="*"
-                    android:textColor="@color/color_red_shade_1"
-                    android:textSize="@dimen/_11sdp"
-                    app:layout_constraintBottom_toBottomOf="@+id/sp_title"
-                    app:layout_constraintStart_toEndOf="@+id/sp_title"
-                    app:layout_constraintTop_toTopOf="@+id/sp_title" />
-
-                <EditText
-                    android:id="@+id/sp"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/_30sdp"
-                    android:layout_marginTop="@dimen/_5sdp"
-                    android:background="@drawable/bg_text_view_signup"
-                    android:drawablePadding="@dimen/_12sdp"
-                    android:fontFamily="@font/poppins_regular"
-                    android:gravity="center_vertical"
-                    android:inputType="text"
-                    android:maxLines="1"
-                    android:paddingHorizontal="@dimen/_8sdp"
-                    android:textColor="#3C1663"
-                    android:textSize="@dimen/_13ssp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="@dimen/_14sdp"
+                    app:layout_constraintBottom_toBottomOf="@+id/spinner_finishing"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/sp_title" />
-
-
-                <TextView
-                    android:id="@+id/roi_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_15sdp"
-                    android:fontFamily="@font/poppins_semibold"
-                    android:text="Roi"
-                    android:textColor="@color/color_black_shade_1"
-                    android:textSize="@dimen/_11sdp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/sp" />
-
-                <TextView
-                    android:id="@+id/roi_optional"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_regular"
-                    android:text=" (Optional)"
-                    android:textColor="@color/color_purple_shade_2"
-                    android:textSize="@dimen/_11sdp"
-                    app:layout_constraintBottom_toBottomOf="@+id/roi_title"
-                    app:layout_constraintStart_toEndOf="@+id/roi_title"
-                    app:layout_constraintTop_toTopOf="@+id/roi_title" />
-
-                <EditText
-                    android:id="@+id/roi"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/_30sdp"
-                    android:layout_marginTop="@dimen/_5sdp"
-
-                    android:background="@drawable/bg_text_view_signup"
-                    android:drawablePadding="@dimen/_12sdp"
-                    android:fontFamily="@font/poppins_regular"
-                    android:gravity="center_vertical"
-                    android:inputType="numberDecimal"
-                    android:maxLength="8"
-                    android:paddingHorizontal="@dimen/_8sdp"
-                    android:textColor="#3C1663"
-                    android:textSize="@dimen/_13ssp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/roi_title" />
-
-
-                <TextView
-                    android:id="@+id/during_construction_percent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/_10sdp"
-                    android:fontFamily="@font/poppins_semibold"
-
-                    android:text="%"
-                    android:textColor="@color/color_black_shade_1"
-                    android:textSize="@dimen/_12sdp"
-                    app:layout_constraintBottom_toBottomOf="@+id/roi"
-                    app:layout_constraintEnd_toEndOf="@+id/roi"
-                    app:layout_constraintTop_toTopOf="@+id/roi" />
-
+                    app:layout_constraintTop_toTopOf="@+id/spinner_finishing"
+                    app:srcCompat="@drawable/ic_arrow_down_white" />
 
                 <TextView
                     android:id="@+id/floor_title"
@@ -412,7 +301,7 @@
                     android:textColor="@color/color_black_shade_1"
                     android:textSize="@dimen/_11sdp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/roi" />
+                    app:layout_constraintTop_toBottomOf="@+id/spinner_finishing" />
 
 
                 <Spinner

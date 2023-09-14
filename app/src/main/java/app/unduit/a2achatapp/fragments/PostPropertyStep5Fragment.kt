@@ -22,13 +22,16 @@ import app.unduit.a2achatapp.helpers.gone
 import app.unduit.a2achatapp.helpers.showToast
 import app.unduit.a2achatapp.helpers.visible
 import app.unduit.a2achatapp.models.PropertyData
+import app.unduit.a2achatapp.models.User
 import com.esafirm.imagepicker.features.ImagePickerConfig
 import com.esafirm.imagepicker.features.registerImagePicker
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.ktx.storage
+import java.util.Calendar
 
 
 class PostPropertyStep5Fragment : Fragment() {
@@ -40,6 +43,7 @@ class PostPropertyStep5Fragment : Fragment() {
     private var isEdit = false
 
     private var negotiationStr = "Negotiable"
+    var furnishingStr = "Unfurnished"
 
     private val progressDialog by lazy {
         ProgressDialog(requireContext())
@@ -119,6 +123,31 @@ class PostPropertyStep5Fragment : Fragment() {
 
     private fun spinnerManager() {
         negotiationSpinner()
+        finishingSpinner()
+    }
+
+    private fun finishingSpinner() {
+
+
+        val adapter = CustomSpinnerAdapter(requireContext(), SpinnersHelper.finishingList())
+
+        binding.spinnerFinishing.adapter = adapter
+        binding.spinnerFinishing.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    val selectedItem = SpinnersHelper.finishingList()[position]
+                    furnishingStr = selectedItem
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    // This method is called when nothing is selected, if needed
+                }
+            }
     }
 
     private fun negotiationSpinner(){
@@ -144,9 +173,6 @@ class PostPropertyStep5Fragment : Fragment() {
     }
 
     private fun setData(){
-        binding.op.setText(propertyData.op)
-        binding.sp.setText(propertyData.sp)
-        binding.roi.setText(propertyData.roi)
         binding.property.setText(propertyData.property_title)
 
         SpinnersHelper.negotiationList().forEachIndexed { index, item ->
@@ -162,15 +188,17 @@ class PostPropertyStep5Fragment : Fragment() {
         adapter.submitList(null)
         adapter.submitList(propertyImages)
 
+        SpinnersHelper.finishingList().forEachIndexed { index, item ->
+            if(item.equals(propertyData.furnishing, true)) {
+                binding.spinnerFinishing.setSelection(index)
+            }
+        }
     }
 
     private fun uploadData() {
-        val spStr = binding.sp.text.toString()
         val title = binding.property.text.toString()
 
-        if(spStr.isEmpty()) {
-            requireContext().showToast("Please enter a value for SP")
-        } else if(title.isEmpty()) {
+        if(title.isEmpty()) {
             requireContext().showToast("Please enter a title")
         } else {
 
@@ -234,31 +262,54 @@ class PostPropertyStep5Fragment : Fragment() {
     }
 
     private fun uploadToDatabase(db: FirebaseFirestore, id: String) {
-
-        propertyData.op = binding.op.text.toString()
-        propertyData.sp = binding.sp.text.toString()
-        propertyData.roi = binding.roi.text.toString()
         propertyData.negotiation = negotiationStr
         propertyData.property_title = binding.property.text.toString()
-//        propertyData.created = DateHelper.getCurrentDateTime()
-
+        propertyData.furnishing = furnishingStr
+        propertyData.created_date = System.currentTimeMillis().toString()
         propertyData.uid = id
 
-        db.collection("properties")
-            .document(id)
-            .set(propertyData)
-            .addOnSuccessListener {
-                progressDialog.progressBarVisibility(false)
-                requireContext().showToast("Property Posted!")
-                findNavController().navigate(R.id.action_postPropertyStep5Fragment_to_homeFragment)
-            }.addOnFailureListener {e ->
+        val auth = Firebase.auth
+        val currentUser = auth.currentUser
+
+        currentUser?.let { cUser ->
+            val ref = db.collection("users").document(cUser.uid)
+
+            ref.get().addOnSuccessListener { snapshot ->
+                snapshot?.let {
+                    val data = it.toObject(User::class.java)
+
+                    propertyData.user_name = data?.name
+                    propertyData.user_picture = data?.profile_image
+                    propertyData.user_company = data?.company
+                    propertyData.user_experience = data?.experience
+                    propertyData.user_specialty = data?.speciality
+
+                    db.collection("properties")
+                        .document(id)
+                        .set(propertyData)
+                        .addOnSuccessListener {
+                            progressDialog.progressBarVisibility(false)
+                            requireContext().showToast("Property Posted!")
+                            findNavController().navigate(R.id.action_postPropertyStep5Fragment_to_homeFragment)
+                        }.addOnFailureListener {e ->
+                            progressDialog.progressBarVisibility(false)
+                            requireContext().showToast(e.localizedMessage.toString())
+                        }
+
+                } ?: run {
+                    //Need to logout
+                    progressDialog.progressBarVisibility(false)
+                    requireContext().showToast("An error occurred. Try again later!")
+                }
+            }.addOnFailureListener { e ->
                 progressDialog.progressBarVisibility(false)
                 requireContext().showToast(e.localizedMessage.toString())
             }
-    }
-
-    private fun updateDatabase(db: FirebaseFirestore, id: String){
-
+        } ?: run {
+            //Need to logout
+            progressDialog.progressBarVisibility(false)
+            requireContext().showToast("An error occurred. Try again later!")
+        }
     }
 
 }
