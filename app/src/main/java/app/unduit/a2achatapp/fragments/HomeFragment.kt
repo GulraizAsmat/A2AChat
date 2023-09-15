@@ -335,7 +335,8 @@ class HomeFragment : Fragment(), View.OnClickListener, CardStackListener, Adapte
             "view_detail"->{
                 Const.screenName="Property_detail"
                 findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToPropertyDetailFragment(
-                    propertylist[position].image))
+                    propertylist[position], "home"
+                ))
             }
         }
 
@@ -343,7 +344,7 @@ class HomeFragment : Fragment(), View.OnClickListener, CardStackListener, Adapte
     }
 
     private fun loadUserProfileImage() {
-        var auth = Firebase.auth
+        val auth = Firebase.auth
         val currentUser = auth.currentUser
 
         currentUser?.let { cUser ->

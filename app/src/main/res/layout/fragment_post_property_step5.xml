@@ -372,6 +372,35 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/property_title" />
 
+                <TextView
+                    android:id="@+id/description_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:fontFamily="@font/poppins_semibold"
+                    android:text="Property Description"
+                    android:textColor="@color/color_black_shade_1"
+                    android:textSize="@dimen/_11sdp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/property" />
+
+                <EditText
+                    android:id="@+id/description"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_80sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:background="@drawable/bg_text_view_signup"
+                    android:fontFamily="@font/poppins_regular"
+                    android:gravity="start"
+                    android:inputType="textMultiLine"
+                    android:scrollbars="vertical"
+                    android:paddingHorizontal="@dimen/_8sdp"
+                    android:textColor="#3C1663"
+                    android:textSize="@dimen/_10ssp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/description_title" />
+
 
                 <TextView
                     android:id="@+id/upload_image_title"
@@ -384,7 +413,7 @@
                     android:textSize="@dimen/_12sdp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/property" />
+                    app:layout_constraintTop_toBottomOf="@+id/description" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_images"

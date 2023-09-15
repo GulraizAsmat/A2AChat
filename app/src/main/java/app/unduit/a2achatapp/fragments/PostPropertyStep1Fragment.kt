@@ -275,7 +275,7 @@ class PostPropertyStep1Fragment : Fragment(), View.OnClickListener, AdapterListe
         )
         propertyItemList.add(
             PropertyType(
-                name = "labour Camp",
+                name = "Labour Camp",
                 image = R.drawable.ic_labour_camp,
                 selected = false
             )

@@ -47,6 +47,7 @@ class PropertyData(
     var roi: String = "",
     var negotiation: String = "",
     var property_title: String = "",
+    var property_description: String = "",
     var property_images: List<String>? = null,
     var property_status :String="",
     var created_date : String=""

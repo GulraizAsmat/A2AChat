@@ -174,6 +174,7 @@ class PostPropertyStep5Fragment : Fragment() {
 
     private fun setData(){
         binding.property.setText(propertyData.property_title)
+        binding.description.setText(propertyData.property_description)
 
         SpinnersHelper.negotiationList().forEachIndexed { index, item ->
             if(item.equals(propertyData.negotiation, true)) {
@@ -264,6 +265,7 @@ class PostPropertyStep5Fragment : Fragment() {
     private fun uploadToDatabase(db: FirebaseFirestore, id: String) {
         propertyData.negotiation = negotiationStr
         propertyData.property_title = binding.property.text.toString()
+        propertyData.property_description = binding.description.text.toString()
         propertyData.furnishing = furnishingStr
         propertyData.created_date = System.currentTimeMillis().toString()
         propertyData.uid = id
