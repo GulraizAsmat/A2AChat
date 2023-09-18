@@ -312,13 +312,14 @@
             android:id="@+id/action_propertyDetailFragment_to_chatFragment"
             app:destination="@id/chatFragment" />
         <argument
-            android:name="image"
-            app:argType="reference" />
-        <argument
             android:name="propertyData"
             app:argType="app.unduit.a2achatapp.models.PropertyData"
             app:nullable="true"
             android:defaultValue="@null" />
+        <argument
+            android:name="isFrom"
+            app:argType="string"
+            android:defaultValue='""' />
     </fragment>
     <fragment
         android:id="@+id/myPropertyFragment"

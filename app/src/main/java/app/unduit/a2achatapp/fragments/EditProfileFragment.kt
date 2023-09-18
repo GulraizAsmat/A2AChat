@@ -1,5 +1,8 @@
 package app.unduit.a2achatapp.fragments
 
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,10 +14,13 @@ import app.unduit.a2achatapp.helpers.ProgressDialog
 import app.unduit.a2achatapp.helpers.showToast
 import app.unduit.a2achatapp.models.User
 import com.bumptech.glide.Glide
+import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.StorageReference
+import com.google.firebase.storage.ktx.storage
 
 class EditProfileFragment : Fragment() {
 
@@ -27,6 +33,9 @@ class EditProfileFragment : Fragment() {
     private val progressDialog by lazy {
         ProgressDialog(requireContext())
     }
+
+    private var imageUri: Uri? = null
+    private var isProfileImageChanged = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,12 +56,25 @@ class EditProfileFragment : Fragment() {
     }
 
     private fun init() {
+        binding.etEmail.isEnabled = false
+
         binding.btnBack.setOnClickListener {
             requireActivity().onBackPressedDispatcher.onBackPressed()
         }
 
         binding.btnSave.setOnClickListener {
-            saveUserData()
+            if(isProfileImageChanged) {
+                uploadImage()
+            } else {
+                saveUserData()
+            }
+        }
+
+        binding.profileImage.setOnClickListener {
+            ImagePicker.with(this)
+                .crop()
+                .compress(1024)
+                .start()
         }
     }
 
@@ -110,6 +132,34 @@ class EditProfileFragment : Fragment() {
         progressDialog.progressBarVisibility(false)
     }
 
+    private fun uploadImage(){
+        imageUri?.let { uri ->
+            progressDialog.progressBarVisibility(true)
+
+            val storage = Firebase.storage
+            val storageRef = storage.reference
+
+            val imagesRef: StorageReference? = storageRef.child("profile_pictures/${userData?.uid}")
+            val uploadTask = imagesRef?.putFile(uri)
+            val urlTask = uploadTask?.continueWithTask { task ->
+                if (!task.isSuccessful) {
+                    task.exception?.let {
+                        throw it
+                    }
+                }
+                imagesRef.downloadUrl
+            }?.addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    val downloadUri = task.result
+                    userData?.profile_image = downloadUri.toString()
+                    saveUserData()
+                } else {
+                    saveUserData()
+                }
+            }
+        }
+    }
+
     private fun saveUserData() {
         userData?.let { user ->
             progressDialog.progressBarVisibility(true)
@@ -126,11 +176,28 @@ class EditProfileFragment : Fragment() {
                 .addOnSuccessListener {
                     progressDialog.progressBarVisibility(false)
                     requireContext().showToast("Profile information updated")
+                    requireActivity().onBackPressedDispatcher.onBackPressed()
                 }.addOnFailureListener { e ->
                     progressDialog.progressBarVisibility(false)
                     requireContext().showToast(e.localizedMessage.toString())
                 }
 
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode == Activity.RESULT_OK) {
+            //Image Uri will not be null for RESULT_OK
+            val fileUri: Uri = data?.data!!
+
+            // Use Uri object instead of File to avoid storage permissions
+            binding.profileImage.setImageURI(fileUri)
+            imageUri = fileUri
+            isProfileImageChanged = true
+        } else if (resultCode == ImagePicker.RESULT_ERROR) {
+            requireContext().showToast(ImagePicker.getError(data))
         }
     }
 }

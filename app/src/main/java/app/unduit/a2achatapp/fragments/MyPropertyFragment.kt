@@ -96,6 +96,7 @@ class MyPropertyFragment : Fragment(), AdapterListener {
 
             ref.get()
                 .addOnSuccessListener { documents ->
+                    propertylist.clear()
                     for (document in documents) {
                         Log.d(TAG, "${document.id} => ${document.data}")
 
@@ -165,11 +166,9 @@ class MyPropertyFragment : Fragment(), AdapterListener {
                 Log.e(TAG, "open $position")
                 findNavController().navigate(
                     MyPropertyFragmentDirections.actionMyPropertyFragmentToPropertyDetailFragment(
-                        -1,
-                        propertylist[position]
+                        propertylist[position], "MyProperty"
                     )
                 )
-
             }
 
             "edit" -> {

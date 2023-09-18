@@ -1,5 +1,6 @@
 package app.unduit.a2achatapp.fragments
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -18,10 +19,13 @@ import app.unduit.a2achatapp.adapters.BedroomItemAdapter
 import app.unduit.a2achatapp.adapters.CustomSpinnerAdapter
 import app.unduit.a2achatapp.databinding.FragmentPostPropertyStep3Binding
 import app.unduit.a2achatapp.helpers.SpinnersHelper
+import app.unduit.a2achatapp.helpers.gone
 import app.unduit.a2achatapp.helpers.showToast
+import app.unduit.a2achatapp.helpers.visible
 import app.unduit.a2achatapp.listeners.AdapterListener
 import app.unduit.a2achatapp.models.BathBedType
 import app.unduit.a2achatapp.models.PropertyData
+import java.util.Calendar
 
 
 class PostPropertyStep3Fragment : Fragment() {
@@ -35,7 +39,8 @@ class PostPropertyStep3Fragment : Fragment() {
     var isEdit = false
 
     var occupancyStr = "Vacant"
-    var furnishingStr = "Unfurnished"
+
+    var isRentedSelected = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -81,13 +86,9 @@ class PostPropertyStep3Fragment : Fragment() {
 
     private fun spinnerManager() {
         occupancySpinner()
-        finishingSpinner()
-
     }
 
     private fun occupancySpinner() {
-
-
         val adapter = CustomSpinnerAdapter(requireContext(), SpinnersHelper.occupancyList())
 
         binding.spinnerOccupancy.adapter = adapter
@@ -101,30 +102,15 @@ class PostPropertyStep3Fragment : Fragment() {
                 ) {
                     val selectedItem = SpinnersHelper.occupancyList()[position]
                     occupancyStr = selectedItem
-                }
-
-                override fun onNothingSelected(parent: AdapterView<*>?) {
-                    // This method is called when nothing is selected, if needed
-                }
-            }
-    }
-
-    private fun finishingSpinner() {
-
-
-        val adapter = CustomSpinnerAdapter(requireContext(), SpinnersHelper.finishingList())
-
-        binding.spinnerFinishing.adapter = adapter
-        binding.spinnerFinishing.onItemSelectedListener =
-            object : AdapterView.OnItemSelectedListener {
-                override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long
-                ) {
-                    val selectedItem = SpinnersHelper.finishingList()[position]
-                    furnishingStr = selectedItem
+                    isRentedSelected = if(occupancyStr.equals("Rented", true)) {
+                        binding.groupPrice.gone()
+                        binding.groupRent.visible()
+                        true
+                    } else {
+                        binding.groupPrice.visible()
+                        binding.groupRent.gone()
+                        false
+                    }
                 }
 
                 override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -137,12 +123,10 @@ class PostPropertyStep3Fragment : Fragment() {
 
         binding.cbMaidYes.setOnCheckedChangeListener { _, b ->
             binding.cbMaidNo.isChecked = !b
-
         }
 
         binding.cbMaidNo.setOnCheckedChangeListener { _, b ->
             binding.cbMaidYes.isChecked = !b
-
         }
 
 
@@ -152,19 +136,38 @@ class PostPropertyStep3Fragment : Fragment() {
 
         binding.cbBalconyYes.setOnCheckedChangeListener { _, b ->
             binding.cbBalconyNo.isChecked = !b
-
         }
 
         binding.cbBalconyNo.setOnCheckedChangeListener { _, b ->
             binding.cbBalconyYes.isChecked = !b
-
         }
 
 
     }
 
+    private fun openCalender() {
+        val c = Calendar.getInstance()
+        val year = c.get(Calendar.YEAR)
+        val month = c.get(Calendar.MONTH)
+        val day = c.get(Calendar.DAY_OF_MONTH)
+
+        val dpd = DatePickerDialog(requireContext(), { view, year, monthOfYear, dayOfMonth ->
+
+            // Display Selected date in textbox
+            binding.rentedTill.setText("$dayOfMonth/$monthOfYear/$year")
+
+        }, year, month, day)
+
+        dpd.show()
+    }
+
     private fun setData() {
         binding.area.setText(propertyData.area_size)
+        binding.op.setText(propertyData.op)
+        binding.sp.setText(propertyData.sp)
+        binding.roi.setText(propertyData.roi)
+        binding.rentedFor.setText(propertyData.rented_for)
+        binding.rentedTill.setText(propertyData.rented_till)
 
         if(propertyData.maidroom) {
             binding.cbMaidNo.isChecked = false
@@ -185,19 +188,29 @@ class PostPropertyStep3Fragment : Fragment() {
         SpinnersHelper.occupancyList().forEachIndexed { index, item ->
             if(item.equals(propertyData.occupancy, true)) {
                 binding.spinnerOccupancy.setSelection(index)
-            }
-        }
 
-        SpinnersHelper.finishingList().forEachIndexed { index, item ->
-            if(item.equals(propertyData.furnishing, true)) {
-                binding.spinnerFinishing.setSelection(index)
+                isRentedSelected = if(item.equals("Rented", true)) {
+                    binding.groupPrice.gone()
+                    binding.groupRent.visible()
+                    true
+                } else {
+                    binding.groupPrice.visible()
+                    binding.groupRent.gone()
+                    false
+                }
             }
         }
     }
 
     private fun verifyData(){
         val area = binding.area.text.toString()
-        if(area.isEmpty()) {
+        val spStr = binding.sp.text.toString()
+        val rentedForStr = binding.rentedFor.text.toString()
+        if(spStr.isEmpty() && !isRentedSelected) {
+            requireContext().showToast("Please enter a value for SP")
+        } else if(rentedForStr.isEmpty() && isRentedSelected){
+            requireContext().showToast("Please enter a value for Rented For")
+        } else if(area.isEmpty()) {
             requireContext().showToast("Please enter Area Size")
         } else {
 
@@ -205,7 +218,14 @@ class PostPropertyStep3Fragment : Fragment() {
             propertyData.maidroom = binding.cbMaidYes.isChecked
             propertyData.balcony = binding.cbBalconyYes.isChecked
             propertyData.occupancy = occupancyStr
-            propertyData.furnishing = furnishingStr
+            if(isRentedSelected) {
+                propertyData.rented_for = binding.rentedFor.text.toString()
+                propertyData.rented_till = binding.rentedTill.text.toString()
+            } else {
+                propertyData.op = binding.op.text.toString()
+                propertyData.sp = binding.sp.text.toString()
+            }
+            propertyData.roi = binding.roi.text.toString()
 
             findNavController().navigate(PostPropertyStep3FragmentDirections.actionPostPropertyStep3FragmentToPostPropertyStep4Fragment(propertyData, isEdit))
         }
@@ -219,6 +239,10 @@ class PostPropertyStep3Fragment : Fragment() {
 
         binding.backIcon.setOnClickListener {
             requireActivity().onBackPressedDispatcher.onBackPressed()
+        }
+
+        binding.rentedTill.setOnClickListener {
+            openCalender()
         }
     }
 

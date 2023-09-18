@@ -9,6 +9,11 @@ class PropertyData(
 
     var uid: String = "",
     var user_id: String? = "",
+    var user_name: String? = "",
+    var user_picture: String? = "",
+    var user_company: String? = "",
+    var user_experience: String? = "",
+    var user_specialty: List<String>? = null,
     var name: String = "",
     var image: Int = 0,
     var selected: Boolean = false,
@@ -37,11 +42,14 @@ class PropertyData(
     var handover_year: String = "",
     var op: String = "",
     var sp: String = "",
+    var rented_for: String = "",
+    var rented_till: String = "",
     var roi: String = "",
     var negotiation: String = "",
     var property_title: String = "",
+    var property_description: String = "",
     var property_images: List<String>? = null,
-    var property_status :String=""
-//    var created_date : String=""
+    var property_status :String="",
+    var created_date : String=""
 
 ): Parcelable

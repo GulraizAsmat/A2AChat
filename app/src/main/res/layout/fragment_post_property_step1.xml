@@ -484,10 +484,9 @@
             android:layout_width="0dp"
             android:layout_height="@dimen/_40sdp"
             android:layout_marginTop="@dimen/_15sdp"
-            android:background="@drawable/bg_btn_login_disabled"
+            android:background="@drawable/bg_btn_purple_border"
             android:paddingHorizontal="@dimen/_10sdp"
             android:fontFamily="@font/poppins_regular"
-
             android:paddingVertical="@dimen/_10sdp"
             android:text="Please Select Property Type"
             android:gravity="center_horizontal"

@@ -48,6 +48,8 @@ class PostPropertyStep1Fragment : Fragment(), View.OnClickListener, AdapterListe
     var purpose_type: String = "Residential"
     var property_type: String = "House"
 
+    private lateinit var propertyTypeDialog: BottomSheetDialog
+
 
     private val propertyTypeAdapter by lazy {
         PropertyTypeItemAdapter(
@@ -273,7 +275,7 @@ class PostPropertyStep1Fragment : Fragment(), View.OnClickListener, AdapterListe
         )
         propertyItemList.add(
             PropertyType(
-                name = "labour Camp",
+                name = "Labour Camp",
                 image = R.drawable.ic_labour_camp,
                 selected = false
             )
@@ -316,14 +318,23 @@ class PostPropertyStep1Fragment : Fragment(), View.OnClickListener, AdapterListe
                         previousPosition = index
                     }
                     property_type = propertyItemList[previousPosition].name
+
+                    binding.selectedPropertyType.text = property_type
+                    binding.selectedPropertyType.setBackgroundResource(R.drawable.bg_btn_purple)
+                    binding.selectedPropertyType.setTextColor(
+                        ContextCompat.getColor(
+                            requireContext(),
+                            R.color.color_white_shade_1
+                        )
+                    )
                 }
             }
         }
     }
 
-    fun bottomSheet() {
+    private fun bottomSheet() {
 
-        val dialog = BottomSheetDialog(requireContext(), R.style.BottomSheetDialogStyle)
+        propertyTypeDialog = BottomSheetDialog(requireContext(), R.style.BottomSheetDialogStyle)
         val view = layoutInflater.inflate(R.layout.item_bottomsheet_add_property_step1, null)
 
         val rvPropertyType = view.findViewById<RecyclerView>(R.id.rv_property_type)
@@ -336,8 +347,8 @@ class PostPropertyStep1Fragment : Fragment(), View.OnClickListener, AdapterListe
 
         rvPropertyType.adapter = propertyTypeAdapter
         propertyTypeAdapter.notifyDataSetChanged()
-        dialog.setContentView(view)
-        dialog.show()
+        propertyTypeDialog.setContentView(view)
+        propertyTypeDialog.show()
     }
 
     override fun onClick(v: View?) {
@@ -413,7 +424,7 @@ class PostPropertyStep1Fragment : Fragment(), View.OnClickListener, AdapterListe
 
                 property_type = propertyItemList[previousPosition].name
                 binding.selectedPropertyType.text = property_type
-                binding.selectedPropertyType.setBackgroundResource(R.drawable.bg_btn_login)
+                binding.selectedPropertyType.setBackgroundResource(R.drawable.bg_btn_purple)
                 binding.selectedPropertyType.setTextColor(
                     ContextCompat.getColor(
                         requireContext(),
@@ -421,6 +432,8 @@ class PostPropertyStep1Fragment : Fragment(), View.OnClickListener, AdapterListe
                     )
                 )
                 propertyTypeAdapter.notifyDataSetChanged()
+
+                propertyTypeDialog.dismiss()
 
             }
         }

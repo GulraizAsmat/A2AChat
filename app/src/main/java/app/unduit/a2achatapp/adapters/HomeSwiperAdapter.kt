@@ -36,7 +36,8 @@ class HomeSwiperAdapter(
         val propertyItem = homeSwipeList[position]
 
         holder.binding.propertyType.text = propertyItem.property_type
-        holder.binding.propertyPrice.text = "${propertyItem.price} AED"
+        val price = if(propertyItem.sp.isNotEmpty()) propertyItem.sp + " AED" else propertyItem.rented_for + " AED/month"
+        holder.binding.propertyPrice.text = price
         holder.binding.itemLocation.text = propertyItem.area_community
         holder.binding.bedrooms.text = propertyItem.bedrooms
         holder.binding.bathroom.text = propertyItem.bathrooms
