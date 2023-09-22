@@ -370,7 +370,7 @@ class HomeFragment : Fragment(), View.OnClickListener, CardStackListener, Adapte
 
         currentUser?.let { cUser ->
             val db = Firebase.firestore
-            val ref = db.collection("properties").whereNotEqualTo("user_id", cUser.uid)
+            val ref = db.collection("properties").whereNotEqualTo("user_id", cUser.uid).whereEqualTo("post_type", "property")
 
             ref.get()
                 .addOnSuccessListener { documents ->
@@ -490,17 +490,15 @@ class HomeFragment : Fragment(), View.OnClickListener, CardStackListener, Adapte
             }
 
             R.id.property_list -> {
-
-                Toast.makeText(requireContext(),"Under Development",Toast.LENGTH_LONG).show()
-//                Const.screenName="property_list"
-//                findNavController().navigate(R.id.action_homeFragment_to_propertyListFragment)
+//                Toast.makeText(requireContext(),"Under Development",Toast.LENGTH_LONG).show()
+                Const.screenName = "property_list"
+                findNavController().navigate(R.id.action_homeFragment_to_propertyListFragment)
             }
 
             R.id.add_property -> {
                 Const.screenName="add_property"
 //                findNavController().navigate(R.id.action_homeFragment_to_propertyBottomSheetFragment)
                 bottomSheet()
-
             }
 
             R.id.chat -> {

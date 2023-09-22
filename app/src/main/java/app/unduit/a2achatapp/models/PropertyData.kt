@@ -60,6 +60,7 @@ class PropertyData(
     var user_phone : String="",
     var sender_experience : String="",
     var sender_speciality : String="",
-    var sender_company : String=""
+    var sender_company : String="",
+    var post_type : String = "",
 
 ): Parcelable

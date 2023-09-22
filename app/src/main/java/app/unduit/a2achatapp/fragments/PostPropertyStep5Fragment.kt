@@ -269,6 +269,7 @@ class PostPropertyStep5Fragment : Fragment() {
         propertyData.furnishing = furnishingStr
         propertyData.created_date = System.currentTimeMillis().toString()
         propertyData.uid = id
+        propertyData.post_type = "property"
 
         val auth = Firebase.auth
         val currentUser = auth.currentUser

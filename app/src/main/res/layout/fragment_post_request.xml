@@ -6,7 +6,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PostRequestFragment">
+    tools:context=".fragments.PostRequestFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout8"
@@ -79,43 +79,28 @@
             android:paddingTop="@dimen/_3sdp"
             android:textColor="@color/color_black_shade_1"
             android:textSize="@dimen/_12sdp"
-
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout11"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_250sdp"
-            android:layout_marginTop="@dimen/_20sdp"
-            android:background="@drawable/bg_text_view_signup"
-            app:layout_constraintTop_toBottomOf="@+id/title">
-
             <EditText
                 android:id="@+id/description"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_10sdp"
-                android:background="@color/color_white_shade_1"
-                android:ellipsize="end"
+                android:layout_height="@dimen/_250sdp"
+                android:background="@drawable/bg_text_view_signup"
+                android:padding="@dimen/_10sdp"
                 android:fontFamily="@font/poppins_regular"
-                android:hint="Add description,max 500 unique characters"
-                android:maxLength="400"
-                android:textColorHint="@color/color_gray_shade_1"
-                android:padding="@dimen/_5sdp"
+                android:hint="Add a description (max 500 unique characters)"
+                android:maxLength="500"
                 android:paddingTop="@dimen/_3sdp"
+                android:layout_marginTop="@dimen/_20sdp"
                 android:text=""
+                android:textColorHint="@color/color_gray_shade_1"
+                android:gravity="start"
+                android:scrollbars="vertical"
                 android:textColor="@color/color_black_shade_1"
                 android:textSize="@dimen/_12sdp"
-
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                app:layout_constraintTop_toBottomOf="@+id/title" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/next_btn"
@@ -131,7 +116,7 @@
             android:textColor="@color/color_white_shade_1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/constraintLayout11"
+            app:layout_constraintTop_toBottomOf="@+id/description"
             tools:ignore="MissingConstraints" />
 
 

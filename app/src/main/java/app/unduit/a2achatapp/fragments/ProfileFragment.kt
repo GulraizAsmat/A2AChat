@@ -10,12 +10,18 @@ import androidx.navigation.fragment.findNavController
 import app.unduit.a2achatapp.R
 import app.unduit.a2achatapp.databinding.FragmentProfileBinding
 import app.unduit.a2achatapp.helpers.Const
+import app.unduit.a2achatapp.helpers.ProgressDialog
+import app.unduit.a2achatapp.helpers.showToast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 
 class ProfileFragment : Fragment(), View.OnClickListener {
 
     private lateinit var binding: FragmentProfileBinding
+
+    private val progressDialog by lazy {
+        ProgressDialog(requireContext())
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -84,18 +90,21 @@ class ProfileFragment : Fragment(), View.OnClickListener {
                 verificationRequestDialog()
             }
 
-            R.id.logout->{
+            R.id.logout -> {
+                progressDialog.progressBarVisibility(true)
                  val auth = FirebaseAuth.getInstance()
                 auth.signOut()
 
                 val user: FirebaseUser? = auth.currentUser
                 if (user == null) {
-
+                    progressDialog.progressBarVisibility(false)
                     findNavController().navigate(R.id.action_profileFragment_to_loginFragment)
                 } else {
                     // The user is still authenticated
                     // This could happen in case of a network error or other issues
                     // Handle accordingly
+                    progressDialog.progressBarVisibility(false)
+                    requireContext().showToast("An error occurred. Please try again later!")
                 }
 
 
