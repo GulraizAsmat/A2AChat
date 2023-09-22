@@ -1,5 +1,6 @@
 package app.unduit.a2achatapp.helpers
 
+import org.ocpsoft.prettytime.PrettyTime
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -22,5 +23,15 @@ object DateHelper {
         } catch (e: Exception) {
             ""
         }
+    }
+
+    fun convertTimestampToTimeAgo(timestampInMillis: Long): String {
+        val prettyTime = PrettyTime()
+
+        // Convert milliseconds to Date object
+        val date = Date(timestampInMillis)
+
+        // Get the time-ago string
+        return prettyTime.format(date)
     }
 }

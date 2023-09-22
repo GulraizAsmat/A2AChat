@@ -50,6 +50,16 @@ class PropertyData(
     var property_description: String = "",
     var property_images: List<String>? = null,
     var property_status :String="",
-    var created_date : String=""
+    var created_date : String="",
+    var sender_id : String="",
+    var sender_name : String="",
+    var sender_image : String="",
+    var sender_phone : String="",
+    var sender_whatsapp : String="",
+    var user_whatsapp : String="",
+    var user_phone : String="",
+    var sender_experience : String="",
+    var sender_speciality : String="",
+    var sender_company : String=""
 
 ): Parcelable

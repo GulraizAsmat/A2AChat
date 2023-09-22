@@ -4,6 +4,10 @@
     package="app.unduit.a2achatapp">
 
     <permission android:name="Manifest.permission.READ_EXTERNAL_STORAGE" />
+    <uses-feature
+        android:name="android.hardware.telephony"
+        android:required="false" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
 

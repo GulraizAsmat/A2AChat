@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import app.unduit.a2achatapp.R
 import app.unduit.a2achatapp.databinding.ItemCardSwipeBinding
+import app.unduit.a2achatapp.helpers.DateHelper
 
 import app.unduit.a2achatapp.listeners.AdapterListener
 import app.unduit.a2achatapp.models.PropertyData
@@ -38,14 +39,21 @@ class HomeSwiperAdapter(
         holder.binding.propertyType.text = propertyItem.property_type
         val price = if(propertyItem.sp.isNotEmpty()) propertyItem.sp + " AED" else propertyItem.rented_for + " AED/month"
         holder.binding.propertyPrice.text = price
+        holder.binding.userName.text = propertyItem.user_name
         holder.binding.itemLocation.text = propertyItem.area_community
         holder.binding.bedrooms.text = propertyItem.bedrooms
         holder.binding.bathroom.text = propertyItem.bathrooms
+        holder.binding.propertyTime.text = DateHelper.convertTimestampToTimeAgo(propertyItem.created_date.toLong())
+
         holder.binding.sqFeet.text = "${propertyItem.area_size}sqft"
 
         if(propertyItem.property_images?.isNotEmpty() == true) {
             Glide.with(holder.binding.itemImage).load(propertyItem.property_images?.get(0)).into(holder.binding.itemImage)
         }
+
+
+            Glide.with(holder.binding.userImage).load(propertyItem.user_picture).error(R.drawable.ic_profile_pic_placeholder).into(holder.binding.userImage)
+
 
         // Set a click listener on the root view if needed
         holder.binding.viewDetail.setOnClickListener {
