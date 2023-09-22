@@ -111,7 +111,7 @@
         android:id="@+id/cl_search"
         android:layout_width="0dp"
         android:layout_height="@dimen/_30sdp"
-
+        android:visibility="gone"
         android:layout_marginTop="@dimen/_20sdp"
         android:background="@drawable/ic_round_corner_search_bar"
         app:layout_constraintEnd_toStartOf="@+id/end_guideline"
@@ -166,7 +166,7 @@
             android:id="@+id/card_stack_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
+        android:layout_marginTop="@dimen/_10sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

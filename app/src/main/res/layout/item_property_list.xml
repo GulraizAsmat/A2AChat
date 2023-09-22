@@ -14,7 +14,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="430dp"
+        android:layout_height="420dp"
         android:layout_margin="@dimen/_10sdp"
         app:cardBackgroundColor="@color/color_white_shade_1"
         app:cardCornerRadius="@dimen/_10sdp"
@@ -41,6 +41,20 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/btn_fav"
+                android:layout_width="@dimen/_28sdp"
+                android:layout_height="@dimen/_28sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:visibility="gone"
+                android:background="@drawable/bg_back_purple"
+                android:paddingTop="7dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/aa_ic_selected_favourite_icon" />
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -104,6 +118,8 @@
                     android:textColor="@color/color_black_shade_1"
                     android:textSize="@dimen/_8sdp"
                     android:visibility="visible"
+                    android:ellipsize="end"
+                    android:maxLines="1"
                     app:layout_constraintBottom_toBottomOf="@+id/item_location_icon"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/item_location_icon"
@@ -194,8 +210,8 @@
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/user_image"
-                    android:layout_width="@dimen/_25sdp"
-                    android:layout_height="@dimen/_25sdp"
+                    android:layout_width="@dimen/_32sdp"
+                    android:layout_height="@dimen/_32sdp"
                 android:layout_marginTop="@dimen/_7sdp"
                     android:src="@drawable/ic_profile_pic_placeholder"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -214,16 +230,21 @@
                     app:layout_constraintBottom_toBottomOf="@+id/property_type"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/property_type" />
+
                 <TextView
                     android:id="@+id/user_name"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginStart="@dimen/_7sdp"
                     android:fontFamily="@font/poppins_regular"
-                    android:textColor="@color/color_gray_shade_1"
                     android:text="Abu Hashim"
-                    android:textSize="@dimen/_11sdp"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:textColor="@color/color_gray_shade_1"
+                    android:textSize="@dimen/_12sdp"
                     app:layout_constraintBottom_toBottomOf="@+id/user_image"
+                    app:layout_constraintEnd_toStartOf="@+id/cl_contact"
                     app:layout_constraintStart_toEndOf="@id/user_image"
                     app:layout_constraintTop_toTopOf="@+id/user_image" />
 
@@ -413,7 +434,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.98" />
+                app:layout_constraintGuide_begin="421dp" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

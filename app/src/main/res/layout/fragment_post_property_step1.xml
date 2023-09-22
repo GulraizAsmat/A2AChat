@@ -481,18 +481,17 @@
 
         <TextView
             android:id="@+id/selected_property_type"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/_40sdp"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_30sdp"
             android:layout_marginTop="@dimen/_15sdp"
-            android:background="@drawable/bg_btn_purple_border"
-            android:paddingHorizontal="@dimen/_10sdp"
+            android:background="@drawable/bg_btn_login_disabled"
             android:fontFamily="@font/poppins_regular"
-            android:paddingVertical="@dimen/_10sdp"
-            android:text="Please Select Property Type"
             android:gravity="center_horizontal"
+            android:paddingHorizontal="@dimen/_10sdp"
+            android:paddingVertical="@dimen/_7sdp"
+            android:text="Please Select Property Type +"
             android:textColor="@color/color_black_shade_1"
-            android:textSize="@dimen/_12sdp"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:textSize="@dimen/_10sdp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/purpose_item_title" />
 

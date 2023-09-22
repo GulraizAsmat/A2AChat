@@ -1,5 +1,6 @@
 package app.unduit.a2achatapp.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -16,6 +17,7 @@ import app.unduit.a2achatapp.R
 import app.unduit.a2achatapp.adapters.HomeSwiperAdapter
 import app.unduit.a2achatapp.databinding.FragmentHomeBinding
 import app.unduit.a2achatapp.helpers.Const
+import app.unduit.a2achatapp.helpers.Const.userId
 import app.unduit.a2achatapp.helpers.ProgressDialog
 import app.unduit.a2achatapp.helpers.showToast
 
@@ -43,7 +45,14 @@ class HomeFragment : Fragment(), View.OnClickListener, CardStackListener, Adapte
 
     private lateinit var auth: FirebaseAuth
     var cardPos=0
+    var userName=""
+    var userImage=""
+    var userWhatsapp=""
+    var userExperience=""
+    var userSpeciality=""
+    var userPhone=""
 
+    var userCompany=""
     private lateinit var binding: FragmentHomeBinding
     var propertylist = ArrayList<PropertyData>()
 
@@ -88,6 +97,7 @@ class HomeFragment : Fragment(), View.OnClickListener, CardStackListener, Adapte
 
     override fun onResume() {
         super.onResume()
+        Const.PropertyType=""
         sliderManager()
 //        homeDummyData()
     }
@@ -100,15 +110,6 @@ class HomeFragment : Fragment(), View.OnClickListener, CardStackListener, Adapte
         listeners()
         sliderManager()
 //        homeDummyData()
-    }
-
-    fun homeDummyData(){
-        propertylist.add(PropertyData(image = R.drawable.image2, bhk = "5 BHK" , price = "AED 300 / per month" , sqft = "900 sqft" ,location="Building no# 78 Street 3 near safa park , Dubai"))
-        propertylist.add(PropertyData(image = R.drawable.image3, bhk = "3 BHK" , price = "AED 200 / per month" , sqft = "750 sqft" ,location="Building no# 18 Street 51 near Al Madam  , Dubai"))
-        propertylist.add(PropertyData(image = R.drawable.image, bhk = "2 BHK" , price = "AED 150 / per month" , sqft = "600 sqft" ,location="Building no# 41 Street 8 near Margham , Dubai"))
-        propertylist.add(PropertyData(image = R.drawable.image2, bhk = "5 BHK" , price = "AED 300 / per month" , sqft = "900 sqft" ,location="Building no# 78 Street 3 near safa park , Dubai"))
-            homeSliderAdapter.notifyDataSetChanged()
-
     }
 
     private fun listeners() {
@@ -141,49 +142,6 @@ class HomeFragment : Fragment(), View.OnClickListener, CardStackListener, Adapte
     }
 
 
-    override fun onClick(v: View?) {
-        when (v!!.id) {
-
-            R.id.favourite_icon -> {
-                Const.screenName="favourite_icon"
-                findNavController().navigate(R.id.action_homeFragment_to_favouriteFragment)
-
-            }
-
-            R.id.notification_icon -> {
-                Const.screenName="notification_icon"
-                findNavController().navigate(R.id.action_homeFragment_to_notificationFragment)
-            }
-
-            R.id.profile_image -> {
-                Const.screenName="profile_image"
-                findNavController().navigate(R.id.action_homeFragment_to_profileFragment)
-            }
-
-            R.id.property_list -> {
-
-                Toast.makeText(requireContext(),"Under Development",Toast.LENGTH_LONG).show()
-//                Const.screenName="property_list"
-//                findNavController().navigate(R.id.action_homeFragment_to_propertyListFragment)
-            }
-
-            R.id.add_property -> {
-                Const.screenName="add_property"
-//                findNavController().navigate(R.id.action_homeFragment_to_propertyBottomSheetFragment)
-                bottomSheet()
-
-            }
-
-            R.id.chat -> {
-                Toast.makeText(requireContext(),"Under Development",Toast.LENGTH_LONG).show()
-//                Const.screenName="chat"
-//                findNavController().navigate(R.id.action_homeFragment_to_chatFragment)
-            }
-
-
-
-        }
-    }
 
     fun bottomSheet(){
 
@@ -223,16 +181,18 @@ class HomeFragment : Fragment(), View.OnClickListener, CardStackListener, Adapte
 
 
         if (currentUser != null) {
+            Log.e("Tag21345","Created Sender user  "+ currentUser.uid)
             val currentTimeMillis = System.currentTimeMillis()
             var path ="requests/${currentUser.uid}/sender/${currentTimeMillis.toString()}"
-            val collectionReference = db.collection("requests").document(currentUser.uid).collection("posts").document(currentTimeMillis.toString())
+            val collectionReference = db.collection("requests").document(currentUser.uid).collection("send").document(propertylist[cardPos].uid)
             propertylist[cardPos].property_status="sender"
+            propertylist[cardPos].created_date=currentTimeMillis.toString()
             collectionReference.set(propertylist[cardPos])
                 .addOnSuccessListener { documentReference ->
                     // Data added successfully
                     // You can get the document ID using documentReference.id
                     Log.e("Tafg213","Uplaod")
-                    moveToReceiverData(currentTimeMillis.toString())
+                    moveToReceiverData(propertylist[cardPos].uid)
 
                     // Handle success here
                 }
@@ -246,6 +206,7 @@ class HomeFragment : Fragment(), View.OnClickListener, CardStackListener, Adapte
 
     }
 
+    @SuppressLint("SuspiciousIndentation")
     private fun moveToReceiverData(postId:String){
         val db = FirebaseFirestore.getInstance()
 
@@ -253,12 +214,23 @@ class HomeFragment : Fragment(), View.OnClickListener, CardStackListener, Adapte
         val currentUser = auth.currentUser
 
 
-
+            Log.e("Tag21345","Created Property user  "+ propertylist[cardPos].user_id.toString())
         if (currentUser != null) {
             val currentTimeMillis = System.currentTimeMillis()
             var path ="requests/${currentUser.uid}/sender/${currentTimeMillis.toString()}"
-            val collectionReference = db.collection("requests").document(propertylist[cardPos].user_id.toString()).collection("posts").document(postId)
-            propertylist[cardPos].property_status="receiver"
+            val collectionReference = db.collection("requests").document(propertylist[cardPos].user_id.toString()).collection("receive").document(postId)
+            propertylist[cardPos].property_status="receive"
+
+            propertylist[cardPos].sender_name=userName
+            propertylist[cardPos].sender_id=currentUser.uid
+            propertylist[cardPos].sender_image=userImage
+            propertylist[cardPos].sender_phone=userPhone
+            propertylist[cardPos].sender_whatsapp=userWhatsapp
+            propertylist[cardPos].sender_experience=userExperience
+            propertylist[cardPos].sender_speciality=userSpeciality
+            propertylist[cardPos].sender_company=userCompany
+
+
             collectionReference.set(propertylist[cardPos])
                 .addOnSuccessListener { documentReference ->
                     // Data added successfully
@@ -350,10 +322,25 @@ class HomeFragment : Fragment(), View.OnClickListener, CardStackListener, Adapte
         currentUser?.let { cUser ->
             val db = Firebase.firestore
             val ref = db.collection("users").document(cUser.uid)
-
+            userId=cUser.uid
             ref.get().addOnSuccessListener { snapshot ->
                 snapshot?.let {
                     val data = it.data
+
+                 userName= (data?.get("name") as String?).toString()
+                 userImage= (data?.get("profile_image") as String?).toString()
+                    userPhone= (data?.get("phone") as String?).toString()
+                    userWhatsapp= (data?.get("whatsapp") as String?).toString()
+                    try{
+                        userSpeciality= (data?.get("speciality") as String?).toString()
+                        userExperience= (data?.get("experience") as String?).toString()
+                    }
+                    catch (ex:Exception){
+
+                    }
+
+                    userCompany= (data?.get("company") as String?).toString()
+
 
 
                     try {
@@ -392,7 +379,9 @@ class HomeFragment : Fragment(), View.OnClickListener, CardStackListener, Adapte
 
                         propertylist.add(document.toObject(PropertyData::class.java))
                     }
-
+                    val list =propertylist.sortedByDescending { it.created_date }
+                    propertylist.clear()
+                    propertylist.addAll(list)
                     homeSliderAdapter.notifyDataSetChanged()
                     Log.d(TAG, "propertylist size => ${propertylist.size}")
                     progressDialog.progressBarVisibility(false)
@@ -424,8 +413,12 @@ class HomeFragment : Fragment(), View.OnClickListener, CardStackListener, Adapte
                         propertylist.add(document.toObject(PropertyData::class.java))
                     }
 
+                    val list=propertylist.filter { it.user_id!=cUser.uid }
+                    propertylist.clear()
+                    propertylist.addAll(list)
+
                     homeSliderAdapter.notifyDataSetChanged()
-                    Log.d(TAG, "propertylist size => ${propertylist.size}")
+
                     progressDialog.progressBarVisibility(false)
                 }
                 .addOnFailureListener { exception ->
@@ -441,7 +434,7 @@ class HomeFragment : Fragment(), View.OnClickListener, CardStackListener, Adapte
 
 
            if( database.exceptDataDao().getRowCount()!=0){
-               var data = database.exceptDataDao().getAllEntities()
+               val data = database.exceptDataDao().getAllEntities()
 
                val stringList =ArrayList<String>()
 
@@ -477,4 +470,47 @@ class HomeFragment : Fragment(), View.OnClickListener, CardStackListener, Adapte
     }
 
 
+    override fun onClick(v: View?) {
+        when (v!!.id) {
+
+            R.id.favourite_icon -> {
+                Const.screenName="favourite_icon"
+                findNavController().navigate(R.id.action_homeFragment_to_favouriteFragment)
+
+            }
+
+            R.id.notification_icon -> {
+                Const.screenName="notification_icon"
+                findNavController().navigate(R.id.action_homeFragment_to_notificationFragment)
+            }
+
+            R.id.profile_image -> {
+                Const.screenName="profile_image"
+                findNavController().navigate(R.id.action_homeFragment_to_profileFragment)
+            }
+
+            R.id.property_list -> {
+
+                Toast.makeText(requireContext(),"Under Development",Toast.LENGTH_LONG).show()
+//                Const.screenName="property_list"
+//                findNavController().navigate(R.id.action_homeFragment_to_propertyListFragment)
+            }
+
+            R.id.add_property -> {
+                Const.screenName="add_property"
+//                findNavController().navigate(R.id.action_homeFragment_to_propertyBottomSheetFragment)
+                bottomSheet()
+
+            }
+
+            R.id.chat -> {
+                Toast.makeText(requireContext(),"Under Development",Toast.LENGTH_LONG).show()
+//                Const.screenName="chat"
+//                findNavController().navigate(R.id.action_homeFragment_to_chatFragment)
+            }
+
+
+
+        }
+    }
 }

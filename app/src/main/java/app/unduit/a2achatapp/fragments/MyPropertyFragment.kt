@@ -103,6 +103,11 @@ class MyPropertyFragment : Fragment(), AdapterListener {
                         propertylist.add(document.toObject(PropertyData::class.java))
                     }
 
+
+                    val list =propertylist.sortedByDescending { it.created_date }
+                    propertylist.clear()
+                    propertylist.addAll(list)
+
                     propertyListAdapter.notifyDataSetChanged()
                     Log.d(TAG, "propertylist size => ${propertylist.size}")
                     progressDialog.progressBarVisibility(false)

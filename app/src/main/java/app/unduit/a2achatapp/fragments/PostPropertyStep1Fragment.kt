@@ -17,8 +17,8 @@ import androidx.recyclerview.widget.RecyclerView
 import app.unduit.a2achatapp.R
 import app.unduit.a2achatapp.adapters.HomeSwiperAdapter
 import app.unduit.a2achatapp.adapters.PropertyTypeItemAdapter
-import app.unduit.a2achatapp.databinding.FragmentHomeBinding
 import app.unduit.a2achatapp.databinding.FragmentPostPropertyStep1Binding
+
 import app.unduit.a2achatapp.helpers.Const
 import app.unduit.a2achatapp.listeners.AdapterListener
 import app.unduit.a2achatapp.models.PropertyData
@@ -86,8 +86,18 @@ class PostPropertyStep1Fragment : Fragment(), View.OnClickListener, AdapterListe
 
     fun init() {
 
-        isEdit = args.propertyData != null
-        propertyData = args.propertyData ?: PropertyData()
+
+        try {
+            isEdit = args.propertyData != null
+
+                propertyData = args.propertyData ?: PropertyData()
+
+
+        }
+        catch (ex:Exception){
+
+        }
+
 
         recyclerViewManager()
         showResidentProperty()
@@ -424,7 +434,7 @@ class PostPropertyStep1Fragment : Fragment(), View.OnClickListener, AdapterListe
 
                 property_type = propertyItemList[previousPosition].name
                 binding.selectedPropertyType.text = property_type
-                binding.selectedPropertyType.setBackgroundResource(R.drawable.bg_btn_purple)
+                binding.selectedPropertyType.setBackgroundResource(R.drawable.bg_btn_login)
                 binding.selectedPropertyType.setTextColor(
                     ContextCompat.getColor(
                         requireContext(),

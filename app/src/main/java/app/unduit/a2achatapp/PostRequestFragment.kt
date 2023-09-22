@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import app.unduit.a2achatapp.databinding.FragmentPostPropertyStep4Binding
 import app.unduit.a2achatapp.databinding.FragmentPostRequestBinding
 import app.unduit.a2achatapp.databinding.FragmentPropertyBottomSheetBinding
@@ -38,6 +39,7 @@ class PostRequestFragment : Fragment(),View.OnClickListener {
     }
     fun listeners(){
         binding.btnBack.setOnClickListener(this)
+        binding.nextBtn.setOnClickListener(this)
 
     }
 
@@ -45,6 +47,9 @@ class PostRequestFragment : Fragment(),View.OnClickListener {
       when(v!!.id){
           R.id.btn_back->{
               requireActivity().onBackPressed()
+          }
+          R.id.next_btn->{
+              Toast.makeText(requireContext(),"Under Development",Toast.LENGTH_LONG).show()
           }
       }
     }

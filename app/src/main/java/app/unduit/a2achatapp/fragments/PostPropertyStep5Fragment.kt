@@ -285,6 +285,8 @@ class PostPropertyStep5Fragment : Fragment() {
                     propertyData.user_company = data?.company
                     propertyData.user_experience = data?.experience
                     propertyData.user_specialty = data?.speciality
+                    propertyData.user_phone = data?.phone.toString()
+                    propertyData.user_whatsapp = data?.whatsapp.toString()
 
                     db.collection("properties")
                         .document(id)
