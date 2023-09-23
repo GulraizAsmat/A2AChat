@@ -42,7 +42,7 @@
             android:fontFamily="@font/poppins_semibold"
             android:gravity="center_horizontal"
             android:text="House"
-            android:textColor="@color/white"
+            android:textColor="@color/color_black_shade_1"
             android:textSize="@dimen/_10sdp"
 
             app:layout_constraintBottom_toBottomOf="parent"
