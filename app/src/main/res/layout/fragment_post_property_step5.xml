@@ -362,7 +362,7 @@
                     android:fontFamily="@font/poppins_regular"
                     android:gravity="center_vertical"
                     android:hint="Enter title e.g. beautiful house"
-
+                    android:textColorHint="@color/color_gray_shade_1"
                     android:inputType="text"
                     android:maxLines="1"
                     android:paddingHorizontal="@dimen/_8sdp"

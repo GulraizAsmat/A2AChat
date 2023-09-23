@@ -93,7 +93,7 @@
         <action
             android:id="@+id/action_profileFragment_to_loginFragment"
             app:destination="@id/loginFragment"
-            app:popUpTo="@id/homeFragment"
+            app:popUpTo="@id/navigation"
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_profileFragment_to_myPropertyFragment"
@@ -121,6 +121,18 @@
         <action
             android:id="@+id/action_propertyListFragment_to_propertyDetailFragment"
             app:destination="@id/propertyDetailFragment" />
+        <action
+            android:id="@+id/action_propertyListFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_propertyListFragment_to_chatFragment"
+            app:destination="@id/chatFragment" />
+        <action
+            android:id="@+id/action_propertyListFragment_to_notificationFragment"
+            app:destination="@id/notificationFragment" />
+        <action
+            android:id="@+id/action_propertyListFragment_to_favouriteFragment"
+            app:destination="@id/favouriteFragment" />
     </fragment>
     <fragment
         android:id="@+id/addPropertyFragment"
@@ -335,7 +347,7 @@
     </fragment>
     <fragment
         android:id="@+id/postRequestFragment"
-        android:name="app.unduit.a2achatapp.PostRequestFragment"
+        android:name="app.unduit.a2achatapp.fragments.PostRequestFragment"
         android:label="fragment_post_request"
         tools:layout="@layout/fragment_post_request" />
 </navigation>
