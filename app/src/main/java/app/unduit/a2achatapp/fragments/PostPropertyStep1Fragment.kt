@@ -121,10 +121,21 @@ class PostPropertyStep1Fragment : Fragment(), View.OnClickListener, AdapterListe
 
     private fun recyclerViewManager() {
 
-        binding.rvProperty.layoutManager =
-            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        binding.rvProperty.itemAnimator = DefaultItemAnimator()
+
+        val layoutManager = FlexboxLayoutManager(requireContext())
+        layoutManager.flexWrap =
+            FlexWrap.WRAP  // Items will wrap to the next line if there's not enough space
+        layoutManager.flexDirection = FlexDirection.ROW
+        binding.rvProperty.layoutManager = layoutManager
+
+
         binding.rvProperty.adapter = propertyTypeAdapter
+        propertyTypeAdapter.notifyDataSetChanged()
+
+//        binding.rvProperty.layoutManager =
+//            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+//        binding.rvProperty.itemAnimator = DefaultItemAnimator()
+//        binding.rvProperty.adapter = propertyTypeAdapter
     }
 
     private fun selectForSaleOption() {
@@ -199,7 +210,7 @@ class PostPropertyStep1Fragment : Fragment(), View.OnClickListener, AdapterListe
             PropertyType(
                 name = "Apartment",
                 image = R.drawable.ic_apartment,
-                selected = false
+                selected = true
             )
         )
         propertyItemList.add(
@@ -259,7 +270,7 @@ class PostPropertyStep1Fragment : Fragment(), View.OnClickListener, AdapterListe
             PropertyType(
                 name = "Office",
                 image = R.drawable.ic_office,
-                selected = false
+                selected = true
             )
         )
         propertyItemList.add(
@@ -374,13 +385,13 @@ class PostPropertyStep1Fragment : Fragment(), View.OnClickListener, AdapterListe
             R.id.cl_resident -> {
                 selectResidents()
                 showResidentProperty()
-                bottomSheet()
+//                bottomSheet()
             }
 
             R.id.cl_commercial -> {
                 selectCommercial()
                 showCommercialProperty()
-                bottomSheet()
+//                bottomSheet()
             }
 
             R.id.next_btn -> {
@@ -415,7 +426,7 @@ class PostPropertyStep1Fragment : Fragment(), View.OnClickListener, AdapterListe
             }
 
             R.id.selected_property_type -> {
-                bottomSheet()
+//                bottomSheet()
             }
         }
     }
@@ -443,7 +454,7 @@ class PostPropertyStep1Fragment : Fragment(), View.OnClickListener, AdapterListe
                 )
                 propertyTypeAdapter.notifyDataSetChanged()
 
-                propertyTypeDialog.dismiss()
+//                propertyTypeDialog.dismiss()
 
             }
         }

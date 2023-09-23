@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
 import app.unduit.a2achatapp.R
 
-class CustomSpinnerAdapter(private val context: Context, private val items: List<String>) : BaseAdapter() {
+class CustomSpinnerAdapter (private val context: Context, private val items: List<String>) : BaseAdapter() {
 
     override fun getCount(): Int {
         return items.size

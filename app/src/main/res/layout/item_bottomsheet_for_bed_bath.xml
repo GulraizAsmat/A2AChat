@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/ic_slider_bottom"
+    >
+    <ImageView
+        android:id="@+id/top_bar_icon"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="wrap_content"
+        android:src="@drawable/aa_ic_bottom_sheet_top_bar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="@dimen/_10sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/feature_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Beds &amp; Baths"
+        android:textColor="@color/white"
+        android:fontFamily="@font/poppins_semibold"
+        android:textSize="@dimen/_12sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_margin="@dimen/_10sdp"
+        app:layout_constraintTop_toBottomOf="@+id/top_bar_icon"
+        tools:ignore="MissingConstraints" />
+
+
+    <View
+        android:id="@+id/view3"
+        android:layout_width="match_parent"
+        android:layout_height="0.3dp"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        android:layout_marginVertical="@dimen/_5ssp"
+        android:background="@color/white"
+        app:layout_constraintTop_toBottomOf="@+id/feature_name"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="13dp" />
+
+
+    <ImageView
+        android:id="@+id/bedroom_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_bed_white"
+        android:layout_marginTop="@dimen/_15sdp"
+        app:layout_constraintStart_toStartOf="@+id/view3"
+        app:layout_constraintTop_toBottomOf="@+id/view3"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/bedrooms"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:fontFamily="@font/poppins_regular"
+        android:text="Bedrooms"
+        android:textColor="@color/color_white_shade_1"
+        app:layout_constraintBottom_toBottomOf="@+id/bedroom_icon"
+        app:layout_constraintStart_toEndOf="@+id/bedroom_icon"
+        app:layout_constraintTop_toBottomOf="@+id/view3"
+        tools:ignore="MissingConstraints" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_beds"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_10sdp"
+        android:visibility="visible"
+        app:layout_constraintTop_toBottomOf="@+id/bedrooms"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
+
+
+
+    <ImageView
+        android:id="@+id/bathroom_icon"
+        android:layout_width="@dimen/_18sdp"
+        android:layout_height="@dimen/_18sdp"
+        android:src="@drawable/aa_ic_bathroom_white"
+        android:layout_marginTop="@dimen/_15sdp"
+        app:layout_constraintStart_toStartOf="@+id/view3"
+        app:layout_constraintTop_toBottomOf="@+id/rv_beds"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/bathrooms"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:fontFamily="@font/poppins_regular"
+        android:text="Bathrooms"
+        android:textColor="@color/color_white_shade_1"
+        app:layout_constraintBottom_toBottomOf="@+id/bathroom_icon"
+        app:layout_constraintStart_toEndOf="@+id/bathroom_icon"
+        tools:ignore="MissingConstraints" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_bath"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_10sdp"
+        android:visibility="visible"
+        app:layout_constraintTop_toBottomOf="@+id/bathrooms"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
+    <View
+        android:id="@+id/view4"
+        android:layout_width="match_parent"
+        android:layout_height="0.3dp"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        android:layout_marginVertical="@dimen/_5ssp"
+        android:background="@color/white"
+        app:layout_constraintTop_toBottomOf="@+id/rv_bath"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="13dp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:background="@drawable/ic_orange_btn_bg"
+        android:fontFamily="@font/poppins_regular"
+        android:paddingHorizontal="@dimen/_15sdp"
+        android:paddingTop="4dp"
+        android:layout_marginVertical="@dimen/_12sdp"
+        android:text="Show 102,322 properties"
+        android:textAllCaps="false"
+        android:layout_marginEnd="@dimen/_5ssp"
+        app:layout_constraintBottom_toBottomOf="parent"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view4" />
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

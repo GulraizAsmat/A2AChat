@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/ic_slider_bottom">
+
+    <ImageView
+        android:id="@+id/top_bar_icon"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:src="@drawable/aa_ic_bottom_sheet_top_bar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/feature_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_10sdp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="Price AED"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_12sdp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/top_bar_icon"
+        tools:ignore="MissingConstraints" />
+
+
+    <View
+        android:id="@+id/view3"
+        android:layout_width="match_parent"
+        android:layout_height="0.3dp"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        android:layout_marginVertical="@dimen/_5ssp"
+        android:background="@color/white"
+        app:layout_constraintTop_toBottomOf="@+id/feature_name"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="13dp" />
+
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_min_price"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_35sdp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline7"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:background="@drawable/bg_price"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        app:layout_constraintTop_toBottomOf="@+id/view3"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:id="@+id/min_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="8,000"
+            android:visibility="gone"
+            android:layout_marginHorizontal="@dimen/_11sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:textColor="@color/color_white_shade_1"
+            android:fontFamily="@font/poppins_regular"
+            android:textSize="@dimen/_16sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/min_price_down_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="visible"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:src="@drawable/ic_arrow_down_filtter_white"
+            android:layout_marginEnd="@dimen/_10sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/min_price_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" Min. price "
+        android:layout_marginStart="@dimen/_10sdp"
+        android:fontFamily="@font/poppins_regular"
+        android:textSize="@dimen/_9sdp"
+        android:background="@color/color_purple_shade_5"
+        android:textColor="@color/color_white_shade_1"
+        app:layout_constraintBottom_toTopOf="@+id/cl_min_price"
+        app:layout_constraintStart_toStartOf="@+id/cl_min_price"
+        app:layout_constraintTop_toTopOf="@+id/cl_min_price" />
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_max_price"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_35sdp"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:background="@drawable/bg_price"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline7"
+        app:layout_constraintTop_toBottomOf="@+id/view3"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:id="@+id/max_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_11sdp"
+            android:visibility="gone"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:fontFamily="@font/poppins_regular"
+            android:text="8,000"
+            android:textColor="@color/color_white_shade_1"
+            android:textSize="@dimen/_16sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/max_price_down_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:src="@drawable/ic_arrow_down_filtter_white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/max_price_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" Max. price "
+        android:layout_marginStart="@dimen/_10sdp"
+        android:fontFamily="@font/poppins_regular"
+        android:textSize="@dimen/_9sdp"
+        android:background="@color/color_purple_shade_5"
+        android:textColor="@color/color_white_shade_1"
+        app:layout_constraintBottom_toTopOf="@+id/cl_max_price"
+        app:layout_constraintStart_toStartOf="@+id/cl_max_price"
+        app:layout_constraintTop_toTopOf="@+id/cl_max_price" />
+
+    <View
+        android:id="@+id/view4"
+        android:layout_width="match_parent"
+        android:layout_height="0.3dp"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        android:layout_marginVertical="@dimen/_20ssp"
+        android:background="@color/white"
+        app:layout_constraintTop_toBottomOf="@+id/cl_min_price"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="13dp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/appCompatButton"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginVertical="@dimen/_12sdp"
+        android:layout_marginEnd="@dimen/_5ssp"
+        android:background="@drawable/ic_orange_btn_bg"
+        android:fontFamily="@font/poppins_regular"
+        android:paddingHorizontal="@dimen/_15sdp"
+        android:paddingTop="4dp"
+        android:text="Show 102,322 properties"
+        android:textAllCaps="false"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view4" />
+
+    <Spinner
+        android:id="@+id/rv_min_price"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_35sdp"
+        android:background="@drawable/bg_text_view_transparent"
+        android:spinnerMode="dropdown"
+        android:visibility="visible"
+
+        app:layout_constraintEnd_toStartOf="@+id/guideline7"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/cl_min_price"
+        tools:listitem="@layout/item_price_spinner" />
+
+    <Spinner
+        android:id="@+id/rv_max_price"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/_35sdp"
+        android:background="@drawable/bg_text_view_transparent"
+        android:spinnerMode="dropdown"
+        android:visibility="visible"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/rv_min_price"
+        app:layout_constraintTop_toTopOf="@+id/cl_min_price"
+        tools:listitem="@layout/item_price_spinner" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

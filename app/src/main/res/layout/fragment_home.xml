@@ -185,7 +185,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_bottom_bar"
         android:layout_width="0dp"
-        android:layout_height="@dimen/_80sdp"
+        android:layout_height="@dimen/_60sdp"
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -196,7 +196,7 @@
         <ImageView
             android:id="@+id/bottom_bg"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/_30sdp"
             android:scaleType="fitXY"
             android:src="@drawable/ic_bottom_bar"
             app:layout_constraintBottom_toBottomOf="parent" />
@@ -241,7 +241,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.65" />
+            app:layout_constraintGuide_percent="0.85" />
     </androidx.constraintlayout.widget.ConstraintLayout>
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/top_guideline"

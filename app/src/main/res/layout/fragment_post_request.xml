@@ -83,17 +83,29 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/text_counter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_regular"
+            android:textColor="@color/color_black_shade_1"
+            android:textSize="@dimen/_12sdp"
+            android:text="0/500"
+            android:layout_marginEnd="@dimen/_5sdp"
+            app:layout_constraintBottom_toTopOf="@+id/description"
+            app:layout_constraintEnd_toEndOf="parent" />
+
             <EditText
                 android:id="@+id/description"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/_250sdp"
+                android:layout_height="@dimen/_280sdp"
                 android:background="@drawable/bg_text_view_signup"
                 android:padding="@dimen/_10sdp"
                 android:fontFamily="@font/poppins_regular"
                 android:hint="Add a description (max 500 unique characters)"
                 android:maxLength="500"
                 android:paddingTop="@dimen/_3sdp"
-                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginTop="@dimen/_40sdp"
                 android:text=""
                 android:textColorHint="@color/color_gray_shade_1"
                 android:gravity="start"

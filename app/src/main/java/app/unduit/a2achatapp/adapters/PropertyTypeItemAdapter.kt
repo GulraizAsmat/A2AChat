@@ -3,6 +3,7 @@ package app.unduit.a2achatapp.adapters
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import app.unduit.a2achatapp.R
 import app.unduit.a2achatapp.databinding.ItemPropertyTypeBinding
@@ -28,14 +29,16 @@ class PropertyTypeItemAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.binding.itemName.text=propertyTypeList[position].name
         holder.binding.itemIcon.setImageResource(propertyTypeList[position].image)
-        holder.binding.executePendingBindings()
+
 
 
         if(propertyTypeList[position].selected){
             holder.binding.clItem.setBackgroundResource(R.drawable.bg_btn_login)
+            holder.binding.itemName.setTextColor(ContextCompat.getColor(context,R.color.color_white_shade_1))
         }
         else {
             holder.binding.clItem.setBackgroundResource(R.drawable.bg_btn_login_disabled)
+            holder.binding.itemName.setTextColor(ContextCompat.getColor(context,R.color.color_black_shade_1))
         }
 
         holder.binding.clItem.setOnClickListener {
@@ -43,7 +46,7 @@ class PropertyTypeItemAdapter(
             listener.onAdapterItemClicked("click_on_item",position)
 
         }
-
+        holder.binding.executePendingBindings()
     }
 
 
