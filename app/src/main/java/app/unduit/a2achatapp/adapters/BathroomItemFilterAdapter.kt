@@ -14,8 +14,8 @@ import app.unduit.a2achatapp.models.PropertyType
 
 class BathroomItemFilterAdapter(
     val context: Context,
-    private val listener: AdapterListener,
-    private val bathBedTypeList: ArrayList<BathBedType>
+    private val bathBedTypeList: ArrayList<BathBedType>,
+    private val listener: (position: Int) -> Unit,
 ) :
     RecyclerView.Adapter<BathroomItemFilterAdapter.ViewHolder>() {
 
@@ -43,7 +43,7 @@ class BathroomItemFilterAdapter(
 
         holder.binding.cvItem.setOnClickListener {
 
-            listener.onAdapterItemClicked("click_on_bathroom_item",position)
+            listener(position)
 
         }
         holder.binding.executePendingBindings()

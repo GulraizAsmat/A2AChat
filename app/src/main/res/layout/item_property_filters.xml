@@ -17,7 +17,7 @@
         android:layout_marginVertical="@dimen/_7sdp"
         android:layout_marginEnd="@dimen/_4sdp"
         android:layout_marginStart="@dimen/_3sdp"
-        android:background="@drawable/bg_btn_login_disabled"
+        android:background="@drawable/bg_btn_purple_border"
         android:paddingHorizontal="@dimen/_10sdp"
         android:paddingVertical="@dimen/_5sdp"
         android:visibility="visible"
@@ -25,9 +25,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
-
-
 
         <TextView
             android:id="@+id/item_name"
@@ -39,12 +36,24 @@
             android:text="House"
             android:textColor="@color/color_black_shade_1"
             android:textSize="@dimen/_10sdp"
-
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="MissingConstraints" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_cancel"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginStart="5dp"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:paddingHorizontal="3dp"
+            app:layout_constraintBottom_toBottomOf="@+id/item_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/item_name"
+            app:layout_constraintTop_toTopOf="@+id/item_name"
+            app:srcCompat="@drawable/ic_cross_circle" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

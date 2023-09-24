@@ -12,8 +12,8 @@ import app.unduit.a2achatapp.models.PropertyType
 
 class PropertyTypeFilterAdapter(
     val context: Context,
-    private val listener: AdapterListener,
-    private val propertyTypeList: ArrayList<PropertyType>
+    private val propertyTypeList: ArrayList<PropertyType>,
+    private val listener: (position: Int) -> Unit,
 ) :
     RecyclerView.Adapter<PropertyTypeFilterAdapter.ViewHolder>() {
 
@@ -43,7 +43,7 @@ class PropertyTypeFilterAdapter(
 
         holder.binding.clItem.setOnClickListener {
 
-            listener.onAdapterItemClicked("property_type",position)
+            listener(position)
 
         }
         holder.binding.executePendingBindings()

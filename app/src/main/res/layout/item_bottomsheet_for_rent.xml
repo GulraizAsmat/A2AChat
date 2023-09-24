@@ -55,14 +55,39 @@
         tools:ignore="MissingConstraints">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_selector_1"
+            android:id="@+id/cl_selector_all"
             android:layout_width="0dp"
             android:layout_height="45dp"
-
             android:background="@drawable/aa_ic_rounded_purple_light"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/mid_guideline"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/all_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:text="All"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_12sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_selector_1"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:background="@drawable/aa_ic_rounded_corner_white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/mid_guideline_2"
+            app:layout_constraintStart_toStartOf="@+id/mid_guideline"
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
@@ -71,7 +96,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_regular"
                 android:text="Rent"
-                android:textColor="@color/white"
+                android:textColor="@color/color_black_shade_1"
                 android:textSize="@dimen/_12sdp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -86,10 +111,9 @@
             android:id="@+id/cl_selector_2"
             android:layout_width="0dp"
             android:layout_height="45dp"
-
             android:background="@drawable/aa_ic_rounded_corner_white"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/mid_guideline_3"
             app:layout_constraintStart_toEndOf="@+id/cl_selector_1"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -108,13 +132,52 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_selector_3"
+            android:layout_width="0dp"
+            android:layout_height="45dp"
+            android:background="@drawable/aa_ic_rounded_corner_white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/mid_guideline_3"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/request_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:text="Requests"
+                android:textColor="@color/color_black_shade_1"
+                android:textSize="@dimen/_11sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/mid_guideline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.5" />
+            app:layout_constraintGuide_percent="0.25" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/mid_guideline_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.50" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/mid_guideline_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.75" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -148,6 +211,7 @@
 
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/show_btn"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:background="@drawable/ic_orange_btn_bg"
