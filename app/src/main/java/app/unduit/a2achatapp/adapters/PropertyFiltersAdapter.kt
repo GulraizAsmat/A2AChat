@@ -8,6 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import app.unduit.a2achatapp.R
 import app.unduit.a2achatapp.databinding.ItemPropertyFiltersBinding
 import app.unduit.a2achatapp.databinding.ItemPropertyTypeBinding
+import app.unduit.a2achatapp.helpers.gone
+import app.unduit.a2achatapp.helpers.visible
 import app.unduit.a2achatapp.listeners.AdapterListener
 import app.unduit.a2achatapp.models.PropertyType
 
@@ -30,22 +32,20 @@ class PropertyFiltersAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.binding.itemName.text=propertyTypeList[position].name
 
-
-
-
         if(propertyTypeList[position].selected){
-            holder.binding.clItem.setBackgroundResource(R.drawable.bg_btn_login)
-            holder.binding.itemName.setTextColor(ContextCompat.getColor(context,R.color.color_white_shade_1))
+            holder.binding.clItem.setBackgroundResource(R.drawable.bg_btn_40_light_purple_suqare_corners_dark)
+            holder.binding.ivCancel.visible()
         }
         else {
-            holder.binding.clItem.setBackgroundResource(R.drawable.bg_btn_login_disabled)
-            holder.binding.itemName.setTextColor(ContextCompat.getColor(context,R.color.color_black_shade_1))
+            holder.binding.clItem.setBackgroundResource(R.drawable.bg_btn_purple_border)
+            holder.binding.ivCancel.gone()
         }
 
         holder.binding.clItem.setOnClickListener {
-
             listener.onAdapterItemClicked("click_on_item",position)
-
+        }
+        holder.binding.ivCancel.setOnClickListener {
+            listener.onAdapterItemClicked("cancel_filter",position)
         }
         holder.binding.executePendingBindings()
     }

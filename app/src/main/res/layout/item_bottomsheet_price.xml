@@ -169,7 +169,7 @@
         tools:layout_editor_absoluteX="13dp" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/appCompatButton"
+        android:id="@+id/show_btn"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_marginVertical="@dimen/_12sdp"
