@@ -20,6 +20,74 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="agentProfileFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="1272" />
+                            <option name="y" value="931" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_agentProfileFragment_to_agentPropertiesViewAllFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_agentProfileFragment_to_propertyDetailFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="agentPropertiesViewAllFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="1553" />
+                            <option name="y" value="932" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_agentPropertiesViewAllFragment_to_propertyDetailFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="buyAndCommercialFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-372" />
+                            <option name="y" value="1506" />
+                          </Point>
+                        </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_buyAndCommercialFragment_to_postRequestFragment2">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="certificationCheckFragment">
                     <value>
                       <LayoutPositions>
@@ -248,6 +316,11 @@
                         </option>
                         <option name="myPositions">
                           <map>
+                            <entry key="action_postPropertyStep1Fragment_to_buyAndCommercialFragment2">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_postPropertyStep1Fragment_to_postFragment">
                               <value>
                                 <LayoutPositions />
@@ -270,6 +343,16 @@
                         <option name="myPositions">
                           <map>
                             <entry key="action_postPropertyStep3Fragment_to_postPropertyStep4Fragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_postPropertyStep3Fragment_to_postPropertyStep5Fragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_postPropertyStep3Fragment_to_postRequestFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -377,6 +460,15 @@
                             <option name="y" value="1412" />
                           </Point>
                         </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_postRequestFragment_to_homeFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
                       </LayoutPositions>
                     </value>
                   </entry>
@@ -448,6 +540,11 @@
                         </option>
                         <option name="myPositions">
                           <map>
+                            <entry key="action_propertyDetailFragment_to_agentProfileFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_propertyDetailFragment_to_chatFragment">
                               <value>
                                 <LayoutPositions />
@@ -469,12 +566,44 @@
                         </option>
                         <option name="myPositions">
                           <map>
+                            <entry key="action_propertyListFragment_to_chatFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_propertyListFragment_to_favouriteFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_propertyListFragment_to_notificationFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_propertyListFragment_to_profileFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_propertyListFragment_to_propertyDetailFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
                             </entry>
                           </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="purchaseLandFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-50" />
+                            <option name="y" value="1770" />
+                          </Point>
                         </option>
                       </LayoutPositions>
                     </value>

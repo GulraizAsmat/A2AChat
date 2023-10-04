@@ -90,13 +90,19 @@ class PropertyListMultipleViewAdapter(
             }
 
             is RequestViewHolder -> {
-                holder.binding.propertyTitle.text = propertyItem.property_title
-                holder.binding.propertyDescription.text = propertyItem.property_description
+                holder.binding.propertyPrice.text = propertyItem.property_type
+                holder.binding.itemLocation.text = propertyItem.area_community
+                holder.binding.bedrooms.text = propertyItem.bedrooms
                 holder.binding.propertyTime.text = DateHelper.convertTimestampToTimeAgo(propertyItem.created_date.toLong())
-                holder.binding.userName.text = "${propertyItem.user_name}"
+                holder.binding.bathroom.text = "${propertyItem.bathrooms}"
+                holder.binding.sqFeet.text = "${propertyItem.property_size_min} - ${propertyItem.property_size_max}sqft"
+                holder.binding.budget.text = "${propertyItem.budget_min} - ${propertyItem.budget_max} budget"
                 Glide.with(holder.binding.userImage).load(propertyItem.user_picture).fallback(R.drawable.ic_profile_pic_placeholder).into(holder.binding.userImage)
                 holder.binding.btnChat.setOnClickListener {
                     listener.onAdapterItemClicked("chat", position)
+                }
+                holder.binding.constraintLayout9.setOnClickListener {
+                    listener.onAdapterItemClicked("open_request_detail", position)
                 }
             }
         }

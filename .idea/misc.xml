@@ -3,6 +3,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="app/src/main/res/drawable/aa.xml" value="0.1965" />
+        <entry key="app/src/main/res/drawable/aa_ic_next_arrow.xml" value="0.246" />
         <entry key="app/src/main/res/drawable/aa_ic_round_corner_search_bar.xml" value="0.1965" />
         <entry key="app/src/main/res/drawable/bg_bottom_purple.xml" value="0.2405" />
         <entry key="app/src/main/res/drawable/cb_checked.xml" value="0.201" />
@@ -47,12 +48,14 @@
         <entry key="app/src/main/res/drawable/selector_checkbox_black.xml" value="0.201" />
         <entry key="app/src/main/res/drawable/selector_checkbox_text_color.xml" value="0.201" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.3729166666666667" />
+        <entry key="app/src/main/res/layout/fragment_agent_profile.xml" value="0.335" />
         <entry key="app/src/main/res/layout/fragment_certification_check.xml" value="0.15364583333333334" />
         <entry key="app/src/main/res/layout/fragment_edit_profile.xml" value="0.3140625" />
         <entry key="app/src/main/res/layout/fragment_favourite.xml" value="0.335" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.3086313883463542" />
         <entry key="app/src/main/res/layout/fragment_item_list_dialog_list_dialog.xml" value="0.3729166666666667" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.15364583333333334" />
+        <entry key="app/src/main/res/layout/fragment_my_property.xml" value="0.165" />
         <entry key="app/src/main/res/layout/fragment_notification.xml" value="0.3880208333333333" />
         <entry key="app/src/main/res/layout/fragment_post.xml" value="0.3140625" />
         <entry key="app/src/main/res/layout/fragment_post_property_step1.xml" value="0.25" />

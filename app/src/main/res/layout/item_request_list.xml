@@ -52,30 +52,147 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
 
+
+
+
+
                 <TextView
-                    android:id="@+id/property_title"
+                    android:id="@+id/property_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+
                     android:fontFamily="@font/poppins_semibold"
-                    tools:text="1550,000 AED"
+                    android:text="1550,000 AED"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:textColor="@color/color_black_shade_1"
                     android:textSize="@dimen/_11sdp"
                     app:layout_constraintStart_toStartOf="parent"
+
                     app:layout_constraintTop_toBottomOf="@+id/property_type" />
 
+
+                <ImageView
+                    android:id="@+id/item_location_icon"
+                    android:layout_width="@dimen/_12sdp"
+                    android:layout_height="@dimen/_12sdp"
+
+                    android:src="@drawable/ic_map_pin_black"
+                    android:visibility="visible"
+                    app:layout_constraintTop_toBottomOf="@+id/property_price" />
+
+
                 <TextView
-                    android:id="@+id/property_description"
+                    android:id="@+id/item_location"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
                     android:fontFamily="@font/poppins_regular"
+                    android:text="Building no 2 safa park , dubai"
+                    android:textColor="@color/color_black_shade_1"
+                    android:textSize="@dimen/_8sdp"
+                    android:visibility="visible"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    app:layout_constraintBottom_toBottomOf="@+id/item_location_icon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/item_location_icon"
+                    app:layout_constraintTop_toTopOf="@+id/item_location_icon" />
+
+
+                <ImageView
+                    android:id="@+id/bedroom_icon"
+                    android:layout_width="@dimen/_18sdp"
+                    android:layout_height="@dimen/_18sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:src="@drawable/ic_bed"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/item_location_icon" />
+
+                <TextView
+                    android:id="@+id/bedrooms"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_3sdp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="3"
                     android:textColor="@color/color_black_shade_1"
                     android:textSize="@dimen/_9sdp"
+                    app:layout_constraintBottom_toBottomOf="@+id/bedroom_icon"
+                    app:layout_constraintStart_toEndOf="@+id/bedroom_icon"
+                    app:layout_constraintTop_toTopOf="@+id/bedroom_icon" />
+
+                <ImageView
+                    android:id="@+id/bathroom_icon"
+                    android:layout_width="@dimen/_18sdp"
+                    android:layout_height="@dimen/_18sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:src="@drawable/aa_ic_bathroom"
+                    app:layout_constraintStart_toEndOf="@+id/bedrooms"
+                    app:layout_constraintTop_toBottomOf="@+id/item_location_icon" />
+
+                <TextView
+                    android:id="@+id/bathroom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_3sdp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="2"
+                    android:textColor="@color/color_black_shade_1"
+                    android:textSize="@dimen/_9sdp"
+                    app:layout_constraintBottom_toBottomOf="@+id/bedroom_icon"
+                    app:layout_constraintStart_toEndOf="@+id/bathroom_icon"
+                    app:layout_constraintTop_toTopOf="@+id/bedroom_icon" />
+
+
+                <ImageView
+                    android:id="@+id/sq_icon"
+                    android:layout_width="@dimen/_18sdp"
+                    android:layout_height="@dimen/_18sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:src="@drawable/aa_ic_sq_fit"
+                    app:layout_constraintStart_toEndOf="@+id/bathroom"
+                    app:layout_constraintTop_toBottomOf="@+id/item_location_icon" />
+
+                <TextView
+                    android:id="@+id/sq_feet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_3sdp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:text="1071 sqft"
+                    android:textColor="@color/color_black_shade_1"
+                    android:textSize="@dimen/_9sdp"
+                    app:layout_constraintBottom_toBottomOf="@+id/bedroom_icon"
+                    app:layout_constraintStart_toEndOf="@+id/sq_icon"
+                    app:layout_constraintTop_toTopOf="@+id/bedroom_icon" />
+
+                <ImageView
+                    android:id="@+id/budget_icon"
+                    android:layout_width="@dimen/_18sdp"
+                    android:layout_height="@dimen/_18sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:src="@drawable/aa_ic_cash"
+                    app:layout_constraintStart_toEndOf="@+id/sq_feet"
+                    app:layout_constraintTop_toBottomOf="@+id/item_location_icon" />
+
+                <TextView
+                    android:id="@+id/budget"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_3sdp"
+                    android:fontFamily="@font/poppins_regular"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:text="12-35 budget"
+                    android:textColor="@color/color_black_shade_1"
+                    android:textSize="@dimen/_9sdp"
+                    app:layout_constraintBottom_toBottomOf="@+id/bedroom_icon"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/property_title"
-                    tools:text="1550,000 AED" />
+                    app:layout_constraintStart_toEndOf="@+id/budget_icon"
+                    app:layout_constraintTop_toTopOf="@+id/bedroom_icon" />
 
 
                 <View
@@ -84,9 +201,11 @@
                     android:layout_height="0.5dp"
                     android:layout_marginTop="@dimen/_7sdp"
                     android:background="@color/color_purple_shade_7"
+
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/property_description" />
+                    app:layout_constraintTop_toBottomOf="@id/sq_feet" />
+
 
 
                 <de.hdodenhof.circleimageview.CircleImageView

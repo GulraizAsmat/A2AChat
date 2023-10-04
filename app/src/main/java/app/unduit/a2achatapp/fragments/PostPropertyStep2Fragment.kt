@@ -79,6 +79,13 @@ class PostPropertyStep2Fragment : Fragment(), View.OnClickListener, AdapterListe
 
 
     fun init() {
+        if(Const.REQUESDTED){
+            binding.screenTitle.text="Post a Request"
+            binding.propertyDevStatusGroup.visibility=View.GONE
+            binding.clProcessBarForRent.visibility=View.VISIBLE
+            binding.clProcessBar.visibility=View.INVISIBLE
+        }
+
 
         isEdit = args.isEdit
         propertyData = args.propertyData
@@ -92,6 +99,17 @@ class PostPropertyStep2Fragment : Fragment(), View.OnClickListener, AdapterListe
         if (isEdit) {
             setData()
         }
+        defaultData(propertyData)
+    }
+
+    private fun defaultData(propertyData: PropertyData){
+
+        if(propertyData.purpose=="Rent" && propertyData.purpose_type=="Residential"){
+            selectRentAndResidents()
+        }else if(propertyData.purpose=="Rent" && propertyData.purpose_type=="Commercial"){
+            selectRentAndCommercial()
+        }
+
     }
 
 
@@ -322,4 +340,17 @@ class PostPropertyStep2Fragment : Fragment(), View.OnClickListener, AdapterListe
         }
     }
 
+    private fun selectRentAndResidents(){
+        binding.propertyDevStatusGroup.visibility=View.GONE
+        binding.clProcessBarForRent.visibility=View.VISIBLE
+        binding.clProcessBar.visibility=View.INVISIBLE
+    }
+
+
+    private fun selectRentAndCommercial(){
+        binding.propertyDevStatusGroup.visibility=View.GONE
+        binding.propertyHideForComGroup.visibility=View.GONE
+        binding.clProcessBarForRent.visibility=View.VISIBLE
+        binding.clProcessBar.visibility=View.INVISIBLE
+    }
 }

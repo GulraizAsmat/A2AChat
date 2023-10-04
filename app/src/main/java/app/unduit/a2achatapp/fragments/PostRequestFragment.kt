@@ -3,6 +3,7 @@ package app.unduit.a2achatapp.fragments
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,8 +11,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import app.unduit.a2achatapp.R
 import app.unduit.a2achatapp.databinding.FragmentPostRequestBinding
+import app.unduit.a2achatapp.helpers.Const
 import app.unduit.a2achatapp.helpers.ProgressDialog
 import app.unduit.a2achatapp.helpers.showToast
 import app.unduit.a2achatapp.models.PropertyData
@@ -23,7 +26,10 @@ import com.google.firebase.ktx.Firebase
 
 class PostRequestFragment : Fragment(),View.OnClickListener {
     private lateinit var binding: FragmentPostRequestBinding
+    private val args: PostRequestFragmentArgs by navArgs()
 
+    private lateinit var propertyData: PropertyData
+    var isEdit = false
     private val progressDialog by lazy {
         ProgressDialog(requireContext())
     }
@@ -50,7 +56,13 @@ class PostRequestFragment : Fragment(),View.OnClickListener {
     }
 
     fun init(){
+
+        isEdit = args.isEdit
+        propertyData = args.propertyData
+
         listeners()
+        setData()
+
 
 
 
@@ -108,7 +120,7 @@ class PostRequestFragment : Fragment(),View.OnClickListener {
         val db = Firebase.firestore
         val id = db.collection("properties").document().id
 
-        val propertyData = PropertyData()
+
         propertyData.uid = id
         propertyData.property_title = title
         propertyData.property_description = description
@@ -141,7 +153,7 @@ class PostRequestFragment : Fragment(),View.OnClickListener {
                         .addOnSuccessListener {
                             progressDialog.progressBarVisibility(false)
                             requireContext().showToast("Property Posted!")
-                            requireActivity().onBackPressed()
+                            findNavController().navigate(R.id.action_postRequestFragment_to_homeFragment)
                         }.addOnFailureListener { e ->
                             progressDialog.progressBarVisibility(false)
                             requireContext().showToast(e.localizedMessage.toString())
@@ -162,12 +174,46 @@ class PostRequestFragment : Fragment(),View.OnClickListener {
         }
     }
 
+
+    fun setData(){
+        Log.e("Ghas","------------B*R-------------- : ")
+        Log.e("Ghas","PT : "+propertyData.property_type)
+        Log.e("Ghas","AC : "+propertyData.area_community)
+        Log.e("Ghas","P : "+propertyData.project)
+        Log.e("Ghas","BE : "+propertyData.bedrooms)
+        Log.e("Ghas","BA : "+propertyData.bathrooms)
+        Log.e("Ghas","Bud-max : "+propertyData.budget_max)
+        Log.e("Ghas","Bud-min : "+propertyData.budget_min)
+        Log.e("Ghas","PS-max : "+propertyData.property_size_max)
+        Log.e("Ghas","PS-min : "+propertyData.property_size_min)
+        Log.e("Ghas","MR : "+propertyData.maidroom)
+        Log.e("Ghas","BAL : "+propertyData.balcony)
+        Log.e("Ghas","OC : "+propertyData.occupancy)
+        Log.e("Ghas","Pur : "+propertyData.purchase_goal)
+        Log.e("Ghas","PAY : "+propertyData.payment_method)
+        Log.e("Ghas","property_type : "+propertyData.property_type)
+
+        Log.e("Ghas","------------R*R-------------- : ")
+
+        Log.e("Ghas","Number of Checks : " +propertyData.number_of_checks)
+        Log.e("Ghas","property_moving_time : " +propertyData.property_moving_time)
+        Log.e("Ghas","property_furniture : " +propertyData.property_furniture)
+
+
+        Log.e("Ghas","------------B*C-------------- : ")
+
+        Log.e("Ghas","Fitting : " +propertyData.fitting)
+
+    }
+
     override fun onClick(v: View?) {
       when(v!!.id){
           R.id.btn_back -> {
               requireActivity().onBackPressed()
           }
           R.id.next_btn -> {
+//              Toast.makeText(requireContext(),"Under Development",Toast.LENGTH_LONG).show()
+//              setData()
               verifyData()
           }
       }
