@@ -275,7 +275,8 @@ class PropertyListFragment : Fragment(), AdapterListener {
 
         currentUser?.let { cUser ->
             val db = Firebase.firestore
-            val ref = db.collection("properties").whereNotEqualTo("user_id", cUser.uid)
+            val ref = db.collection("properties")
+                .whereNotEqualTo("user_id", cUser.uid)
 
             ref.get()
                 .addOnSuccessListener { documents ->
@@ -1303,6 +1304,14 @@ class PropertyListFragment : Fragment(), AdapterListener {
         when (key) {
             "chat" -> {
                 Toast.makeText(requireContext(), "Under Development", Toast.LENGTH_LONG).show()
+            }
+
+            "open_request_detail"->{
+                findNavController().navigate(
+                    PropertyListFragmentDirections.actionPropertyListFragmentToPropertyDetailFragment(
+                        propertyListFiltered[position]
+                    )
+                )
             }
 
             "click_on_item" -> {

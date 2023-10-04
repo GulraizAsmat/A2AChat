@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import app.unduit.a2achatapp.R
 import app.unduit.a2achatapp.adapters.PropertyFeaturesAdapter
@@ -99,6 +100,7 @@ class PropertyDetailFragment : Fragment(),View.OnClickListener {
         binding.btnPhone.setOnClickListener(this)
         binding.btnChat.setOnClickListener(this)
         binding.btnWhatsapp.setOnClickListener(this)
+        binding.agentInfoBtn.setOnClickListener(this)
     }
 
     private fun getData() {
@@ -134,82 +136,216 @@ class PropertyDetailFragment : Fragment(),View.OnClickListener {
         }
     }
 
-
-    private fun setData(data: PropertyData) {
-
-
-        binding.agentName.text = data.user_name
-        binding.agentCompany.text = data.user_company
-        binding.agentExperience.text = data.user_experience + " years"
-
-        Glide.with(this).load(data.user_picture).fallback(R.drawable.ic_profile_pic_placeholder)
-            .placeholder(R.drawable.ic_profile_pic_placeholder).into(binding.agentImage)
+    fun buyAndResidence(data: PropertyData){
+            binding.propertyPrice.visibility=View.GONE
 
 
-        if(isFrom == "matches") {
+            binding.yearHandoverDot.visibility=View.GONE
+            binding.yearHandoverStatus.visibility=View.GONE
 
-            if(Const.userId==data.user_id){
-
-                binding.headingAgent.text="Requester Info"
-                binding.agentName.text = data.sender_name
-                binding.agentCompany.text =data.sender_company
-                binding.agentExperience.text = data.sender_experience + " years"
-                binding.agentSpecialty.text = data.sender_speciality
-
-                Glide.with(this).load(data.sender_image).fallback(R.drawable.ic_profile_pic_placeholder)
-                    .placeholder(R.drawable.ic_profile_pic_placeholder).into(binding.agentImage)
+        binding.layoutDescription.visibility=View.VISIBLE
+        binding.divider4.visibility=View.VISIBLE
 
 
+        binding.negotiationDot.visibility=View.GONE
+        binding.negotiationStatus.visibility=View.GONE
 
+        binding.commissionDot.visibility=View.GONE
+        binding.commissionStatus.visibility=View.GONE
 
-            }
-            else {
-                binding.headingAgent.text="Agent Info"
-            }
+            binding.propertyStatus.visibility=View.GONE
+            binding.propertyStatusDot.visibility=View.GONE
 
+        binding.checksDot.visibility=View.GONE
+        binding.checksStatus.visibility=View.GONE
+        if(data.maidroom){
+            binding.maidRoomStatus.text="Maid Room : Yes"
+        }
+        else {
+            binding.maidRoomStatus.text="Maid Room : No"
+        }
 
-
-            binding.btnFav.visibility=View.GONE
-            binding.groupBottomBar.visible()
+        if(data.balcony){
+            binding.balconyStatus.text="Balcony : Yes"
+        }
+        else {
+            binding.balconyStatus.text="Balcony: No"
         }
 
 
 
-        binding.propertyCategory.text = data.property_type
+        binding.occopancyStatus.text="Occupancy : "+data.occupancy
+        binding.propertyDescription.text=data.property_description
 
-        val price = if(data.sp.isNotEmpty()) data.sp + " AED" else data.rented_for + " AED/month"
-        binding.propertyPrice.text = price
+
+        if(data.purpose=="Sale" && data.purpose_type=="Residential" ){
+            binding.serviceChargeStatus.text="Purchase goal : "+data.purchase_goal
+            binding.floorStatus.text="Payment method : "+data.payment_method
+            binding.occopancyStatus.text="Occupancy : "+data.occupancy
+
+        }else if(data.purpose=="Rent" && data.purpose_type=="Residential" ) {
+
+            binding.serviceChargeStatus.text="Number of checks : "+data.number_of_checks
+            binding.floorStatus.text="Moving Time : "+data.property_moving_time
+            binding.occopancyStatus.text="Furniture : "+data.property_furniture
+
+        }
+        else if(data.purpose=="Sale" && data.purpose_type=="Commercial" ) {
+
+
+            binding.icBed.visibility=View.GONE
+            binding.propertyRooms.visibility=View.GONE
+
+            binding.icWashroom.visibility=View.GONE
+            binding.propertyWashrooms.visibility=View.GONE
+
+            binding.maidRoomStatus.visibility=View.GONE
+            binding.maidRoomDot.visibility=View.GONE
+
+            binding.checksStatus.visibility=View.VISIBLE
+            binding.checksDot.visibility=View.VISIBLE
+
+            binding.balconyStatus.visibility=View.GONE
+            binding.balconyRoomDot.visibility=View.GONE
+
+            binding.occopancyStatus.text="Occupancy : "+data.occupancy
+            binding.checksStatus.text="Fitting : "+data.fitting
+            binding.serviceChargeStatus.text="Purchase goal : "+data.purchase_goal
+            binding.floorStatus.text="Payment method : "+data.payment_method
+
+        }
+
+
+        binding.propertyArea.text=data.property_size_min +" - "+data.property_size_max+" sqft"
+
+        binding.propertyLounge.text=data.budget_min +" - "+data.budget_max+" budget"
+
+
         binding.propertyName.text = data.property_title + ", " + data.project
         binding.propertyLocation.text = data.area_community
 
         val bedrooms = if(data.bedrooms.equals("Studio", true)) data.bedrooms else data.bedrooms + " Bedrooms"
         binding.propertyRooms.text = bedrooms
         binding.propertyWashrooms.text = data.bathrooms + " Bathrooms"
-        binding.propertyArea.text = data.area_size + "sqft"
-        binding.propertyLounge.text = data.furnishing
+
 
         val description = data.property_description.ifEmpty { "N/A" }
         binding.propertyDescription.text = description
 
+        binding.propertyCategory.text = data.property_type
 
-
-        var specialty = ""
-        data.user_specialty?.forEachIndexed { index, spec ->
-            specialty = if(index == data.user_specialty!!.size - 1) spec else "$spec, "
-        }
-        binding.agentSpecialty.text = specialty
+//        binding.agentSpecialty.text = specialty
 
         binding.tvListed.text = DateHelper.getDateTimeFromTimestamp(data.created_date)
         binding.tvReference.text = data.uid
 
+    }
 
-        val imageSliderList = ArrayList<SlideModel>()
-        data.property_images?.forEach { image ->
-            imageSliderList.add(SlideModel(image, ScaleTypes.CENTER_INSIDE))
+    private fun setData(data: PropertyData) {
+            Log.e("Tag1234","data.property_type"+data.post_type)
+        if(data.post_type=="request"){
+            binding.ivPropertySlider.visibility = View.GONE
+            binding.clBackBar.visibility = View.VISIBLE
+            binding.btnFav.visibility = View.GONE
+
+            binding.agentName.text = data.user_name
+            binding.agentCompany.text = data.user_company
+            binding.agentExperience.text = data.user_experience + " years"
+
+            Glide.with(this).load(data.user_picture).fallback(R.drawable.ic_profile_pic_placeholder)
+                .placeholder(R.drawable.ic_profile_pic_placeholder).into(binding.agentImage)
+
+
+
+            buyAndResidence(data)
+
+
+
+
+
+
+
+
         }
-        binding.ivPropertySlider.setImageList(imageSliderList)
+else {
+            binding.ivPropertySlider.visibility = View.VISIBLE
+            binding.clBackBar.visibility = View.GONE
 
-        setFeaturesList(data)
+            saleAndResidents(data)
+            binding.agentName.text = data.user_name
+            binding.agentCompany.text = data.user_company
+            binding.agentExperience.text = data.user_experience + " years"
+
+            Glide.with(this).load(data.user_picture).fallback(R.drawable.ic_profile_pic_placeholder)
+                .placeholder(R.drawable.ic_profile_pic_placeholder).into(binding.agentImage)
+
+
+            if(isFrom == "matches") {
+
+                if(Const.userId==data.user_id){
+
+                    binding.headingAgent.text="Requester Info"
+                    binding.agentName.text = data.sender_name
+                    binding.agentCompany.text =data.sender_company
+                    binding.agentExperience.text = data.sender_experience + " years"
+                    binding.agentSpecialty.text = data.sender_speciality
+
+                    Glide.with(this).load(data.sender_image).fallback(R.drawable.ic_profile_pic_placeholder)
+                        .placeholder(R.drawable.ic_profile_pic_placeholder).into(binding.agentImage)
+
+
+
+
+                }
+                else {
+                    binding.headingAgent.text="Agent Info"
+                }
+
+
+
+                binding.btnFav.visibility=View.GONE
+                binding.groupBottomBar.visible()
+            }
+
+
+
+            binding.propertyCategory.text = data.property_type
+
+            val price = if(data.sp.isNotEmpty()) data.sp + " AED" else data.rented_for + " AED/month"
+            binding.propertyPrice.text = price
+            binding.propertyName.text = data.property_title + ", " + data.project
+            binding.propertyLocation.text = data.area_community
+
+            val bedrooms = if(data.bedrooms.equals("Studio", true)) data.bedrooms else data.bedrooms + " Bedrooms"
+            binding.propertyRooms.text = bedrooms
+            binding.propertyWashrooms.text = data.bathrooms + " Bathrooms"
+            binding.propertyArea.text = data.area_size + "sqft"
+            binding.propertyLounge.text = data.furnishing
+
+            val description = data.property_description.ifEmpty { "N/A" }
+            binding.propertyDescription.text = description
+
+
+
+            var specialty = ""
+            data.user_specialty?.forEachIndexed { index, spec ->
+                specialty = if(index == data.user_specialty!!.size - 1) spec else "$spec, "
+            }
+            binding.agentSpecialty.text = specialty
+
+            binding.tvListed.text = DateHelper.getDateTimeFromTimestamp(data.created_date)
+            binding.tvReference.text = data.uid
+
+
+            val imageSliderList = ArrayList<SlideModel>()
+            data.property_images?.forEach { image ->
+                imageSliderList.add(SlideModel(image, ScaleTypes.CENTER_INSIDE))
+            }
+            binding.ivPropertySlider.setImageList(imageSliderList)
+
+            setFeaturesList(data)
+
+        }
 
         progressDialog.progressBarVisibility(false)
     }
@@ -389,9 +525,147 @@ class PropertyDetailFragment : Fragment(),View.OnClickListener {
           R.id.btn_chat->{
               Toast.makeText(requireContext(),"Under Development",Toast.LENGTH_LONG).show()
           }
+          R.id.agent_info_btn->{
+
+              Log.e("Tag1234","Clikc ")
+              findNavController().navigate(PropertyDetailFragmentDirections.actionPropertyDetailFragmentToAgentProfileFragment(propertyData)
+              )
+
+          }
 
 
 
       }
+    }
+
+
+    fun saleAndResidentsHideData(){
+
+    }
+
+    private fun rentAndResidentsHideData(){
+            binding.floorStatus.visibility=View.GONE
+            binding.floorDot.visibility=View.GONE
+
+            binding.yearHandoverStatus.visibility=View.GONE
+            binding.yearHandoverDot.visibility=View.GONE
+
+            binding.yearHandoverStatus.visibility=View.GONE
+            binding.yearHandoverDot.visibility=View.GONE
+
+        binding.occopancyStatus.visibility=View.GONE
+            binding.occopancyDot.visibility=View.GONE
+
+        binding.propertyStatusDot.visibility=View.GONE
+            binding.propertyStatus.visibility=View.GONE
+
+        binding.serviceChargeStatus.visibility=View.GONE
+            binding.serviceChargeDot.visibility=View.GONE
+
+
+        binding.checksDot.visibility=View.VISIBLE
+        binding.checksStatus.visibility=View.VISIBLE
+
+
+
+    }
+
+    private fun rentAndCommercialHideData(){
+        binding.floorStatus.visibility=View.GONE
+        binding.floorDot.visibility=View.GONE
+
+        binding.yearHandoverStatus.visibility=View.GONE
+        binding.yearHandoverDot.visibility=View.GONE
+
+
+        binding.icBed.visibility=View.GONE
+        binding.propertyRooms.visibility=View.GONE
+
+        binding.icWashroom.visibility=View.GONE
+        binding.propertyWashrooms.visibility=View.GONE
+
+
+
+        binding.maidRoomStatus.visibility=View.GONE
+        binding.maidRoomDot.visibility=View.GONE
+
+
+        binding.balconyStatus.visibility=View.GONE
+        binding.balconyRoomDot.visibility=View.GONE
+
+
+
+        binding.occopancyStatus.visibility=View.GONE
+        binding.occopancyDot.visibility=View.GONE
+
+        binding.propertyStatusDot.visibility=View.GONE
+        binding.propertyStatus.visibility=View.GONE
+
+
+        binding.serviceChargeStatus.visibility=View.VISIBLE
+        binding.serviceChargeDot.visibility=View.VISIBLE
+
+
+        binding.checksDot.visibility=View.VISIBLE
+        binding.checksStatus.visibility=View.VISIBLE
+
+
+
+    }
+
+    fun saleAndResidents(data: PropertyData){
+
+
+
+
+       binding.propertyStatus.text="Property Status : "+   data.development_status
+        if(data.maidroom){
+            binding.maidRoomStatus.text="Maid Room : Yes"
+        }
+        else {
+            binding.maidRoomStatus.text="Maid Room : No"
+        }
+
+        if(data.balcony){
+            binding.balconyStatus.text="Balcony : Yes"
+        }
+        else {
+            binding.balconyStatus.text="Balcony: No"
+        }
+        if(data.occupancy=="Rented"){
+            binding.occopancyStatus.text="Occupancy : "+data.occupancy
+            binding.checksStatus.visibility=View.VISIBLE
+            binding.checksDot.visibility=View.VISIBLE
+            binding.checksStatus.text="Number of checks : "+data.number_of_checks
+        }
+        else {
+            binding.checksStatus.visibility=View.GONE
+            binding.checksDot.visibility=View.GONE
+            binding.occopancyStatus.text="Occupancy : "+data.occupancy
+
+        }
+
+        binding.serviceChargeStatus.text="Service Charges : "+   data.service_charge +"(Aed/Sqft)"
+       binding.floorStatus.text="Floor : "+   data.floor
+       binding.yearHandoverStatus.text="Year of handover : "+   data.handover_year
+       binding.negotiationStatus.text="Negotiation : "+   data.negotiation
+       binding.commissionStatus.text="Commission : "+   data.commission
+
+
+
+        if(data.purpose=="Sale" && data.purpose_type=="Residential"){
+            saleAndResidentsHideData()
+        }
+        else if(data.purpose=="Rent" && data.purpose_type=="Residential"){
+            rentAndResidentsHideData()
+            binding.checksStatus.text="Number of checks : "+data.number_of_checks
+        }
+        else if(data.purpose=="Rent" && data.purpose_type=="Commercial"){
+            rentAndCommercialHideData()
+            Log.e("Tag123","number_of_checks"+data.number_of_checks)
+            Log.e("Tag123","Fitting"+data.fitting)
+            binding.checksStatus.text="Number of checks : "+data.number_of_checks
+            binding.serviceChargeStatus.text="Fitting : "+data.fitting
+        }
     }
 }

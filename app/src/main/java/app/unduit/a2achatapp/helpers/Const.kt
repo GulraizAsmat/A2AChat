@@ -7,4 +7,7 @@ object Const {
     var screenName=""
     var PropertyType=""
     var userId=""
+    var REQUESDTED=false
+
+
 }

@@ -20,6 +20,7 @@ import app.unduit.a2achatapp.adapters.PropertyTypeItemAdapter
 import app.unduit.a2achatapp.databinding.FragmentPostPropertyStep1Binding
 
 import app.unduit.a2achatapp.helpers.Const
+import app.unduit.a2achatapp.helpers.Const.REQUESDTED
 import app.unduit.a2achatapp.listeners.AdapterListener
 import app.unduit.a2achatapp.models.PropertyData
 import app.unduit.a2achatapp.models.PropertyType
@@ -46,7 +47,7 @@ class PostPropertyStep1Fragment : Fragment(), View.OnClickListener, AdapterListe
 
     var purpose: String = "Sale"
     var purpose_type: String = "Residential"
-    var property_type: String = "House"
+    var property_type: String = "Apartment"
 
     private lateinit var propertyTypeDialog: BottomSheetDialog
 
@@ -85,7 +86,10 @@ class PostPropertyStep1Fragment : Fragment(), View.OnClickListener, AdapterListe
     }
 
     fun init() {
+            if(REQUESDTED){
+             binding.screenTitle.text="Post a Request"
 
+            }
 
         try {
             isEdit = args.propertyData != null
@@ -144,6 +148,7 @@ class PostPropertyStep1Fragment : Fragment(), View.OnClickListener, AdapterListe
         salePurpose = true
 
         purpose = "Sale"
+        showResidentProperty()
     }
 
     private fun selectForRentOption() {
@@ -152,6 +157,9 @@ class PostPropertyStep1Fragment : Fragment(), View.OnClickListener, AdapterListe
         salePurpose = false
 
         purpose = "Rent"
+        showResidentProperty()
+
+
     }
 
     private fun selectResidents() {
@@ -243,13 +251,16 @@ class PostPropertyStep1Fragment : Fragment(), View.OnClickListener, AdapterListe
                 selected = false
             )
         )
-        propertyItemList.add(
-            PropertyType(
-                name = "Land",
-                image = R.drawable.ic_penthouse,
-                selected = false
+
+        if(purpose!="Rent") {
+            propertyItemList.add(
+                PropertyType(
+                    name = "Land",
+                    image = R.drawable.ic_penthouse,
+                    selected = false
+                )
             )
-        )
+        }
 
         propertyItemList.add(
             PropertyType(
@@ -389,6 +400,7 @@ class PostPropertyStep1Fragment : Fragment(), View.OnClickListener, AdapterListe
             }
 
             R.id.cl_commercial -> {
+                property_type="Office"
                 selectCommercial()
                 showCommercialProperty()
 //                bottomSheet()
@@ -405,11 +417,41 @@ class PostPropertyStep1Fragment : Fragment(), View.OnClickListener, AdapterListe
                     propertyData?.property_type = property_type
 
                     propertyData?.let {
-                        findNavController().navigate(
-                            PostPropertyStep1FragmentDirections.actionPostPropertyStep1FragmentToPostFragment(
-                                it, isEdit
+
+                        if(REQUESDTED){
+
+                            if(purpose=="Sale" && purpose_type=="Commercial"){
+                                findNavController().navigate(
+                                    PostPropertyStep1FragmentDirections.actionPostPropertyStep1FragmentToBuyAndCommercialFragment2(
+                                        it, isEdit
+                                    )
+
+                                )
+                            }
+                            else   if(purpose=="Rent" && purpose_type=="Commercial"){
+                                findNavController().navigate(
+                                    PostPropertyStep1FragmentDirections.actionPostPropertyStep1FragmentToBuyAndCommercialFragment2(
+                                        it, isEdit
+                                    )
+                                )
+                            }
+                            else {
+                                findNavController().navigate(
+                                    PostPropertyStep1FragmentDirections.actionPostPropertyStep1FragmentToPostFragment(
+                                        it, isEdit
+                                    )
+                                )
+                            }
+
+                        }
+                        else {
+                            findNavController().navigate(
+                                PostPropertyStep1FragmentDirections.actionPostPropertyStep1FragmentToPostFragment(
+                                    it, isEdit
+                                )
                             )
-                        )
+                        }
+
                     }
                 } else {
                     Toast.makeText(
@@ -459,5 +501,6 @@ class PostPropertyStep1Fragment : Fragment(), View.OnClickListener, AdapterListe
             }
         }
     }
+
 
 }

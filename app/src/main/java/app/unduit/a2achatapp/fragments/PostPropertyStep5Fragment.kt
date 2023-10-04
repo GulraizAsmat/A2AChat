@@ -44,6 +44,7 @@ class PostPropertyStep5Fragment : Fragment() {
 
     private var negotiationStr = "Negotiable"
     var furnishingStr = "Unfurnished"
+    var commissionStr = "covered"
 
     private val progressDialog by lazy {
         ProgressDialog(requireContext())
@@ -76,6 +77,17 @@ class PostPropertyStep5Fragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         init()
+
+    }
+    private fun defaultData(propertyData: PropertyData){
+
+        if(propertyData.purpose=="Rent" && propertyData.purpose_type=="Residential"){
+            selectRentAndResidents()
+        }
+        else if(propertyData.purpose=="Rent" && propertyData.purpose_type=="Commercial"){
+            selectRentAndCommercial()
+        }
+
     }
 
     fun init() {
@@ -110,6 +122,7 @@ class PostPropertyStep5Fragment : Fragment() {
             binding.postListBtn.gone()
             binding.postListBtnEdit.visible()
         }
+        defaultData(propertyData)
     }
 
     private val imagePickerLauncher = registerImagePicker { images ->
@@ -124,6 +137,7 @@ class PostPropertyStep5Fragment : Fragment() {
     private fun spinnerManager() {
         negotiationSpinner()
         finishingSpinner()
+        commissionSpinner()
     }
 
     private fun finishingSpinner() {
@@ -149,6 +163,31 @@ class PostPropertyStep5Fragment : Fragment() {
                 }
             }
     }
+
+    private fun commissionSpinner() {
+
+
+        val adapter = CustomSpinnerAdapter(requireContext(), SpinnersHelper.commissionList())
+
+        binding.spinnerCommission.adapter = adapter
+        binding.spinnerCommission.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    val selectedItem = SpinnersHelper.commissionList()[position]
+                    commissionStr = selectedItem
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    // This method is called when nothing is selected, if needed
+                }
+            }
+    }
+
 
     private fun negotiationSpinner(){
         val adapter = CustomSpinnerAdapter(requireContext(), SpinnersHelper.negotiationList())
@@ -270,6 +309,7 @@ class PostPropertyStep5Fragment : Fragment() {
         propertyData.created_date = System.currentTimeMillis().toString()
         propertyData.uid = id
         propertyData.post_type = "property"
+        propertyData.commission = commissionStr
 
         val auth = Firebase.auth
         val currentUser = auth.currentUser
@@ -317,4 +357,18 @@ class PostPropertyStep5Fragment : Fragment() {
         }
     }
 
+    private fun selectRentAndResidents(){
+
+        binding.clProcessBarForRent.visibility=View.VISIBLE
+        binding.clProcessBar.visibility=View.INVISIBLE
+        binding.descriptionTitle.visibility=View.GONE
+        binding.description.visibility=View.GONE
+    }
+
+    private fun selectRentAndCommercial(){
+        binding.descriptionTitle.visibility=View.GONE
+        binding.description.visibility=View.GONE
+        binding.clProcessBarForRent.visibility=View.VISIBLE
+        binding.clProcessBar.visibility=View.INVISIBLE
+    }
 }

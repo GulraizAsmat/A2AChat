@@ -17,6 +17,7 @@ import app.unduit.a2achatapp.R
 import app.unduit.a2achatapp.adapters.HomeSwiperAdapter
 import app.unduit.a2achatapp.databinding.FragmentHomeBinding
 import app.unduit.a2achatapp.helpers.Const
+
 import app.unduit.a2achatapp.helpers.Const.userId
 import app.unduit.a2achatapp.helpers.ProgressDialog
 import app.unduit.a2achatapp.helpers.showToast
@@ -154,12 +155,14 @@ class HomeFragment : Fragment(), View.OnClickListener, CardStackListener, Adapte
 
         btnPostProperty.setOnClickListener {
             dialog.dismiss()
+            Const.REQUESDTED =false
             findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToPostPropertyStep1Fragment())
         }
 
         btnPostRequest.setOnClickListener {
             dialog.dismiss()
-            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToPostRequestFragment())
+            Const.REQUESDTED =true
+            findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToPostPropertyStep1Fragment())
         }
 
         btnBulk.setOnClickListener {
@@ -387,7 +390,7 @@ class HomeFragment : Fragment(), View.OnClickListener, CardStackListener, Adapte
                     progressDialog.progressBarVisibility(false)
                 }
                 .addOnFailureListener { exception ->
-                    Log.w(TAG, "Error getting documents: ", exception)
+                    Log.e(TAG, "Error getting documents: ", exception)
                     requireContext().showToast("An error occurred. Please try again later")
                     progressDialog.progressBarVisibility(false)
                 }
