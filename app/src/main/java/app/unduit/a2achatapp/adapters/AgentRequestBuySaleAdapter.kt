@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import app.unduit.a2achatapp.databinding.ItemAgentRequestBuySaleBinding
 import app.unduit.a2achatapp.helpers.DateHelper
+import app.unduit.a2achatapp.helpers.addComma
 import app.unduit.a2achatapp.listeners.AdapterListener
 import app.unduit.a2achatapp.models.PropertyData
 
@@ -34,7 +35,7 @@ class AgentRequestBuySaleAdapter(
         holder.binding.propertyTime.text = DateHelper.convertTimestampToTimeAgo(propertyItem.created_date.toLong())
         holder.binding.bathroom.text = "${propertyItem.bathrooms}"
         holder.binding.sqFeet.text = "${propertyItem.property_size_min} - ${propertyItem.property_size_max}sqft"
-        holder.binding.budget.text = "${propertyItem.budget_min} - ${propertyItem.budget_max} budget"
+        holder.binding.budget.text = "${addComma(propertyItem.budget_min)} - ${addComma(propertyItem.budget_max)} budget"
 
 
         holder.binding.root.setOnClickListener {

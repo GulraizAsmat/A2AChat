@@ -10,6 +10,7 @@ import app.unduit.a2achatapp.R
 import app.unduit.a2achatapp.databinding.ItemPropertyListBinding
 import app.unduit.a2achatapp.helpers.Const
 import app.unduit.a2achatapp.helpers.DateHelper
+import app.unduit.a2achatapp.helpers.addComma
 import app.unduit.a2achatapp.listeners.AdapterListener
 import app.unduit.a2achatapp.models.PropertyData
 import com.bumptech.glide.Glide
@@ -47,7 +48,7 @@ class PropertyListAdapter(
 
             holder.binding.propertyTime.text = DateHelper.convertTimestampToTimeAgo(propertyItem.created_date.toLong())
             holder.binding.propertyType.text = propertyItem.property_type
-            holder.binding.propertyPrice.text = "${propertyItem.sp} AED"
+            holder.binding.propertyPrice.text = if(propertyItem.sp.isNotEmpty()) addComma(propertyItem.sp) + " AED" else addComma(propertyItem.rented_for) + " AED/month"
             holder.binding.itemLocation.text = propertyItem.area_community
             holder.binding.bedrooms.text = propertyItem.bedrooms
             holder.binding.bathroom.text = propertyItem.bathrooms
@@ -65,7 +66,7 @@ class PropertyListAdapter(
             holder.binding.itemLocation.text = propertyItem.area_community
             holder.binding.bedrooms.text = propertyItem.bedrooms
             holder.binding.bathroom.text = propertyItem.bathrooms
-            holder.binding.sqFeet.text = "${propertyItem.area_size}sqft"
+            holder.binding.sqFeet.text = if(propertyItem.sp.isNotEmpty()) addComma(propertyItem.sp) + " AED" else addComma(propertyItem.rented_for) + " AED/month"
             holder.binding.userName.text = "${propertyItem.user_name}"
             holder.binding.propertyTime.text = DateHelper.convertTimestampToTimeAgo(propertyItem.created_date.toLong())
             Glide.with(holder.binding.userImage).load(propertyItem.user_picture).error(R.drawable.ic_profile_pic_placeholder).into(holder.binding.userImage)
@@ -79,7 +80,7 @@ class PropertyListAdapter(
             holder.binding.clContact.visibility=View.VISIBLE
             holder.binding.pendingBtn.visibility=View.GONE
             holder.binding.propertyType.text = propertyItem.property_type
-            holder.binding.propertyPrice.text = "${propertyItem.sp} AED"
+            holder.binding.propertyPrice.text = if(propertyItem.sp.isNotEmpty()) addComma(propertyItem.sp) + " AED" else addComma(propertyItem.rented_for) + " AED/month"
             holder.binding.itemLocation.text = propertyItem.area_community
             holder.binding.bedrooms.text = propertyItem.bedrooms
             holder.binding.bathroom.text = propertyItem.bathrooms

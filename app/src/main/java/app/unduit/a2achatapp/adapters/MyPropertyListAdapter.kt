@@ -12,11 +12,15 @@ import android.widget.PopupMenu
 import androidx.recyclerview.widget.RecyclerView
 import app.unduit.a2achatapp.R
 import app.unduit.a2achatapp.databinding.ItemMyPropertyListBinding
+import app.unduit.a2achatapp.helpers.addComma
 
 
 import app.unduit.a2achatapp.listeners.AdapterListener
 import app.unduit.a2achatapp.models.PropertyData
 import com.bumptech.glide.Glide
+import java.text.DecimalFormat
+import java.text.NumberFormat
+import java.util.Locale
 
 class MyPropertyListAdapter(
     val context: Context,
@@ -44,8 +48,15 @@ class MyPropertyListAdapter(
         // Bind your data to the layout using data binding
         holder.binding.propertyType.text = propertyItem.property_type
 
-        val price = if(propertyItem.sp.isNotEmpty()) propertyItem.sp + " AED" else propertyItem.rented_for + " AED/month"
-        holder.binding.propertyPrice.text = price
+        val formatter = NumberFormat.getInstance(Locale.US) as DecimalFormat
+        formatter.applyPattern("###,###,###,###,###")
+
+        if(propertyItem.post_type == "request") {
+            holder.binding.propertyPrice.text = "Request - " + propertyItem.property_title
+        } else {
+            val price = if(propertyItem.sp.isNotEmpty()) addComma(propertyItem.sp) + " AED" else addComma(propertyItem.rented_for) + " AED/month"
+            holder.binding.propertyPrice.text = price
+        }
         holder.binding.itemLocation.text = propertyItem.area_community
         holder.binding.bedrooms.text = propertyItem.bedrooms
         holder.binding.bathroom.text = propertyItem.bathrooms

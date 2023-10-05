@@ -10,6 +10,7 @@ import app.unduit.a2achatapp.databinding.ItemAgentRequestsBinding
 import app.unduit.a2achatapp.databinding.ItemPropertyFiltersBinding
 import app.unduit.a2achatapp.databinding.ItemPropertyTypeBinding
 import app.unduit.a2achatapp.helpers.DateHelper
+import app.unduit.a2achatapp.helpers.addComma
 import app.unduit.a2achatapp.helpers.gone
 import app.unduit.a2achatapp.helpers.visible
 import app.unduit.a2achatapp.listeners.AdapterListener
@@ -41,7 +42,7 @@ class AgentRequestAdapter(
         holder.binding.propertyTime.text = DateHelper.convertTimestampToTimeAgo(propertyItem.created_date.toLong())
         holder.binding.bathroom.text = "${propertyItem.bathrooms}"
         holder.binding.sqFeet.text = "${propertyItem.property_size_min} - ${propertyItem.property_size_max}sqft"
-        holder.binding.budget.text = "${propertyItem.budget_min} - ${propertyItem.budget_max} budget"
+        holder.binding.budget.text = "${addComma(propertyItem.budget_min)} - ${addComma(propertyItem.budget_max)} budget"
 
 
         holder.binding.root.setOnClickListener {
