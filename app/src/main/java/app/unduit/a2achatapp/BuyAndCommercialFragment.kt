@@ -1,6 +1,9 @@
 package app.unduit.a2achatapp
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +20,10 @@ import app.unduit.a2achatapp.fragments.PostPropertyStep2FragmentArgs
 import app.unduit.a2achatapp.helpers.Const
 import app.unduit.a2achatapp.helpers.SpinnersHelper
 import app.unduit.a2achatapp.models.PropertyData
+import java.lang.Exception
+import java.text.DecimalFormat
+import java.text.NumberFormat
+import java.util.Locale
 
 
 class BuyAndCommercialFragment : Fragment(),View.OnClickListener {
@@ -64,6 +71,72 @@ class BuyAndCommercialFragment : Fragment(),View.OnClickListener {
         binding.nextBtn.setOnClickListener(this)
         binding.nextBtn1.setOnClickListener(this)
         binding.backIcon.setOnClickListener(this)
+
+        binding.budgetMin.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun afterTextChanged(text: Editable?) {
+                try {
+                    binding.budgetMin.removeTextChangedListener(this)
+
+                    var origStr = text.toString()
+                    if(origStr.isNotEmpty()) {
+                        if (origStr.contains(",")) {
+                            origStr = origStr.replace(",", "");
+                        }
+
+                        val formatter = NumberFormat.getInstance(Locale.US) as DecimalFormat
+                        formatter.applyPattern("###,###,###,###,###")
+                        val s = formatter.format(origStr.toLong())
+
+                        binding.budgetMin.setText(s)
+                        binding.budgetMin.setSelection(binding.budgetMin.text.length)
+                    }
+                    binding.budgetMin.addTextChangedListener(this)
+                } catch (e: Exception) {
+                    Log.e("TextWatch", e.message.toString())
+                }
+            }
+        })
+
+        binding.budgetMax.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun afterTextChanged(text: Editable?) {
+                try {
+                    binding.budgetMax.removeTextChangedListener(this)
+
+                    var origStr = text.toString()
+                    if(origStr.isNotEmpty()) {
+                        if (origStr.contains(",")) {
+                            origStr = origStr.replace(",", "");
+                        }
+
+                        val formatter = NumberFormat.getInstance(Locale.US) as DecimalFormat
+                        formatter.applyPattern("###,###,###,###,###")
+                        val s = formatter.format(origStr.toLong())
+
+                        binding.budgetMax.setText(s)
+                        binding.budgetMax.setSelection(binding.budgetMax.text.length)
+                    }
+                    binding.budgetMax.addTextChangedListener(this)
+                } catch (e: Exception) {
+                    Log.e("TextWatch", e.message.toString())
+                }
+            }
+        })
     }
 
     private fun spinnersManager(){

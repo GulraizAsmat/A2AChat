@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import app.unduit.a2achatapp.R
 import app.unduit.a2achatapp.databinding.ItemCardSwipeBinding
 import app.unduit.a2achatapp.helpers.DateHelper
+import app.unduit.a2achatapp.helpers.addComma
 
 import app.unduit.a2achatapp.listeners.AdapterListener
 import app.unduit.a2achatapp.models.PropertyData
@@ -37,7 +38,7 @@ class HomeSwiperAdapter(
         val propertyItem = homeSwipeList[position]
 
         holder.binding.propertyType.text = propertyItem.property_type
-        val price = if(propertyItem.sp.isNotEmpty()) propertyItem.sp + " AED" else propertyItem.rented_for + " AED/month"
+        val price = if(propertyItem.sp.isNotEmpty()) addComma(propertyItem.sp) + " AED" else addComma(propertyItem.rented_for) + " AED/month"
         holder.binding.propertyPrice.text = price
         holder.binding.userName.text = propertyItem.user_name
         holder.binding.itemLocation.text = propertyItem.area_community

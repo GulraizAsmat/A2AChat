@@ -12,6 +12,7 @@ import app.unduit.a2achatapp.databinding.ItemPropertyListBinding
 import app.unduit.a2achatapp.databinding.ItemRequestListBinding
 import app.unduit.a2achatapp.helpers.Const
 import app.unduit.a2achatapp.helpers.DateHelper
+import app.unduit.a2achatapp.helpers.addComma
 import app.unduit.a2achatapp.listeners.AdapterListener
 import app.unduit.a2achatapp.models.PropertyData
 import com.bumptech.glide.Glide
@@ -69,7 +70,7 @@ class PropertyListMultipleViewAdapter(
 
                 holder.binding.propertyTime.text = DateHelper.convertTimestampToTimeAgo(propertyItem.created_date.toLong())
                 holder.binding.propertyType.text = propertyItem.property_type
-                holder.binding.propertyPrice.text = "${propertyItem.sp} AED"
+                holder.binding.propertyPrice.text = if(propertyItem.sp.isNotEmpty()) addComma(propertyItem.sp) + " AED" else addComma(propertyItem.rented_for) + " AED/month"
                 holder.binding.itemLocation.text = propertyItem.area_community
                 holder.binding.bedrooms.text = propertyItem.bedrooms
                 holder.binding.bathroom.text = propertyItem.bathrooms
@@ -96,7 +97,7 @@ class PropertyListMultipleViewAdapter(
                 holder.binding.propertyTime.text = DateHelper.convertTimestampToTimeAgo(propertyItem.created_date.toLong())
                 holder.binding.bathroom.text = "${propertyItem.bathrooms}"
                 holder.binding.sqFeet.text = "${propertyItem.property_size_min} - ${propertyItem.property_size_max}sqft"
-                holder.binding.budget.text = "${propertyItem.budget_min} - ${propertyItem.budget_max} budget"
+                holder.binding.budget.text = "${addComma(propertyItem.budget_min)} - ${addComma(propertyItem.budget_max)} budget"
                 Glide.with(holder.binding.userImage).load(propertyItem.user_picture).fallback(R.drawable.ic_profile_pic_placeholder).into(holder.binding.userImage)
                 holder.binding.btnChat.setOnClickListener {
                     listener.onAdapterItemClicked("chat", position)

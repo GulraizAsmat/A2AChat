@@ -2,6 +2,9 @@ package app.unduit.a2achatapp.fragments
 
 import android.app.DatePickerDialog
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +12,7 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.AdapterView
 import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -27,7 +31,11 @@ import app.unduit.a2achatapp.helpers.visible
 import app.unduit.a2achatapp.listeners.AdapterListener
 import app.unduit.a2achatapp.models.BathBedType
 import app.unduit.a2achatapp.models.PropertyData
+import java.lang.Exception
+import java.text.DecimalFormat
+import java.text.NumberFormat
 import java.util.Calendar
+import java.util.Locale
 
 
 class PostPropertyStep3Fragment : Fragment() {
@@ -65,72 +73,68 @@ class PostPropertyStep3Fragment : Fragment() {
         init()
         listeners()
     }
-    private fun defaultData(propertyData: PropertyData){
 
-        if(Const.REQUESDTED){
-            binding.screenTitle.text="Post a Request"
-            if(propertyData.purpose=="Sale" && propertyData.purpose_type=="Residential"){
+    private fun defaultData(propertyData: PropertyData) {
 
-                binding.clProcessBarForRent.visibility=View.VISIBLE
-                binding.clProcessBar.visibility=View.INVISIBLE
-                binding.rentResidentsHideGroup.visibility=View.GONE
+        if (Const.REQUESDTED) {
+            binding.screenTitle.text = "Post a Request"
+            if (propertyData.purpose == "Sale" && propertyData.purpose_type == "Residential") {
 
-                binding.clRequestBudget.visibility=View.VISIBLE
-                binding.buildingTitleOptional .visibility=View.GONE
-                binding.areaTitleStar .visibility=View.GONE
-                binding.area.visibility=View.GONE
-                binding.sqFeet.visibility=View.GONE
-                binding.viewSq.visibility=View.GONE
-                binding.occupancyTitle1.visibility=View.VISIBLE
-                binding.occupancyIcArrow1.visibility=View.VISIBLE
-                binding.spinnerOccupancy1.visibility=View.VISIBLE
+                binding.clProcessBarForRent.visibility = View.VISIBLE
+                binding.clProcessBar.visibility = View.INVISIBLE
+                binding.rentResidentsHideGroup.visibility = View.GONE
 
-                binding.spinnerPayment.visibility=View.VISIBLE
-                binding.paymentTitle.visibility=View.VISIBLE
-                binding.paymentIcArrow.visibility=View.VISIBLE
+                binding.clRequestBudget.visibility = View.VISIBLE
+                binding.buildingTitleOptional.visibility = View.GONE
+                binding.areaTitleStar.visibility = View.GONE
+                binding.area.visibility = View.GONE
+                binding.sqFeet.visibility = View.GONE
+                binding.viewSq.visibility = View.GONE
+                binding.occupancyTitle1.visibility = View.VISIBLE
+                binding.occupancyIcArrow1.visibility = View.VISIBLE
+                binding.spinnerOccupancy1.visibility = View.VISIBLE
 
-                binding.spinnerPurchase.visibility=View.VISIBLE
-                binding.purchaseTitle.visibility=View.VISIBLE
-                binding.purchaseIcArrow.visibility=View.VISIBLE
+                binding.spinnerPayment.visibility = View.VISIBLE
+                binding.paymentTitle.visibility = View.VISIBLE
+                binding.paymentIcArrow.visibility = View.VISIBLE
 
-            }else {
-                binding.clProcessBarForRent.visibility=View.VISIBLE
-                binding.clProcessBar.visibility=View.INVISIBLE
-                binding.rentResidentsHideGroup.visibility=View.GONE
-                binding.clRequestBudget.visibility=View.VISIBLE
-                binding.areaTitleStar .visibility=View.GONE
-                binding.area.visibility=View.GONE
-                binding.buildingTitleOptional .visibility=View.GONE
-                binding.sqFeet.visibility=View.GONE
+                binding.spinnerPurchase.visibility = View.VISIBLE
+                binding.purchaseTitle.visibility = View.VISIBLE
+                binding.purchaseIcArrow.visibility = View.VISIBLE
+
+            } else {
+                binding.clProcessBarForRent.visibility = View.VISIBLE
+                binding.clProcessBar.visibility = View.INVISIBLE
+                binding.rentResidentsHideGroup.visibility = View.GONE
+                binding.clRequestBudget.visibility = View.VISIBLE
+                binding.areaTitleStar.visibility = View.GONE
+                binding.area.visibility = View.GONE
+                binding.buildingTitleOptional.visibility = View.GONE
+                binding.sqFeet.visibility = View.GONE
 
 
-                binding.numberOfChecks.visibility=View.VISIBLE
-                binding.rentedTillTitle.visibility=View.VISIBLE
-                binding.rentedTillIcon.visibility=View.VISIBLE
+                binding.numberOfChecks.visibility = View.VISIBLE
+                binding.rentedTillTitle.visibility = View.VISIBLE
+                binding.rentedTillIcon.visibility = View.VISIBLE
 
-                binding.movingTimeTitle.visibility=View.VISIBLE
-                binding.movingTimeIcon.visibility=View.VISIBLE
-                binding.movingTimeSpinner.visibility=View.VISIBLE
+                binding.movingTimeTitle.visibility = View.VISIBLE
+                binding.movingTimeIcon.visibility = View.VISIBLE
+                binding.movingTimeSpinner.visibility = View.VISIBLE
 
-                binding.furnishIcon.visibility=View.VISIBLE
-                binding.furnishTitle.visibility=View.VISIBLE
-                binding.furnitureSpinner.visibility=View.VISIBLE
+                binding.furnishIcon.visibility = View.VISIBLE
+                binding.furnishTitle.visibility = View.VISIBLE
+                binding.furnitureSpinner.visibility = View.VISIBLE
 
             }
 
 
-
-        }else {
-            if(propertyData.purpose=="Rent" && propertyData.purpose_type=="Residential"){
+        } else {
+            if (propertyData.purpose == "Rent" && propertyData.purpose_type == "Residential") {
                 selectRentAndResidents()
-            }
-            else if(propertyData.purpose=="Rent" && propertyData.purpose_type=="Commercial"){
+            } else if (propertyData.purpose == "Rent" && propertyData.purpose_type == "Commercial") {
                 selectRentAndCommercial()
             }
         }
-
-
-
 
 
     }
@@ -148,7 +152,7 @@ class PostPropertyStep3Fragment : Fragment() {
         balconyCheckManager()
         spinnerManager()
 
-        if(isEdit) {
+        if (isEdit) {
             setData()
         }
         defaultData(propertyData)
@@ -186,7 +190,7 @@ class PostPropertyStep3Fragment : Fragment() {
                 ) {
                     val selectedItem = SpinnersHelper.occupancyList()[position]
                     occupancyStr = selectedItem
-                    isRentedSelected = if(occupancyStr.equals("Rented", true)) {
+                    isRentedSelected = if (occupancyStr.equals("Rented", true)) {
                         binding.groupPrice.gone()
                         binding.groupRent.visible()
                         true
@@ -272,7 +276,7 @@ class PostPropertyStep3Fragment : Fragment() {
             }
     }
 
-    private fun numberOfCheckSpinner(){
+    private fun numberOfCheckSpinner() {
         val adapter = CustomSpinnerAdapter(requireContext(), SpinnersHelper.numberOfChecksList())
 
         binding.numberOfChecks.adapter = adapter
@@ -295,7 +299,7 @@ class PostPropertyStep3Fragment : Fragment() {
             }
     }
 
-    private fun fittingSpinner(){
+    private fun fittingSpinner() {
         val adapter = CustomSpinnerAdapter(requireContext(), SpinnersHelper.fittingList())
 
         binding.fitting.adapter = adapter
@@ -318,7 +322,7 @@ class PostPropertyStep3Fragment : Fragment() {
             }
     }
 
-    private fun movingTimeSpinner(){
+    private fun movingTimeSpinner() {
         val adapter = CustomSpinnerAdapter(requireContext(), SpinnersHelper.movingTimeList())
 
         binding.movingTimeSpinner.adapter = adapter
@@ -341,7 +345,7 @@ class PostPropertyStep3Fragment : Fragment() {
             }
     }
 
-    private fun furnitureSpinner(){
+    private fun furnitureSpinner() {
         val adapter = CustomSpinnerAdapter(requireContext(), SpinnersHelper.furnitureList())
 
         binding.furnitureSpinner.adapter = adapter
@@ -415,7 +419,7 @@ class PostPropertyStep3Fragment : Fragment() {
         binding.rentedFor.setText(propertyData.rented_for)
 //        binding.rentedTill.setText(propertyData.rented_till)
 
-        if(propertyData.maidroom) {
+        if (propertyData.maidroom) {
             binding.cbMaidNo.isChecked = false
             binding.cbMaidYes.isChecked = true
         } else {
@@ -423,7 +427,7 @@ class PostPropertyStep3Fragment : Fragment() {
             binding.cbMaidYes.isChecked = false
         }
 
-        if(propertyData.balcony) {
+        if (propertyData.balcony) {
             binding.cbBalconyNo.isChecked = false
             binding.cbBalconyYes.isChecked = true
         } else {
@@ -432,10 +436,10 @@ class PostPropertyStep3Fragment : Fragment() {
         }
 
         SpinnersHelper.occupancyList().forEachIndexed { index, item ->
-            if(item.equals(propertyData.occupancy, true)) {
+            if (item.equals(propertyData.occupancy, true)) {
                 binding.spinnerOccupancy.setSelection(index)
 
-                isRentedSelected = if(item.equals("Rented", true)) {
+                isRentedSelected = if (item.equals("Rented", true)) {
                     binding.groupPrice.gone()
                     binding.groupRent.visible()
                     true
@@ -448,34 +452,39 @@ class PostPropertyStep3Fragment : Fragment() {
         }
     }
 
-    private fun verifyData(){
+    private fun verifyData() {
         val area = binding.area.text.toString()
         val spStr = binding.sp.text.toString()
         val rentedForStr = binding.rentedFor.text.toString()
 
-        if(REQUESDTED){
+        if (REQUESDTED) {
 
-            propertyData.budget_min=binding.budgetMin.text.toString()
-            propertyData.budget_max=binding.budgetMax.text.toString()
-            propertyData.property_size_min=binding.propertyMin.text.toString()
-            propertyData.property_size_max=binding.propertyMax.text.toString()
-            propertyData.occupancy=occupancyStr
-            propertyData.purchase_goal=purchaseStr
-            propertyData.payment_method=paymentStr
+            propertyData.budget_min = binding.budgetMin.text.toString()
+            propertyData.budget_max = binding.budgetMax.text.toString()
+            propertyData.property_size_min = binding.propertyMin.text.toString()
+            propertyData.property_size_max = binding.propertyMax.text.toString()
+            propertyData.occupancy = occupancyStr
+            propertyData.purchase_goal = purchaseStr
+            propertyData.payment_method = paymentStr
 
-            propertyData.number_of_checks=numberOfCheckStr
-            propertyData.property_moving_time=movingTimeStr
-            propertyData.property_furniture=furnitureStr
+            propertyData.number_of_checks = numberOfCheckStr
+            propertyData.property_moving_time = movingTimeStr
+            propertyData.property_furniture = furnitureStr
 
 
 
-            findNavController().navigate(PostPropertyStep3FragmentDirections.actionPostPropertyStep3FragmentToPostRequestFragment(propertyData, isEdit))
-        }else {
-            if(spStr.isEmpty() && !isRentedSelected) {
+            findNavController().navigate(
+                PostPropertyStep3FragmentDirections.actionPostPropertyStep3FragmentToPostRequestFragment(
+                    propertyData,
+                    isEdit
+                )
+            )
+        } else {
+            if (spStr.isEmpty() && !isRentedSelected) {
                 requireContext().showToast("Please enter a value for SP")
-            } else if(rentedForStr.isEmpty() && isRentedSelected){
+            } else if (rentedForStr.isEmpty() && isRentedSelected) {
                 requireContext().showToast("Please enter a value for Rented For")
-            } else if(area.isEmpty()) {
+            } else if (area.isEmpty()) {
                 requireContext().showToast("Please enter Area Size")
             } else {
 
@@ -483,7 +492,7 @@ class PostPropertyStep3Fragment : Fragment() {
                 propertyData.maidroom = binding.cbMaidYes.isChecked
                 propertyData.balcony = binding.cbBalconyYes.isChecked
                 propertyData.occupancy = occupancyStr
-                if(isRentedSelected) {
+                if (isRentedSelected) {
                     propertyData.rented_for = binding.rentedFor.text.toString()
                     propertyData.number_of_checks = numberOfCheckStr
 
@@ -496,19 +505,29 @@ class PostPropertyStep3Fragment : Fragment() {
 
 
 
-                if(propertyData.purpose=="Rent" && propertyData.purpose_type=="Residential"){
-                    findNavController().navigate(PostPropertyStep3FragmentDirections.actionPostPropertyStep3FragmentToPostPropertyStep5Fragment(propertyData, isEdit))
-                }
-
-                else if(propertyData.purpose=="Rent" && propertyData.purpose_type=="Commercial"){
+                if (propertyData.purpose == "Rent" && propertyData.purpose_type == "Residential") {
+                    findNavController().navigate(
+                        PostPropertyStep3FragmentDirections.actionPostPropertyStep3FragmentToPostPropertyStep5Fragment(
+                            propertyData,
+                            isEdit
+                        )
+                    )
+                } else if (propertyData.purpose == "Rent" && propertyData.purpose_type == "Commercial") {
                     propertyData.fitting = fittingStr
-                    findNavController().navigate(PostPropertyStep3FragmentDirections.actionPostPropertyStep3FragmentToPostPropertyStep5Fragment(propertyData, isEdit))
+                    findNavController().navigate(
+                        PostPropertyStep3FragmentDirections.actionPostPropertyStep3FragmentToPostPropertyStep5Fragment(
+                            propertyData,
+                            isEdit
+                        )
+                    )
+                } else {
+                    findNavController().navigate(
+                        PostPropertyStep3FragmentDirections.actionPostPropertyStep3FragmentToPostPropertyStep4Fragment(
+                            propertyData,
+                            isEdit
+                        )
+                    )
                 }
-
-                else {
-                    findNavController().navigate(PostPropertyStep3FragmentDirections.actionPostPropertyStep3FragmentToPostPropertyStep4Fragment(propertyData, isEdit))
-                }
-
 
 
             }
@@ -519,18 +538,15 @@ class PostPropertyStep3Fragment : Fragment() {
 
     fun listeners() {
         binding.nextBtn.setOnClickListener {
-            if(propertyData.purpose=="Rent" && propertyData.purpose_type=="Residential"){
-                isRentedSelected=true
+            if (propertyData.purpose == "Rent" && propertyData.purpose_type == "Residential") {
+                isRentedSelected = true
                 verifyData()
 
-            }
-
-            else if(propertyData.purpose=="Rent" && propertyData.purpose_type=="Commercial"){
-                isRentedSelected=true
+            } else if (propertyData.purpose == "Rent" && propertyData.purpose_type == "Commercial") {
+                isRentedSelected = true
                 verifyData()
 
-            }
-            else {
+            } else {
                 verifyData()
             }
 
@@ -543,33 +559,99 @@ class PostPropertyStep3Fragment : Fragment() {
 //        binding.rentedTill.setOnClickListener {
 //            openCalender()
 //        }
+
+        binding.budgetMin.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun afterTextChanged(text: Editable?) {
+                try {
+                    binding.budgetMin.removeTextChangedListener(this)
+
+                    var origStr = text.toString()
+                    if(origStr.isNotEmpty()) {
+                        if (origStr.contains(",")) {
+                            origStr = origStr.replace(",", "");
+                        }
+
+                        val formatter = NumberFormat.getInstance(Locale.US) as DecimalFormat
+                        formatter.applyPattern("###,###,###,###,###")
+                        val s = formatter.format(origStr.toLong())
+
+                        binding.budgetMin.setText(s)
+                        binding.budgetMin.setSelection(binding.budgetMin.text.length)
+                    }
+                    binding.budgetMin.addTextChangedListener(this)
+                } catch (e: Exception) {
+                    Log.e("TextWatch", e.message.toString())
+                }
+            }
+        })
+
+        binding.budgetMax.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun afterTextChanged(text: Editable?) {
+                try {
+                    binding.budgetMax.removeTextChangedListener(this)
+
+                    var origStr = text.toString()
+                    if(origStr.isNotEmpty()) {
+                        if (origStr.contains(",")) {
+                            origStr = origStr.replace(",", "");
+                        }
+
+                        val formatter = NumberFormat.getInstance(Locale.US) as DecimalFormat
+                        formatter.applyPattern("###,###,###,###,###")
+                        val s = formatter.format(origStr.toLong())
+
+                        binding.budgetMax.setText(s)
+                        binding.budgetMax.setSelection(binding.budgetMax.text.length)
+                    }
+                    binding.budgetMax.addTextChangedListener(this)
+                } catch (e: Exception) {
+                    Log.e("TextWatch", e.message.toString())
+                }
+            }
+        })
     }
 
 
-    private fun selectRentAndResidents(){
+    private fun selectRentAndResidents() {
 
-        binding.clProcessBarForRent.visibility=View.VISIBLE
+        binding.clProcessBarForRent.visibility = View.VISIBLE
 
-        binding.clProcessBar.visibility=View.INVISIBLE
-        binding.fitting.visibility=View.GONE
-        binding.fittingIcon.visibility=View.GONE
-        binding.fittingTitle.visibility=View.GONE
-        binding.rentResidentsHideGroup.visibility=View.GONE
+        binding.clProcessBar.visibility = View.INVISIBLE
+        binding.fitting.visibility = View.GONE
+        binding.fittingIcon.visibility = View.GONE
+        binding.fittingTitle.visibility = View.GONE
+        binding.rentResidentsHideGroup.visibility = View.GONE
 
-        binding.groupRent.visibility=View.VISIBLE
+        binding.groupRent.visibility = View.VISIBLE
 
 
     }
 
-    private fun selectRentAndCommercial(){
-        binding.propertyHideForComGroup.visibility=View.GONE
-        binding.clProcessBarForRent.visibility=View.VISIBLE
-        binding.clProcessBar.visibility=View.INVISIBLE
-        binding.fitting.visibility=View.VISIBLE
-        binding.fittingIcon.visibility=View.VISIBLE
-        binding.fittingTitle.visibility=View.VISIBLE
-        binding.rentResidentsHideGroup.visibility=View.GONE
+    private fun selectRentAndCommercial() {
+        binding.propertyHideForComGroup.visibility = View.GONE
+        binding.clProcessBarForRent.visibility = View.VISIBLE
+        binding.clProcessBar.visibility = View.INVISIBLE
+        binding.fitting.visibility = View.VISIBLE
+        binding.fittingIcon.visibility = View.VISIBLE
+        binding.fittingTitle.visibility = View.VISIBLE
+        binding.rentResidentsHideGroup.visibility = View.GONE
 
-        binding.groupRent.visibility=View.VISIBLE
+        binding.groupRent.visibility = View.VISIBLE
     }
 }

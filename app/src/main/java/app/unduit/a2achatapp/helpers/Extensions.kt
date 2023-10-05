@@ -6,6 +6,9 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import java.text.DecimalFormat
+import java.text.NumberFormat
+import java.util.Locale
 
 fun Context.showToast(msg: String) {
     Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
@@ -30,4 +33,18 @@ fun View.gone(){
 
 fun View.visible(){
     visibility = View.VISIBLE
+}
+
+fun addComma(text: String) : String {
+    var origStr = text
+    return if(origStr.isNotEmpty()) {
+        if (origStr.contains(",")) {
+            origStr = origStr.replace(",", "")
+        }
+        val formatter = NumberFormat.getInstance(Locale.US) as DecimalFormat
+        formatter.applyPattern("###,###,###,###,###")
+        formatter.format(origStr.toLong())
+    } else {
+        origStr
+    }
 }

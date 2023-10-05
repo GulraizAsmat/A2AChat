@@ -179,7 +179,6 @@
             android:textColorHint="@color/color_gray_shade_1"
             android:background="@drawable/bg_text_view_signup"
             android:fontFamily="@font/poppins_regular"
-            android:maxLength="20"
             android:inputType="text"
             android:maxLines="1"
             android:paddingTop="@dimen/_3sdp"
