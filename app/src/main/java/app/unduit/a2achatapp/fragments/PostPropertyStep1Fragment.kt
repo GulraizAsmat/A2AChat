@@ -445,11 +445,23 @@ class PostPropertyStep1Fragment : Fragment(), View.OnClickListener, AdapterListe
 
                         }
                         else {
-                            findNavController().navigate(
-                                PostPropertyStep1FragmentDirections.actionPostPropertyStep1FragmentToPostFragment(
-                                    it, isEdit
+
+                            if(property_type=="Land"){
+                                findNavController().navigate(
+                                    PostPropertyStep1FragmentDirections.actionPostPropertyStep1FragmentToPurchaseLandFragment(
+                                        it, isEdit
+                                    )
                                 )
-                            )
+                            }else{
+                                findNavController().navigate(
+                                    PostPropertyStep1FragmentDirections.actionPostPropertyStep1FragmentToPostFragment(
+                                        it, isEdit
+                                    )
+                                )
+                            }
+
+
+
                         }
 
                     }

@@ -74,4 +74,15 @@ class PropertyData(
     var sender_company : String="",
     var post_type : String = "",
 
+    //Land Data
+    var ownership : String = "",
+    var gfa : String = "",
+    var far : String = "",
+    var use : String = "",
+    var height : String = "",
+    var g_value : String = "",
+
+
+
+
 ): Parcelable

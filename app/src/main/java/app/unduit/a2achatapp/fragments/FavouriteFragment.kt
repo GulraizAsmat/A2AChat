@@ -358,7 +358,10 @@ class FavouriteFragment : Fragment() ,View.OnClickListener ,AdapterListener{
 
             }
             "chat"->{
-                Toast.makeText(requireContext(),"Under Development",Toast.LENGTH_LONG).show()
+                findNavController().navigate(FavouriteFragmentDirections.actionFavouriteFragmentToChatFragment())
+
+
+
             }
             else ->{
                 findNavController().navigate(FavouriteFragmentDirections.actionFavouriteFragmentToPropertyDetailFragment(propertylist[position], "favourite"))

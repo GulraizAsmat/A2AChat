@@ -437,6 +437,17 @@
                     app:layout_constraintTop_toTopOf="@+id/spinner_finishing"
                     app:srcCompat="@drawable/ic_arrow_down_white" />
 
+
+
+
+
+
+
+
+
+
+
+
                 <TextView
                     android:id="@+id/floor_title"
                     android:layout_width="wrap_content"
@@ -448,6 +459,10 @@
                     android:textSize="@dimen/_11sdp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/spinner_finishing" />
+
+
+
+
 
 
                 <Spinner
@@ -562,6 +577,8 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/description" />
+
+
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_images"

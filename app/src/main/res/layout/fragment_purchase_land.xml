@@ -162,98 +162,504 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
-
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/end_guideline"
         app:layout_constraintStart_toStartOf="@+id/start_guideline"
         app:layout_constraintTop_toBottomOf="@+id/cl_process_bar_for_rent"
         tools:ignore="MissingConstraints">
 
-
-        <TextView
-            android:id="@+id/area_community_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_15sdp"
-            android:fontFamily="@font/poppins_semibold"
-            android:text="Area / Community"
-            android:textColor="@color/color_black_shade_1"
-            android:textSize="@dimen/_11sdp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/area_community_title_star"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_regular"
-            android:text="*"
-            android:textColor="@color/color_red_shade_1"
-            android:textSize="@dimen/_11sdp"
-            app:layout_constraintStart_toEndOf="@+id/area_community_title"
-            app:layout_constraintTop_toTopOf="@id/area_community_title" />
-
-        <EditText
-            android:id="@+id/area_community"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_30sdp"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:background="@drawable/bg_text_view_signup"
-            android:drawablePadding="@dimen/_12sdp"
-            android:fontFamily="@font/poppins_regular"
-            android:gravity="center_vertical"
-            android:inputType="text"
-            android:maxLines="1"
-            android:paddingHorizontal="@dimen/_8sdp"
-            android:textColor="#3C1663"
-            android:textSize="@dimen/_13ssp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/area_community_title" />
-
-
-        <TextView
-            android:id="@+id/ownership_title"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_15sdp"
-            android:fontFamily="@font/poppins_semibold"
-            android:text="Ownership"
-            android:textColor="@color/color_black_shade_1"
-            android:textSize="@dimen/_11sdp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/area_community" />
-
-        <Spinner
-            android:id="@+id/spinner_ownership"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_35sdp"
-            android:layout_marginTop="@dimen/_5sdp"
-            android:background="@drawable/bg_text_view_signup"
-            android:spinnerMode="dropdown"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ownership_title"
-            tools:listitem="@layout/item_bedrooms_spinner" />
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/ownership_ic_arrow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="@dimen/_14sdp"
-            app:layout_constraintBottom_toBottomOf="@+id/spinner_ownership"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/spinner_ownership"
-            app:srcCompat="@drawable/ic_arrow_down_white" />
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            tools:ignore="MissingConstraints">
 
+
+            <TextView
+                android:id="@+id/area_community_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="Area / Community"
+                android:textColor="@color/color_black_shade_1"
+                android:textSize="@dimen/_11sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/area_community_title_star"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_regular"
+                android:text="*"
+                android:textColor="@color/color_red_shade_1"
+                android:textSize="@dimen/_11sdp"
+                app:layout_constraintStart_toEndOf="@+id/area_community_title"
+                app:layout_constraintTop_toTopOf="@id/area_community_title" />
+
+            <EditText
+                android:id="@+id/area_community"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:background="@drawable/bg_text_view_signup"
+                android:drawablePadding="@dimen/_12sdp"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="center_vertical"
+                android:inputType="text"
+                android:maxLines="1"
+                android:paddingHorizontal="@dimen/_8sdp"
+                android:textColor="#3C1663"
+                android:textSize="@dimen/_13ssp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/area_community_title" />
+
+
+            <TextView
+                android:id="@+id/ownership_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="Ownership"
+                android:textColor="@color/color_black_shade_1"
+                android:textSize="@dimen/_11sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/area_community" />
+
+            <TextView
+                android:id="@+id/ownership_title_star"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="*"
+                android:textColor="@color/color_red_shade_1"
+                android:textSize="@dimen/_11sdp"
+                app:layout_constraintStart_toEndOf="@+id/ownership_title"
+                app:layout_constraintTop_toTopOf="@+id/ownership_title" />
+
+            <Spinner
+                android:id="@+id/spinner_ownership"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:background="@drawable/bg_text_view_signup"
+                android:spinnerMode="dropdown"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ownership_title"
+                tools:listitem="@layout/item_bedrooms_spinner" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ownership_ic_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/_14sdp"
+                app:layout_constraintBottom_toBottomOf="@+id/spinner_ownership"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/spinner_ownership"
+                app:srcCompat="@drawable/ic_arrow_down_white" />
+
+
+            <TextView
+                android:id="@+id/gfa_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="GFA"
+                android:textColor="@color/color_black_shade_1"
+                android:textSize="@dimen/_11sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinner_ownership" />
+
+            <TextView
+                android:id="@+id/gfa_title_star"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="*"
+                android:textColor="@color/color_red_shade_1"
+                android:textSize="@dimen/_11sdp"
+                app:layout_constraintStart_toEndOf="@+id/gfa_title"
+                app:layout_constraintTop_toTopOf="@+id/gfa_title" />
+
+            <EditText
+                android:id="@+id/gfa"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginTop="@dimen/_7sdp"
+                android:background="@drawable/bg_text_view_signup"
+                android:drawablePadding="@dimen/_12sdp"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="center_vertical"
+                android:inputType="numberDecimal"
+                android:maxLength="20"
+                android:maxLines="1"
+                android:paddingHorizontal="@dimen/_8sdp"
+                android:textColor="#3C1663"
+                android:textSize="@dimen/_13ssp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/gfa_title" />
+
+
+            <TextView
+                android:id="@+id/gfa_sq_feet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:fontFamily="@font/poppins_regular"
+                android:text="Sq ft"
+                android:textColor="@color/color_gray_shade_1"
+                android:textSize="@dimen/_12sdp"
+                app:layout_constraintBottom_toBottomOf="@+id/gfa"
+                app:layout_constraintEnd_toEndOf="@+id/gfa"
+                app:layout_constraintTop_toTopOf="@+id/gfa" />
+
+
+            <View
+                android:id="@+id/gfa_view_sq"
+                android:layout_width="0.4dp"
+                android:layout_height="0dp"
+                android:layout_marginVertical="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:background="@color/color_purple_shade_3"
+                app:layout_constraintBottom_toBottomOf="@+id/gfa"
+                app:layout_constraintEnd_toStartOf="@+id/gfa_sq_feet"
+                app:layout_constraintTop_toTopOf="@+id/gfa" />
+
+
+            <TextView
+                android:id="@+id/plot_size_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="Plot Size"
+                android:textColor="@color/color_black_shade_1"
+                android:textSize="@dimen/_11sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/gfa" />
+
+            <TextView
+                android:id="@+id/plot_size_star"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="*"
+                android:textColor="@color/color_red_shade_1"
+                android:textSize="@dimen/_11sdp"
+                android:visibility="gone"
+                app:layout_constraintStart_toEndOf="@+id/plot_size_title"
+                app:layout_constraintTop_toTopOf="@+id/plot_size_title" />
+
+            <EditText
+                android:id="@+id/plot_size"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginTop="@dimen/_7sdp"
+                android:background="@drawable/bg_text_view_signup"
+                android:drawablePadding="@dimen/_12sdp"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="center_vertical"
+                android:inputType="numberDecimal"
+                android:maxLength="20"
+                android:maxLines="1"
+                android:paddingHorizontal="@dimen/_8sdp"
+                android:textColor="#3C1663"
+                android:textSize="@dimen/_13ssp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/plot_size_title" />
+
+
+            <TextView
+                android:id="@+id/plot_size_sq_feet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:fontFamily="@font/poppins_regular"
+                android:text="Sq ft"
+                android:textColor="@color/color_gray_shade_1"
+                android:textSize="@dimen/_12sdp"
+                app:layout_constraintBottom_toBottomOf="@+id/plot_size"
+                app:layout_constraintEnd_toEndOf="@+id/plot_size"
+                app:layout_constraintTop_toTopOf="@+id/plot_size" />
+
+
+            <View
+                android:id="@+id/plot_size_view_sq"
+                android:layout_width="0.4dp"
+                android:layout_height="0dp"
+                android:layout_marginVertical="@dimen/_5sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:background="@color/color_purple_shade_3"
+                app:layout_constraintBottom_toBottomOf="@+id/plot_size"
+                app:layout_constraintEnd_toStartOf="@+id/plot_size_sq_feet"
+                app:layout_constraintTop_toTopOf="@+id/plot_size" />
+
+
+            <TextView
+                android:id="@+id/far_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="Far"
+                android:textColor="@color/color_black_shade_1"
+                android:textSize="@dimen/_11sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/plot_size" />
+
+            <TextView
+                android:id="@+id/far_star"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="*"
+                android:textColor="@color/color_red_shade_1"
+                android:textSize="@dimen/_11sdp"
+                android:visibility="visible"
+                app:layout_constraintStart_toEndOf="@+id/far_title"
+                app:layout_constraintTop_toTopOf="@+id/far_title" />
+
+            <EditText
+                android:id="@+id/far"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginTop="@dimen/_7sdp"
+                android:background="@drawable/bg_text_view_signup"
+                android:drawablePadding="@dimen/_12sdp"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="center_vertical"
+                android:inputType="text"
+                android:maxLength="20"
+                android:maxLines="1"
+                android:paddingHorizontal="@dimen/_8sdp"
+                android:textColor="#3C1663"
+                android:textSize="@dimen/_13ssp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/far_title" />
+
+
+            <TextView
+                android:id="@+id/use_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="Use"
+                android:textColor="@color/color_black_shade_1"
+                android:textSize="@dimen/_11sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/far" />
+
+            <TextView
+                android:id="@+id/use_title_star"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="*"
+                android:textColor="@color/color_red_shade_1"
+                android:textSize="@dimen/_11sdp"
+                app:layout_constraintStart_toEndOf="@+id/use_title"
+                app:layout_constraintTop_toTopOf="@+id/use_title" />
+
+            <Spinner
+                android:id="@+id/spinner_use"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:background="@drawable/bg_text_view_signup"
+                android:spinnerMode="dropdown"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/use_title"
+                tools:listitem="@layout/item_bedrooms_spinner" />
+
+
+
+
+            <TextView
+                android:id="@+id/height_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="Height"
+                android:textColor="@color/color_black_shade_1"
+                android:textSize="@dimen/_11sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinner_use" />
+
+            <TextView
+                android:id="@+id/height_title_star"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="*"
+                android:textColor="@color/color_red_shade_1"
+                android:textSize="@dimen/_11sdp"
+                app:layout_constraintStart_toEndOf="@+id/height_title"
+                app:layout_constraintTop_toTopOf="@+id/height_title" />
+
+            <Spinner
+                android:id="@+id/spinner_height"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:background="@drawable/bg_text_view_signup"
+                android:spinnerMode="dropdown"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/height_title"
+                tools:listitem="@layout/item_bedrooms_spinner" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/height_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/_14sdp"
+                app:layout_constraintBottom_toBottomOf="@+id/spinner_ownership"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/spinner_ownership"
+                app:srcCompat="@drawable/ic_arrow_down_white" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/use_ic_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/_14sdp"
+                app:layout_constraintBottom_toBottomOf="@+id/spinner_ownership"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/spinner_ownership"
+                app:srcCompat="@drawable/ic_arrow_down_white" />
+
+
+
+
+
+            <TextView
+                android:id="@+id/g_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="G+"
+                android:textColor="@color/color_black_shade_1"
+                android:textSize="@dimen/_11sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/spinner_height" />
+
+            <TextView
+                android:id="@+id/g_star"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="*"
+
+                android:textColor="@color/color_red_shade_1"
+                android:textSize="@dimen/_11sdp"
+                android:visibility="gone"
+                app:layout_constraintStart_toEndOf="@+id/g_title"
+                app:layout_constraintTop_toTopOf="@+id/g_title" />
+
+            <EditText
+                android:id="@+id/g_value"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginTop="@dimen/_7sdp"
+                android:background="@drawable/bg_text_view_signup"
+                android:drawablePadding="@dimen/_12sdp"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="center_vertical"
+                android:inputType="text"
+                android:maxLength="20"
+                android:maxLines="1"
+                android:paddingHorizontal="@dimen/_8sdp"
+                android:textColor="#3C1663"
+                android:textSize="@dimen/_13ssp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/g_title" />
+
+            <TextView
+                android:id="@+id/sp_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="Sp"
+                android:textColor="@color/color_black_shade_1"
+                android:textSize="@dimen/_11sdp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/g_value" />
+
+            <TextView
+                android:id="@+id/sp_star"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="*"
+                android:textColor="@color/color_red_shade_1"
+                android:textSize="@dimen/_11sdp"
+                android:visibility="visible"
+                app:layout_constraintStart_toEndOf="@+id/sp_title"
+                app:layout_constraintTop_toTopOf="@+id/sp_title" />
+
+            <EditText
+                android:id="@+id/sp_value"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginTop="@dimen/_7sdp"
+                android:background="@drawable/bg_text_view_signup"
+                android:drawablePadding="@dimen/_12sdp"
+                android:fontFamily="@font/poppins_regular"
+                android:gravity="center_vertical"
+                android:inputType="numberDecimal"
+                android:maxLength="20"
+                android:maxLines="1"
+                android:paddingHorizontal="@dimen/_8sdp"
+                android:textColor="#3C1663"
+                android:textSize="@dimen/_13ssp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/sp_title" />
+
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/next_btn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_20sdp"
+                android:layout_marginVertical="@dimen/_30sdp"
+                android:background="@drawable/ic_dark_purple_bg"
+                android:fontFamily="@font/poppins_semibold"
+                android:stateListAnimator="@null"
+                android:text="Next"
+                android:textAllCaps="false"
+                android:textColor="@color/color_white_shade_1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/sp_value"
+                tools:ignore="MissingConstraints" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 
 
 
