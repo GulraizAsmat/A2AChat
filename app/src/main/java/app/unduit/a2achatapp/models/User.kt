@@ -18,6 +18,8 @@ data class User(
     var phone: String? = "",
     var profile_image: String? = "",
     var speciality: List<String>? = null,
-    var status: String? = ""
+    var status: String? = "",
+    var brn: String? = "",
+    var verified: Boolean? = false
 
 ): Parcelable

@@ -41,6 +41,25 @@ class PropertyListAdapter(
 
         // Bind your data to the layout using data binding
         Log.e("Tag1234", "property Type :: $propertyType")
+//
+//        if(propertyItem.property_type=="Land"){
+//            holder.binding.bedroomIcon.visibility=View.INVISIBLE
+//            holder.binding.bedrooms.visibility=View.INVISIBLE
+//            holder.binding.bathroomIcon.visibility=View.INVISIBLE
+//            holder.binding.bathroomIcon.visibility=View.INVISIBLE
+//            holder.binding.sqFeet.visibility=View.INVISIBLE
+//            holder.binding.sqIcon.visibility=View.INVISIBLE
+//
+//        }else {
+//            holder.binding.bedroomIcon.visibility=View.VISIBLE
+//            holder.binding.bedrooms.visibility=View.VISIBLE
+//            holder.binding.bathroomIcon.visibility=View.VISIBLE
+//            holder.binding.bathroomIcon.visibility=View.VISIBLE
+//            holder.binding.sqFeet.visibility=View.VISIBLE
+//            holder.binding.sqIcon.visibility=View.VISIBLE
+//        }
+
+
         if(Const.PropertyType=="favourite"){
             holder.binding.btnFav.visibility=View.VISIBLE
             holder.binding.clContact.visibility=View.GONE

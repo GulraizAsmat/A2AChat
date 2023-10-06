@@ -14,14 +14,14 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/profile_image"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_margin="@dimen/_10sdp"
             android:src="@drawable/ic_deafult_profile_icon"
             app:civ_border_color="#FFffff"
             app:civ_border_width="2dp"
-            android:layout_margin="@dimen/_10sdp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="MissingConstraints" />
 
@@ -34,7 +34,7 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:gravity="center"
-            android:fontFamily="@font/poppins_regular"
+            android:fontFamily="@font/hellix_regular"
             android:textSize="@dimen/_10ssp"
             android:layout_marginTop="@dimen/_5ssp"
             app:layout_constraintEnd_toEndOf="@+id/profile_image"

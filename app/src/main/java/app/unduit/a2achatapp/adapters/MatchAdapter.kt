@@ -41,6 +41,7 @@ class MatchAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val propertyItem = propertyList[position]
+
             Log.e("Tag213","User Iamge "+ propertyItem.user_picture)
             Log.e("Tag213","sender_image  "+ propertyItem.sender_image)
 

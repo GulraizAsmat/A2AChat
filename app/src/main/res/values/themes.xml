@@ -34,7 +34,7 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/color_black_shade_1</item>
         <item name="android:textSize">@dimen/_12sdp</item>
-        <item name="android:fontFamily">@font/poppins_semibold</item></style>
+        <item name="android:fontFamily">@font/hellix_semibold</item></style>
 
     <style name="BottomSheetDialogStyle" parent="Theme.Design.Light.BottomSheetDialog">
         <item name="backgroundTint">@android:color/transparent</item>

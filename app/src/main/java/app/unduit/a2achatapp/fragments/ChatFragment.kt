@@ -12,28 +12,31 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import app.unduit.a2achatapp.PurchaseLandFragmentArgs
 import app.unduit.a2achatapp.R
-import app.unduit.a2achatapp.adapters.AgentPropertiesBuySaleAdapter
 import app.unduit.a2achatapp.adapters.ChatAdapter
 import app.unduit.a2achatapp.adapters.MatchAdapter
 import app.unduit.a2achatapp.databinding.FragmentChatBinding
-import app.unduit.a2achatapp.databinding.FragmentPurchaseLandBinding
 import app.unduit.a2achatapp.helpers.Const
 import app.unduit.a2achatapp.helpers.ProgressDialog
 import app.unduit.a2achatapp.helpers.showToast
 import app.unduit.a2achatapp.listeners.AdapterListener
-import app.unduit.a2achatapp.models.MessageData
 import app.unduit.a2achatapp.models.PropertyData
 import com.bumptech.glide.Glide
+import app.unduit.a2achatapp.models.chatList.Chat
+import app.unduit.a2achatapp.models.chatList.ChatList
+import com.employee.employeejobbie.models.chatList.ChatListData
+import com.employee.employeejobbie.models.userChatDetails.UserChatDetails
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.Query
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.gson.Gson
+import org.json.JSONArray
+import org.json.JSONObject
 
 
 class ChatFragment : Fragment() ,AdapterListener{
@@ -44,7 +47,8 @@ class ChatFragment : Fragment() ,AdapterListener{
 
 
     private var propertyData: PropertyData? = null
-    private var chatList= ArrayList<MessageData>()
+    private var chatList= ArrayList<Chat>()
+    private var tempChatList = java.util.ArrayList<ChatList>()
 
 
 
@@ -103,16 +107,20 @@ class ChatFragment : Fragment() ,AdapterListener{
     }
 
     fun init(){
-
+        Const.screenName="chat"
         recyclerviewManagers()
         getMatchData()
         loadUserProfileImage()
         getChatList()
+        listeners()
 //        dummyCode()
     }
 
     fun listeners(){
+        binding.backIcon.setOnClickListener {
 
+            requireActivity().onBackPressed()
+        }
     }
 
 
@@ -123,7 +131,7 @@ class ChatFragment : Fragment() ,AdapterListener{
 
     private fun matchRecyclerView(){
         binding.rvMatch.layoutManager =
-            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         binding.rvMatch.itemAnimator = DefaultItemAnimator()
 
         binding.rvMatch.adapter = matchAdapter
@@ -139,7 +147,7 @@ class ChatFragment : Fragment() ,AdapterListener{
 
 
     private fun getMatchData(){
-
+            matchList.clear()
         progressDialog.progressBarVisibility(true)
 
         auth = Firebase.auth
@@ -156,7 +164,7 @@ class ChatFragment : Fragment() ,AdapterListener{
 
                         matchList.add(document.toObject(PropertyData::class.java))
                     }
-                    val list =matchList.sortedByDescending { it.created_date }
+                    val list =matchList.sortedByDescending { it.created_date }.distinctBy { it.sender_id }
                     matchList.clear()
                     matchList.addAll(list)
                     matchAdapter.notifyDataSetChanged()
@@ -175,111 +183,247 @@ class ChatFragment : Fragment() ,AdapterListener{
 
     }
 
-    private fun getChatList(){
-        auth = Firebase.auth
-        val currentUser = auth.currentUser
-
-        currentUser?.let { cUser ->
-            val db = Firebase.firestore
 
 
-            val database = FirebaseDatabase.getInstance()
-            val myRef: DatabaseReference = database.reference.child("Chats").child(cUser.uid)
 
-            myRef.addValueEventListener(object : ValueEventListener {
-                override fun onDataChange(dataSnapshot: DataSnapshot) {
+    private fun getChatList() {
 
-                    Log.e("Tagq234", "dataSnapshot$dataSnapshot")
-                    // Handle data retrieval here
-                    if (dataSnapshot.exists()) {
-                        for (childSnapshot in dataSnapshot.children) {
-                            val key = childSnapshot.key
-                            val value = childSnapshot.value
-                            // Do something with the key and value
-                            val chatMessage = value as Map<String, Any>
-                            if (chatMessage != null) {
 
-                                val senderId = chatMessage["senderId"].toString()
-                                val senderName = chatMessage["senderName"] .toString()
-                                val receiverId = chatMessage["receiverId"] .toString()
-                                val created = chatMessage["created"] .toString()
-                                val msgKind = chatMessage["msgKind"] .toString()
-                                val receiverName = chatMessage["receiverName"] .toString()
-                                val receiverImage = chatMessage["receiverImage"].toString()
-                                val content = chatMessage["content"] .toString()
-                                val seen = chatMessage["seen"].toString().toBoolean()
-                                val senderImage = chatMessage["senderImage"] .toString()
+        val dbRef: DatabaseReference = FirebaseDatabase.getInstance().getReference("Chat")
+            .child(Const.userId)
 
-                                // Create a ChatMessage object with the parsed data
-                                val chatMessageObj = MessageData(
-                                    senderId,
-                                    senderName,
-                                    receiverId,
-                                    created.toString(),
-                                    msgKind,
-                                    receiverName,
-                                    receiverImage,
-                                    content,
-                                    seen,
-                                    senderImage
-                                )
 
-                                chatList.add(chatMessageObj)
+        dbRef.addValueEventListener(object : ValueEventListener {
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                var senderId = ""
+                var mainJsonArray = JSONArray()
+
+
+
+//                com.employee.employeejobbie.helper.Log.e(screenName, "Value is: $snapshot")
+
+//                Log.e("Count ", "childrenCount " + snapshot.childrenCount)
+                snapshot.children.forEach { it ->
+
+
+                    Log.e("Tag134", " data " + it.key)
+                    senderId = it.key.toString()
+
+
+                    val dataJsonArray = JSONArray()
+
+
+
+
+
+
+
+
+                    it.child("conversation").children.forEach { data ->
+
+                        Log.e("Tag134", "*** it.children **** "  )
+
+
+                        var time=data.child("created").value
+                        try {
+                            val value =time.toString().split(".")
+
+
+
+                            time=value[0]+value[1].substring(0, 9)
+
+                        }
+                        catch (ex:Exception){
+
+                        }
+
+
+                        val dataJson = JSONObject()
+                        dataJson.put("sender_id", data.child("senderID").value)
+                        dataJson.put("sender_msg_id", data.child("senderID").value)
+                        dataJson.put("sender_name", data.child("senderName").value)
+                        dataJson.put("sender_image", data.child("senderImage").value)
+                        dataJson.put("message", data.child("content").value)
+                        dataJson.put("seen_status", data.child("isSeen").value)
+                        dataJson.put("message_type", data.child("msgKind").value)
+                        dataJson.put("file_size", data.child("pdfSize").value)
+                        dataJson.put("file_url", data.child("pdfUrl").value)
+                        dataJson.put("receiverId", data.child("receiverId").value)
+                        dataJson.put("receiverName", data.child("receiverName").value)
+                        dataJson.put("receiverImage", data.child("receiverImage").value)
+                        dataJson.put("time", time)
+
+                        dataJsonArray.put(dataJson)
+                    }
+
+                    Log.e("Tag124"," Last Seen "+                    it.child("lastseen").child("isSeen").value)
+
+                    val chatJson = JSONObject()
+//                    Log.e("Tag134", "*** chatJson ****")
+                    chatJson.put("sender_id", senderId)
+                    chatJson.put("last_seen",  it.child("lastseen").child("isSeen").value)
+                    chatJson.put("chat", dataJsonArray)
+
+
+                    mainJsonArray.put(chatJson)
+
+                }
+                Log.e("Tag134", "*** main  ****")
+
+
+                val json = JSONObject()
+                json.put("chat_list", mainJsonArray)
+                Log.e("Tag124q32", "json $json")
+
+
+                val serverResponse = json.optJSONArray("chat_list")
+                val customResponse = "{\"chat_list\":$serverResponse}"
+                val chatListResponse = Gson().fromJson(customResponse, ChatListData::class.java)
+
+                tempChatList.clear()
+                tempChatList.addAll(chatListResponse.chat_list)
+
+
+                Log.e("Tag124q32", "**************************")
+
+
+                val tempList = ArrayList<Chat>()
+                tempChatList.forEach {
+                    try{
+                        it.chat[it.chat.size - 1].seen_status=     it.last_seen
+                        tempList.add( it.chat[it.chat.size - 1])
+                    }catch (ex:Exception){
+
+                    }
+
+
+
+                }
+
+
+                var userDb: DatabaseReference = FirebaseDatabase.getInstance().getReference("Users")
+
+                var userDetails = java.util.ArrayList<UserChatDetails>()
+                userDb.addValueEventListener(object : ValueEventListener {
+
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        // This method is called once with the initial value and again
+                        // whenever data at this location is updated.
+
+                        snapshot.children.forEach { user ->
+
+
+                            userDetails.add(UserChatDetails(user_id = user.key.toString(),
+                                user_online_status = user.child("online").value,
+                                user_image = user.child("image").value.toString(),
+                                user_name = user.child("userName").value.toString()))
+
+
+//                            tempList.forEach { chat->
+//                                Log.e("chat1255",
+//                                    "  user_name " + chat.sender_id)
+//
+//                            }
+
+
+                        }
+
+//                        Log.e("Tag134", "******************************** ")
+                        userDetails.forEach { userDetails ->
+
+//                            Log.e("Tag134", " User user_id " + userDetails.user_id)
+//                            Log.e("Tag134", " User user_name " + userDetails.user_name)
+//                            Log.e("Tag134",
+//                                " User user_online_status " + userDetails.user_online_status)
+//                            Log.e("Tag134", " User user_image " + userDetails.user_image)
+//                            Log.e("Tag134", "----------------------------------")
+                        }
+
+
+
+
+
+//                        Log.e("chat1255",
+//                            "  tempList.size " + tempList.size)
+
+                        tempList.forEach { chat ->
+
+                            userDetails.apply {
+                                forEach { details ->
+
+                                    if (chat.sender_id == details.user_id) {
+
+
+                                        Log.e("chat1255",
+                                            "  User name " + details.user_name)
+                                        chat.sender_name = details.user_name
+                                        chat.sender_image = details.user_image
+                                        chat.user_online_status = details.user_online_status
+                                        return@apply
+                                    }
+                                }
+
+
+                            }
+
+                        }
+
+
+                        tempList.sortedByDescending { it.time }.forEach {
+
+                            Log.e("Tag124q32", "sender id : " + it.sender_id)
+                            Log.e("Tag124q32", "sender name  : " + it.sender_name)
+
+                        }
+
+                        chatList.clear()
+                        chatList.addAll(tempList.sortedByDescending { it.time })
+
+                        if(chatList.isEmpty()){
+                            try{
+//                                cl_main.visibility=View.GONE
+//                                cl_empty_chat.visibility=View.VISIBLE
+                            }
+                            catch (ex:Exception){
+
+                            }
+
+                        }
+                        else {
+                            try{
+//                                cl_main.visibility=View.VISIBLE
+//                                cl_empty_chat.visibility=View.GONE
+                            }
+                            catch (ex:Exception){
+
                             }
                         }
 
                         chatAdapter!!.notifyDataSetChanged()
-                    } else {
-                        // Data doesn't exist
                     }
-                }
 
-                override fun onCancelled(databaseError: DatabaseError) {
-                    // Handle database error
-                }
-            })
+                    override fun onCancelled(error: DatabaseError) {
+                      Log.e(TAG,
+                            "Failed to read value." + error.toException())
+                    }
+
+                })
 
 
-
-            progressDialog.progressBarVisibility(false)
-        }
-    }
-
-    fun dummyCode(){
-        val firestorePath = "chats/LpckgCDNKQYvVA6Q1a0vbrBmydI2/chat_nodes/kZ2W4ifbP0hTLKIVj8nVtABL7u32/conversation"
-
-// Split the path into segments
-        val pathSegments = firestorePath.split("/")
-        val db = Firebase.firestore
-// Reference to the Firestore collection
-        var query = db.collection(pathSegments[1])
-
-// Iterate through the path segments to build the reference
-        for (i in 2 until pathSegments.size-1 step 2) {
-            val collectionName = pathSegments[i]
-            val documentId = pathSegments[i + 1]
-
-            query = query.document(documentId).collection(collectionName)
-        }
-
-// Finally, fetch the data from Firestore
-        query.get()
-            .addOnSuccessListener { documents ->
-
-                Log.e("Raq122","Tag213   "+ documents.documents)
-                for (document in documents) {
-                    // Handle the data here
-                    val data = document.data
-                    Log.e("Raq122","Tag213   "+ document.data)
-                    // Do something with the data
-                }
             }
-            .addOnFailureListener { exception ->
-                // Handle any errors
-                Log.e("Raq122", "Error getting documents: $exception")
-            }
-    }
 
+            override fun onCancelled(error: DatabaseError) {
+             Log.e(TAG,
+                    "Failed to read value." + error.toException())
+            }
+
+        })
+
+    }
+    
     private fun loadUserProfileImage() {
         val auth = Firebase.auth
         val currentUser = auth.currentUser
@@ -323,9 +467,37 @@ class ChatFragment : Fragment() ,AdapterListener{
 
     override fun onAdapterItemClicked(key: String, position: Int) {
         when(key){
+
+
+
+
+
             "chat_detail"->{
-                findNavController().navigate(ChatFragmentDirections.actionChatFragmentToChatFragment2(
-                    matchList[position],false))
+
+                if(Const.userId== matchList[position].user_id){
+                    findNavController().navigate(ChatFragmentDirections.actionChatFragmentToChatFragment2(
+                        matchList[position].sender_id, matchList[position].sender_name,matchList[position].sender_image ,matchList[position],false
+                    ))
+                }else {
+                    findNavController().navigate(ChatFragmentDirections.actionChatFragmentToChatFragment2(
+                        matchList[position].user_id.toString(), matchList[position].user_name.toString(),matchList[position].user_picture.toString() ,matchList[position],false
+                    ))
+                }
+
+
+            }
+            "chat_detail_with_chat"->{
+                if(Const.userId== chatList[position].sender_id){
+                    findNavController().navigate(ChatFragmentDirections.actionChatFragmentToChatFragment2(
+                        chatList[position].receiverId, chatList[position].receiverName,chatList[position].receiverImage ,matchList[position],false
+                    ))
+                }else {
+                    findNavController().navigate(ChatFragmentDirections.actionChatFragmentToChatFragment2(
+                        chatList[position].sender_id, chatList[position].sender_name,chatList[position].sender_image ,matchList[position],false
+                    ))
+                }
+
+
             }
         }
 

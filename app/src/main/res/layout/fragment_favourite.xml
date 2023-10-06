@@ -37,11 +37,11 @@
                 android:layout_height="wrap_content"
 
                 android:ellipsize="end"
-                android:fontFamily="@font/poppins_semibold"
+                android:fontFamily="@font/hellix_semibold"
                 android:gravity="center_horizontal"
 
                 android:maxLines="1"
-                android:paddingTop="@dimen/_5sdp"
+
                 android:text="Favourite"
                 android:textColor="@color/color_white_shade_1"
                 android:textSize="@dimen/_14sdp"
@@ -70,7 +70,7 @@
                 android:layout_height="wrap_content"
 
                 android:ellipsize="end"
-                android:fontFamily="@font/poppins_semibold"
+                android:fontFamily="@font/hellix_semibold"
                 android:gravity="center_horizontal"
 
                 android:maxLines="1"
@@ -103,7 +103,7 @@
                 android:layout_height="wrap_content"
 
                 android:ellipsize="end"
-                android:fontFamily="@font/poppins_semibold"
+                android:fontFamily="@font/hellix_semibold"
                 android:gravity="center_horizontal"
 
                 android:maxLines="1"

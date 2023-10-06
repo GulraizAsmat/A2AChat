@@ -254,10 +254,16 @@ class PropertyDetailFragment : Fragment(), View.OnClickListener {
 
             binding.agentName.text = data.user_name
             binding.agentCompany.text = data.user_company
-            binding.agentExperience.text = data.user_experience + " years"
+            binding.agentExperience.text = data.brn
+
+            if(data.verified){
+                binding.verifiedIcon.visibility=View.VISIBLE
+            }
 
             Glide.with(this).load(data.user_picture).fallback(R.drawable.ic_profile_pic_placeholder)
                 .placeholder(R.drawable.ic_profile_pic_placeholder).into(binding.agentImage)
+
+
 
 
 
@@ -528,7 +534,11 @@ class PropertyDetailFragment : Fragment(), View.OnClickListener {
             }
 
             R.id.btn_chat -> {
-                Toast.makeText(requireContext(), "Under Development", Toast.LENGTH_LONG).show()
+                findNavController().navigate(
+                    PropertyDetailFragmentDirections.actionPropertyDetailFragmentToChatFragment(
+
+                    )
+                )
             }
 
             R.id.agent_info_btn -> {

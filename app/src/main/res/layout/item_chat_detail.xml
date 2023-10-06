@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/item_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/color_white_shade_1">
+
+
+    <TextView
+        android:id="@+id/item_chat_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:visibility="gone"
+        android:paddingVertical="@dimen/_5sdp"
+
+        android:text="----- Monday -----"
+        android:textColor="@color/grey_font"
+        android:textSize="@dimen/_11sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_receiver"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:visibility="visible"
+        app:layout_constraintEnd_toStartOf="@+id/end_guideline"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/item_chat_date"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:id="@+id/receiver"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/aa_chat_reciver_button_bg"
+            android:fontFamily="@font/hellix_regular"
+            android:textIsSelectable="true"
+            android:lineSpacingExtra="6sp"
+            android:paddingStart="@dimen/_10sdp"
+            android:paddingTop="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:paddingEnd="@dimen/_10sdp"
+            android:paddingBottom="@dimen/_12sdp"
+            android:text="dddd"
+            android:textColor="@color/color_black_shade_1"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintBottom_toTopOf="@+id/receiver_msg_time"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/receiver_msg_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_1sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:fontFamily="@font/hellix_regular"
+            android:text="1:13 pm"
+            android:textColor="@color/grey_font"
+            android:textSize="@dimen/_9sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_sender"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/start_guideline"
+        app:layout_constraintTop_toBottomOf="@+id/cl_receiver"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:id="@+id/sender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/aa_chat_sender_button_bg"
+            android:fontFamily="@font/hellix_regular"
+            android:textIsSelectable="true"
+            app:layout_constraintBottom_toTopOf="@+id/sender_msg_time"
+            android:lineSpacingExtra="6sp"
+            android:paddingTop="@dimen/_10sdp"
+            android:paddingBottom="@dimen/_12sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:paddingStart="@dimen/_10sdp"
+            android:paddingEnd="@dimen/_10sdp"
+            android:text="Yes ?"
+
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/sender_msg_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/hellix_regular"
+            android:text="1:13 pm"
+            android:layout_marginBottom="@dimen/_5sdp"
+
+            android:textColor="@color/grey_font"
+            android:textSize="@dimen/_9sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/sender" />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/end_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.85" />
+
+
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/start_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.15" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -149,7 +149,25 @@
         tools:layout="@layout/fragment_chat" >
         <action
             android:id="@+id/action_chatFragment_to_chatFragment2"
-            app:destination="@id/chatFragment2" />
+            app:destination="@id/chatFragment2">
+
+        <argument
+            android:name="chatUserId"
+            app:argType="string" />
+
+            <argument
+                android:name="chatUserName"
+                app:argType="string" />
+
+            <argument
+                android:name="chatUserImage"
+                app:argType="string" />
+
+
+
+
+        </action>
+        />
     </fragment>
     <fragment
         android:id="@+id/certificationCheckFragment"
@@ -550,5 +568,18 @@
         <argument
             android:name="isEdit"
             app:argType="boolean" />
+
+        <argument
+            android:name="chatUserId"
+            app:argType="string" />
+
+        <argument
+            android:name="chatUserName"
+            app:argType="string" />
+
+        <argument
+            android:name="chatUserImage"
+            app:argType="string" />
+
     </fragment>
 </navigation>

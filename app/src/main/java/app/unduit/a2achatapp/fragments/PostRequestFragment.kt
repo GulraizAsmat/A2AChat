@@ -146,7 +146,8 @@ class PostRequestFragment : Fragment(),View.OnClickListener {
                     propertyData.user_specialty = data?.speciality
                     propertyData.user_phone = data?.phone.toString()
                     propertyData.user_whatsapp = data?.whatsapp.toString()
-
+                    propertyData.brn = data?.brn.toString()
+                    propertyData.verified = data?.verified == true
                     db.collection("properties")
                         .document(id)
                         .set(propertyData)

@@ -65,7 +65,7 @@
             android:layout_marginBottom="@dimen/_15sdp"
             android:background="@drawable/ic_orange_btn_bg"
 
-            android:fontFamily="@font/poppins_semibold"
+            android:fontFamily="@font/hellix_semibold"
             android:text="Post a Property +"
             android:textAllCaps="false"
             android:textSize="@dimen/_12sdp"
@@ -80,7 +80,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/_15sdp"
             android:background="@drawable/ic_orange_btn_bg"
-            android:fontFamily="@font/poppins_semibold"
+            android:fontFamily="@font/hellix_semibold"
             android:text="Post a Request +"
             android:textAllCaps="false"
             android:textSize="@dimen/_12sdp"
@@ -94,7 +94,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/_20sdp"
             android:background="@drawable/ic_orange_btn_bg"
-            android:fontFamily="@font/poppins_semibold"
+            android:fontFamily="@font/hellix_semibold"
 
             android:text="Bulk Upload"
             android:textAllCaps="false"

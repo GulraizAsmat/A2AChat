@@ -332,6 +332,8 @@ class HomeFragment : Fragment(), View.OnClickListener, CardStackListener, Adapte
                     val data = it.data
 
                  userName= (data?.get("name") as String?).toString()
+                    Const.userName=userName
+
                  userImage= (data?.get("profile_image") as String?).toString()
                     userPhone= (data?.get("phone") as String?).toString()
                     userWhatsapp= (data?.get("whatsapp") as String?).toString()
@@ -354,6 +356,7 @@ class HomeFragment : Fragment(), View.OnClickListener, CardStackListener, Adapte
                             .placeholder(R.drawable.ic_deafult_profile_icon)
                             .into(binding.profileImage)
 
+                        Const.userImage=userImage
                     }catch (ex:Exception){
 
                     }
@@ -521,9 +524,9 @@ class HomeFragment : Fragment(), View.OnClickListener, CardStackListener, Adapte
             }
 
             R.id.chat -> {
-                Toast.makeText(requireContext(),"Under Development",Toast.LENGTH_LONG).show()
-//                Const.screenName="chat"
-//                findNavController().navigate(R.id.action_homeFragment_to_chatFragment)
+
+                Const.screenName="chat"
+                findNavController().navigate(R.id.action_homeFragment_to_chatFragment)
             }
 
 
