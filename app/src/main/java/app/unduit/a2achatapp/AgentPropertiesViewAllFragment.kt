@@ -15,6 +15,7 @@ import app.unduit.a2achatapp.adapters.AgentRequestBuySaleAdapter
 import app.unduit.a2achatapp.adapters.AgentPropertiesAdapter
 import app.unduit.a2achatapp.adapters.AgentPropertiesBuySaleAdapter
 import app.unduit.a2achatapp.databinding.FragmentAgentPropertiesViewAllBinding
+import app.unduit.a2achatapp.helpers.Const
 import app.unduit.a2achatapp.helpers.ProgressDialog
 import app.unduit.a2achatapp.helpers.showToast
 import app.unduit.a2achatapp.listeners.AdapterListener
@@ -80,6 +81,7 @@ class AgentPropertiesViewAllFragment : Fragment(),View.OnClickListener,AdapterLi
 
 
     fun init(){
+        Const.screenName=""
         defaultData()
         listeners()
     }
@@ -93,6 +95,7 @@ class AgentPropertiesViewAllFragment : Fragment(),View.OnClickListener,AdapterLi
 
     fun listeners(){
         binding.clSelector1.setOnClickListener(this)
+        binding.btnBack.setOnClickListener(this)
         binding.clSelector2.setOnClickListener(this)
     }
 
@@ -267,6 +270,11 @@ class AgentPropertiesViewAllFragment : Fragment(),View.OnClickListener,AdapterLi
                     selectSecond()
 
                 }
+                R.id.btn_back->{
+                    requireActivity().onBackPressed()
+                }
+
+
             }
     }
 

@@ -83,7 +83,7 @@ class AgentProfileFragment : Fragment() ,AdapterListener,View.OnClickListener{
     }
 
     fun init(){
-
+Const.screenName=""
         defaultData()
         listeners()
         recyclerViewManager()
@@ -92,7 +92,7 @@ class AgentProfileFragment : Fragment() ,AdapterListener,View.OnClickListener{
     fun listeners(){
         binding.requestViewAll.setOnClickListener(this)
         binding.propertiesViewAll.setOnClickListener(this)
-
+        binding.btnBack.setOnClickListener(this)
     }
 
 
@@ -132,6 +132,15 @@ class AgentProfileFragment : Fragment() ,AdapterListener,View.OnClickListener{
 
     private fun userDetails(){
 
+
+
+        binding.brn.text = propertyData!!.brn
+
+        if(propertyData!!.verified){
+            binding.verifiedIcon.visibility=View.VISIBLE
+        }
+
+
         if(propertyData!!.user_id== Const.userId){
 
             binding.userName.text= propertyData!!.sender_name
@@ -144,6 +153,9 @@ class AgentProfileFragment : Fragment() ,AdapterListener,View.OnClickListener{
 
             getUserProperties(propertyData!!.sender_id)
             userid=propertyData!!.sender_id
+
+
+
         }else {
 
 
@@ -189,8 +201,13 @@ class AgentProfileFragment : Fragment() ,AdapterListener,View.OnClickListener{
                 propertylist.clear()
                 propertylist.addAll(propertyFilterList)
 
+            if(requestList.isNotEmpty()){
+                binding.clViewAllRequest.visibility=View.VISIBLE
+            }
 
-
+                if(propertylist.isNotEmpty()){
+                    binding.clViewAllProperties.visibility=View.VISIBLE
+                }
                 binding.requestsCounts.text="(${requestList.size})"
                 binding.propertiesCounts.text="(${propertylist.size})"
 
@@ -238,6 +255,9 @@ class AgentProfileFragment : Fragment() ,AdapterListener,View.OnClickListener{
             R.id.properties_view_all->{
                 findNavController().navigate(AgentProfileFragmentDirections.actionAgentProfileFragmentToAgentPropertiesViewAllFragment("property",userid))
 
+            }
+            R.id.btn_back->{
+                requireActivity().onBackPressed()
             }
         }
     }

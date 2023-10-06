@@ -5,28 +5,36 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.Toast
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
+import app.unduit.a2achatapp.adapters.CustomSpinnerAdapter
+import app.unduit.a2achatapp.databinding.FragmentPostPropertyStep3Binding
+import app.unduit.a2achatapp.databinding.FragmentPurchaseLandBinding
+import app.unduit.a2achatapp.fragments.PostPropertyStep1FragmentArgs
+import app.unduit.a2achatapp.helpers.SpinnersHelper
+import app.unduit.a2achatapp.helpers.gone
+import app.unduit.a2achatapp.helpers.visible
+import app.unduit.a2achatapp.models.PropertyData
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [PurchaseLandFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class PurchaseLandFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+class PurchaseLandFragment : Fragment(),View.OnClickListener {
+
+
+    val args: PurchaseLandFragmentArgs by navArgs()
+    private var propertyData: PropertyData? = null
+
+    private lateinit var binding: FragmentPurchaseLandBinding
+
+    var useStr=""
+    var ownerStr=""
+    var heightStr=""
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+
     }
 
     override fun onCreateView(
@@ -34,26 +42,171 @@ class PurchaseLandFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_purchase_land, container, false)
+        binding = FragmentPurchaseLandBinding.inflate(inflater)
+        binding.lifecycleOwner = this
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment PurchaseLandFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            PurchaseLandFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        init()
+    }
+
+    fun init(){
+        propertyData =args.propertyData
+        spinnersManager()
+        listeners()
+    }
+
+    fun listeners(){
+    binding.nextBtn.setOnClickListener(this)
+    }
+
+    private fun spinnersManager(){
+        ownerSpinner()
+        useSpinner()
+        heightSpinner()
+    }
+
+    private fun ownerSpinner() {
+        val adapter = CustomSpinnerAdapter(requireContext(), SpinnersHelper.ownerShipList())
+
+        binding.spinnerOwnership.adapter = adapter
+        binding.spinnerOwnership.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    val selectedItem = SpinnersHelper.ownerShipList()[position]
+                    ownerStr = selectedItem
+
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    // This method is called when nothing is selected, if needed
                 }
             }
     }
+
+    private fun useSpinner() {
+        val adapter = CustomSpinnerAdapter(requireContext(), SpinnersHelper.useList())
+
+        binding.spinnerUse.adapter = adapter
+        binding.spinnerUse.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    val selectedItem = SpinnersHelper.useList()[position]
+                    useStr = selectedItem
+
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    // This method is called when nothing is selected, if needed
+                }
+            }
+    }
+
+
+
+    private fun heightSpinner() {
+        val adapter = CustomSpinnerAdapter(requireContext(), SpinnersHelper.heightList())
+
+        binding.spinnerHeight.adapter = adapter
+        binding.spinnerHeight.onItemSelectedListener =
+            object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    val selectedItem = SpinnersHelper.heightList()[position]
+                    heightStr = selectedItem
+
+                    if(position==1){
+                        binding.gValue.visibility=View.GONE
+                        binding.gTitle.visibility=View.GONE
+                        binding.gStar.visibility=View.GONE
+                    }
+                    else {
+                        binding.gValue.visibility=View.VISIBLE
+                        binding.gTitle.visibility=View.VISIBLE
+                        binding.gStar.visibility=View.VISIBLE
+                    }
+
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    // This method is called when nothing is selected, if needed
+                }
+            }
+    }
+
+    private fun checkValidation(){
+        if(binding.areaCommunity.text.isNotEmpty()){
+
+
+                    if(binding.gfa.text.isNotEmpty()){
+
+
+                        if(binding.far.text.isNotEmpty()){
+
+                            if(binding.spValue.text.isNotEmpty()){
+
+                                propertyData!!.area_community=binding.areaCommunity.text.toString()
+                                propertyData!!.ownership=ownerStr
+                                propertyData!!.gfa=binding.gfa.text.toString()
+                                propertyData!!.area_size=binding.plotSize.text.toString()
+                                propertyData!!.far=binding.far.text.toString()
+                                propertyData!!.use=useStr
+                                propertyData!!.height=heightStr
+                                propertyData!!.g_value=binding.gValue.text.toString()
+                                propertyData!!.sp=binding.spValue.text.toString()
+
+                                findNavController().navigate(PurchaseLandFragmentDirections.actionPurchaseLandFragmentToPostPropertyStep5Fragment(
+                                    propertyData!!,args.isEdit,true))
+                            }else {
+                                Toast.makeText(requireContext(),"Please enter the Sp ",Toast.LENGTH_LONG).show()
+                            }
+
+
+                        }
+                        else {
+                            Toast.makeText(requireContext(),"Please enter the Far ",Toast.LENGTH_LONG).show()
+
+                        }
+                    }else {
+                        Toast.makeText(requireContext(),"Please enter the GFA ",Toast.LENGTH_LONG).show()
+
+                    }
+
+
+        }else {
+            Toast.makeText(requireContext(),"Please enter the area community ",Toast.LENGTH_LONG).show()
+        }
+
+
+
+    }
+
+    override fun onClick(v: View?) {
+       when(v!!.id){
+           R.id.next_btn->{
+               checkValidation()
+           }
+
+
+       }
+    }
+
+
 }

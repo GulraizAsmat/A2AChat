@@ -100,6 +100,8 @@ class EditProfileFragment : Fragment() {
                     userData?.whatsapp = data?.get("whatsapp") as String?
                     userData?.company = data?.get("company") as String?
                     userData?.profile_image = data?.get("profile_image") as String?
+                    userData?.brn = data?.get("brn") as String?
+                    userData?.verified = data?.get("verified") as Boolean?
 
 
                     setUserData()
@@ -124,6 +126,13 @@ class EditProfileFragment : Fragment() {
             binding.etPhone.setText(user.phone)
             binding.etWhatsapp.setText(user.whatsapp)
             binding.etCompany.setText(user.company)
+            binding.etBrn.setText(user.brn)
+
+            if(user.verified == true){
+                binding.verifiedIcon.visibility=View.VISIBLE
+            }else {
+                binding.verifiedIcon.visibility=View.GONE
+            }
 
             Glide.with(this).load(user.profile_image).fallback(R.drawable.ic_profile_pic_placeholder)
                 .placeholder(R.drawable.ic_profile_pic_placeholder).into(binding.profileImage)
@@ -168,6 +177,14 @@ class EditProfileFragment : Fragment() {
             user.phone = binding.etPhone.text.toString()
             user.whatsapp = binding.etWhatsapp.text.toString()
             user.company = binding.etCompany.text.toString()
+
+            if(binding.etBrn.text.isNotEmpty()){
+                user.brn = binding.etBrn.text.toString()
+                user.verified =true
+            }else {
+
+                user.verified =false
+            }
 
             val db = Firebase.firestore
             db.collection("users")

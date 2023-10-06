@@ -28,6 +28,7 @@ import app.unduit.a2achatapp.models.User
 import app.unduit.a2achatapp.models.roomModels.ExceptData
 import app.unduit.a2achatapp.room.Database
 import com.bumptech.glide.Glide
+import com.google.android.gms.tasks.Tasks
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -331,6 +332,8 @@ class HomeFragment : Fragment(), View.OnClickListener, CardStackListener, Adapte
                     val data = it.data
 
                  userName= (data?.get("name") as String?).toString()
+                    Const.userName=userName
+
                  userImage= (data?.get("profile_image") as String?).toString()
                     userPhone= (data?.get("phone") as String?).toString()
                     userWhatsapp= (data?.get("whatsapp") as String?).toString()
@@ -353,6 +356,7 @@ class HomeFragment : Fragment(), View.OnClickListener, CardStackListener, Adapte
                             .placeholder(R.drawable.ic_deafult_profile_icon)
                             .into(binding.profileImage)
 
+                        Const.userImage=userImage
                     }catch (ex:Exception){
 
                     }
@@ -373,7 +377,7 @@ class HomeFragment : Fragment(), View.OnClickListener, CardStackListener, Adapte
 
         currentUser?.let { cUser ->
             val db = Firebase.firestore
-            val ref = db.collection("properties").whereNotEqualTo("user_id", cUser.uid).whereEqualTo("post_type", "property")
+            val ref = db.collection("properties").whereNotEqualTo("user_id", cUser.uid)
 
             ref.get()
                 .addOnSuccessListener { documents ->
@@ -397,7 +401,9 @@ class HomeFragment : Fragment(), View.OnClickListener, CardStackListener, Adapte
         }
     }
 
-    private fun loadHomeDataWithExcepted(list:ArrayList<String>){
+
+
+    private fun loadHomeDataWithExcepted(list: ArrayList<String>) {
         progressDialog.progressBarVisibility(true)
 
         auth = Firebase.auth
@@ -405,32 +411,45 @@ class HomeFragment : Fragment(), View.OnClickListener, CardStackListener, Adapte
 
         currentUser?.let { cUser ->
             val db = Firebase.firestore
-            val ref = db.collection("properties").whereNotIn(
-                FieldPath.documentId(), list)
+            val batchSize = 10
+            propertylist.clear()
 
-            ref.get()
-                .addOnSuccessListener { documents ->
+            // Split the 'list' into batches of 10 and query Firestore in chunks
+            val batches = list.chunked(batchSize)
+
+            val queryTasks = batches.map { batch ->
+                val ref = db.collection("properties").whereNotIn(FieldPath.documentId(), batch)
+
+                ref.get().addOnSuccessListener { documents ->
                     for (document in documents) {
                         Log.e(TAG, "${document.id} => ${document.data}")
-
                         propertylist.add(document.toObject(PropertyData::class.java))
                     }
+                }
+            }
 
-                    val list=propertylist.filter { it.user_id!=cUser.uid }
+            // Use Tasks.whenAllSuccess to wait for all query tasks to complete
+            Tasks.whenAllSuccess<Unit>(queryTasks)
+                .addOnSuccessListener {
+                    // Filter out properties for the current user
+                    val filteredList = propertylist.filter { it.user_id != cUser.uid  && it.post_type!="request"}
+
+                    Log.e("Tag2135","Data "+filteredList.size)
                     propertylist.clear()
-                    propertylist.addAll(list)
+                    propertylist.addAll(filteredList.sortedByDescending { it.created_date })
 
                     homeSliderAdapter.notifyDataSetChanged()
-
                     progressDialog.progressBarVisibility(false)
                 }
                 .addOnFailureListener { exception ->
                     Log.w(TAG, "Error getting documents: ", exception)
-                    requireContext().showToast("An error occurred. Please try again later")
+                    requireContext().showToast("An error occurred.loadHomeDataWithExcepted")
                     progressDialog.progressBarVisibility(false)
                 }
         }
     }
+
+
     private fun getExceptedData(){
         lifecycleScope.launch {
             val database = Application.database
@@ -452,7 +471,7 @@ class HomeFragment : Fragment(), View.OnClickListener, CardStackListener, Adapte
 
                }
                else {
-                   Log.e("Tag21345","DB is  not Empty")
+                   Log.e("Tag21345","DB is  not Empty "+stringList.size)
                    loadHomeDataWithExcepted(stringList)
                }
 
@@ -505,9 +524,9 @@ class HomeFragment : Fragment(), View.OnClickListener, CardStackListener, Adapte
             }
 
             R.id.chat -> {
-                Toast.makeText(requireContext(),"Under Development",Toast.LENGTH_LONG).show()
-//                Const.screenName="chat"
-//                findNavController().navigate(R.id.action_homeFragment_to_chatFragment)
+
+                Const.screenName="chat"
+                findNavController().navigate(R.id.action_homeFragment_to_chatFragment)
             }
 
 

@@ -40,7 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
-            android:fontFamily="@font/poppins_semibold"
+            android:fontFamily="@font/hellix_semibold"
             android:gravity="center_horizontal"
             tools:text="House"
             android:textColor="@color/white"

@@ -17,7 +17,7 @@ import app.unduit.a2achatapp.listeners.AdapterListener
 import app.unduit.a2achatapp.models.PropertyData
 import app.unduit.a2achatapp.models.PropertyType
 
-class AgentRequestAdapter(
+class          AgentRequestAdapter(
     val context: Context,
     private val listener: AdapterListener,
     private val propertyList: ArrayList<PropertyData>

@@ -33,7 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
-                android:fontFamily="@font/poppins_semibold"
+                android:fontFamily="@font/hellix_semibold"
                 android:text="Post a Property"
                 android:textColor="@color/color_black_shade_1"
                 android:textSize="@dimen/_16sdp"
@@ -368,7 +368,7 @@
                     android:id="@+id/commission_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_semibold"
+                    android:fontFamily="@font/hellix_semibold"
                     android:text="Commission"
                     android:textColor="@color/color_black_shade_1"
                     android:textSize="@dimen/_11sdp"
@@ -406,7 +406,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_15sdp"
-                    android:fontFamily="@font/poppins_semibold"
+                    android:fontFamily="@font/hellix_semibold"
                     android:text="Furnishing"
                     android:textColor="@color/color_black_shade_1"
                     android:textSize="@dimen/_11sdp"
@@ -437,17 +437,32 @@
                     app:layout_constraintTop_toTopOf="@+id/spinner_finishing"
                     app:srcCompat="@drawable/ic_arrow_down_white" />
 
+
+
+
+
+
+
+
+
+
+
+
                 <TextView
                     android:id="@+id/floor_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_15sdp"
-                    android:fontFamily="@font/poppins_semibold"
+                    android:fontFamily="@font/hellix_semibold"
                     android:text="Negotiation"
                     android:textColor="@color/color_black_shade_1"
                     android:textSize="@dimen/_11sdp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/spinner_finishing" />
+
+
+
+
 
 
                 <Spinner
@@ -480,7 +495,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_15sdp"
-                    android:fontFamily="@font/poppins_semibold"
+                    android:fontFamily="@font/hellix_semibold"
                     android:text="Property Title"
                     android:textColor="@color/color_black_shade_1"
                     android:textSize="@dimen/_11sdp"
@@ -491,7 +506,7 @@
                     android:id="@+id/property_title_star"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_regular"
+                    android:fontFamily="@font/hellix_regular"
                     android:text="*"
                     android:textColor="@color/color_red_shade_1"
                     android:textSize="@dimen/_11sdp"
@@ -505,7 +520,7 @@
                     android:layout_marginTop="@dimen/_5sdp"
                     android:background="@drawable/bg_text_view_signup"
                     android:drawablePadding="@dimen/_12sdp"
-                    android:fontFamily="@font/poppins_regular"
+                    android:fontFamily="@font/hellix_regular"
                     android:gravity="center_vertical"
                     android:hint="Enter title e.g. beautiful house"
                     android:textColorHint="@color/color_gray_shade_1"
@@ -523,7 +538,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_15sdp"
-                    android:fontFamily="@font/poppins_semibold"
+                    android:fontFamily="@font/hellix_semibold"
                     android:text="Property Description"
                     android:visibility="gone"
                     android:textColor="@color/color_black_shade_1"
@@ -537,7 +552,7 @@
                     android:layout_height="@dimen/_80sdp"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:background="@drawable/bg_text_view_signup"
-                    android:fontFamily="@font/poppins_regular"
+                    android:fontFamily="@font/hellix_regular"
                     android:visibility="gone"
                     android:gravity="start"
                     android:inputType="textMultiLine"
@@ -555,13 +570,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_20sdp"
-                    android:fontFamily="@font/poppins_semibold"
+                    android:fontFamily="@font/hellix_semibold"
                     android:text="Upload Images of Your Property"
                     android:textColor="@color/color_black_shade_1"
                     android:textSize="@dimen/_12sdp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/description" />
+
+
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_images"
@@ -587,7 +604,7 @@
                     android:layout_width="248dp"
                     android:layout_height="30dp"
                     android:layout_margin="@dimen/_10sdp"
-                    android:fontFamily="@font/poppins_semibold"
+                    android:fontFamily="@font/hellix_semibold"
                     android:gravity="center_horizontal"
                     android:text="Upload From Gallery"
                     android:textColor="@color/color_black_shade_1"
@@ -605,7 +622,7 @@
                     android:layout_marginBottom="@dimen/_20sdp"
                     android:layout_marginTop="@dimen/_30sdp"
                     android:background="@drawable/ic_dark_purple_bg"
-                    android:fontFamily="@font/poppins_semibold"
+                    android:fontFamily="@font/hellix_semibold"
                     android:stateListAnimator="@null"
                     android:visibility="invisible"
                     android:text="Save Draft"
@@ -624,7 +641,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_10sdp"
                     android:background="@drawable/ic_dark_purple_bg"
-                    android:fontFamily="@font/poppins_semibold"
+                    android:fontFamily="@font/hellix_semibold"
                     android:stateListAnimator="@null"
                     android:text="Post Listing"
                     android:textAllCaps="false"
@@ -643,7 +660,7 @@
                     android:layout_marginTop="@dimen/_30sdp"
                     android:layout_marginBottom="@dimen/_20sdp"
                     android:background="@drawable/ic_dark_purple_bg"
-                    android:fontFamily="@font/poppins_semibold"
+                    android:fontFamily="@font/hellix_semibold"
                     android:stateListAnimator="@null"
                     android:text="Post Listing"
                     android:textAllCaps="false"

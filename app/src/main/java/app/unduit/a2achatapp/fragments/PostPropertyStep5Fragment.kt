@@ -116,6 +116,12 @@ class PostPropertyStep5Fragment : Fragment() {
         binding.rvImages.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
         binding.rvImages.adapter = adapter
 
+
+
+        if(args.isLand){
+            selectedLand()
+        }
+
         if(isEdit) {
             setData()
             binding.saveDraft.gone()
@@ -140,6 +146,13 @@ class PostPropertyStep5Fragment : Fragment() {
         commissionSpinner()
     }
 
+
+    fun selectedLand(){
+
+        binding.finishingTitle.visibility=View.GONE
+        binding.spinnerFinishing.visibility=View.GONE
+        binding.finishingIcArrow.visibility=View.GONE
+    }
     private fun finishingSpinner() {
 
 
@@ -326,6 +339,8 @@ class PostPropertyStep5Fragment : Fragment() {
                     propertyData.user_company = data?.company
                     propertyData.user_experience = data?.experience
                     propertyData.user_specialty = data?.speciality
+                    propertyData.brn = data?.brn.toString()
+                    propertyData.verified = data?.verified == true
                     propertyData.user_phone = data?.phone.toString()
                     propertyData.user_whatsapp = data?.whatsapp.toString()
 

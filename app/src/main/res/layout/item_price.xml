@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_10sdp"
         android:layout_marginVertical="@dimen/_5ssp"
-        android:fontFamily="@font/poppins_regular"
+        android:fontFamily="@font/hellix_regular"
         android:text="8000"
         android:textColor="@color/color_black_shade_1"
         android:textSize="@dimen/_14sdp"

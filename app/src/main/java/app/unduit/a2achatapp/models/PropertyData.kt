@@ -15,6 +15,8 @@ class PropertyData(
     var user_experience: String? = "",
     var user_specialty: List<String>? = null,
     var name: String = "",
+    var brn: String = "",
+    var verified: Boolean = false,
     var image: Int = 0,
     var selected: Boolean = false,
     var bhk: String = "",
@@ -73,5 +75,16 @@ class PropertyData(
     var sender_speciality : String="",
     var sender_company : String="",
     var post_type : String = "",
+
+    //Land Data
+    var ownership : String = "",
+    var gfa : String = "",
+    var far : String = "",
+    var use : String = "",
+    var height : String = "",
+    var g_value : String = "",
+
+
+
 
 ): Parcelable

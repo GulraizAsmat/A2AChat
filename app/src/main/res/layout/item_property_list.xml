@@ -14,7 +14,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="420dp"
+        android:layout_height="400dp"
         android:layout_margin="@dimen/_10sdp"
         app:cardBackgroundColor="@color/color_white_shade_1"
         app:cardCornerRadius="@dimen/_10sdp"
@@ -72,10 +72,10 @@
                     android:id="@+id/property_type"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_regular"
+                    android:fontFamily="@font/hellix_regular"
                     android:text="Apartment"
                     android:paddingHorizontal="@dimen/_7sdp"
-                    android:paddingVertical="@dimen/_1sdp"
+                    android:paddingVertical="@dimen/_3sdp"
                     android:background="@drawable/tag_purple"
                     android:textColor="@color/color_white_shade_1"
                     android:textSize="@dimen/_10sdp"
@@ -88,7 +88,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
 
-                    android:fontFamily="@font/poppins_semibold"
+                    android:fontFamily="@font/hellix_semibold"
                     android:text="1550,000 AED"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:textColor="@color/color_black_shade_1"
@@ -102,7 +102,7 @@
                     android:id="@+id/item_location_icon"
                     android:layout_width="@dimen/_12sdp"
                     android:layout_height="@dimen/_12sdp"
-
+                    android:layout_marginTop="@dimen/_5ssp"
                     android:src="@drawable/ic_map_pin_black"
                     android:visibility="visible"
                     app:layout_constraintTop_toBottomOf="@+id/property_price" />
@@ -113,7 +113,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_5sdp"
-                    android:fontFamily="@font/poppins_regular"
+                    android:fontFamily="@font/hellix_regular"
                     android:text="Building no 2 safa park , dubai"
                     android:textColor="@color/color_black_shade_1"
                     android:textSize="@dimen/_8sdp"
@@ -132,6 +132,7 @@
                     android:layout_height="@dimen/_18sdp"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:src="@drawable/ic_bed"
+
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/item_location_icon" />
 
@@ -140,8 +141,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_3sdp"
-                    android:fontFamily="@font/poppins_regular"
+                    android:fontFamily="@font/hellix_regular"
                     android:text="3"
+
                     android:textColor="@color/color_black_shade_1"
                     android:textSize="@dimen/_9sdp"
                     app:layout_constraintBottom_toBottomOf="@+id/bedroom_icon"
@@ -163,7 +165,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_3sdp"
-                    android:fontFamily="@font/poppins_regular"
+                    android:fontFamily="@font/hellix_regular"
                     android:text="2"
                     android:textColor="@color/color_black_shade_1"
                     android:textSize="@dimen/_9sdp"
@@ -187,7 +189,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_3sdp"
-                    android:fontFamily="@font/poppins_regular"
+                    android:fontFamily="@font/hellix_regular"
                     android:text="1071 sqft"
                     android:textColor="@color/color_black_shade_1"
                     android:textSize="@dimen/_9sdp"
@@ -210,11 +212,10 @@
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/user_image"
-                    android:layout_width="@dimen/_32sdp"
-                    android:layout_height="@dimen/_32sdp"
-                android:layout_marginTop="@dimen/_7sdp"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginTop="@dimen/_7sdp"
                     android:src="@drawable/ic_profile_pic_placeholder"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/view2" />
 
@@ -223,7 +224,7 @@
                     android:id="@+id/property_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_regular"
+                    android:fontFamily="@font/hellix_regular"
                     android:text="1 month ago"
                     android:textColor="@color/color_gray_shade_1"
                     android:textSize="@dimen/_9sdp"
@@ -236,7 +237,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_7sdp"
-                    android:fontFamily="@font/poppins_regular"
+                    android:fontFamily="@font/hellix_regular"
                     android:text="Abu Hashim"
                     android:ellipsize="end"
                     android:maxLines="1"
@@ -262,8 +263,8 @@
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/btn_phone"
-                        android:layout_width="@dimen/_25sdp"
-                        android:layout_height="@dimen/_25sdp"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
 
                         android:background="@drawable/bg_back_purple"
                         android:padding="10dp"
@@ -277,8 +278,8 @@
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/btn_whatsapp"
-                        android:layout_width="@dimen/_25sdp"
-                        android:layout_height="@dimen/_25sdp"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
 
                         android:background="@drawable/bg_back_purple"
                         android:padding="8dp"
@@ -292,8 +293,8 @@
 
                     <androidx.appcompat.widget.AppCompatImageView
                         android:id="@+id/btn_chat"
-                        android:layout_width="@dimen/_25sdp"
-                        android:layout_height="@dimen/_25sdp"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
                         android:background="@drawable/bg_back_purple"
                         android:padding="8dp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -326,7 +327,7 @@
                         android:textSize="@dimen/_10sdp"
                         android:textColor="@color/color_black_shade_1"
                         android:textAllCaps="false"
-                        android:fontFamily="@font/poppins_regular"
+                        android:fontFamily="@font/hellix_regular"
 
                         />
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -353,7 +354,7 @@
                     android:id="@+id/item_bhk"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_regular"
+                    android:fontFamily="@font/hellix_regular"
                     android:text="3 BHK"
                     android:textColor="@color/color_white_shade_1"
                     android:textSize="@dimen/_8sdp"
@@ -384,7 +385,7 @@
                     android:id="@+id/item_sqft"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_regular"
+                    android:fontFamily="@font/hellix_regular"
                     android:text="1200 sqft"
                     android:textColor="@color/color_white_shade_1"
                     android:textSize="@dimen/_8sdp"
@@ -416,7 +417,7 @@
                     android:id="@+id/item_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_regular"
+                    android:fontFamily="@font/hellix_regular"
                     android:text="AED 500 / per month"
                     android:textColor="@color/color_white_shade_1"
                     android:textSize="@dimen/_8sdp"

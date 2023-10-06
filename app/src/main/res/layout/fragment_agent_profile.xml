@@ -31,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_5sdp"
-            android:fontFamily="@font/poppins_semibold"
+            android:fontFamily="@font/hellix_semibold"
             android:text="Profile Detail"
             android:textColor="@color/color_black_shade_1"
             android:textSize="@dimen/_16sdp"
@@ -67,8 +67,21 @@
             android:id="@+id/user_image"
             android:layout_width="@dimen/_60sdp"
             android:layout_height="@dimen/_60sdp"
+            android:src="@drawable/ic_profile_pic_placeholder"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/verified_icon"
+            android:layout_width="@dimen/_18sdp"
+            android:layout_height="@dimen/_18sdp"
+
+            android:visibility="gone"
+            android:src="@drawable/verified_icon"
+
+            app:layout_constraintEnd_toEndOf="@+id/user_image"
+            app:layout_constraintTop_toTopOf="@+id/user_image" />
+
 
         <TextView
             android:id="@+id/user_name"
@@ -76,17 +89,17 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_10sdp"
             android:ellipsize="end"
-            android:fontFamily="@font/poppins_semibold"
+            android:layout_marginTop="@dimen/_3ssp"
+            android:fontFamily="@font/hellix_semibold"
             android:maxLines="1"
 
             android:text="Muhammad Usman khan"
             android:textColor="@color/color_black_shade_1"
             android:textSize="@dimen/_12sdp"
-            app:layout_constraintBottom_toTopOf="@+id/company_name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/user_image"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/user_image"
             app:layout_constraintVertical_chainStyle="packed" />
 
 
@@ -95,9 +108,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_10sdp"
-
+            android:layout_marginTop="@dimen/_3ssp"
             android:ellipsize="end"
-            android:fontFamily="@font/poppins_regular"
+            android:fontFamily="@font/hellix_regular"
             android:maxLines="1"
             android:text="Real Estate Gullberg"
             android:textColor="@color/color_gray_shade_1"
@@ -114,12 +127,12 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_10sdp"
             android:ellipsize="end"
-            android:fontFamily="@font/poppins_semibold"
+            android:layout_marginTop="@dimen/_3ssp"
+            android:fontFamily="@font/hellix_semibold"
             android:maxLines="1"
             android:text="BRN : "
             android:textColor="@color/color_gray_shade_1"
             android:textSize="@dimen/_10sdp"
-            app:layout_constraintBottom_toBottomOf="@+id/user_image"
             app:layout_constraintStart_toEndOf="@+id/user_image"
             app:layout_constraintTop_toBottomOf="@+id/company_name" />
 
@@ -129,12 +142,12 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:ellipsize="end"
-            android:fontFamily="@font/poppins_regular"
+            android:fontFamily="@font/hellix_regular"
+            android:layout_marginTop="@dimen/_3ssp"
             android:maxLines="1"
             android:text="84343"
             android:textColor="@color/color_gray_shade_1"
             android:textSize="@dimen/_10sdp"
-            app:layout_constraintBottom_toBottomOf="@+id/user_image"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/brn_title"
             app:layout_constraintTop_toBottomOf="@+id/company_name" />
@@ -164,7 +177,7 @@
             android:id="@+id/requests_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_semibold"
+            android:fontFamily="@font/hellix_semibold"
             android:text="Request"
             android:textColor="@color/color_black_shade_1"
             android:textSize="@dimen/_14sdp"
@@ -178,7 +191,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_3sdp"
-            android:fontFamily="@font/poppins_regular"
+            android:fontFamily="@font/hellix_regular"
             android:text="(4)"
             android:textColor="@color/color_black_shade_1"
             android:textSize="@dimen/_8sdp"
@@ -189,11 +202,12 @@
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout13"
+            android:id="@+id/cl_view_all_request"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_btn_pending"
             android:paddingHorizontal="@dimen/_10ssp"
+            android:visibility="gone"
             android:paddingVertical="@dimen/_5ssp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -230,7 +244,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_15sdp"
-            android:fontFamily="@font/poppins_semibold"
+            android:fontFamily="@font/hellix_semibold"
             android:text="Properties"
             android:textColor="@color/color_black_shade_1"
             android:textSize="@dimen/_14sdp"
@@ -244,7 +258,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_3sdp"
-            android:fontFamily="@font/poppins_regular"
+            android:fontFamily="@font/hellix_regular"
             android:textColor="@color/color_black_shade_1"
             android:textSize="@dimen/_8sdp"
 
@@ -255,11 +269,13 @@
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_view_all_properties"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_btn_pending"
             android:paddingHorizontal="@dimen/_10ssp"
             android:paddingVertical="@dimen/_5ssp"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/properties_title"
             tools:ignore="MissingConstraints">

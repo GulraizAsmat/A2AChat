@@ -30,6 +30,45 @@ object SpinnersHelper {
 
     }
 
+    fun ownerShipList(): ArrayList<String> {
+        val list = ArrayList<String>()
+
+        list.add("Freehold")
+        list.add("Leasehold")
+
+
+
+        return list
+
+    }
+
+    fun useList(): ArrayList<String> {
+        val list = ArrayList<String>()
+
+        list.add("Residential only")
+        list.add("Residential & Retail")
+        list.add("Commercial")
+        list.add("Commercial & Retail")
+        list.add("Hotel")
+        list.add("Mix use")
+
+
+
+        return list
+
+    }
+
+
+    fun heightList(): ArrayList<String> {
+        val list = ArrayList<String>()
+
+        list.add("G+")
+        list.add("Unlimited")
+
+
+        return list
+
+    }
 
     fun movingTimeList(): ArrayList<String> {
         val list = ArrayList<String>()
