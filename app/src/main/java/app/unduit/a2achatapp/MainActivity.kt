@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
     @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         super.onBackPressed()
-        Log.e("Tag324","onBackPressed")
+        Log.e("Tag324","onBackPressed  " +Const.screenName)
         if(Const.screenName=="favourite_icon" ||Const.screenName== "notification_icon"
             ||Const.screenName== "profile_image" ||Const.screenName== "property_list"
             ||Const.screenName== "add_property" ||Const.screenName== "chat" || Const.screenName=="Property_detail"){

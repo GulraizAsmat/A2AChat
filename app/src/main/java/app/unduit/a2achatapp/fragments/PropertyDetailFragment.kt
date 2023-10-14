@@ -1,5 +1,6 @@
 package app.unduit.a2achatapp.fragments
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -26,6 +27,7 @@ import app.unduit.a2achatapp.helpers.visible
 import app.unduit.a2achatapp.models.PropertyData
 import com.bumptech.glide.Glide
 import com.denzcoskun.imageslider.constants.ScaleTypes
+import com.denzcoskun.imageslider.interfaces.ItemClickListener
 import com.denzcoskun.imageslider.models.SlideModel
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexWrap
@@ -61,6 +63,11 @@ class PropertyDetailFragment : Fragment(), View.OnClickListener {
             requireContext(),
             propertyFeaturesList
         )
+    }
+
+    override fun onResume() {
+        super.onResume()
+
     }
 
     override fun onCreateView(
@@ -104,6 +111,7 @@ class PropertyDetailFragment : Fragment(), View.OnClickListener {
         binding.btnChat.setOnClickListener(this)
         binding.btnWhatsapp.setOnClickListener(this)
         binding.agentInfoBtn.setOnClickListener(this)
+        binding.ivPropertySlider.setOnClickListener(this)
     }
 
     private fun getData() {
@@ -112,7 +120,7 @@ class PropertyDetailFragment : Fragment(), View.OnClickListener {
         propertyData?.let { pData ->
             val db = Firebase.firestore
             val ref = db.collection("properties").document(pData.uid)
-
+                Log.e("Tag123","Const.PropertyType :: "+Const.PropertyType)
             if (Const.PropertyType == "match") {
                 setData(pData)
             } else {
@@ -137,7 +145,15 @@ class PropertyDetailFragment : Fragment(), View.OnClickListener {
         }
     }
 
-    fun buyAndResidence(data: PropertyData) {
+
+
+
+
+
+
+
+
+    private fun buyAndResidence(data: PropertyData) {
         binding.propertyPrice.visibility = View.GONE
 
 
@@ -246,6 +262,17 @@ class PropertyDetailFragment : Fragment(), View.OnClickListener {
     }
 
     private fun setData(data: PropertyData) {
+
+        if(data.verified){
+            binding.verifiedIcon.visibility=View.VISIBLE
+        }
+        binding.agentExperience.text = data.brn
+        Glide.with(this).load(data.user_picture).fallback(R.drawable.ic_profile_pic_placeholder)
+            .placeholder(R.drawable.ic_profile_pic_placeholder).into(binding.agentImage)
+
+
+
+
         Log.e("Tag1234", "data.property_type" + data.post_type)
         if (data.post_type == "request") {
             binding.ivPropertySlider.visibility = View.GONE
@@ -254,20 +281,14 @@ class PropertyDetailFragment : Fragment(), View.OnClickListener {
 
             binding.agentName.text = data.user_name
             binding.agentCompany.text = data.user_company
-            binding.agentExperience.text = data.brn
-
-            if(data.verified){
-                binding.verifiedIcon.visibility=View.VISIBLE
-            }
-
-            Glide.with(this).load(data.user_picture).fallback(R.drawable.ic_profile_pic_placeholder)
-                .placeholder(R.drawable.ic_profile_pic_placeholder).into(binding.agentImage)
 
 
 
 
 
-            buyAndResidence(data)
+
+
+
 
 
         } else {
@@ -277,7 +298,7 @@ class PropertyDetailFragment : Fragment(), View.OnClickListener {
             saleAndResidents(data)
             binding.agentName.text = data.user_name
             binding.agentCompany.text = data.user_company
-            binding.agentExperience.text = data.user_experience + " years"
+
 
             Glide.with(this).load(data.user_picture).fallback(R.drawable.ic_profile_pic_placeholder)
                 .placeholder(R.drawable.ic_profile_pic_placeholder).into(binding.agentImage)
@@ -286,7 +307,7 @@ class PropertyDetailFragment : Fragment(), View.OnClickListener {
             if (isFrom == "matches") {
 
                 if (Const.userId == data.user_id) {
-
+                    Log.e("Tag3","Sender Name "+ data.sender_name)
                     binding.headingAgent.text = "Requester Info"
                     binding.agentName.text = data.sender_name
                     binding.agentCompany.text = data.sender_company
@@ -352,9 +373,76 @@ class PropertyDetailFragment : Fragment(), View.OnClickListener {
             }
             binding.ivPropertySlider.setImageList(imageSliderList)
 
-            setFeaturesList(data)
+
+            binding.ivPropertySlider.setItemClickListener(object : ItemClickListener {
+                override fun onItemSelected(position: Int) {
+                    // You can listen here.
+                    Log.e("Tag23223","CLick ivPropertySlider")
+                    findNavController().navigate(
+                        PropertyDetailFragmentDirections.actionPropertyDetailFragmentToFullViewImageFragment(
+                            propertyData
+                        )
+                    )
+                }
+                override fun doubleClick(position: Int) {
+                    // Do not use onItemSelected if you are using a double click listener at the same time.
+                    // Its just added for specific cases.
+                    // Listen for clicks under 250 milliseconds.
+                } })
+
+//            setFeaturesList(data)
+
+
+
+
+
+
 
         }
+
+        if(data.post_type=="request"){
+            binding.groupBottomBar.visible()
+            buyAndResidence(data)
+            if (data.purpose == "Sale" && data.purpose_type == "Residential") {
+                saleAndResidenceRequest(data)
+            }
+            else if(data.purpose == "Sale" && data.purpose_type == "Commercial"){
+                saleAndCommercialRequest(data)
+            }
+            else if (data.purpose == "Rent" && data.purpose_type == "Residential") {
+                rentAndResidentialRequest(data)
+            }
+            else if(data.purpose == "Rent" && data.purpose_type == "Commercial"){
+                rentAndCommercialRequest(data)
+            }
+
+        }else {
+            if (data.purpose == "Sale" && data.purpose_type == "Residential") {
+                if(data.property_type=="Land"){
+                    forLand(data)
+                }else{
+                    saleAndResidence(data)
+                }
+
+            }
+            else if (data.purpose == "Rent" && data.purpose_type == "Residential") {
+                if(data.property_type=="Land"){
+                    forLand(data)
+                }else{
+                    rentAndResidence(data)
+                }
+
+            }
+            else if(data.purpose == "Sale" && data.purpose_type == "Commercial"){
+                saleAndCommercial(data)
+            }
+
+            else if(data.purpose == "Rent" && data.purpose_type == "Commercial"){
+                rentAndCommercial(data)
+            }
+        }
+
+
 
         progressDialog.progressBarVisibility(false)
     }
@@ -492,7 +580,6 @@ class PropertyDetailFragment : Fragment(), View.OnClickListener {
 
     }
 
-
     private fun makePhoneCall(phoneNumber: String) {
         val intent = Intent(Intent.ACTION_DIAL)
         intent.data = Uri.parse("tel:$phoneNumber")
@@ -534,11 +621,24 @@ class PropertyDetailFragment : Fragment(), View.OnClickListener {
             }
 
             R.id.btn_chat -> {
-                findNavController().navigate(
-                    PropertyDetailFragmentDirections.actionPropertyDetailFragmentToChatFragment(
-
+                if (Const.userId == propertyData!!.user_id) {
+                    findNavController().navigate(
+                        PropertyDetailFragmentDirections.actionPropertyDetailFragmentToChatFragment2(
+                            propertyData!!,false,
+                            propertyData!!.sender_id.toString(), propertyData!!.sender_name!!, propertyData!!.sender_image!!
+                        )
                     )
-                )
+                }else {
+                    findNavController().navigate(
+                        PropertyDetailFragmentDirections.actionPropertyDetailFragmentToChatFragment2(
+                            propertyData!!,false,
+                            propertyData!!.user_id.toString(), propertyData!!.user_name!!, propertyData!!.user_picture!!
+                        )
+                    )
+                }
+
+
+
             }
 
             R.id.agent_info_btn -> {
@@ -549,6 +649,11 @@ class PropertyDetailFragment : Fragment(), View.OnClickListener {
                         propertyData
                     )
                 )
+
+            }
+            R.id.iv_property_slider->{
+                Log.e("Tag213","iv_property_slider ")
+
 
             }
 
@@ -665,16 +770,289 @@ class PropertyDetailFragment : Fragment(), View.OnClickListener {
 
 
         if (data.purpose == "Sale" && data.purpose_type == "Residential") {
-            saleAndResidentsHideData()
+//            saleAndResidentsHideData()
         } else if (data.purpose == "Rent" && data.purpose_type == "Residential") {
-            rentAndResidentsHideData()
+//            rentAndResidentsHideData()
             binding.checksStatus.text = "Number of checks : " + data.number_of_checks
         } else if (data.purpose == "Rent" && data.purpose_type == "Commercial") {
-            rentAndCommercialHideData()
+//            rentAndCommercialHideData()
             Log.e("Tag123", "number_of_checks" + data.number_of_checks)
             Log.e("Tag123", "Fitting" + data.fitting)
             binding.checksStatus.text = "Number of checks : " + data.number_of_checks
             binding.serviceChargeStatus.text = "Fitting : " + data.fitting
         }
     }
+
+
+    private fun saleAndResidence(data: PropertyData){
+        propertyFeaturesList.clear()
+
+        propertyFeaturesList.add("Property Status : ${data.development_status}")
+        if(data!!.maidroom){
+            propertyFeaturesList.add("Maid Room")
+        }
+        if(data!!.balcony){
+            propertyFeaturesList.add("Balcony Room")
+        }
+
+        if (data!!.occupancy == "Rented") {
+            propertyFeaturesList.add("Occupancy : " + data.occupancy)
+            propertyFeaturesList.add( "Number of checks : " + data.number_of_checks)
+        }else{
+            propertyFeaturesList.add("Occupancy : " + data.occupancy)
+        }
+
+
+
+
+
+        propertyFeaturesList.add("Service Charges : " + data.service_charge + "(Aed/Sqft)")
+        propertyFeaturesList.add("Floor : " + data.floor)
+        propertyFeaturesList.add("Year of handover : " + data.handover_year)
+        propertyFeaturesList.add("Negotiation : " + data.negotiation)
+        propertyFeaturesList.add("Commission : " + data.commission)
+
+
+
+        val layoutManager = FlexboxLayoutManager(requireContext())
+        layoutManager.flexWrap = FlexWrap.WRAP
+        layoutManager.flexDirection = FlexDirection.ROW
+        binding.rvFeatures.layoutManager = layoutManager
+        binding.rvFeatures.adapter = adapter
+        adapter.notifyDataSetChanged()
+
+
+    }
+
+
+
+
+
+    private fun saleAndResidenceRequest(data: PropertyData){
+        propertyFeaturesList.clear()
+
+        if(data.maidroom){
+            propertyFeaturesList.add("Maid Room")
+        }
+        if(data.balcony){
+            propertyFeaturesList.add("Balcony Room")
+        }
+        propertyFeaturesList.add("Occupancy : " + data.occupancy)
+        propertyFeaturesList.add("Purchase Goal : " + data.purchase_goal )
+        propertyFeaturesList.add("Payment Method : " + data.payment_method)
+
+        propertyFeaturesList.add( "Development : " + data.reqDevelopmentStatus)
+
+        val layoutManager = FlexboxLayoutManager(requireContext())
+        layoutManager.flexWrap = FlexWrap.WRAP
+        layoutManager.flexDirection = FlexDirection.ROW
+        binding.rvFeatures.layoutManager = layoutManager
+        binding.rvFeatures.adapter = adapter
+        adapter.notifyDataSetChanged()
+
+
+    }
+
+
+    private fun saleAndCommercialRequest(data: PropertyData){
+        propertyFeaturesList.clear()
+
+        propertyFeaturesList.add("Occupancy : " + data.occupancy)
+        propertyFeaturesList.add("Fitting : "+data.fitting)
+        propertyFeaturesList.add("Purchase Goal : " + data.purchase_goal )
+        propertyFeaturesList.add("Payment Method : " + data.payment_method)
+
+
+
+        val layoutManager = FlexboxLayoutManager(requireContext())
+        layoutManager.flexWrap = FlexWrap.WRAP
+        layoutManager.flexDirection = FlexDirection.ROW
+        binding.rvFeatures.layoutManager = layoutManager
+        binding.rvFeatures.adapter = adapter
+        adapter.notifyDataSetChanged()
+
+
+    }
+
+    private fun rentAndResidence(data: PropertyData){
+        propertyFeaturesList.clear()
+
+
+        if(data.maidroom){
+            propertyFeaturesList.add("Maid Room")
+        }
+        if(data.balcony){
+            propertyFeaturesList.add("Balcony Room")
+        }
+
+        propertyFeaturesList.add( "Number of checks : " + data.number_of_checks)
+
+        propertyFeaturesList.add("Negotiation : " + data.negotiation)
+        propertyFeaturesList.add("Commission : " + data.commission)
+
+
+
+        val layoutManager = FlexboxLayoutManager(requireContext())
+        layoutManager.flexWrap = FlexWrap.WRAP
+        layoutManager.flexDirection = FlexDirection.ROW
+        binding.rvFeatures.layoutManager = layoutManager
+        binding.rvFeatures.adapter = adapter
+        adapter.notifyDataSetChanged()
+
+
+    }
+
+    private fun saleAndCommercial(data: PropertyData){
+        propertyFeaturesList.clear()
+
+        propertyFeaturesList.add("Property Status : ${data.development_status}")
+        if(data!!.maidroom){
+            propertyFeaturesList.add("Maid Room")
+        }
+        if(data!!.balcony){
+            propertyFeaturesList.add("Balcony Room")
+        }
+
+        if (propertyData!!.occupancy == "Rented") {
+            propertyFeaturesList.add("Occupancy : " + data.occupancy)
+            propertyFeaturesList.add( "Number of checks : " + data.number_of_checks)
+        }else{
+            propertyFeaturesList.add("Occupancy : " + data.occupancy)
+        }
+
+
+
+
+
+        propertyFeaturesList.add("Service Charges : " + data.service_charge + "(Aed/Sqft)")
+        propertyFeaturesList.add("Floor : " + data.floor)
+        propertyFeaturesList.add("Year of handover : " + data.handover_year)
+        propertyFeaturesList.add("Negotiation : " + data.negotiation)
+        propertyFeaturesList.add("Commission : " + data.commission)
+
+
+
+        val layoutManager = FlexboxLayoutManager(requireContext())
+        layoutManager.flexWrap = FlexWrap.WRAP
+        layoutManager.flexDirection = FlexDirection.ROW
+        binding.rvFeatures.layoutManager = layoutManager
+        binding.rvFeatures.adapter = adapter
+        adapter.notifyDataSetChanged()
+
+
+    }
+    private fun rentAndCommercial(data: PropertyData){
+        propertyFeaturesList.clear()
+
+
+
+        propertyFeaturesList.add( "Number of checks : " + data.number_of_checks)
+        propertyFeaturesList.add("Fitting : "+data.fitting)
+        propertyFeaturesList.add("Negotiation : " + data.negotiation)
+        propertyFeaturesList.add("Commission : " + data.commission)
+
+
+
+        val layoutManager = FlexboxLayoutManager(requireContext())
+        layoutManager.flexWrap = FlexWrap.WRAP
+        layoutManager.flexDirection = FlexDirection.ROW
+        binding.rvFeatures.layoutManager = layoutManager
+        binding.rvFeatures.adapter = adapter
+        adapter.notifyDataSetChanged()
+
+
+    }
+    private fun rentAndCommercialRequest(data: PropertyData){
+        propertyFeaturesList.clear()
+
+        if(data!!.maidroom){
+            propertyFeaturesList.add("Maid Room")
+        }
+        if(data!!.balcony){
+            propertyFeaturesList.add("Balcony Room")
+        }
+
+
+
+        propertyFeaturesList.add("Occupancy : " + data.occupancy)
+        propertyFeaturesList.add("Service Charges : " + data.service_charge + "(Aed/Sqft)")
+        propertyFeaturesList.add("Floor : " + data.floor)
+
+
+
+        val layoutManager = FlexboxLayoutManager(requireContext())
+        layoutManager.flexWrap = FlexWrap.WRAP
+        layoutManager.flexDirection = FlexDirection.ROW
+        binding.rvFeatures.layoutManager = layoutManager
+        binding.rvFeatures.adapter = adapter
+        adapter.notifyDataSetChanged()
+
+
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun rentAndResidentialRequest(data: PropertyData){
+        propertyFeaturesList.clear()
+
+
+        if(data.maidroom){
+            propertyFeaturesList.add("Maid Room")
+        }
+        if(data.balcony){
+            propertyFeaturesList.add("Balcony Room")
+        }
+
+        propertyFeaturesList.add("Furniture : "+data.furnishing)
+        propertyFeaturesList.add( "Number of checks : " + data.number_of_checks)
+        propertyFeaturesList.add( "Moving Time : " + data.property_moving_time)
+
+
+
+
+
+
+        val layoutManager = FlexboxLayoutManager(requireContext())
+        layoutManager.flexWrap = FlexWrap.WRAP
+        layoutManager.flexDirection = FlexDirection.ROW
+        binding.rvFeatures.layoutManager = layoutManager
+        binding.rvFeatures.adapter = adapter
+        adapter.notifyDataSetChanged()
+
+
+    }
+
+    private fun forLand(data: PropertyData){
+
+
+        binding.icBed.visibility=View.GONE
+        binding.propertyRooms.visibility=View.GONE
+        binding.icWashroom.visibility=View.GONE
+        binding.propertyWashrooms.visibility=View.GONE
+        binding.icLounge.visibility=View.GONE
+        binding.propertyLounge.visibility=View.GONE
+
+
+
+
+
+        propertyFeaturesList.add("Ownership : "+data.ownership)
+        propertyFeaturesList.add("GFA : "+data.gfa)
+        propertyFeaturesList.add("Far : "+data.far)
+        propertyFeaturesList.add("Use : "+data.use)
+        if(data.height=="G+"){
+            propertyFeaturesList.add("G+ : "+data.g_value)
+        }
+        propertyFeaturesList.add("Height : "+data.height)
+
+
+
+
+        val layoutManager = FlexboxLayoutManager(requireContext())
+        layoutManager.flexWrap = FlexWrap.WRAP
+        layoutManager.flexDirection = FlexDirection.ROW
+        binding.rvFeatures.layoutManager = layoutManager
+        binding.rvFeatures.adapter = adapter
+        adapter.notifyDataSetChanged()
+    }
+
 }

@@ -34,6 +34,7 @@ class PropertyData(
     var area_size: String = "",
     var maidroom: Boolean = false,
     var balcony: Boolean = false,
+    var reqDevelopmentStatus: String = "",
     var occupancy: String = "",
     var furnishing: String = "",
     var service_charge: String = "",

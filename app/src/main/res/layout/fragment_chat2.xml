@@ -48,7 +48,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/_10sdp"
 
-            android:fontFamily="@font/hellix_semibold"
+            android:fontFamily="@font/roboto_medium"
             android:text="Joahn"
             android:textColor="@color/color_purple_shade_8"
             android:textSize="@dimen/_16sdp"
@@ -94,7 +94,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:hint="Enter the message ..."
-            android:fontFamily="@font/hellix_regular"
+            android:fontFamily="@font/roboto_regular"
             android:textColor="@color/color_black_shade_1"
             android:textColorHint="@color/color_gray_shade_1"
             android:textSize="@dimen/_10sdp"
@@ -112,7 +112,7 @@
             android:layout_marginEnd="@dimen/_10sdp"
             android:background="@drawable/ic_dark_purple_bg"
 
-            android:fontFamily="@font/hellix_regular"
+            android:fontFamily="@font/roboto_regular"
             android:text="Send"
             android:textColor="@color/color_white_shade_1"
             app:layout_constraintBottom_toBottomOf="parent"

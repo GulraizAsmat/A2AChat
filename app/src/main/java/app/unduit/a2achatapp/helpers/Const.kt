@@ -10,6 +10,7 @@ object Const {
     var userName=""
     var userImage=""
     var REQUESDTED=false
+    var tempValue=false
 
     var chatDetailList = ArrayList<Chat>()
 }

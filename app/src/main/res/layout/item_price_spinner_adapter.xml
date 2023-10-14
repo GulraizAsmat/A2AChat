@@ -10,7 +10,7 @@
         android:id="@+id/item_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/hellix_regular"
+        android:fontFamily="@font/roboto_regular"
         android:paddingHorizontal="@dimen/_20sdp"
         android:paddingVertical="@dimen/_9sdp"
         android:text="Hello"

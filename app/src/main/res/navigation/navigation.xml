@@ -103,7 +103,14 @@
         android:id="@+id/notificationFragment"
         android:name="app.unduit.a2achatapp.fragments.NotificationFragment"
         android:label="fragment_notification"
-        tools:layout="@layout/fragment_notification" />
+        tools:layout="@layout/fragment_notification" >
+        <action
+            android:id="@+id/action_notificationFragment_to_propertyDetailFragment"
+            app:destination="@id/propertyDetailFragment" />
+        <action
+            android:id="@+id/action_notificationFragment_to_chatFragment2"
+            app:destination="@id/chatFragment2" />
+    </fragment>
     <fragment
         android:id="@+id/favouriteFragment"
         android:name="app.unduit.a2achatapp.fragments.FavouriteFragment"
@@ -136,6 +143,10 @@
         <action
             android:id="@+id/action_propertyListFragment_to_favouriteFragment"
             app:destination="@id/favouriteFragment" />
+        <action
+            android:id="@+id/action_propertyListFragment_to_chatFragment2"
+            app:destination="@id/chatFragment2" />
+
     </fragment>
     <fragment
         android:id="@+id/addPropertyFragment"
@@ -407,6 +418,20 @@
                 app:nullable="true"
                 android:defaultValue="@null" />
         </action>
+        <action
+            android:id="@+id/action_propertyDetailFragment_to_fullViewImageFragment"
+            app:destination="@id/fullViewImageFragment" >
+            <argument
+                android:name="propertyData"
+                app:argType="app.unduit.a2achatapp.models.PropertyData"
+                app:nullable="true"
+                android:defaultValue="@null" />
+        </action>
+        <action
+            android:id="@+id/action_propertyDetailFragment_to_chatFragment2"
+            app:destination="@id/chatFragment2" />
+
+
     </fragment>
     <fragment
         android:id="@+id/myPropertyFragment"
@@ -581,5 +606,16 @@
             android:name="chatUserImage"
             app:argType="string" />
 
+    </fragment>
+    <fragment
+        android:id="@+id/fullViewImageFragment"
+        android:name="app.unduit.a2achatapp.FullViewImageFragment"
+        android:label="fragment_full_view_image"
+        tools:layout="@layout/fragment_full_view_image" >
+        <argument
+            android:name="propertyData"
+            app:argType="app.unduit.a2achatapp.models.PropertyData"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
 </navigation>

@@ -73,9 +73,9 @@ class ChatAdapter(
         }
         else {
             holder.binding.clChatCounter.visibility=View.GONE
-            val typeface: Typeface? = ResourcesCompat.getFont(context, R.font.hellix_regular)
+            val typeface: Typeface? = ResourcesCompat.getFont(context, R.font.roboto_regular)
             holder.binding.itemChatTime.typeface = typeface
-            val typeface1: Typeface? = ResourcesCompat.getFont(context, R.font.hellix_semibold)
+            val typeface1: Typeface? = ResourcesCompat.getFont(context, R.font.roboto_medium)
             holder.binding.itemChatName.typeface = typeface1
         }
 

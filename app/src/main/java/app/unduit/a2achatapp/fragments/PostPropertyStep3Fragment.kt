@@ -459,26 +459,50 @@ class PostPropertyStep3Fragment : Fragment() {
 
         if (REQUESDTED) {
 
-            propertyData.budget_min = binding.budgetMin.text.toString()
-            propertyData.budget_max = binding.budgetMax.text.toString()
-            propertyData.property_size_min = binding.propertyMin.text.toString()
-            propertyData.property_size_max = binding.propertyMax.text.toString()
-            propertyData.occupancy = occupancyStr
-            propertyData.purchase_goal = purchaseStr
-            propertyData.payment_method = paymentStr
+            if(binding.budgetMin.text.toString().isNotEmpty() ){
+                if(binding.budgetMax.text.toString().isNotEmpty()){
 
-            propertyData.number_of_checks = numberOfCheckStr
-            propertyData.property_moving_time = movingTimeStr
-            propertyData.property_furniture = furnitureStr
+                    if(binding.propertyMin.text.toString().isNotEmpty()){
+                        if(binding.propertyMax.text.toString().isNotEmpty()){
+
+                            propertyData.budget_min = binding.budgetMin.text.toString()
+                            propertyData.budget_max = binding.budgetMax.text.toString()
+                            propertyData.property_size_min = binding.propertyMin.text.toString()
+                            propertyData.property_size_max = binding.propertyMax.text.toString()
+                            propertyData.occupancy = occupancyStr
+                            propertyData.purchase_goal = purchaseStr
+                            propertyData.payment_method = paymentStr
+                            propertyData.maidroom = binding.cbMaidYes.isChecked
+                            propertyData.balcony = binding.cbBalconyYes.isChecked
+                            propertyData.number_of_checks = numberOfCheckStr
+                            propertyData.property_moving_time = movingTimeStr
+                            propertyData.property_furniture = furnitureStr
 
 
 
-            findNavController().navigate(
-                PostPropertyStep3FragmentDirections.actionPostPropertyStep3FragmentToPostRequestFragment(
-                    propertyData,
-                    isEdit
-                )
-            )
+                            findNavController().navigate(
+                                PostPropertyStep3FragmentDirections.actionPostPropertyStep3FragmentToPostRequestFragment(
+                                    propertyData,
+                                    isEdit
+                                )
+                            )
+
+                        }else {
+                            Toast.makeText(requireContext(),"Please enter the Maximum property size value",Toast.LENGTH_LONG).show()
+                        }
+                    }
+                    else {
+                        Toast.makeText(requireContext(),"Please enter the Minimum property size value",Toast.LENGTH_LONG).show()
+                    }
+
+                }else {
+                    Toast.makeText(requireContext(),"Please enter the Maximum Budget value",Toast.LENGTH_LONG).show()
+                }
+            }else {
+                Toast.makeText(requireContext(),"Please enter the Minimum Budget value",Toast.LENGTH_LONG).show()
+            }
+
+
         } else {
             if (spStr.isEmpty() && !isRentedSelected) {
                 requireContext().showToast("Please enter a value for SP")
@@ -559,6 +583,112 @@ class PostPropertyStep3Fragment : Fragment() {
 //        binding.rentedTill.setOnClickListener {
 //            openCalender()
 //        }
+
+
+
+        binding.sp.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun afterTextChanged(text: Editable?) {
+                try {
+                    binding.sp.removeTextChangedListener(this)
+
+                    var origStr = text.toString()
+                    if(origStr.isNotEmpty()) {
+                        if (origStr.contains(",")) {
+                            origStr = origStr.replace(",", "");
+                        }
+
+                        val formatter = NumberFormat.getInstance(Locale.US) as DecimalFormat
+                        formatter.applyPattern("###,###,###,###,###")
+                        val s = formatter.format(origStr.toLong())
+
+                        binding.sp.setText(s)
+                        binding.sp.setSelection(binding.sp.text.length)
+                    }
+                    binding.sp.addTextChangedListener(this)
+                } catch (e: Exception) {
+                    Log.e("TextWatch", e.message.toString())
+                }
+            }
+        })
+
+
+
+
+        binding.op.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun afterTextChanged(text: Editable?) {
+                try {
+                    binding.op.removeTextChangedListener(this)
+
+                    var origStr = text.toString()
+                    if(origStr.isNotEmpty()) {
+                        if (origStr.contains(",")) {
+                            origStr = origStr.replace(",", "");
+                        }
+
+                        val formatter = NumberFormat.getInstance(Locale.US) as DecimalFormat
+                        formatter.applyPattern("###,###,###,###,###")
+                        val s = formatter.format(origStr.toLong())
+
+                        binding.op.setText(s)
+                        binding.op.setSelection(binding.op.text.length)
+                    }
+                    binding.op .addTextChangedListener(this)
+                } catch (e: Exception) {
+                    Log.e("TextWatch", e.message.toString())
+                }
+            }
+        })
+
+
+        binding.rentedFor.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun afterTextChanged(text: Editable?) {
+                try {
+                    binding.rentedFor.removeTextChangedListener(this)
+
+                    var origStr = text.toString()
+                    if(origStr.isNotEmpty()) {
+                        if (origStr.contains(",")) {
+                            origStr = origStr.replace(",", "");
+                        }
+
+                        val formatter = NumberFormat.getInstance(Locale.US) as DecimalFormat
+                        formatter.applyPattern("###,###,###,###,###")
+                        val s = formatter.format(origStr.toLong())
+
+                        binding.rentedFor.setText(s)
+                        binding.rentedFor.setSelection(binding.rentedFor.text.length)
+                    }
+                    binding.rentedFor .addTextChangedListener(this)
+                } catch (e: Exception) {
+                    Log.e("TextWatch", e.message.toString())
+                }
+            }
+        })
+
 
         binding.budgetMin.addTextChangedListener(object : TextWatcher{
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {

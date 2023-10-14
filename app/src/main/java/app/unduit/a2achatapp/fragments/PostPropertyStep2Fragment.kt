@@ -33,6 +33,7 @@ class PostPropertyStep2Fragment : Fragment(), View.OnClickListener, AdapterListe
     var bathRoomPreviousPosition = 0
 
     var developmentStatus = false
+    var reqDevelopmentStatus = "Off-Plan "
 
     var bedroomStr = "Studio"
     var bathroomStr = "1"
@@ -79,16 +80,23 @@ class PostPropertyStep2Fragment : Fragment(), View.OnClickListener, AdapterListe
 
 
     fun init() {
+
+        isEdit = args.isEdit
+        propertyData = args.propertyData
         if(Const.REQUESDTED){
             binding.screenTitle.text="Post a Request"
+
+            if(propertyData.purpose=="Sale" && propertyData.purpose_type=="Residential"){
+                binding.clRequestDev1.visibility=View.VISIBLE
+            }
             binding.propertyDevStatusGroup.visibility=View.GONE
+
             binding.clProcessBarForRent.visibility=View.VISIBLE
             binding.clProcessBar.visibility=View.INVISIBLE
         }
 
 
-        isEdit = args.isEdit
-        propertyData = args.propertyData
+
 
         listeners()
         bedRecyclerViewManager()
@@ -183,6 +191,39 @@ class PostPropertyStep2Fragment : Fragment(), View.OnClickListener, AdapterListe
 
     }
 
+    private fun selectOffPlan1() {
+        binding.clOffPlan1.setBackgroundResource(R.drawable.ic_dark_purple_bg)
+        binding.residentsTitle1.setTextColor(
+            ContextCompat.getColor(
+                requireContext(),
+                R.color.color_white_shade_1
+            )
+        )
+
+        binding.clReady1.setBackgroundResource(R.drawable.ic_light_purple_bg_1)
+
+        binding.commercialTitle1.setTextColor(
+            ContextCompat.getColor(
+                requireContext(),
+                R.color.color_purple_shade_1
+            )
+        )
+
+
+        binding.clAny.setBackgroundResource(R.drawable.ic_light_purple_bg_1)
+
+        binding.commercialAny.setTextColor(
+            ContextCompat.getColor(
+                requireContext(),
+                R.color.color_purple_shade_1
+            )
+        )
+
+        reqDevelopmentStatus = "Off-Plan"
+
+
+    }
+
     private fun selectReady() {
         binding.clOffPlan.setBackgroundResource(R.drawable.ic_light_purple_bg_1)
 
@@ -204,6 +245,68 @@ class PostPropertyStep2Fragment : Fragment(), View.OnClickListener, AdapterListe
 
         developmentStatus = true
     }
+    private fun selectReady1() {
+        binding.clOffPlan1.setBackgroundResource(R.drawable.ic_light_purple_bg_1)
+
+        binding.residentsTitle1.setTextColor(
+            ContextCompat.getColor(
+                requireContext(),
+                R.color.color_purple_shade_1
+            )
+        )
+
+        binding.clReady1.setBackgroundResource(R.drawable.ic_dark_purple_bg)
+
+        binding.commercialTitle1.setTextColor(
+            ContextCompat.getColor(
+                requireContext(),
+                R.color.color_white_shade_1
+            )
+        )
+
+
+        binding.clAny.setBackgroundResource(R.drawable.ic_light_purple_bg_1)
+
+        binding.commercialAny.setTextColor(
+            ContextCompat.getColor(
+                requireContext(),
+                R.color.color_purple_shade_1
+            )
+        )
+        reqDevelopmentStatus = "Ready"
+    }
+
+
+    private fun selectAny() {
+        binding.clOffPlan1.setBackgroundResource(R.drawable.ic_light_purple_bg_1)
+
+        binding.residentsTitle1.setTextColor(
+            ContextCompat.getColor(
+                requireContext(),
+                R.color.color_purple_shade_1
+            )
+        )
+
+        binding.clReady1.setBackgroundResource(R.drawable.ic_light_purple_bg_1)
+
+        binding.commercialTitle1.setTextColor(
+            ContextCompat.getColor(
+                requireContext(),
+                R.color.color_purple_shade_1
+            )
+        )
+
+        binding.clAny.setBackgroundResource(R.drawable.ic_dark_purple_bg)
+
+        binding.commercialAny.setTextColor(
+            ContextCompat.getColor(
+                requireContext(),
+                R.color.color_white_shade_1
+            )
+        )
+
+        reqDevelopmentStatus = "Any"
+    }
 
 
     fun spinnerData() {
@@ -215,6 +318,9 @@ class PostPropertyStep2Fragment : Fragment(), View.OnClickListener, AdapterListe
         binding.clReady.setOnClickListener(this)
         binding.clOffPlan.setOnClickListener(this)
         binding.backIcon.setOnClickListener(this)
+        binding.clOffPlan1.setOnClickListener(this)
+        binding.clReady1.setOnClickListener(this)
+        binding.clAny.setOnClickListener(this)
     }
 
     private fun verifyData() {
@@ -235,6 +341,7 @@ class PostPropertyStep2Fragment : Fragment(), View.OnClickListener, AdapterListe
             propertyData.project = project
             propertyData.bedrooms = bedroomStr
             propertyData.bathrooms = bathroomStr
+            propertyData.reqDevelopmentStatus = reqDevelopmentStatus
             propertyData.development_status = if (developmentStatus) "Ready" else "Off-plan"
 
             findNavController().navigate(
@@ -301,6 +408,16 @@ class PostPropertyStep2Fragment : Fragment(), View.OnClickListener, AdapterListe
 
             R.id.cl_ready -> {
                 selectReady()
+            }
+            R.id.cl_off_plan1 -> {
+                selectOffPlan1()
+            }
+
+            R.id.cl_ready1 -> {
+                selectReady1()
+            }
+            R.id.cl_any -> {
+                selectAny()
             }
 
             R.id.back_icon -> {

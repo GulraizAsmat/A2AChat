@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 
 import java.util.*
@@ -34,6 +35,17 @@ object Utils {
         return ""
     }
 
+
+    fun formatPrice(price: Double): String {
+        val df = DecimalFormat("#.##")
+
+        return when {
+            price >= 1_000_000_000 -> "${df.format(price / 1_000_000_000)}B"
+            price >= 1_000_000 -> "${df.format(price / 1_000_000)}M"
+            price >= 1_000 -> "${df.format(price / 1_000)}K"
+            else -> df.format(price)
+        }
+    }
 
 
     fun getTimeAgo(timestamp: Double): String {

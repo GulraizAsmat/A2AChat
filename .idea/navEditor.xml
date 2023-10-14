@@ -118,6 +118,15 @@
                             <option name="y" value="693" />
                           </Point>
                         </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_chatFragment_to_chatFragment2">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
                       </LayoutPositions>
                     </value>
                   </entry>
@@ -156,12 +165,29 @@
                         </option>
                         <option name="myPositions">
                           <map>
+                            <entry key="action_favouriteFragment_to_chatFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                             <entry key="action_favouriteFragment_to_propertyDetailFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
                             </entry>
                           </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="fullViewImageFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="2024" />
+                            <option name="y" value="310" />
+                          </Point>
                         </option>
                       </LayoutPositions>
                     </value>

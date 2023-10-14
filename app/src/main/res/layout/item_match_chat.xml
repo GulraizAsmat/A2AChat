@@ -34,7 +34,7 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:gravity="center"
-            android:fontFamily="@font/hellix_regular"
+            android:fontFamily="@font/roboto_regular"
             android:textSize="@dimen/_10ssp"
             android:layout_marginTop="@dimen/_5ssp"
             app:layout_constraintEnd_toEndOf="@+id/profile_image"

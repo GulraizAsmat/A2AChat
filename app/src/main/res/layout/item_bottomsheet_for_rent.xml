@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:text="Category"
         android:textColor="@color/white"
-        android:fontFamily="@font/hellix_semibold"
+        android:fontFamily="@font/roboto_medium"
         android:textSize="@dimen/_12sdp"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_margin="@dimen/_10sdp"
@@ -68,7 +68,7 @@
                 android:id="@+id/all_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/hellix_regular"
+                android:fontFamily="@font/roboto_regular"
                 android:text="All"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_12sdp"
@@ -94,7 +94,7 @@
                 android:id="@+id/rent_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/hellix_regular"
+                android:fontFamily="@font/roboto_regular"
                 android:text="Rent"
                 android:textColor="@color/color_black_shade_1"
                 android:textSize="@dimen/_12sdp"
@@ -113,7 +113,7 @@
             android:layout_height="45dp"
             android:background="@drawable/aa_ic_rounded_corner_white"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/mid_guideline_3"
+            app:layout_constraintEnd_toEndOf="@+id/cl_selector_3"
             app:layout_constraintStart_toEndOf="@+id/cl_selector_1"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -121,7 +121,7 @@
                 android:id="@+id/buy_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/hellix_regular"
+                android:fontFamily="@font/roboto_regular"
                 android:text="Buy"
                 android:textColor="@color/color_black_shade_1"
                 android:textSize="@dimen/_12sdp"
@@ -136,6 +136,7 @@
             android:id="@+id/cl_selector_3"
             android:layout_width="0dp"
             android:layout_height="45dp"
+            android:visibility="gone"
             android:background="@drawable/aa_ic_rounded_corner_white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -146,8 +147,9 @@
                 android:id="@+id/request_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/hellix_regular"
+                android:fontFamily="@font/roboto_regular"
                 android:text="Requests"
+
                 android:textColor="@color/color_black_shade_1"
                 android:textSize="@dimen/_11sdp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -163,21 +165,22 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.25" />
+            app:layout_constraintGuide_percent="0.333" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/mid_guideline_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.50" />
+            app:layout_constraintGuide_percent="0.666" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/mid_guideline_3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.75" />
+            android:visibility="gone"
+            app:layout_constraintGuide_percent="0.999" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -188,7 +191,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_10sdp"
         android:layout_marginVertical="@dimen/_15sdp"
-        android:fontFamily="@font/hellix_regular"
+        android:fontFamily="@font/roboto_regular"
         android:textColor="@color/color_white_shade_1"
         android:textSize="@dimen/_12sdp"
         android:text="View commercial properties only"
@@ -202,7 +205,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:button="@drawable/selector_checkbox"
-        android:fontFamily="@font/hellix_regular"
+        android:fontFamily="@font/roboto_regular"
         android:paddingStart="@dimen/_4sdp"
         android:textColor="@drawable/selector_checkbox_text_color"
         app:layout_constraintBottom_toBottomOf="@+id/view_commercial_title"
@@ -215,7 +218,7 @@
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:background="@drawable/ic_orange_btn_bg"
-        android:fontFamily="@font/hellix_regular"
+        android:fontFamily="@font/roboto_regular"
         android:paddingHorizontal="@dimen/_15sdp"
         android:paddingTop="4dp"
         android:layout_marginVertical="@dimen/_12sdp"

@@ -14,7 +14,7 @@
         android:layout_centerVertical="true"
         android:textColor="@color/color_black"
         android:textSize="@dimen/_13ssp"
-        android:fontFamily="@font/poppins_light"
+        android:fontFamily="@font/roboto_regular"
         android:text="@string/text_select_option"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

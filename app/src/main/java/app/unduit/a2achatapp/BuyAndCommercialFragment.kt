@@ -69,7 +69,7 @@ class BuyAndCommercialFragment : Fragment(),View.OnClickListener {
 
     fun listeners(){
         binding.nextBtn.setOnClickListener(this)
-        binding.nextBtn1.setOnClickListener(this)
+//        binding.nextBtn1.setOnClickListener(this)
         binding.backIcon.setOnClickListener(this)
 
         binding.budgetMin.addTextChangedListener(object : TextWatcher {
@@ -193,8 +193,8 @@ class BuyAndCommercialFragment : Fragment(),View.OnClickListener {
             binding.paymentTitle.visibility=View.GONE
             binding.paymentIcArrow.visibility=View.GONE
             binding.spinnerPayment.visibility=View.GONE
-            binding.nextBtn.visibility=View.GONE
-            binding.nextBtn1.visibility=View.VISIBLE
+            binding.nextBtn.visibility=View.VISIBLE
+            binding.nextBtn1.visibility=View.GONE
 
 
         }

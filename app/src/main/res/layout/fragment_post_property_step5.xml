@@ -33,7 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
-                android:fontFamily="@font/hellix_semibold"
+                android:fontFamily="@font/roboto_medium"
                 android:text="Post a Property"
                 android:textColor="@color/color_black_shade_1"
                 android:textSize="@dimen/_16sdp"
@@ -343,10 +343,12 @@
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
         <androidx.core.widget.NestedScrollView
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="@dimen/_20sdp"
+            app:layout_constraintBottom_toTopOf="@+id/post_list_btn"
             app:layout_constraintEnd_toEndOf="@id/end_guideline"
             app:layout_constraintStart_toStartOf="@id/start_guideline"
             app:layout_constraintTop_toBottomOf="@+id/cl_process_bar"
@@ -368,7 +370,7 @@
                     android:id="@+id/commission_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/hellix_semibold"
+                    android:fontFamily="@font/roboto_medium"
                     android:text="Commission"
                     android:textColor="@color/color_black_shade_1"
                     android:textSize="@dimen/_11sdp"
@@ -379,7 +381,7 @@
                     android:id="@+id/spinner_commission"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_35sdp"
-                    android:layout_marginTop="@dimen/_5sdp"
+                                   android:layout_marginTop="@dimen/_10sdp"
                     android:background="@drawable/bg_text_view_signup"
                     android:spinnerMode="dropdown"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -400,13 +402,12 @@
                     app:srcCompat="@drawable/ic_arrow_down_white" />
 
 
-
                 <TextView
                     android:id="@+id/finishing_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_15sdp"
-                    android:fontFamily="@font/hellix_semibold"
+                    android:fontFamily="@font/roboto_medium"
                     android:text="Furnishing"
                     android:textColor="@color/color_black_shade_1"
                     android:textSize="@dimen/_11sdp"
@@ -417,7 +418,7 @@
                     android:id="@+id/spinner_finishing"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_35sdp"
-                    android:layout_marginTop="@dimen/_5sdp"
+                                   android:layout_marginTop="@dimen/_10sdp"
                     android:background="@drawable/bg_text_view_signup"
                     android:spinnerMode="dropdown"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -438,22 +439,12 @@
                     app:srcCompat="@drawable/ic_arrow_down_white" />
 
 
-
-
-
-
-
-
-
-
-
-
                 <TextView
                     android:id="@+id/floor_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_15sdp"
-                    android:fontFamily="@font/hellix_semibold"
+                    android:fontFamily="@font/roboto_medium"
                     android:text="Negotiation"
                     android:textColor="@color/color_black_shade_1"
                     android:textSize="@dimen/_11sdp"
@@ -461,15 +452,11 @@
                     app:layout_constraintTop_toBottomOf="@+id/spinner_finishing" />
 
 
-
-
-
-
                 <Spinner
                     android:id="@+id/spinner_negotiation"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_35sdp"
-                    android:layout_marginTop="@dimen/_5sdp"
+                                   android:layout_marginTop="@dimen/_10sdp"
                     android:background="@drawable/bg_text_view_signup"
                     android:spinnerMode="dropdown"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -495,7 +482,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_15sdp"
-                    android:fontFamily="@font/hellix_semibold"
+                    android:fontFamily="@font/roboto_medium"
                     android:text="Property Title"
                     android:textColor="@color/color_black_shade_1"
                     android:textSize="@dimen/_11sdp"
@@ -506,7 +493,7 @@
                     android:id="@+id/property_title_star"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/hellix_regular"
+                    android:fontFamily="@font/roboto_regular"
                     android:text="*"
                     android:textColor="@color/color_red_shade_1"
                     android:textSize="@dimen/_11sdp"
@@ -516,18 +503,18 @@
                 <EditText
                     android:id="@+id/property"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_30sdp"
-                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_height="@dimen/_35sdp"
+                                   android:layout_marginTop="@dimen/_10sdp"
                     android:background="@drawable/bg_text_view_signup"
                     android:drawablePadding="@dimen/_12sdp"
-                    android:fontFamily="@font/hellix_regular"
+                    android:fontFamily="@font/roboto_regular"
                     android:gravity="center_vertical"
                     android:hint="Enter title e.g. beautiful house"
-                    android:textColorHint="@color/color_gray_shade_1"
                     android:inputType="text"
                     android:maxLines="1"
                     android:paddingHorizontal="@dimen/_8sdp"
                     android:textColor="#3C1663"
+                    android:textColorHint="@color/color_gray_shade_1"
                     android:textSize="@dimen/_10ssp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -538,11 +525,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_15sdp"
-                    android:fontFamily="@font/hellix_semibold"
+                    android:fontFamily="@font/roboto_medium"
                     android:text="Property Description"
-                    android:visibility="gone"
                     android:textColor="@color/color_black_shade_1"
                     android:textSize="@dimen/_11sdp"
+                    android:visibility="gone"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/property" />
 
@@ -552,14 +539,14 @@
                     android:layout_height="@dimen/_80sdp"
                     android:layout_marginTop="@dimen/_5sdp"
                     android:background="@drawable/bg_text_view_signup"
-                    android:fontFamily="@font/hellix_regular"
-                    android:visibility="gone"
+                    android:fontFamily="@font/roboto_regular"
                     android:gravity="start"
                     android:inputType="textMultiLine"
-                    android:scrollbars="vertical"
                     android:paddingHorizontal="@dimen/_8sdp"
+                    android:scrollbars="vertical"
                     android:textColor="#3C1663"
                     android:textSize="@dimen/_10ssp"
+                    android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/description_title" />
@@ -570,14 +557,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_20sdp"
-                    android:fontFamily="@font/hellix_semibold"
+                    android:fontFamily="@font/roboto_medium"
                     android:text="Upload Images of Your Property"
                     android:textColor="@color/color_black_shade_1"
                     android:textSize="@dimen/_12sdp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/description" />
-
 
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -594,6 +580,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_20sdp"
                     android:src="@drawable/ic_gallery_bg"
+                        android:layout_marginBottom="@dimen/_20sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/rv_images" />
@@ -604,7 +592,7 @@
                     android:layout_width="248dp"
                     android:layout_height="30dp"
                     android:layout_margin="@dimen/_10sdp"
-                    android:fontFamily="@font/hellix_semibold"
+                    android:fontFamily="@font/roboto_medium"
                     android:gravity="center_horizontal"
                     android:text="Upload From Gallery"
                     android:textColor="@color/color_black_shade_1"
@@ -619,38 +607,21 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_10sdp"
-                    android:layout_marginBottom="@dimen/_20sdp"
                     android:layout_marginTop="@dimen/_30sdp"
+                    android:layout_marginBottom="@dimen/_20sdp"
                     android:background="@drawable/ic_dark_purple_bg"
-                    android:fontFamily="@font/hellix_semibold"
+                    android:fontFamily="@font/roboto_medium"
                     android:stateListAnimator="@null"
-                    android:visibility="invisible"
                     android:text="Save Draft"
                     android:textAllCaps="false"
                     android:textColor="@color/color_white_shade_1"
+                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/guideline6"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/btn_upload"
                     tools:ignore="MissingConstraints" />
 
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/post_list_btn"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="@dimen/_10sdp"
-                    android:background="@drawable/ic_dark_purple_bg"
-                    android:fontFamily="@font/hellix_semibold"
-                    android:stateListAnimator="@null"
-                    android:text="Post Listing"
-                    android:textAllCaps="false"
-                    android:textColor="@color/color_white_shade_1"
-                    app:layout_constraintBottom_toBottomOf="@+id/save_draft"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/save_draft"
-                    tools:ignore="MissingConstraints" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/post_list_btn_edit"
@@ -660,7 +631,7 @@
                     android:layout_marginTop="@dimen/_30sdp"
                     android:layout_marginBottom="@dimen/_20sdp"
                     android:background="@drawable/ic_dark_purple_bg"
-                    android:fontFamily="@font/hellix_semibold"
+                    android:fontFamily="@font/roboto_medium"
                     android:stateListAnimator="@null"
                     android:text="Post Listing"
                     android:textAllCaps="false"
@@ -681,7 +652,26 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+
         </androidx.core.widget.NestedScrollView>
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/post_list_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/_20sdp"
+            android:background="@drawable/ic_dark_purple_bg"
+            android:fontFamily="@font/roboto_medium"
+            android:stateListAnimator="@null"
+            android:text="Post Listing"
+            android:textAllCaps="false"
+            android:textColor="@color/color_white_shade_1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/end_guideline"
+            app:layout_constraintStart_toStartOf="@+id/start_guideline"
+
+            tools:ignore="MissingConstraints" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/top_guideline"

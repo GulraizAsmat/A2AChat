@@ -35,6 +35,7 @@ fun View.visible(){
     visibility = View.VISIBLE
 }
 
+
 fun addComma(text: String) : String {
     var origStr = text
     return if(origStr.isNotEmpty()) {
@@ -44,6 +45,16 @@ fun addComma(text: String) : String {
         val formatter = NumberFormat.getInstance(Locale.US) as DecimalFormat
         formatter.applyPattern("###,###,###,###,###")
         formatter.format(origStr.toLong())
+    } else {
+        origStr
+    }
+}
+
+fun removeComma(text: String): String {
+    var origStr = text
+    return if (origStr.isNotEmpty()) {
+        origStr = origStr.replace(",", "")
+        origStr
     } else {
         origStr
     }
