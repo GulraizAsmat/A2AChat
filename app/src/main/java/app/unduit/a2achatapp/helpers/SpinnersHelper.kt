@@ -187,7 +187,7 @@ object SpinnersHelper {
 
     fun commissionList(): ArrayList<String> {
         val list = ArrayList<String>()
-        list.add("Covered")
+        list.add("Covered by the Seller")
         list.add("Shared")
         list.add("Top up Possible")
 

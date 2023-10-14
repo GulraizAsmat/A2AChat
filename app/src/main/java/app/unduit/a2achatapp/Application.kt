@@ -4,6 +4,7 @@ import android.app.Application
 
 import androidx.room.Room
 import app.unduit.a2achatapp.room.Database
+import com.google.android.libraries.places.api.Places
 
 
 class Application : Application() {
@@ -23,6 +24,9 @@ class Application : Application() {
             Database::class.java,
             "a2a_chat"
         ).build()
+
+//        Places.initialize(applicationContext, getString(R.string.google_places_api_key))
+
 
         // Other initialization code, if needed
     }

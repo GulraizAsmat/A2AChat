@@ -16,6 +16,7 @@ import app.unduit.a2achatapp.adapters.ChatAdapter
 import app.unduit.a2achatapp.adapters.MatchAdapter
 import app.unduit.a2achatapp.databinding.FragmentChatBinding
 import app.unduit.a2achatapp.helpers.Const
+import app.unduit.a2achatapp.helpers.Const.tempValue
 import app.unduit.a2achatapp.helpers.ProgressDialog
 import app.unduit.a2achatapp.helpers.showToast
 import app.unduit.a2achatapp.listeners.AdapterListener
@@ -107,7 +108,12 @@ class ChatFragment : Fragment() ,AdapterListener{
     }
 
     fun init(){
-        Const.screenName="chat"
+        if(tempValue){
+            Const.screenName=""
+        }else {
+            Const.screenName="chat"
+        }
+
         recyclerviewManagers()
         getMatchData()
         loadUserProfileImage()
@@ -155,7 +161,7 @@ class ChatFragment : Fragment() ,AdapterListener{
 
         currentUser?.let { cUser ->
             val db = Firebase.firestore
-            val ref = db.collection("requests/${cUser.uid}/match")
+            val ref =db.collection("requests/${cUser.uid}/posts").whereEqualTo("property_status","matched")
 
             ref.get()
                 .addOnSuccessListener { documents ->
@@ -164,7 +170,12 @@ class ChatFragment : Fragment() ,AdapterListener{
 
                         matchList.add(document.toObject(PropertyData::class.java))
                     }
+
+                    matchList.forEach { it.sender_id
+                        Log.e("Tagh234","Sender id : "+ it.sender_id)
+                    }
                     val list =matchList.sortedByDescending { it.created_date }.distinctBy { it.sender_id }
+
                     matchList.clear()
                     matchList.addAll(list)
                     matchAdapter.notifyDataSetChanged()

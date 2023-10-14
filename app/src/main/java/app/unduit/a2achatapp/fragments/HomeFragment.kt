@@ -181,14 +181,15 @@ class HomeFragment : Fragment(), View.OnClickListener, CardStackListener, Adapte
 
         auth = Firebase.auth
         val currentUser = auth.currentUser
-
+        Log.e("Tag123","Post Pos "+cardPos)
+        Log.e("Tag123","Post uid "+ propertylist[cardPos].uid)
 
 
         if (currentUser != null) {
             Log.e("Tag21345","Created Sender user  "+ currentUser.uid)
             val currentTimeMillis = System.currentTimeMillis()
             var path ="requests/${currentUser.uid}/sender/${currentTimeMillis.toString()}"
-            val collectionReference = db.collection("requests").document(currentUser.uid).collection("send").document(propertylist[cardPos].uid)
+            val collectionReference = db.collection("requests").document(currentUser.uid).collection("posts").document(propertylist[cardPos].uid)
             propertylist[cardPos].property_status="sender"
             propertylist[cardPos].created_date=currentTimeMillis.toString()
             collectionReference.set(propertylist[cardPos])
@@ -197,6 +198,7 @@ class HomeFragment : Fragment(), View.OnClickListener, CardStackListener, Adapte
                     // You can get the document ID using documentReference.id
                     Log.e("Tafg213","Uplaod")
                     moveToReceiverData(propertylist[cardPos].uid)
+
 
                     // Handle success here
                 }
@@ -222,8 +224,52 @@ class HomeFragment : Fragment(), View.OnClickListener, CardStackListener, Adapte
         if (currentUser != null) {
             val currentTimeMillis = System.currentTimeMillis()
             var path ="requests/${currentUser.uid}/sender/${currentTimeMillis.toString()}"
-            val collectionReference = db.collection("requests").document(propertylist[cardPos].user_id.toString()).collection("receive").document(postId)
-            propertylist[cardPos].property_status="receive"
+            val collectionReference = db.collection("requests").document(propertylist[cardPos].user_id.toString()).collection("posts").document(postId)
+            propertylist[cardPos].property_status="receiver"
+
+            propertylist[cardPos].sender_name=userName
+            propertylist[cardPos].sender_id=currentUser.uid
+            propertylist[cardPos].sender_image=userImage
+            propertylist[cardPos].sender_phone=userPhone
+            propertylist[cardPos].sender_whatsapp=userWhatsapp
+            propertylist[cardPos].sender_experience=userExperience
+            propertylist[cardPos].sender_speciality=userSpeciality
+            propertylist[cardPos].sender_company=userCompany
+
+
+            collectionReference.set(propertylist[cardPos])
+                .addOnSuccessListener { documentReference ->
+                    // Data added successfully
+                    // You can get the document ID using documentReference.id
+                    Log.e("Tafg213","Uplaod")
+                    moveToNotificationData(propertylist[cardPos].uid)
+
+                    // Handle success here
+                }
+                .addOnFailureListener { e ->
+                    // Handle errors here
+                    Log.e("Tafg213", "Fail$e")
+                }
+        }
+
+
+
+    }
+
+    @SuppressLint("SuspiciousIndentation")
+    private fun moveToNotificationData(postId:String){
+        val db = FirebaseFirestore.getInstance()
+
+        auth = Firebase.auth
+        val currentUser = auth.currentUser
+
+
+        Log.e("Tag21345","Created Property user  "+ propertylist[cardPos].user_id.toString())
+        if (currentUser != null) {
+            val currentTimeMillis = System.currentTimeMillis()
+            var path ="requests/${currentUser.uid}/sender/${currentTimeMillis.toString()}"
+            val collectionReference = db.collection("notifications").document(propertylist[cardPos].user_id.toString()).collection("posts").document(postId)
+            propertylist[cardPos].property_status="receiver"
 
             propertylist[cardPos].sender_name=userName
             propertylist[cardPos].sender_id=currentUser.uid
@@ -241,6 +287,7 @@ class HomeFragment : Fragment(), View.OnClickListener, CardStackListener, Adapte
                     // You can get the document ID using documentReference.id
                     Log.e("Tafg213","Uplaod")
                     addExceptDataLocalDb()
+                    cardPos++
                     // Handle success here
                 }
                 .addOnFailureListener { e ->
@@ -252,6 +299,8 @@ class HomeFragment : Fragment(), View.OnClickListener, CardStackListener, Adapte
 
 
     }
+
+
 
     private  fun addExceptDataLocalDb(){
 
@@ -280,7 +329,6 @@ class HomeFragment : Fragment(), View.OnClickListener, CardStackListener, Adapte
 
 
 
-
     }
 
 
@@ -306,6 +354,7 @@ class HomeFragment : Fragment(), View.OnClickListener, CardStackListener, Adapte
 
     override fun onAdapterItemClicked(key: String, position: Int) {
         cardPos=position
+        Log.e("Tag2345", "Pso $position")
         when(key){
 
             "view_detail"->{
@@ -434,9 +483,9 @@ class HomeFragment : Fragment(), View.OnClickListener, CardStackListener, Adapte
                     // Filter out properties for the current user
                     val filteredList = propertylist.filter { it.user_id != cUser.uid  && it.post_type!="request"}
 
-                    Log.e("Tag2135","Data "+filteredList.size)
+                    Log.e("Tag2135","Data "+filteredList.sortedByDescending { it.created_date }.distinctBy { it.uid }.size)
                     propertylist.clear()
-                    propertylist.addAll(filteredList.sortedByDescending { it.created_date })
+                    propertylist.addAll(filteredList.sortedByDescending { it.created_date }.distinctBy { it.uid })
 
                     homeSliderAdapter.notifyDataSetChanged()
                     progressDialog.progressBarVisibility(false)
@@ -525,7 +574,7 @@ class HomeFragment : Fragment(), View.OnClickListener, CardStackListener, Adapte
 
             R.id.chat -> {
 
-                Const.screenName="chat"
+                  Const.screenName="chat"
                 findNavController().navigate(R.id.action_homeFragment_to_chatFragment)
             }
 

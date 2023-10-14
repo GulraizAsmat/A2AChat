@@ -69,7 +69,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
-                android:fontFamily="@font/poppins_light"
+                android:fontFamily="@font/roboto_regular"
                 android:gravity="start"
                 android:maxLines="1"
                 android:paddingTop="@dimen/_5sdp"

@@ -14,6 +14,7 @@ import app.unduit.a2achatapp.helpers.addComma
 import app.unduit.a2achatapp.listeners.AdapterListener
 import app.unduit.a2achatapp.models.PropertyData
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 
 class PropertyListAdapter(
     val context: Context,
@@ -124,7 +125,9 @@ class PropertyListAdapter(
 
 
         if(propertyItem.property_images?.isNotEmpty() == true) {
-            Glide.with(holder.binding.itemPropertyImage).load(propertyItem.property_images?.get(0)).into(holder.binding.itemPropertyImage)
+            Glide.with(holder.binding.itemPropertyImage).load(propertyItem.property_images?.get(0))
+                .apply(RequestOptions().fitCenter())
+                .into(holder.binding.itemPropertyImage)
         }
         // Set a click listener on the root view if needed
         holder.binding.root.setOnClickListener {

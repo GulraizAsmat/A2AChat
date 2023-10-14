@@ -159,7 +159,7 @@ class FavouriteFragment : Fragment() ,View.OnClickListener ,AdapterListener{
 
         currentUser?.let { cUser ->
             val db = Firebase.firestore
-            val ref = db.collection("requests/${cUser.uid}/send")
+            val ref = db.collection("requests/${cUser.uid}/posts").whereEqualTo("property_status","sender")
 
             ref.get()
                 .addOnSuccessListener { documents ->
@@ -237,7 +237,7 @@ class FavouriteFragment : Fragment() ,View.OnClickListener ,AdapterListener{
 
         currentUser?.let { cUser ->
             val db = Firebase.firestore
-            val ref = db.collection("requests/${cUser.uid}/match")
+            val ref = db.collection("requests/${cUser.uid}/posts").whereEqualTo("property_status","matched")
 
             ref.get()
                 .addOnSuccessListener { documents ->

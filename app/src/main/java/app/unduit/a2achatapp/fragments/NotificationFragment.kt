@@ -1,17 +1,21 @@
 package app.unduit.a2achatapp.fragments
 
 import android.annotation.SuppressLint
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import app.unduit.a2achatapp.R
 import app.unduit.a2achatapp.adapters.NotificationListAdapter
 import app.unduit.a2achatapp.databinding.FragmentNotificationBinding
+import app.unduit.a2achatapp.helpers.Const
 import app.unduit.a2achatapp.helpers.DateHelper
 import app.unduit.a2achatapp.helpers.ProgressDialog
 import app.unduit.a2achatapp.helpers.showToast
@@ -49,6 +53,10 @@ class NotificationFragment : Fragment() ,View.OnClickListener ,AdapterListener{
     }
 
 
+    override fun onResume() {
+        super.onResume()
+        Const.screenName="notification_icon"
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -97,6 +105,7 @@ class NotificationFragment : Fragment() ,View.OnClickListener ,AdapterListener{
 
 
     private fun getNotificationData(){
+        propertylist.clear()
         progressDialog.progressBarVisibility(true)
 
         auth = Firebase.auth
@@ -105,7 +114,7 @@ class NotificationFragment : Fragment() ,View.OnClickListener ,AdapterListener{
         currentUser?.let { cUser ->
             val db = Firebase.firestore
 
-            val ref = db.collection("requests/${cUser.uid}/receive")
+            val ref = db.collection("notifications/${cUser.uid}/posts")
 
             ref.get()
                 .addOnSuccessListener { documents ->
@@ -134,7 +143,7 @@ class NotificationFragment : Fragment() ,View.OnClickListener ,AdapterListener{
     override fun onClick(v: View?) {
         when(v!!.id){
             R.id.btn_back->{
-                requireActivity().onBackPressedDispatcher.onBackPressed()
+                requireActivity().onBackPressed()
             }
 
 
@@ -158,8 +167,8 @@ class NotificationFragment : Fragment() ,View.OnClickListener ,AdapterListener{
             Log.e("Tag21345","Created Sender user  "+ currentUser.uid)
             val currentTimeMillis = System.currentTimeMillis()
             var path ="requests/${currentUser.uid}/match/${currentTimeMillis.toString()}"
-            val collectionReference = db.collection("requests").document(currentUser.uid).collection("match").document(propertylist[position].uid)
-            propertylist[position].property_status="match"
+            val collectionReference = db.collection("requests").document(currentUser.uid).collection("posts").document(propertylist[position].uid)
+            propertylist[position].property_status="matched"
             propertylist[position].created_date=currentTimeMillis.toString()
             collectionReference.set(propertylist[position])
                 .addOnSuccessListener { documentReference ->
@@ -167,9 +176,13 @@ class NotificationFragment : Fragment() ,View.OnClickListener ,AdapterListener{
                     // You can get the document ID using documentReference.id
                     Log.e("Tafg213","Uplaod")
 
-                    moveToSenderMatch(position)
-                    matchRequestNotificationUpdateStatus(position)
-                    matchRequestNotificationForSenderUpdateStatus(position)
+                    moveToSenderMatch(position) // hassam
+                    matchRequestUpdateStatus(position) // gull
+                    notificationStatusUpdate(position)
+                    notificationSend(position)
+
+
+//                    matchRequestNotificationForSenderUpdateStatus(position) // notif
                     // Handle success here
                 }
                 .addOnFailureListener { e ->
@@ -184,7 +197,7 @@ class NotificationFragment : Fragment() ,View.OnClickListener ,AdapterListener{
     }
 
 
-    private fun matchRequestNotificationUpdateStatus(position: Int){
+    private fun matchRequestUpdateStatus(position: Int){    // gull
 
         progressDialog.progressBarVisibility(true)
 
@@ -199,7 +212,7 @@ class NotificationFragment : Fragment() ,View.OnClickListener ,AdapterListener{
             Log.e("Tag21345","Created Sender user  "+ currentUser.uid)
             val currentTimeMillis = System.currentTimeMillis()
             var path ="requests/${currentUser.uid}/match/${currentTimeMillis.toString()}"
-            val collectionReference = db.collection("requests").document(currentUser.uid).collection("receive").document(propertylist[position].uid)
+            val collectionReference = db.collection("requests").document(currentUser.uid).collection("posts").document(propertylist[position].uid)
             propertylist[position].property_status="matched"
             propertylist[position].created_date=currentTimeMillis.toString()
             collectionReference.set(propertylist[position])
@@ -224,6 +237,88 @@ class NotificationFragment : Fragment() ,View.OnClickListener ,AdapterListener{
 
 
     }
+
+
+
+    private fun notificationStatusUpdate(position: Int){
+
+        progressDialog.progressBarVisibility(true)
+
+        val db = FirebaseFirestore.getInstance()
+
+        auth = Firebase.auth
+        val currentUser = auth.currentUser
+
+
+
+
+        if (currentUser != null) {
+            Log.e("Tag21345","Created Sender user  "+ currentUser.uid)
+            val currentTimeMillis = System.currentTimeMillis()
+            var path ="requests/${currentUser.uid}/match/${currentTimeMillis.toString()}"
+            val collectionReference = db.collection("notifications").document(currentUser.uid).collection("posts").document(propertylist[position].uid)
+            propertylist[position].property_status="matched"
+            propertylist[position].created_date=currentTimeMillis.toString()
+            collectionReference.set(propertylist[position])
+                .addOnSuccessListener { documentReference ->
+                    // Data added successfully
+                    // You can get the document ID using documentReference.id
+                    Log.e("Tafg213","Status has been updated")
+
+
+
+
+                    // Handle success here
+                }
+                .addOnFailureListener { e ->
+                    progressDialog.progressBarVisibility(false)
+                    // Handle errors here
+                    Log.e("Tafg213", "Fail$e")
+                }
+        }
+    }
+
+
+    private fun notificationSend(position: Int){
+
+        progressDialog.progressBarVisibility(true)
+
+        val db = FirebaseFirestore.getInstance()
+
+        auth = Firebase.auth
+        val currentUser = auth.currentUser
+
+
+
+
+        if (currentUser != null) {
+            Log.e("Tag21345","Created Sender user  "+ currentUser.uid)
+            val currentTimeMillis = System.currentTimeMillis()
+            var path ="requests/${currentUser.uid}/match/${currentTimeMillis.toString()}"
+            val collectionReference = db.collection("notifications").document(propertylist[position].sender_id.toString()).collection("posts").document(propertylist[position].uid)
+            propertylist[position].property_status="request_matched"
+            propertylist[position].created_date=currentTimeMillis.toString()
+            collectionReference.set(propertylist[position])
+                .addOnSuccessListener { documentReference ->
+                    // Data added successfully
+                    // You can get the document ID using documentReference.id
+                    Log.e("Tafg213","Notification  Send ")
+
+                    propertylist[position].property_status="matched"
+                    notificationListAdapter.notifyItemChanged(position)
+
+                    progressDialog.progressBarVisibility(false)
+
+                    // Handle success here
+                }
+                .addOnFailureListener { e ->
+                    progressDialog.progressBarVisibility(false)
+                    // Handle errors here
+                    Log.e("Tafg213", "Fail$e")
+                }
+        }
+    }
+
 
 
     private fun matchRequestNotificationForSenderUpdateStatus(position: Int){
@@ -268,7 +363,7 @@ class NotificationFragment : Fragment() ,View.OnClickListener ,AdapterListener{
     }
 
     @SuppressLint("SuspiciousIndentation")
-    private fun moveToSenderMatch(position: Int){
+    private fun moveToSenderMatch(position: Int){ // hassam user
         val db = FirebaseFirestore.getInstance()
 
         auth = Firebase.auth
@@ -279,8 +374,8 @@ class NotificationFragment : Fragment() ,View.OnClickListener ,AdapterListener{
         if (currentUser != null) {
             val currentTimeMillis = System.currentTimeMillis()
             var path ="requests/${currentUser.uid}/sender/${currentTimeMillis.toString()}"
-            val collectionReference = db.collection("requests").document(propertylist[position].sender_id.toString()).collection("match").document(propertylist[position].uid)
-            propertylist[position].property_status="match"
+            val collectionReference = db.collection("requests").document(propertylist[position].sender_id.toString()).collection("posts").document(propertylist[position].uid)
+            propertylist[position].property_status="matched"
 
             collectionReference.set(propertylist[position])
                 .addOnSuccessListener { documentReference ->
@@ -301,12 +396,67 @@ class NotificationFragment : Fragment() ,View.OnClickListener ,AdapterListener{
 
 
     }
+    private fun makePhoneCall(phoneNumber: String) {
+        val intent = Intent(Intent.ACTION_DIAL)
+        intent.data = Uri.parse("tel:$phoneNumber")
+        startActivity(intent)
+    }
+
+    private fun whatsapp(phoneNumber: String) {
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.data = Uri.parse("https://wa.me/$phoneNumber")
+        startActivity(intent)
+        // Verify if WhatsApp is installed on the device
+
+    }
 
 
     override fun onAdapterItemClicked(key: String, position: Int) {
             when(key){
                 "match_request"->{
                     matchRequest(position)
+                }
+                "detail"->{
+                    Log.e("Tag3","Sender Name "+ propertylist[position].sender_name)
+                    Const.PropertyType="match"
+                    Const.screenName=""
+                    findNavController().navigate(NotificationFragmentDirections.actionNotificationFragmentToPropertyDetailFragment(propertylist[position],"matches"))
+                }
+               "phone"-> {
+                    if (Const.userId == propertylist[position]!!.user_id) {
+                        makePhoneCall(propertylist[position]!!.sender_phone)
+                    } else {
+                        makePhoneCall(propertylist[position]!!.user_phone)
+                    }
+                }
+
+                "whatsapp" -> {
+                    if (Const.userId == propertylist[position]!!.user_id) {
+                        whatsapp(propertylist[position]!!.sender_whatsapp)
+                    } else {
+                        whatsapp(propertylist[position]!!.sender_whatsapp)
+                    }
+                }
+
+              "chat" -> {
+                    if (Const.userId == propertylist[position]!!.user_id) {
+                        findNavController().navigate(
+                            NotificationFragmentDirections.actionNotificationFragmentToChatFragment2(
+                                propertylist[position]!!,false,
+                                propertylist[position]!!.sender_id.toString(), propertylist[position]!!.sender_name!!, propertylist[position]!!.sender_image!!
+                            )
+                        )
+                    }else {
+                        findNavController().navigate(
+                            NotificationFragmentDirections.actionNotificationFragmentToChatFragment2(
+                                propertylist[position]!!,false,
+                                propertylist[position]!!.user_id.toString(), propertylist[position]!!.user_name!!, propertylist[position]!!.user_picture!!
+                            )
+                        )
+                    }
+
+
+
                 }
             }
     }

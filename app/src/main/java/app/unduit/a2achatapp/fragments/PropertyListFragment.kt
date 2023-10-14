@@ -11,6 +11,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.AppCompatCheckBox
+import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -28,9 +29,12 @@ import app.unduit.a2achatapp.adapters.PropertyFiltersAdapter
 import app.unduit.a2achatapp.adapters.PropertyListMultipleViewAdapter
 import app.unduit.a2achatapp.adapters.PropertyTypeFilterAdapter
 import app.unduit.a2achatapp.databinding.FragmentPropertyListBinding
+
 import app.unduit.a2achatapp.helpers.Const
 import app.unduit.a2achatapp.helpers.ProgressDialog
 import app.unduit.a2achatapp.helpers.SpinnersHelper
+import app.unduit.a2achatapp.helpers.addComma
+import app.unduit.a2achatapp.helpers.removeComma
 import app.unduit.a2achatapp.helpers.showToast
 import app.unduit.a2achatapp.listeners.AdapterListener
 import app.unduit.a2achatapp.models.BathBedType
@@ -53,6 +57,7 @@ class PropertyListFragment : Fragment(), AdapterListener {
     private lateinit var binding: FragmentPropertyListBinding
     var previousPosition = 0
     var propertyType = ""
+    var selectedPostType="All"
     var bathRoomPreviousPosition = 0
     private var bedRoomPreviousPosition = 0
     private var minPricePreviousPosition = 0
@@ -60,6 +65,7 @@ class PropertyListFragment : Fragment(), AdapterListener {
     var viewOnlyCommercialProperty = false
     var bedroomStr = ""
     var bathroomStr = ""
+    var selectedPaymentPurpose=0   //all=0, buy=1, rent=2
     private lateinit var propertyTypeDialog: BottomSheetDialog
 
     private var selectedCategory = "All"
@@ -104,6 +110,8 @@ class PropertyListFragment : Fragment(), AdapterListener {
     private lateinit var propertyTypeAdapter: PropertyTypeFilterAdapter
 
 
+
+
     private lateinit var bedRoomAdapter: BedroomItemFilterAdapter
     private lateinit var bathRoomAdapter : BathroomItemFilterAdapter
 
@@ -113,6 +121,11 @@ class PropertyListFragment : Fragment(), AdapterListener {
             this,
             bathRoomList
         )
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Const.screenName== "property_list"
     }
 
     override fun onCreateView(
@@ -132,13 +145,15 @@ class PropertyListFragment : Fragment(), AdapterListener {
     }
 
     private fun init() {
-
+        Const.tempValue = false
         setListeners()
         setRV()
         getData()
         loadUserProfileImage()
         propertyFilterRecyclerViewManger()
         filtersListData()
+
+
     }
 
 
@@ -146,6 +161,7 @@ class PropertyListFragment : Fragment(), AdapterListener {
 
         propertyFilterList.clear()
         propertyFilterList.add(PropertyType(name = "All", selected = false))
+        propertyFilterList.add(PropertyType(name = "Category", selected = false))
         propertyFilterList.add(PropertyType(name = "Property Type", selected = false))
         propertyFilterList.add(PropertyType(name = "Price", selected = false))
         propertyFilterList.add(PropertyType(name = "Beds & Baths", selected = false))
@@ -171,7 +187,7 @@ class PropertyListFragment : Fragment(), AdapterListener {
 
     }
 
-    private fun priceData() {
+    private fun priceDataForRent() {
         minPricePreviousPosition = 0
         maxPricePreviousPosition = 0
         minPriceList.clear()
@@ -212,7 +228,134 @@ class PropertyListFragment : Fragment(), AdapterListener {
         maxPriceList[0] = "No max."
 
     }
+    private fun priceDataForBuy() {
+        minPricePreviousPosition = 0
+        maxPricePreviousPosition = 0
+        minPriceList.clear()
+        maxPriceList.clear()
+        minPriceList.add("No min.")
+        minPriceList.add("300,000")
+        minPriceList.add("400,000")
+        minPriceList.add("500,000")
+        minPriceList.add("600,000")
+        minPriceList.add("700,000")
+        minPriceList.add("800,000")
+        minPriceList.add("900,000")
+        minPriceList.add("1,000,000")
+        minPriceList.add("1,100,000")
+        minPriceList.add("1,200,000")
+        minPriceList.add("1,300,000")
+        minPriceList.add("1,400,000")
+        minPriceList.add("1,500,000")
+        minPriceList.add("1,600,000")
+        minPriceList.add("1,700,000")
+        minPriceList.add("1,800,000")
+        minPriceList.add("1,900,000")
+        minPriceList.add("2,000,000")
+        minPriceList.add("2,100,000")
+        minPriceList.add("2,200,000")
+        minPriceList.add("2,300,000")
+        minPriceList.add("2,400,000")
+        minPriceList.add("2,500,000")
+        minPriceList.add("2,600,000")
+        minPriceList.add("2,700,000")
+        minPriceList.add("2,800,000")
+        minPriceList.add("2,900,000")
+        minPriceList.add("3,000,000")
+        minPriceList.add("3,250,000")
+        minPriceList.add("3,500,000")
+        minPriceList.add("3,750,000")
+        minPriceList.add("4,000,000")
+        minPriceList.add("4,250,000")
+        minPriceList.add("4,500,000")
+        minPriceList.add("5,000,000")
+        minPriceList.add("6,000,000")
+        minPriceList.add("7,000,000")
+        minPriceList.add("8,000,000")
+        minPriceList.add("9,000,000")
+        minPriceList.add("10,000,000")
+        minPriceList.add("25,000,000")
+        minPriceList.add("50,000,000")
 
+
+
+        maxPriceList.addAll(minPriceList)
+        maxPriceList[0] = "No max."
+
+    }
+    private fun priceDataForAll() {
+        minPricePreviousPosition = 0
+        maxPricePreviousPosition = 0
+        minPriceList.clear()
+        maxPriceList.clear()
+        minPriceList.add("No min.")
+        minPriceList.add("20,000")
+        minPriceList.add("30,000")
+        minPriceList.add("40,000")
+        minPriceList.add("50,000")
+        minPriceList.add("60,000")
+        minPriceList.add("70,000")
+        minPriceList.add("80,000")
+        minPriceList.add("90,000")
+        minPriceList.add("100,000")
+        minPriceList.add("100,000")
+        minPriceList.add("150,000")
+        minPriceList.add("200,000")
+        minPriceList.add("250,000")
+        minPriceList.add("300,000")
+        minPriceList.add("350,000")
+        minPriceList.add("400,000")
+        minPriceList.add("450,000")
+        minPriceList.add("500,000")
+        minPriceList.add("550,000")
+        minPriceList.add("600,000")
+        minPriceList.add("650,000")
+        minPriceList.add("700,000")
+        minPriceList.add("750,000")
+        minPriceList.add("800,000")
+        minPriceList.add("850,000")
+        minPriceList.add("900,000")
+        minPriceList.add("950,000")
+        minPriceList.add("1000,000")
+        minPriceList.add("1,100,000")
+        minPriceList.add("1,200,000")
+        minPriceList.add("1,300,000")
+        minPriceList.add("1,400,000")
+        minPriceList.add("1,500,000")
+        minPriceList.add("1,600,000")
+        minPriceList.add("1,700,000")
+        minPriceList.add("1,800,000")
+        minPriceList.add("1,900,000")
+        minPriceList.add("2,000,000")
+        minPriceList.add("2,100,000")
+        minPriceList.add("2,200,000")
+        minPriceList.add("2,300,000")
+        minPriceList.add("2,400,000")
+        minPriceList.add("2,500,000")
+        minPriceList.add("2,600,000")
+        minPriceList.add("2,700,000")
+        minPriceList.add("2,800,000")
+        minPriceList.add("2,900,000")
+        minPriceList.add("3,000,000")
+        minPriceList.add("3,250,000")
+        minPriceList.add("3,500,000")
+        minPriceList.add("3,750,000")
+        minPriceList.add("4,000,000")
+        minPriceList.add("4,250,000")
+        minPriceList.add("4,500,000")
+        minPriceList.add("5,000,000")
+        minPriceList.add("6,000,000")
+        minPriceList.add("7,000,000")
+        minPriceList.add("8,000,000")
+        minPriceList.add("9,000,000")
+        minPriceList.add("10,000,000")
+        minPriceList.add("25,000,000")
+        minPriceList.add("50,000,000")
+
+        maxPriceList.addAll(minPriceList)
+        maxPriceList[0] = "No max."
+
+    }
     private fun bathRoomData() {
         bathRoomList.clear()
         bathRoomPreviousPosition = 0
@@ -244,7 +387,9 @@ class PropertyListFragment : Fragment(), AdapterListener {
         }
 
         binding.btnChat.setOnClickListener {
-            Toast.makeText(requireContext(), "Under Development", Toast.LENGTH_LONG).show()
+            Const.screenName = ""
+            Const.tempValue = true
+                findNavController().navigate(PropertyListFragmentDirections.actionPropertyListFragmentToChatFragment())
         }
 
         binding.btnBack.setOnClickListener {
@@ -288,11 +433,43 @@ class PropertyListFragment : Fragment(), AdapterListener {
                         propertyList.add(document.toObject(PropertyData::class.java))
                     }
 
+
+                    for (propertyData in propertyList) {
+                        if (propertyData.sp.isEmpty()) {
+                            // Update 'sp' with the value of 'rented_for'
+                            propertyData.sp = propertyData.rented_for
+                        }
+                        if(propertyData.post_type=="request"){
+                                if(propertyData.budget_min.isEmpty()){
+                                    propertyData.budget_min = "0"
+                                    propertyData.budget_max = "0"
+                                }
+                        }
+                    }
                     val list = propertyList.sortedByDescending { it.created_date }
+
+
+
+
                     propertyList.clear()
                     propertyList.addAll(list)
 
                     propertyListFiltered.addAll(propertyList)
+
+
+
+                    val list2 = propertyList.filter {
+                        it.post_type.equals("request", true)
+                    }
+
+                    Log.e("Tag21213","Post Type request  :: "+list2.size)
+
+                    val list1 = propertyList.filter {
+                        it.post_type.equals("property", true)
+                    }
+
+                    Log.e("Tag21213","Post Type  Porpery:: "+list1.size)
+
                     adapter.notifyDataSetChanged()
                     Log.d(TAG, "propertyList size => ${propertyList.size}")
                     progressDialog.progressBarVisibility(false)
@@ -844,9 +1021,30 @@ class PropertyListFragment : Fragment(), AdapterListener {
             adapter.notifyDataSetChanged()
             propertyTypeDialog.dismiss()
 
-            val setSelection = selectedCategory != "All"
-            propertyFilterList[0] = PropertyType(name = selectedCategory, selected = setSelection)
-            propertyFiltersAdapter.notifyItemChanged(0)
+            var setSelection = selectedCategory != "All"
+            var titleShow="Rent"
+            if(selectedCategory=="Sale"){
+
+                titleShow="Buy"
+            }
+
+
+            if(viewOnlyCommercialProperty){
+                if(!setSelection){
+                    titleShow="All"
+                    setSelection=true
+                }
+                propertyFilterList[1] = PropertyType(name = "Commercial | $titleShow", selected = setSelection)
+            }
+            else {
+                if(!setSelection) {
+                    titleShow = "All"
+                }
+                propertyFilterList[1] = PropertyType(name = titleShow, selected = setSelection)
+
+            }
+
+            propertyFiltersAdapter.notifyItemChanged(1)
         }
 
         propertyTypeDialog.setOnDismissListener {
@@ -857,6 +1055,217 @@ class PropertyListFragment : Fragment(), AdapterListener {
 
         propertyTypeDialog.setContentView(view)
         propertyTypeDialog.show()
+    }
+
+
+    private fun bottomSheetForPost(){
+        propertyTypeDialog = BottomSheetDialog(requireContext(), R.style.BottomSheetDialogStyle)
+        val view = layoutInflater.inflate(R.layout.item_bottomsheet_for_post_type, null)
+        val all = view.findViewById<ConstraintLayout>(R.id.cl_selector_all)
+        val property = view.findViewById<ConstraintLayout>(R.id.cl_selector_1)
+        val allTitle = view.findViewById<TextView>(R.id.all_title)
+        val propertyTitle = view.findViewById<TextView>(R.id.rent_title)
+        val requestTitle = view.findViewById<TextView>(R.id.request_title)
+        val request = view.findViewById<ConstraintLayout>(R.id.cl_selector_3)
+        val showBtn = view.findViewById<AppCompatButton>(R.id.show_btn)
+
+
+        if( selectedPostType=="request"){
+            request.setBackgroundResource(R.drawable.aa_ic_rounded_purple_light)
+            property.setBackgroundResource(R.drawable.aa_ic_rounded_corner_white)
+            all.setBackgroundResource(R.drawable.aa_ic_rounded_corner_white)
+            propertyTitle.setTextColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.color_black_shade_1
+                )
+            )
+
+            allTitle.setTextColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.color_black_shade_1
+                )
+            )
+            requestTitle.setTextColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.color_white_shade_1
+                )
+            )
+        }else if( selectedPostType=="property") {
+            property.setBackgroundResource(R.drawable.aa_ic_rounded_purple_light)
+            request.setBackgroundResource(R.drawable.aa_ic_rounded_corner_white)
+            all.setBackgroundResource(R.drawable.aa_ic_rounded_corner_white)
+            requestTitle.setTextColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.color_black_shade_1
+                )
+            )
+            allTitle.setTextColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.color_black_shade_1
+                )
+            )
+            propertyTitle.setTextColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.color_white_shade_1
+                )
+            )
+        }
+        else {
+            all.setBackgroundResource(R.drawable.aa_ic_rounded_purple_light)
+            request.setBackgroundResource(R.drawable.aa_ic_rounded_corner_white)
+            property.setBackgroundResource(R.drawable.aa_ic_rounded_corner_white)
+
+
+            requestTitle.setTextColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.color_black_shade_1
+                )
+            )
+
+            propertyTitle.setTextColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.color_black_shade_1
+                )
+            )
+            allTitle.setTextColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.color_white_shade_1
+                )
+            )
+        }
+
+
+
+        property.setOnClickListener {
+
+
+            selectedPostType="property"
+            property.setBackgroundResource(R.drawable.aa_ic_rounded_purple_light)
+            request.setBackgroundResource(R.drawable.aa_ic_rounded_corner_white)
+            all.setBackgroundResource(R.drawable.aa_ic_rounded_corner_white)
+            requestTitle.setTextColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.color_black_shade_1
+                )
+            )
+            allTitle.setTextColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.color_black_shade_1
+                )
+            )
+            propertyTitle.setTextColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.color_white_shade_1
+                )
+            )
+            filterCategory(selectedCategory, selectedPropertyType, selectedBed, selectedBath, selectedMinPrice, selectedMaxPrice)
+
+            Log.e("Gul21","property"  +propertyListFiltered.size)
+
+
+            showBtn.text = "Show ${propertyListFiltered.size} properties"
+
+
+
+        }
+
+
+        request.setOnClickListener {
+            Log.e("Gul21","request"  )
+            selectedPostType="request"
+            request.setBackgroundResource(R.drawable.aa_ic_rounded_purple_light)
+            property.setBackgroundResource(R.drawable.aa_ic_rounded_corner_white)
+            all.setBackgroundResource(R.drawable.aa_ic_rounded_corner_white)
+            propertyTitle.setTextColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.color_black_shade_1
+                )
+            )
+
+            allTitle.setTextColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.color_black_shade_1
+                )
+            )
+            requestTitle.setTextColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.color_white_shade_1
+                )
+            )
+
+            filterCategory(selectedCategory, selectedPropertyType, selectedBed, selectedBath, selectedMinPrice, selectedMaxPrice)
+
+            Log.e("Gul21","request"  +propertyListFiltered.size)
+
+            showBtn.text = "Show ${propertyListFiltered.size} properties"
+        }
+
+        all.setOnClickListener {
+            all.setBackgroundResource(R.drawable.aa_ic_rounded_purple_light)
+            request.setBackgroundResource(R.drawable.aa_ic_rounded_corner_white)
+            property.setBackgroundResource(R.drawable.aa_ic_rounded_corner_white)
+
+
+            requestTitle.setTextColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.color_black_shade_1
+                )
+            )
+
+            propertyTitle.setTextColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.color_black_shade_1
+                )
+            )
+            allTitle.setTextColor(
+                ContextCompat.getColor(
+                    requireContext(),
+                    R.color.color_white_shade_1
+                )
+            )
+
+            selectedPostType="All"
+            filterCategory(selectedCategory, selectedPropertyType, selectedBed, selectedBath, selectedMinPrice, selectedMaxPrice)
+
+            Log.e("Gul21","property"  +propertyListFiltered.size)
+
+
+            showBtn.text = "Show ${propertyListFiltered.size} properties"
+
+        }
+
+
+        showBtn.setOnClickListener {
+//            filterApplied = true
+            adapter.notifyDataSetChanged()
+            propertyTypeDialog.dismiss()
+
+            val setSelection = selectedPostType != "All"
+            propertyFilterList[0] = PropertyType(name = selectedPostType.capitalize(), selected = setSelection)
+            propertyFiltersAdapter.notifyItemChanged(0)
+        }
+
+        propertyTypeDialog.setContentView(view)
+        propertyTypeDialog.show()
+
+
     }
 
     private fun bottomSheetForPropertyType() {
@@ -870,6 +1279,11 @@ class PropertyListFragment : Fragment(), AdapterListener {
             FlexWrap.WRAP  // Items will wrap to the next line if there's not enough space
         layoutManager.flexDirection = FlexDirection.ROW
         rvPropertyType.layoutManager = layoutManager
+
+
+
+
+
 
         propertyTypeAdapter = PropertyTypeFilterAdapter(
             requireContext(),
@@ -886,39 +1300,43 @@ class PropertyListFragment : Fragment(), AdapterListener {
 
             selectedPropertyType = propertyType
             filterCategory(selectedCategory, selectedPropertyType, selectedBed, selectedBath, selectedMinPrice, selectedMaxPrice)
-
             showBtn.text = "Show ${propertyListFiltered.size} properties"
 
             propertyTypeAdapter.notifyDataSetChanged()
+
         }
 
-        propertyItemList.forEachIndexed { index, type ->
-            if (type.name.equals(propertyType, true)) {
-                propertyItemList[previousPosition].selected = false
 
-                if (!propertyItemList[index].selected) {
-                    propertyItemList[index].selected = true
-                    previousPosition = index
-                }
+//        propertyItemList.forEachIndexed { index, type ->
+//            if (type.name.equals(propertyType, true)) {
+//                propertyItemList[previousPosition].selected = false
+//
+//                if (!propertyItemList[index].selected) {
+//                    propertyItemList[index].selected = true
+//                    previousPosition = index
+//                }
+//
+//                propertyType = propertyItemList[previousPosition].name
+//
+//                selectedPropertyType = propertyType
+//                filterCategory(selectedCategory, selectedPropertyType, selectedBed, selectedBath, selectedMinPrice, selectedMaxPrice)
+//                showBtn.text = "Show ${propertyListFiltered.size} properties"
+//
+//                propertyTypeAdapter.notifyDataSetChanged()
+//            }
+//        }
 
-                propertyType = propertyItemList[previousPosition].name
 
-                selectedPropertyType = propertyType
-                filterCategory(selectedCategory, selectedPropertyType, selectedBed, selectedBath, selectedMinPrice, selectedMaxPrice)
-                showBtn.text = "Show ${propertyListFiltered.size} properties"
 
-                propertyTypeAdapter.notifyDataSetChanged()
-            }
-        }
-
+//        propertyTypeAdapter.notifyDataSetChanged()
         var filterApplied = false
         val prevSelected = selectedPropertyType
         showBtn.setOnClickListener {
             filterApplied = true
             adapter.notifyDataSetChanged()
             propertyTypeDialog.dismiss()
-            propertyFilterList[1] = PropertyType(name = selectedPropertyType, selected = true)
-            propertyFiltersAdapter.notifyItemChanged(1)
+            propertyFilterList[2] = PropertyType(name = selectedPropertyType, selected = true)
+            propertyFiltersAdapter.notifyItemChanged(2)
         }
 
         propertyTypeDialog.setOnDismissListener {
@@ -1015,8 +1433,8 @@ class PropertyListFragment : Fragment(), AdapterListener {
             propertyTypeDialog.dismiss()
 
             val text = "$selectedMinPrice - $selectedMaxPrice"
-            propertyFilterList[2] = PropertyType(name = text, selected = true)
-            propertyFiltersAdapter.notifyItemChanged(2)
+            propertyFilterList[3] = PropertyType(name = text, selected = true)
+            propertyFiltersAdapter.notifyItemChanged(3)
         }
 
         propertyTypeDialog.setOnDismissListener {
@@ -1171,8 +1589,8 @@ class PropertyListFragment : Fragment(), AdapterListener {
                 }
             }
 
-            propertyFilterList[3] = PropertyType(name = text, selected = true)
-            propertyFiltersAdapter.notifyItemChanged(3)
+            propertyFilterList[4] = PropertyType(name = text, selected = true)
+            propertyFiltersAdapter.notifyItemChanged(4)
         }
 
         propertyTypeDialog.setOnDismissListener {
@@ -1186,31 +1604,81 @@ class PropertyListFragment : Fragment(), AdapterListener {
         propertyTypeDialog.show()
 
     }
-
-    private fun filterCategory(category: String, type: String, beds: String, baths: String, minPrice: String, maxPrice: String) {
-
+    private  fun filterPropertyCategory(list :ArrayList<PropertyData>){
         if(viewOnlyCommercialProperty) {
-            propertyListFiltered.clear()
-            val list = propertyList.filter {
+
+            val list = list.filter {
                 it.purpose_type.equals("Commercial", true)
             }
+            propertyListFiltered.clear()
             propertyListFiltered.addAll(list)
         } else {
+            val list = list.filter {
+                it.purpose_type.equals("Residential", true)
+            }
             propertyListFiltered.clear()
-            propertyListFiltered.addAll(propertyList)
+            propertyListFiltered.addAll(list)
+            Log.e("Gul21","filterPropertyCategory "+propertyListFiltered.size)
         }
+    }
+    private fun filterCategory(category: String, type: String, beds: String, baths: String, minPrice: String, maxPrice: String) {
+
+
+        when (selectedPostType) {
+            "request" -> {
+                propertyListFiltered.clear()
+                val list = propertyList.filter {
+                    it.post_type.equals("request", true)
+                }
+                propertyListFiltered.addAll(list)
+                Log.e("Gul21","propertyListFiltered "+propertyListFiltered.size)
+                filterPropertyCategory(propertyListFiltered)
+
+            }
+            "property" -> {
+                propertyListFiltered.clear()
+                val list = propertyList.filter {
+                    it.post_type.equals("property", true)
+                }
+                propertyListFiltered.addAll(list)
+                Log.e("Gul21","propertyListFiltered "+propertyListFiltered.size)
+                filterPropertyCategory(propertyListFiltered)
+
+
+
+            }
+            else -> {
+                propertyListFiltered.clear()
+                Log.e("Gul21","ALL "+propertyListFiltered.size)
+                val list = propertyList.filter {
+                    it.post_type.equals("property", true) && it.post_type=="request"
+                }
+                propertyListFiltered.addAll(list)
+                Log.e("Gul21","propertyListFiltered "+propertyListFiltered.size)
+                filterPropertyCategory(propertyListFiltered)
+                propertyListFiltered.clear()
+                propertyListFiltered.addAll(propertyList)
+                filterPropertyCategory(propertyListFiltered)
+            }
+        }
+
+
+
+        Log.e("Gul21", "category $category")
+
 
         when (category) {
             "All" -> {
                 if(viewOnlyCommercialProperty) {
-                    propertyListFiltered.clear()
-                    val list = propertyList.filter {
+                    Log.e("Gul21","viewOnlyCommercialProperty "+propertyListFiltered.size)
+                    val list = propertyListFiltered.filter {
                         it.purpose_type.equals("Commercial", true)
                     }
+                    propertyListFiltered.clear()
                     propertyListFiltered.addAll(list)
                 } else {
-                    propertyListFiltered.clear()
-                    propertyListFiltered.addAll(propertyList)
+//                    propertyListFiltered.clear()
+//                    propertyListFiltered.addAll(propertyList)
                 }
             }
 
@@ -1230,13 +1698,6 @@ class PropertyListFragment : Fragment(), AdapterListener {
                 propertyListFiltered.addAll(list)
             }
 
-            "Request" -> {
-                val list = propertyList.filter {
-                    it.post_type.equals("request", true)
-                }
-                propertyListFiltered.clear()
-                propertyListFiltered.addAll(list)
-            }
         }
 
         if (type != "") {
@@ -1264,46 +1725,106 @@ class PropertyListFragment : Fragment(), AdapterListener {
         }
 
         if(minPrice != "No min." && maxPrice != "No max.") {
-            val list = ArrayList<PropertyData>()
-
-            propertyListFiltered.forEach {propertyData ->
-                if(propertyData.sp != "" &&
-                    propertyData.sp.replace(",", "").toInt() > minPrice.replace(",", "").toInt() &&
-                    propertyData.sp.replace(",", "").toInt() < maxPrice.replace(",", "").toInt()) {
-                    list.add(propertyData)
-                }
+            Log.e("Tag21351q2", "-------------------")
+            propertyListFiltered.forEach {
+                Log.e("Tag21351q2", "data ${it.sp}")
             }
-            propertyListFiltered.clear()
-            propertyListFiltered.addAll(list)
-        } else if(minPrice == "No min." && maxPrice != "No max.") {
-            val list = ArrayList<PropertyData>()
 
-            propertyListFiltered.forEach { propertyData ->
-                if(propertyData.sp != "" &&
-                    propertyData.sp.replace(",", "").toInt() < maxPrice.replace(",", "").toInt()) {
-                    list.add(propertyData)
+
+                Log.e("Tag21351q2", "-------------------")
+
+
+            val filteredList = propertyListFiltered.filter { product ->
+
+                if(product.post_type=="request"){
+                    removeComma(product.budget_min).toLong() in removeComma(minPrice).toLong()..removeComma(
+                        maxPrice
+                    ).toLong()  &&
+
+                            removeComma(product.budget_max).toLong() in removeComma(minPrice).toLong()..removeComma(
+                        maxPrice
+                    ).toLong()
+                }else {
+                    removeComma(product.sp).toLong() in removeComma(minPrice).toLong()..removeComma(
+                        maxPrice
+                    ).toLong()
                 }
+
+
             }
+
+
+
+
+                propertyListFiltered.clear()
+            propertyListFiltered.addAll(filteredList)
+
+        }else if(minPrice == "No min." && maxPrice != "No max.") {
+
+
+
+
+            val filteredList = propertyListFiltered.filter { product ->
+
+                if(product.post_type=="request"){
+                    removeComma(product.budget_max).toLong() <= removeComma(
+                        maxPrice
+                    ).toLong()
+                }else {
+                    removeComma(product.sp).toLong() <= removeComma(
+                        maxPrice
+                    ).toLong()
+                }
+
+
+            }
+
+
+
+
+
             propertyListFiltered.clear()
-            propertyListFiltered.addAll(list)
+            propertyListFiltered.addAll(filteredList)
         } else if(minPrice != "No min." && maxPrice == "No max.") {
-            val list = ArrayList<PropertyData>()
 
-            propertyListFiltered.forEach { propertyData ->
-                if(propertyData.sp != "" &&
-                    propertyData.sp.replace(",", "").toInt() > minPrice.replace(",", "").toInt()) {
-                    list.add(propertyData)
+
+
+
+
+
+            val filteredList = propertyListFiltered.filter { product ->
+
+                if(product.post_type=="request"){
+                    removeComma(product.budget_min).toLong() >= removeComma(
+                        minPrice
+                    ).toLong()
+                }else {
+                    removeComma(product.sp).toLong() >= removeComma(
+                        minPrice
+                    ).toLong()
                 }
+
+
             }
+
+
             propertyListFiltered.clear()
-            propertyListFiltered.addAll(list)
+            propertyListFiltered.addAll(filteredList)
         }
     }
 
     override fun onAdapterItemClicked(key: String, position: Int) {
         when (key) {
             "chat" -> {
-                Toast.makeText(requireContext(), "Under Development", Toast.LENGTH_LONG).show()
+//                Toast.makeText(requireContext(), "Under Development", Toast.LENGTH_LONG).show()
+
+                findNavController().navigate(PropertyListFragmentDirections.actionPropertyListFragmentToChatFragment2(propertyList[position],false,
+                    propertyListFiltered[position].user_id!!,propertyListFiltered[position].user_name.toString(),
+                    propertyListFiltered[position].user_picture.toString()
+                ))
+
+
+
             }
 
             "open_request_detail"->{
@@ -1316,11 +1837,14 @@ class PropertyListFragment : Fragment(), AdapterListener {
 
             "click_on_item" -> {
                 when (position) {
-                    0 -> {
+                    0->{
+                        bottomSheetForPost()
+                    }
+                    1 -> {
                         bottomSheetForRent()
                     }
 
-                    1 -> {
+                    2 -> {
                         if (viewOnlyCommercialProperty) {
                             showCommercialProperty()
                         } else {
@@ -1330,12 +1854,24 @@ class PropertyListFragment : Fragment(), AdapterListener {
                         bottomSheetForPropertyType()
                     }
 
-                    2 -> {
-                        priceData()
+                    3 -> {
+
+                        when (selectedCategory) {
+                            "Rent" -> {
+                                priceDataForRent()
+                            }
+                            "Sale" -> {
+                                priceDataForBuy()
+                            }
+                            else -> {
+                                priceDataForAll()
+                            }
+                        }
+
                         bottomSheetForPrice()
                     }
 
-                    3 -> {
+                    4 -> {
                         bathRoomData()
                         bedRoomData()
                         bottomSheetForBedAndBath()
@@ -1399,33 +1935,41 @@ class PropertyListFragment : Fragment(), AdapterListener {
             "cancel_filter" -> {
                 when(position) {
                     0 -> {
-                        selectedCategory = "All"
-                        viewOnlyCommercialProperty = false
+                        selectedPostType = "All"
                         filterCategory(selectedCategory, selectedPropertyType, selectedBed, selectedBath, selectedMinPrice, selectedMaxPrice)
-                        propertyFilterList[0] = PropertyType(name = selectedCategory, selected = false)
+                        propertyFilterList[0] = PropertyType(name = selectedPostType, selected = false)
                         propertyFiltersAdapter.notifyItemChanged(0)
                         adapter.notifyDataSetChanged()
                     }
                     1 -> {
+                        selectedCategory = "All"
+                        
+                        viewOnlyCommercialProperty = false
+                        filterCategory(selectedCategory, selectedPropertyType, selectedBed, selectedBath, selectedMinPrice, selectedMaxPrice)
+                        propertyFilterList[1] = PropertyType(name = selectedCategory, selected = false)
+                        propertyFiltersAdapter.notifyItemChanged(1)
+                        adapter.notifyDataSetChanged()
+                    }
+                    2 -> {
                         propertyType = ""
                         selectedPropertyType = ""
                         previousPosition = 0
                         propertyItemList[previousPosition].selected = false
 
                         filterCategory(selectedCategory, selectedPropertyType, selectedBed, selectedBath, selectedMinPrice, selectedMaxPrice)
-                        propertyFilterList[1] = PropertyType(name = "Property Type", selected = false)
-                        propertyFiltersAdapter.notifyItemChanged(1)
-                        adapter.notifyDataSetChanged()
-                    }
-                    2 -> {
-                        selectedMinPrice = "No min."
-                        selectedMaxPrice = "No max."
-                        filterCategory(selectedCategory, selectedPropertyType, selectedBed, selectedBath, selectedMinPrice, selectedMaxPrice)
-                        propertyFilterList[2] = PropertyType(name = "Price", selected = false)
+                        propertyFilterList[2] = PropertyType(name = "Property Type", selected = false)
                         propertyFiltersAdapter.notifyItemChanged(2)
                         adapter.notifyDataSetChanged()
                     }
                     3 -> {
+                        selectedMinPrice = "No min."
+                        selectedMaxPrice = "No max."
+                        filterCategory(selectedCategory, selectedPropertyType, selectedBed, selectedBath, selectedMinPrice, selectedMaxPrice)
+                        propertyFilterList[3] = PropertyType(name = "Price", selected = false)
+                        propertyFiltersAdapter.notifyItemChanged(3)
+                        adapter.notifyDataSetChanged()
+                    }
+                    4 -> {
                         bedroomStr = ""
                         bathroomStr = ""
                         selectedBed = ""
@@ -1433,14 +1977,15 @@ class PropertyListFragment : Fragment(), AdapterListener {
                         bedRoomPreviousPosition = 0
                         bathRoomPreviousPosition = 0
                         filterCategory(selectedCategory, selectedPropertyType, selectedBed, selectedBath, selectedMinPrice, selectedMaxPrice)
-                        propertyFilterList[3] = PropertyType(name = "Beds & Baths", selected = false)
-                        propertyFiltersAdapter.notifyItemChanged(3)
+                        propertyFilterList[4] = PropertyType(name = "Beds & Baths", selected = false)
+                        propertyFiltersAdapter.notifyItemChanged(4)
                         adapter.notifyDataSetChanged()
                     }
                 }
             }
 
             else -> {
+                Const.screenName=""
                 findNavController().navigate(
                     PropertyListFragmentDirections.actionPropertyListFragmentToPropertyDetailFragment(
                         propertyListFiltered[position]

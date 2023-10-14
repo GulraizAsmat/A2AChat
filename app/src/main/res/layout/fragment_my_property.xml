@@ -32,7 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_5sdp"
-                android:fontFamily="@font/hellix_semibold"
+                android:fontFamily="@font/roboto_medium"
                 android:text="My Property"
                 android:textColor="@color/color_black_shade_1"
                 android:textSize="@dimen/_16sdp"

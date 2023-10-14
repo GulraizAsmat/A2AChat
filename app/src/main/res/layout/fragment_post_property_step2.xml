@@ -35,7 +35,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_5sdp"
-            android:fontFamily="@font/hellix_semibold"
+            android:fontFamily="@font/roboto_medium"
             android:text="Post a Property"
             android:textColor="@color/color_black_shade_1"
             android:textSize="@dimen/_16sdp"
@@ -346,13 +346,16 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
     <androidx.core.widget.NestedScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/_20sdp"
+        app:layout_constraintBottom_toTopOf="@+id/next_btn"
         app:layout_constraintEnd_toStartOf="@+id/end_guideline"
         app:layout_constraintStart_toStartOf="@+id/start_guideline"
-        app:layout_constraintTop_toBottomOf="@+id/cl_process_bar"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/cl_process_bar">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraintLayout4"
@@ -364,7 +367,7 @@
                 android:id="@+id/price_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/hellix_semibold"
+                android:fontFamily="@font/roboto_medium"
                 android:text="Price (AED)"
                 android:textColor="@color/color_black_shade_1"
                 android:textSize="@dimen/_11sdp"
@@ -376,22 +379,22 @@
                 android:id="@+id/price_title_star"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/hellix_regular"
+                android:fontFamily="@font/roboto_regular"
                 android:text="*"
                 android:textColor="@color/color_red_shade_1"
                 android:textSize="@dimen/_11sdp"
                 android:visibility="gone"
-                app:layout_constraintTop_toTopOf="@id/price_title"
-                app:layout_constraintStart_toEndOf="@+id/price_title" />
+                app:layout_constraintStart_toEndOf="@+id/price_title"
+                app:layout_constraintTop_toTopOf="@id/price_title" />
 
             <EditText
                 android:id="@+id/price"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_30sdp"
-                android:layout_marginTop="@dimen/_5sdp"
+                               android:layout_marginTop="@dimen/_10sdp"
                 android:background="@drawable/bg_text_view_signup"
                 android:drawablePadding="@dimen/_12sdp"
-                android:fontFamily="@font/hellix_regular"
+                android:fontFamily="@font/roboto_regular"
                 android:gravity="center_vertical"
                 android:inputType="number"
                 android:maxLines="1"
@@ -408,11 +411,11 @@
                 android:id="@+id/area_community_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/hellix_semibold"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:fontFamily="@font/roboto_medium"
                 android:text="Area / Community"
                 android:textColor="@color/color_black_shade_1"
                 android:textSize="@dimen/_11sdp"
-                android:layout_marginTop="@dimen/_15sdp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/price" />
 
@@ -420,21 +423,21 @@
                 android:id="@+id/area_community_title_star"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/hellix_regular"
+                android:fontFamily="@font/roboto_regular"
                 android:text="*"
                 android:textColor="@color/color_red_shade_1"
                 android:textSize="@dimen/_11sdp"
-                app:layout_constraintTop_toTopOf="@id/area_community_title"
-                app:layout_constraintStart_toEndOf="@+id/area_community_title" />
+                app:layout_constraintStart_toEndOf="@+id/area_community_title"
+                app:layout_constraintTop_toTopOf="@id/area_community_title" />
 
             <EditText
                 android:id="@+id/area_community"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_30sdp"
-                android:layout_marginTop="@dimen/_5sdp"
+                               android:layout_marginTop="@dimen/_10sdp"
                 android:background="@drawable/bg_text_view_signup"
                 android:drawablePadding="@dimen/_12sdp"
-                android:fontFamily="@font/hellix_regular"
+                android:fontFamily="@font/roboto_regular"
                 android:gravity="center_vertical"
                 android:inputType="text"
                 android:maxLines="1"
@@ -451,7 +454,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_15sdp"
-                android:fontFamily="@font/hellix_semibold"
+                android:fontFamily="@font/roboto_medium"
                 android:text="Project"
                 android:textColor="@color/color_black_shade_1"
                 android:textSize="@dimen/_11sdp"
@@ -462,7 +465,7 @@
                 android:id="@+id/building_title_star"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/hellix_regular"
+                android:fontFamily="@font/roboto_regular"
                 android:text="*"
                 android:textColor="@color/color_red_shade_1"
                 android:textSize="@dimen/_11sdp"
@@ -473,10 +476,10 @@
                 android:id="@+id/building"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_30sdp"
-                android:layout_marginTop="@dimen/_5sdp"
+                               android:layout_marginTop="@dimen/_10sdp"
                 android:background="@drawable/bg_text_view_signup"
                 android:drawablePadding="@dimen/_12sdp"
-                android:fontFamily="@font/hellix_regular"
+                android:fontFamily="@font/roboto_regular"
                 android:gravity="center_vertical"
                 android:inputType="text"
                 android:maxLines="1"
@@ -493,7 +496,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:fontFamily="@font/hellix_semibold"
+                android:fontFamily="@font/roboto_medium"
                 android:text="Bedrooms"
                 android:textColor="@color/color_black_shade_1"
                 android:textSize="@dimen/_11sdp"
@@ -504,7 +507,7 @@
                 android:id="@+id/bedrooms_title_star"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/hellix_semibold"
+                android:fontFamily="@font/roboto_medium"
                 android:text="*"
                 android:textColor="@color/color_red_shade_1"
                 android:textSize="@dimen/_11sdp"
@@ -526,7 +529,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:fontFamily="@font/hellix_semibold"
+                android:fontFamily="@font/roboto_medium"
                 android:text="Baths"
                 android:textColor="@color/color_black_shade_1"
                 android:textSize="@dimen/_11sdp"
@@ -537,7 +540,7 @@
                 android:id="@+id/baths_title_star"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/hellix_semibold"
+                android:fontFamily="@font/roboto_medium"
                 android:text="*"
                 android:textColor="@color/color_red_shade_1"
                 android:textSize="@dimen/_11sdp"
@@ -554,13 +557,12 @@
                 app:layout_constraintTop_toBottomOf="@+id/baths_title" />
 
 
-
             <TextView
                 android:id="@+id/property_dev_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:fontFamily="@font/hellix_semibold"
+                android:fontFamily="@font/roboto_medium"
                 android:text="Property Development Status"
                 android:textColor="@color/color_black_shade_1"
                 android:textSize="@dimen/_11sdp"
@@ -568,15 +570,178 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rv_bath" />
 
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_request_dev_1"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_100sdp"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/rv_bath"
+                tools:ignore="MissingConstraints">
+
+                <TextView
+                    android:id="@+id/property_dev_title1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="Property Development Status"
+                    android:textColor="@color/color_black_shade_1"
+                    android:textSize="@dimen/_11sdp"
+
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_off_plan1"
+                    android:layout_width="0dp"
+
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:background="@drawable/ic_dark_purple_bg"
+                    android:padding="@dimen/_5sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/purpose_mid_guideline1"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/property_dev_title1">
+
+
+                    <ImageView
+                        android:id="@+id/resident_icon1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        app:layout_constraintBottom_toBottomOf="parent"
+
+
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/residents_title1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="3dp"
+                        android:fontFamily="@font/roboto_medium"
+                        android:text="Off-Plan "
+                        android:textColor="@color/color_white_shade_1"
+                        android:textSize="@dimen/_10sdp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_ready1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginVertical="@dimen/_10sdp"
+                    android:background="@drawable/ic_light_purple_bg_1"
+                    android:padding="@dimen/_5sdp"
+                    app:layout_constraintBottom_toBottomOf="@+id/cl_off_plan1"
+                    app:layout_constraintEnd_toEndOf="@id/purpose_mid_guideline2"
+                    app:layout_constraintStart_toStartOf="@+id/purpose_mid_guideline1"
+                    app:layout_constraintTop_toTopOf="@+id/cl_off_plan1">
+
+
+                    <ImageView
+                        android:id="@+id/commercial_icon1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/commercial_title1"
+
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/commercial_title1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="3dp"
+                        android:fontFamily="@font/roboto_medium"
+                        android:text="Ready"
+                        android:textColor="@color/color_purple_shade_1"
+                        android:textSize="@dimen/_10sdp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_any"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginVertical="@dimen/_10sdp"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:background="@drawable/ic_light_purple_bg_1"
+                    android:padding="@dimen/_5sdp"
+                    app:layout_constraintBottom_toBottomOf="@+id/cl_off_plan1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/purpose_mid_guideline2"
+                    app:layout_constraintTop_toTopOf="@+id/cl_off_plan1">
+
+
+                    <ImageView
+                        android:id="@+id/commercial_any_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/commercial_any"
+
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/commercial_any"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginVertical="3dp"
+                        android:fontFamily="@font/roboto_medium"
+                        android:text="Any"
+                        android:textColor="@color/color_purple_shade_1"
+                        android:textSize="@dimen/_10sdp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/purpose_mid_guideline1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.333" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/purpose_mid_guideline2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.666" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/cl_off_plan"
                 android:layout_width="0dp"
 
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/_10sdp"
                 android:layout_marginVertical="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
                 android:background="@drawable/ic_dark_purple_bg"
                 android:padding="@dimen/_5sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/purpose_mid_guideline"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/property_dev_title">
@@ -590,7 +755,6 @@
                     app:layout_constraintBottom_toBottomOf="parent"
 
 
-
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -598,8 +762,8 @@
                     android:id="@+id/residents_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_3sdp"
-                    android:fontFamily="@font/hellix_semibold"
+                    android:layout_marginVertical="3dp"
+                    android:fontFamily="@font/roboto_medium"
                     android:text="Off-Plan "
                     android:textColor="@color/color_white_shade_1"
                     android:textSize="@dimen/_10sdp"
@@ -614,7 +778,7 @@
                 android:id="@+id/cl_ready"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginVertical="@dimen/_10sdp"
                 android:background="@drawable/ic_light_purple_bg_1"
                 android:padding="@dimen/_5sdp"
@@ -639,8 +803,8 @@
                     android:id="@+id/commercial_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_3sdp"
-                    android:fontFamily="@font/hellix_semibold"
+                    android:layout_marginVertical="3dp"
+                    android:fontFamily="@font/roboto_medium"
                     android:text="Ready"
                     android:textColor="@color/color_purple_shade_1"
                     android:textSize="@dimen/_10sdp"
@@ -654,17 +818,17 @@
             <androidx.constraintlayout.widget.Group
                 android:id="@+id/property_dev_status_group"
                 android:layout_width="wrap_content"
-                android:visibility="visible"
                 android:layout_height="wrap_content"
-                app:constraint_referenced_ids="property_dev_title,cl_off_plan,cl_ready"/>
+                android:visibility="visible"
+                app:constraint_referenced_ids="property_dev_title,cl_off_plan,cl_ready" />
 
 
             <androidx.constraintlayout.widget.Group
                 android:id="@+id/property_hide_for_com_group"
                 android:layout_width="wrap_content"
-                android:visibility="visible"
                 android:layout_height="wrap_content"
-                app:constraint_referenced_ids="bedrooms_title,bedrooms_title_star,rv_bed,baths_title,baths_title_star,rv_bath"/>
+                android:visibility="visible"
+                app:constraint_referenced_ids="bedrooms_title,bedrooms_title_star,rv_bed,baths_title,baths_title_star,rv_bath" />
 
 
             <androidx.constraintlayout.widget.Guideline
@@ -688,27 +852,29 @@
                 android:orientation="vertical"
                 app:layout_constraintGuide_percent="0.94" />
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/next_btn"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_30sdp"
-                android:layout_marginBottom="@dimen/_10sdp"
-                android:background="@drawable/ic_dark_purple_bg"
-                android:fontFamily="@font/hellix_semibold"
-                android:stateListAnimator="@null"
-                android:text="Next"
-                android:textAllCaps="false"
-                android:textColor="@color/color_white_shade_1"
-                app:layout_constraintEnd_toStartOf="@+id/end_guideline_btn"
-                app:layout_constraintStart_toStartOf="@+id/start_guideline_btn"
-                app:layout_constraintTop_toBottomOf="@id/cl_off_plan"
-                app:layout_constraintBottom_toBottomOf="parent"
-                tools:ignore="MissingConstraints" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/next_btn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        android:layout_marginBottom="@dimen/_20sdp"
+        android:background="@drawable/ic_dark_purple_bg"
+        android:fontFamily="@font/roboto_medium"
+        android:stateListAnimator="@null"
+        android:text="Next"
+        android:textAllCaps="false"
+        android:textColor="@color/color_white_shade_1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/end_guideline"
+        app:layout_constraintStart_toStartOf="@+id/start_guideline"
+
+        tools:ignore="MissingConstraints" />
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/top_guideline"
         android:layout_width="wrap_content"

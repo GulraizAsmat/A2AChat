@@ -33,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_5sdp"
-            android:fontFamily="@font/hellix_semibold"
+            android:fontFamily="@font/roboto_medium"
             android:text="Post a Property"
             android:textColor="@color/color_black_shade_1"
             android:textSize="@dimen/_16sdp"
@@ -236,296 +236,315 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-    <!-- propose section-->
+<androidx.core.widget.NestedScrollView
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    app:layout_constraintBottom_toTopOf="@+id/next_btn"
+    app:layout_constraintEnd_toEndOf="@+id/end_guideline"
+    app:layout_constraintStart_toStartOf="@id/start_guideline"
+    android:layout_marginBottom="@dimen/_10sdp"
+    app:layout_constraintTop_toBottomOf="@+id/cl_process_bar">
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout3"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/_160sdp"
-        android:layout_marginTop="@dimen/_20sdp"
-        app:layout_constraintEnd_toStartOf="@+id/end_guideline"
-        app:layout_constraintStart_toStartOf="@+id/start_guideline"
-        app:layout_constraintTop_toBottomOf="@+id/cl_process_bar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
         tools:ignore="MissingConstraints">
 
-
-        <TextView
-            android:id="@+id/purpose_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/hellix_semibold"
-            android:text="Purpose"
-            android:textColor="@color/color_black_shade_1"
-            android:textSize="@dimen/_12sdp"
-
+        <!-- propose section-->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout3"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_160sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints">
+
+
+            <TextView
+                android:id="@+id/purpose_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_medium"
+                android:text="Purpose"
+                android:textColor="@color/color_black_shade_1"
+                android:textSize="@dimen/_12sdp"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_for_sale"
+                android:layout_width="@dimen/_90sdp"
+                android:layout_height="@dimen/_90sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:background="@drawable/ic_dark_purple_bg"
+                app:layout_constraintEnd_toStartOf="@+id/purpose_mid_guideline"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/purpose_title">
+
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="@dimen/_20sdp"
+                    android:src="@drawable/ic_for_sale"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/sale_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_medium"
+                android:text="For Sale"
+                android:textColor="@color/color_black_shade_1"
+                android:textSize="@dimen/_14sdp"
+
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/cl_for_sale"
+                app:layout_constraintStart_toStartOf="@+id/cl_for_sale"
+                app:layout_constraintTop_toBottomOf="@+id/cl_for_sale" />
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_for_rent"
+                android:layout_width="@dimen/_90sdp"
+                android:layout_height="@dimen/_90sdp"
+                android:background="@drawable/ic_light_purple_bg_1"
+                app:layout_constraintBottom_toBottomOf="@+id/cl_for_sale"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/purpose_mid_guideline"
+                app:layout_constraintTop_toTopOf="@+id/cl_for_sale">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="@dimen/_20sdp"
+                    android:src="@drawable/ic_for_rent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/rent_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/roboto_medium"
+                android:text="For Rent"
+                android:textColor="@color/color_black_shade_1"
+                android:textSize="@dimen/_14sdp"
+
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/cl_for_rent"
+                app:layout_constraintStart_toStartOf="@+id/cl_for_rent"
+                app:layout_constraintTop_toBottomOf="@+id/cl_for_sale" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/purpose_mid_guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <!-- select Type section-->
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_for_sale"
-            android:layout_width="@dimen/_90sdp"
-            android:layout_height="@dimen/_90sdp"
+            android:id="@+id/cl_property_type"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/_50sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout3"
+            tools:ignore="MissingConstraints">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_resident"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:layout_marginVertical="@dimen/_10sdp"
+                android:background="@drawable/ic_dark_purple_bg"
+                android:padding="@dimen/_5sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/select_type_mid_guideline"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+
+                <ImageView
+                    android:id="@+id/resident_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_resident"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/residents_title"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/residents_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="Residential"
+                    android:textColor="@color/color_white_shade_1"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintBottom_toBottomOf="@+id/resident_icon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/resident_icon"
+                    app:layout_constraintTop_toTopOf="@+id/resident_icon" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_commercial"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginVertical="@dimen/_10sdp"
+                android:background="@color/white"
+                android:padding="@dimen/_5sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/select_type_mid_guideline"
+                app:layout_constraintTop_toTopOf="parent">
+
+
+                <ImageView
+                    android:id="@+id/commercial_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_commercial"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/commercial_title"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/commercial_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="Commercial"
+                    android:textColor="@color/color_black_shade_1"
+                    android:textSize="@dimen/_10sdp"
+                    app:layout_constraintBottom_toBottomOf="@+id/commercial_icon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/commercial_icon"
+                    app:layout_constraintTop_toTopOf="@+id/commercial_icon" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/select_type_mid_guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.5" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <!-- select property item section-->
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cl_property_type_item"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
-            android:background="@drawable/ic_dark_purple_bg"
-            app:layout_constraintEnd_toStartOf="@+id/purpose_mid_guideline"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/purpose_title">
-
-
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_margin="@dimen/_20sdp"
-                android:src="@drawable/ic_for_sale"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <TextView
-            android:id="@+id/sale_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/hellix_semibold"
-            android:text="For Sale"
-            android:textColor="@color/color_black_shade_1"
-            android:textSize="@dimen/_14sdp"
-
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/cl_for_sale"
-            app:layout_constraintStart_toStartOf="@+id/cl_for_sale"
-            app:layout_constraintTop_toBottomOf="@+id/cl_for_sale" />
-
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_for_rent"
-            android:layout_width="@dimen/_90sdp"
-            android:layout_height="@dimen/_90sdp"
-            android:background="@drawable/ic_light_purple_bg_1"
-            app:layout_constraintBottom_toBottomOf="@+id/cl_for_sale"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/purpose_mid_guideline"
-            app:layout_constraintTop_toTopOf="@+id/cl_for_sale">
-
-            <ImageView
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_margin="@dimen/_20sdp"
-                android:src="@drawable/ic_for_rent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <TextView
-            android:id="@+id/rent_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/hellix_semibold"
-            android:text="For Rent"
-            android:textColor="@color/color_black_shade_1"
-            android:textSize="@dimen/_14sdp"
-
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/cl_for_rent"
-            app:layout_constraintStart_toStartOf="@+id/cl_for_rent"
-            app:layout_constraintTop_toBottomOf="@+id/cl_for_sale" />
-
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/purpose_mid_guideline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.5" />
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-    <!-- select Type section-->
-
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl_property_type"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/_50sdp"
-        app:layout_constraintEnd_toStartOf="@+id/end_guideline"
-        app:layout_constraintStart_toStartOf="@+id/start_guideline"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout3"
-        tools:ignore="MissingConstraints">
-
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_resident"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginHorizontal="@dimen/_10sdp"
-            android:layout_marginVertical="@dimen/_10sdp"
-            android:background="@drawable/ic_dark_purple_bg"
-            android:padding="@dimen/_5sdp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/select_type_mid_guideline"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@+id/cl_property_type"
+            tools:ignore="MissingConstraints">
 
-
-            <ImageView
-                android:id="@+id/resident_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_resident"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/residents_title"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/residents_title"
+                android:id="@+id/purpose_item_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_3sdp"
-                android:fontFamily="@font/hellix_semibold"
-                android:text="Residential"
-                android:layout_marginStart="@dimen/_5sdp"
-                android:textColor="@color/color_white_shade_1"
-                android:textSize="@dimen/_10sdp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/resident_icon"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/cl_commercial"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginHorizontal="@dimen/_10sdp"
-            android:layout_marginVertical="@dimen/_10sdp"
-            android:background="@color/white"
-            android:padding="@dimen/_5sdp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/select_type_mid_guideline"
-            app:layout_constraintTop_toTopOf="parent">
-
-
-            <ImageView
-                android:id="@+id/commercial_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_commercial"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/commercial_title"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintHorizontal_chainStyle="packed"
+                android:fontFamily="@font/roboto_medium"
+                android:text="Select Property Type *"
+                android:textColor="@color/color_black_shade_1"
+                android:textSize="@dimen/_12sdp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+
             <TextView
-                android:id="@+id/commercial_title"
+                android:id="@+id/selected_property_type"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_5sdp"
-                android:layout_marginTop="@dimen/_3sdp"
-                android:fontFamily="@font/hellix_semibold"
-                android:text="Commercial"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:background="@drawable/bg_btn_login_disabled"
+                android:fontFamily="@font/roboto_regular"
+                android:gravity="center_horizontal"
+                android:paddingHorizontal="@dimen/_10sdp"
+                android:paddingVertical="@dimen/_7sdp"
+                android:text="Please Select Property Type +"
                 android:textColor="@color/color_black_shade_1"
                 android:textSize="@dimen/_10sdp"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/purpose_item_title" />
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_property"
+                android:layout_width="0dp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/commercial_icon"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/purpose_item_title" />
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/select_type_mid_guideline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.5" />
-
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-    <!-- select property item section-->
-
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/cl_property_type_item"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_10sdp"
-        app:layout_constraintEnd_toStartOf="@+id/end_guideline"
-        app:layout_constraintStart_toStartOf="@+id/start_guideline"
-        app:layout_constraintTop_toBottomOf="@+id/cl_property_type"
-        tools:ignore="MissingConstraints">
-
-
-        <TextView
-            android:id="@+id/purpose_item_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/hellix_semibold"
-            android:text="Select Property Type *"
-            android:textColor="@color/color_black_shade_1"
-            android:textSize="@dimen/_12sdp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-
-        <TextView
-            android:id="@+id/selected_property_type"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/_30sdp"
-            android:layout_marginTop="@dimen/_15sdp"
-            android:visibility="gone"
-            android:background="@drawable/bg_btn_login_disabled"
-            android:fontFamily="@font/hellix_regular"
-            android:gravity="center_horizontal"
-            android:paddingHorizontal="@dimen/_10sdp"
-            android:paddingVertical="@dimen/_7sdp"
-            android:text="Please Select Property Type +"
-            android:textColor="@color/color_black_shade_1"
-            android:textSize="@dimen/_10sdp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/purpose_item_title" />
-
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_property"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:visibility="visible"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/purpose_item_title" />
-
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+</androidx.core.widget.NestedScrollView>
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/next_btn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_20sdp"
+
+        android:layout_marginVertical="@dimen/_20sdp"
         android:background="@drawable/ic_dark_purple_bg"
         android:text="Next"
         android:textAllCaps="false"
         android:stateListAnimator="@null"
-        android:fontFamily="@font/hellix_semibold"
+        android:fontFamily="@font/roboto_medium"
         android:textColor="@color/color_white_shade_1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/end_guideline"
         app:layout_constraintStart_toStartOf="@+id/start_guideline"
-        app:layout_constraintTop_toBottomOf="@+id/cl_property_type_item"
+
         tools:ignore="MissingConstraints" />
 
     <androidx.constraintlayout.widget.Guideline

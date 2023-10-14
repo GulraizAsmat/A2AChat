@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
 
                 android:ellipsize="end"
-                android:fontFamily="@font/hellix_semibold"
+                android:fontFamily="@font/roboto_medium"
                 android:gravity="center_horizontal"
 
                 android:maxLines="1"
@@ -70,7 +70,7 @@
                 android:layout_height="wrap_content"
 
                 android:ellipsize="end"
-                android:fontFamily="@font/hellix_semibold"
+                android:fontFamily="@font/roboto_medium"
                 android:gravity="center_horizontal"
 
                 android:maxLines="1"
@@ -103,7 +103,7 @@
                 android:layout_height="wrap_content"
 
                 android:ellipsize="end"
-                android:fontFamily="@font/hellix_semibold"
+                android:fontFamily="@font/roboto_medium"
                 android:gravity="center_horizontal"
 
                 android:maxLines="1"

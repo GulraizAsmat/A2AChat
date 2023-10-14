@@ -54,6 +54,12 @@ class PostPropertyStep4Fragment : Fragment() {
 
         spinnerManager()
 
+        if(propertyData.property_type=="Villa"){
+            binding.floorTitle.visibility=View.GONE
+            binding.spinnerFloor.visibility=View.GONE
+            binding.floorIcArrow.visibility=View.GONE
+        }
+
         if(isEdit) {
             setData()
         }
