@@ -67,7 +67,7 @@ class PropertyListAdapter(
             holder.binding.pendingBtn.visibility=View.GONE
 
             holder.binding.propertyTime.text = DateHelper.convertTimestampToTimeAgo(propertyItem.created_date.toLong())
-            holder.binding.propertyType.text = propertyItem.property_type
+            holder.binding.propertyType.text = propertyItem.property_type +" For "+propertyItem.purpose
             holder.binding.propertyPrice.text = if(propertyItem.sp.isNotEmpty()) addComma(propertyItem.sp) + " AED" else addComma(propertyItem.rented_for) + " AED/month"
             holder.binding.itemLocation.text = propertyItem.area_community
             holder.binding.bedrooms.text = propertyItem.bedrooms
@@ -81,7 +81,7 @@ class PropertyListAdapter(
             holder.binding.btnFav.visibility=View.GONE
             holder.binding.clContact.visibility=View.GONE
             holder.binding.pendingBtn.visibility=View.VISIBLE
-            holder.binding.propertyType.text = propertyItem.property_type
+            holder.binding.propertyType.text = propertyItem.property_type +" For "+propertyItem.purpose
             holder.binding.propertyPrice.text = "${propertyItem.sp} AED"
             holder.binding.itemLocation.text = propertyItem.area_community
             holder.binding.bedrooms.text = propertyItem.bedrooms
@@ -99,7 +99,7 @@ class PropertyListAdapter(
             holder.binding.btnFav.visibility=View.GONE
             holder.binding.clContact.visibility=View.VISIBLE
             holder.binding.pendingBtn.visibility=View.GONE
-            holder.binding.propertyType.text = propertyItem.property_type
+            holder.binding.propertyType.text = propertyItem.property_type +" For "+propertyItem.purpose
             holder.binding.propertyPrice.text = if(propertyItem.sp.isNotEmpty()) addComma(propertyItem.sp) + " AED" else addComma(propertyItem.rented_for) + " AED/month"
             holder.binding.itemLocation.text = propertyItem.area_community
             holder.binding.bedrooms.text = propertyItem.bedrooms

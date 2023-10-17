@@ -13,6 +13,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.AppCompatButton
 
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -20,6 +21,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import app.unduit.a2achatapp.R
 import app.unduit.a2achatapp.adapters.MyPropertyListAdapter
+import app.unduit.a2achatapp.helpers.Const
 import app.unduit.a2achatapp.helpers.ProgressDialog
 import app.unduit.a2achatapp.helpers.showToast
 
@@ -130,38 +132,53 @@ class MyPropertyFragment : Fragment(), AdapterListener {
     }
 
     private fun deleteProperty(position: Int) {
-        AlertDialog.Builder(requireContext(), androidx.appcompat.R.style.Theme_AppCompat_Light_Dialog)
-            .setTitle("Are you sure you want to delete?")
-            .setMessage("You will not be able to recover this property")
-            .setNegativeButton("Cancel") { view, _ ->
-                view.dismiss()
-            }
-            .setPositiveButton("Delete") { view, _ ->
-                progressDialog.progressBarVisibility(true)
-                val item = propertylist[position]
 
-                val db = Firebase.firestore
-                val ref = db.collection("properties").document(item.uid)
-                ref.delete().addOnCompleteListener { task ->
-                    progressDialog.progressBarVisibility(false)
-                    if (task.isSuccessful) {
+        val dialogView = layoutInflater.inflate(R.layout.custom_alert_dialog_buttons, null)
 
-                        propertylist.removeAt(position)
-                        propertyListAdapter.notifyItemRemoved(position)
+        val btnNegative = dialogView.findViewById<AppCompatButton>(R.id.btnNegative)
+        val btnPositive = dialogView.findViewById<AppCompatButton>(R.id.btnPositive)
 
-                        requireContext().showToast("Property Deleted!")
-                    } else {
-                        requireContext().showToast("An error occurred. Please try again later")
-                    }
-                    view.dismiss()
-                }.addOnFailureListener { exception ->
-                    Log.w(TAG, "Error getting documents: ", exception)
+
+
+        val builder = AlertDialog.Builder(requireContext(), androidx.appcompat.R.style.Theme_AppCompat_Light_Dialog)
+        builder.setView(dialogView)
+        builder.setTitle("Are you sure you want to delete?")
+        builder.setMessage("You will not be able to recover this property")
+
+        val alertDialog = builder.create()
+        alertDialog.show()
+
+// Handle the positive button click action (your existing code here)
+        btnPositive.setOnClickListener {
+            progressDialog.progressBarVisibility(true)
+            val item = propertylist[position]
+
+            val db = Firebase.firestore
+            val ref = db.collection("properties").document(item.uid)
+
+            ref.delete().addOnCompleteListener { task ->
+                progressDialog.progressBarVisibility(false)
+                if (task.isSuccessful) {
+                    propertylist.removeAt(position)
+                    propertyListAdapter.notifyItemRemoved(position)
+                    requireContext().showToast("Property Deleted!")
+                } else {
                     requireContext().showToast("An error occurred. Please try again later")
-                    progressDialog.progressBarVisibility(false)
-                    view.dismiss()
                 }
+                alertDialog.dismiss()
+            }.addOnFailureListener { exception ->
+                Log.w(TAG, "Error getting documents: ", exception)
+                requireContext().showToast("An error occurred. Please try again later")
+                progressDialog.progressBarVisibility(false)
+                alertDialog.dismiss()
             }
-            .show()
+        }
+
+// Handle the negative button click action (your existing code here)
+        btnNegative.setOnClickListener {
+            alertDialog.dismiss()
+        }
+
     }
 
 
@@ -178,6 +195,9 @@ class MyPropertyFragment : Fragment(), AdapterListener {
 
             "edit" -> {
                 Log.e(TAG, "edit $position")
+
+                Const.REQUESDTED = propertylist[position].post_type=="request"
+
                 findNavController().navigate(
                     MyPropertyFragmentDirections.actionMyPropertyFragmentToPostPropertyStep1Fragment(
                         propertylist[position]

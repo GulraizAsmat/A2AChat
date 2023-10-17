@@ -159,7 +159,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cl_bottom_bar"
         android:layout_width="0dp"
-        android:layout_height="@dimen/_80sdp"
+        android:layout_height="@dimen/_60sdp"
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -170,7 +170,7 @@
         <ImageView
             android:id="@+id/bottom_bg"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/_30sdp"
             android:scaleType="fitXY"
             android:src="@drawable/ic_bottom_bar"
             app:layout_constraintBottom_toBottomOf="parent" />
@@ -178,8 +178,8 @@
 
         <ImageView
             android:id="@+id/back_icon"
-            android:layout_width="@dimen/_50sdp"
-            android:layout_height="@dimen/_50sdp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:src="@drawable/ic_back_icon"
             app:layout_constraintBottom_toTopOf="@+id/bottom_guideline"
             app:layout_constraintEnd_toEndOf="parent"
@@ -192,7 +192,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.58" />
+            app:layout_constraintGuide_percent="0.85" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

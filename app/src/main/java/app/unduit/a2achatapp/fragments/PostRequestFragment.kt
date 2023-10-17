@@ -60,6 +60,11 @@ class PostRequestFragment : Fragment(),View.OnClickListener {
         isEdit = args.isEdit
         propertyData = args.propertyData
 
+        if(isEdit){
+            binding.title.setText(propertyData.property_title)
+            binding.description.setText(propertyData.property_description)
+        }
+
         listeners()
         setData()
 
@@ -107,9 +112,7 @@ class PostRequestFragment : Fragment(),View.OnClickListener {
 
         if(title.isEmpty()) {
             requireContext().showToast("Please enter a title")
-        } else if(description.isEmpty()) {
-            requireContext().showToast("Please enter a description")
-        } else {
+        }  else {
             uploadData(title, description)
         }
     }
@@ -118,7 +121,15 @@ class PostRequestFragment : Fragment(),View.OnClickListener {
         progressDialog.progressBarVisibility(true)
 
         val db = Firebase.firestore
-        val id = db.collection("properties").document().id
+        var id=""
+        if(isEdit){
+            id = propertyData.uid
+        }
+        else{
+            id = db.collection("properties").document().id
+
+        }
+
 
 
         propertyData.uid = id
@@ -133,6 +144,8 @@ class PostRequestFragment : Fragment(),View.OnClickListener {
         val currentUser = auth.currentUser
 
         currentUser?.let { cUser ->
+
+
             val ref = db.collection("users").document(cUser.uid)
 
             ref.get().addOnSuccessListener { snapshot ->

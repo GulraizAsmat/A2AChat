@@ -72,9 +72,8 @@ class PropertyListMultipleViewAdapter(
 
                 holder.binding.propertyTime.text = DateHelper.convertTimestampToTimeAgo(propertyItem.created_date.toLong())
                 holder.binding.propertyType.text = propertyItem.property_type +" For "+propertyItem.purpose
-                holder.binding.propertyPrice.text = if(propertyItem.sp.isNotEmpty()) Utils.formatPrice(
-                    removeComma(propertyItem.sp).toDouble()
-                ) + " AED" else Utils.formatPrice(removeComma(propertyItem.rented_for).toDouble() )+ " AED/month"
+                holder.binding.propertyPrice.text = if(propertyItem.sp.isNotEmpty())
+                    removeComma(propertyItem.sp) + " AED" else removeComma(propertyItem.rented_for)+ " AED/month"
                 holder.binding.itemLocation.text = propertyItem.area_community
                 holder.binding.bedrooms.text = propertyItem.bedrooms
                 holder.binding.bathroom.text = propertyItem.bathrooms
@@ -102,7 +101,7 @@ class PropertyListMultipleViewAdapter(
                 holder.binding.propertyTime.text = DateHelper.convertTimestampToTimeAgo(propertyItem.created_date.toLong())
                 holder.binding.bathroom.text = "${propertyItem.bathrooms}"
                 holder.binding.sqFeet.text = "${propertyItem.property_size_min} - ${propertyItem.property_size_max}sqft"
-                holder.binding.budget.text = "${Utils.formatPrice(removeComma(propertyItem.budget_min).toDouble())} - ${Utils.formatPrice(removeComma(propertyItem.budget_max).toDouble())} budget"
+                holder.binding.budget.text = "${removeComma(propertyItem.budget_min)} - ${removeComma(propertyItem.budget_max)} budget"
                 Glide.with(holder.binding.userImage).load(propertyItem.user_picture).fallback(R.drawable.ic_profile_pic_placeholder).into(holder.binding.userImage)
                 holder.binding.btnChat.setOnClickListener {
                     listener.onAdapterItemClicked("chat", position)

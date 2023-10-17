@@ -1,5 +1,6 @@
 package app.unduit.a2achatapp.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -15,10 +16,12 @@ import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import app.unduit.a2achatapp.Application
 import app.unduit.a2achatapp.R
 import app.unduit.a2achatapp.adapters.BathroomItemFilterAdapter
 import app.unduit.a2achatapp.adapters.BedroomItemFilterAdapter
@@ -49,6 +52,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.launch
 
 class PropertyListFragment : Fragment(), AdapterListener {
 
@@ -145,10 +149,13 @@ class PropertyListFragment : Fragment(), AdapterListener {
     }
 
     private fun init() {
+
+
+
         Const.tempValue = false
         setListeners()
         setRV()
-        getData()
+        getExceptedData()
         loadUserProfileImage()
         propertyFilterRecyclerViewManger()
         filtersListData()
@@ -370,6 +377,7 @@ class PropertyListFragment : Fragment(), AdapterListener {
     }
 
 
+    @SuppressLint("SuspiciousIndentation")
     private fun setListeners() {
         binding.favouriteIcon.setOnClickListener {
             Const.screenName = "favourite_icon"
@@ -395,6 +403,8 @@ class PropertyListFragment : Fragment(), AdapterListener {
         binding.btnBack.setOnClickListener {
             requireActivity().onBackPressed()
         }
+
+
     }
 
     private fun setRV() {
@@ -411,8 +421,52 @@ class PropertyListFragment : Fragment(), AdapterListener {
         binding.rvPropertyFilter.adapter = propertyFiltersAdapter
     }
 
+    private fun getExceptedData(){
 
-    private fun getData() {
+        lifecycleScope.launch {
+            val database = Application.database
+
+
+            if( database.exceptDataDao().getRowCount()!=0){
+                val data = database.exceptDataDao().getAllEntities()
+
+                val stringList =ArrayList<String>()
+
+                data.forEach {
+                    stringList.add(it.post_id)
+                    Log.e("Tag12345","Data 12334"+it.post_id)
+                }
+
+
+                if(stringList.isEmpty()){
+
+
+                }
+                else {
+                    Log.e("Tag21345","DB is  not Empty "+stringList.size)
+
+                }
+
+//                   loadHomeDataWithExcepted(stringList)
+
+
+
+                getData(stringList)
+
+            }else {
+                Log.e("Tag21345","DB is Empty")
+
+                val stringList =ArrayList<String>()
+                getData(stringList)
+
+            }
+
+
+
+
+        }
+    }
+    private fun getData(list: ArrayList<String>) {
         progressDialog.progressBarVisibility(true)
 
         auth = Firebase.auth
@@ -434,6 +488,22 @@ class PropertyListFragment : Fragment(), AdapterListener {
                     }
 
 
+
+                    list.forEach {  local->
+                        propertyList.apply {  forEachIndexed { index, main ->
+
+                            if(main.uid==local){
+                                Log.e("Raf","main.uid :: "+ main.uid +" local "+local +"propertylistTenp "+propertyList[index].uid  )
+
+                                propertyList.removeAt(index)
+                                return@apply
+
+                            }
+
+                        }
+                        }
+                    }
+
                     for (propertyData in propertyList) {
                         if (propertyData.sp.isEmpty()) {
                             // Update 'sp' with the value of 'rented_for'
@@ -446,7 +516,7 @@ class PropertyListFragment : Fragment(), AdapterListener {
                                 }
                         }
                     }
-                    val list = propertyList.sortedByDescending { it.created_date }
+                    val list = propertyList.sortedByDescending { it.created_date }.distinctBy { it.uid }
 
 
 
@@ -1986,6 +2056,26 @@ class PropertyListFragment : Fragment(), AdapterListener {
 
             else -> {
                 Const.screenName=""
+
+
+
+
+                propertyListFiltered[position].sender_name=Const.userName
+                propertyListFiltered[position].sender_image=Const.userImage
+                propertyListFiltered[position].sender_phone=Const.userPhone
+                propertyListFiltered[position].sender_whatsapp=Const.userWhatsapp
+                propertyListFiltered[position].sender_experience=Const.userExperience
+                propertyListFiltered[position].sender_speciality=Const.userSpeciality
+                propertyListFiltered[position].sender_company=Const.userCompany
+
+                Log.e("Tag2133","sender_name" + propertyListFiltered[position].sender_name )
+                Log.e("Tag2133","sender_image "+propertyListFiltered[position].sender_image )
+                Log.e("Tag2133","sender_phone "+ propertyListFiltered[position].sender_phone)
+                Log.e("Tag2133","sender_whatsapp "+ propertyListFiltered[position].sender_whatsapp)
+                Log.e("Tag2133","sender_experience "+ propertyListFiltered[position].sender_experience)
+                Log.e("Tag2133","sender_speciality "+  propertyListFiltered[position].sender_speciality)
+                Log.e("Tag2133","sender_company "+ propertyListFiltered[position].sender_company)
+
                 findNavController().navigate(
                     PropertyListFragmentDirections.actionPropertyListFragmentToPropertyDetailFragment(
                         propertyListFiltered[position]

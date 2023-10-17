@@ -13,6 +13,7 @@ import app.unduit.a2achatapp.adapters.CustomSpinnerAdapter
 import app.unduit.a2achatapp.databinding.FragmentPostPropertyStep3Binding
 import app.unduit.a2achatapp.databinding.FragmentPurchaseLandBinding
 import app.unduit.a2achatapp.fragments.PostPropertyStep1FragmentArgs
+import app.unduit.a2achatapp.helpers.Const
 import app.unduit.a2achatapp.helpers.SpinnersHelper
 import app.unduit.a2achatapp.helpers.gone
 import app.unduit.a2achatapp.helpers.visible
@@ -30,7 +31,7 @@ class PurchaseLandFragment : Fragment(),View.OnClickListener {
     var useStr=""
     var ownerStr=""
     var heightStr=""
-
+    private var isEdit = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,13 +55,34 @@ class PurchaseLandFragment : Fragment(),View.OnClickListener {
     }
 
     fun init(){
+        Const.screenName=""
         propertyData =args.propertyData
+
         spinnersManager()
         listeners()
+        try {
+            isEdit = args.propertyData != null
+
+            propertyData = args.propertyData ?: PropertyData()
+
+
+        }
+        catch (ex:Exception){
+
+        }
+        if(isEdit){
+
+            setData()
+
+        }
+
+
+
     }
 
     fun listeners(){
     binding.nextBtn.setOnClickListener(this)
+    binding.backIcon.setOnClickListener(this)
     }
 
     private fun spinnersManager(){
@@ -68,6 +90,36 @@ class PurchaseLandFragment : Fragment(),View.OnClickListener {
         useSpinner()
         heightSpinner()
     }
+   private fun  setData(){
+
+       binding.areaCommunity.setText(propertyData!!.area_community)
+       binding.gfa.setText(propertyData!!.gfa)
+       binding.plotSize.setText(propertyData!!.area_size)
+       binding.far.setText(propertyData!!.far)
+       binding.gValue.setText(propertyData!!.g_value)
+       binding.spValue.setText(propertyData!!.sp)
+
+
+
+       SpinnersHelper.ownerShipList().forEachIndexed { index, s ->
+           if(  propertyData!!.ownership==s){
+               binding.spinnerOwnership.setSelection(index)
+           }
+       }
+
+       SpinnersHelper.useList().forEachIndexed { index, s ->
+           if(  propertyData!!.use==s){
+               binding.spinnerUse.setSelection(index)
+           }
+       }
+       SpinnersHelper.heightList().forEachIndexed { index, s ->
+           if(  propertyData!!.height==s){
+               binding.spinnerHeight.setSelection(index)
+           }
+       }
+
+
+   }
 
     private fun ownerSpinner() {
         val adapter = CustomSpinnerAdapter(requireContext(), SpinnersHelper.ownerShipList())
@@ -202,6 +254,9 @@ class PurchaseLandFragment : Fragment(),View.OnClickListener {
        when(v!!.id){
            R.id.next_btn->{
                checkValidation()
+           }
+           R.id.back_icon->{
+               requireActivity().onBackPressed()
            }
 
 

@@ -37,7 +37,7 @@ class HomeSwiperAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val propertyItem = homeSwipeList[position]
 
-        holder.binding.propertyType.text = propertyItem.property_type
+        holder.binding.propertyType.text = propertyItem.property_type +" For "+propertyItem.purpose
         val price = if(propertyItem.sp.isNotEmpty()) addComma(propertyItem.sp) + " AED" else addComma(propertyItem.rented_for) + " AED/month"
         holder.binding.propertyPrice.text = price
         holder.binding.userName.text = propertyItem.user_name
