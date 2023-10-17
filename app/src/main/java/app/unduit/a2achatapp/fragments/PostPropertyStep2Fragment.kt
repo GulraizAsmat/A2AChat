@@ -393,6 +393,16 @@ class PostPropertyStep2Fragment : Fragment(), View.OnClickListener, AdapterListe
                 bathRoomAdapter.notifyDataSetChanged()
             }
         }
+
+        if(Const.REQUESDTED){
+            if (propertyData.reqDevelopmentStatus.equals("Ready", true)) {
+                selectReady()
+            } else if(propertyData.reqDevelopmentStatus.equals("Off-Plan", true)) {
+                selectOffPlan()
+            }else {
+                selectAny()
+            }
+        }
     }
 
     override fun onClick(v: View?) {

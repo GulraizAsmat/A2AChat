@@ -173,8 +173,13 @@ class ChatFragment : Fragment() ,AdapterListener{
 
                     matchList.forEach { it.sender_id
                         Log.e("Tagh234","Sender id : "+ it.sender_id)
+                        Log.e("Tagh234","user id : "+ it.user_id)
+                        Log.e("Tagh234","user id : "+ Const.userId )
+
                     }
-                    val list =matchList.sortedByDescending { it.created_date }.distinctBy { it.sender_id }
+
+
+                    val list =matchList.filter { it.user_id!=Const.userId }.sortedByDescending { it.created_date  }.distinctBy { it.sender_id }
 
                     matchList.clear()
                     matchList.addAll(list)

@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.AdapterView
 import android.widget.Toast
+import androidx.core.view.get
 import androidx.core.widget.addTextChangedListener
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -46,6 +47,8 @@ class PostPropertyStep3Fragment : Fragment() {
     private val args: PostPropertyStep3FragmentArgs by navArgs()
 
     private lateinit var propertyData: PropertyData
+    var reqMainCheckStatus="Any"
+    var reqBalconyCheckStatus="Any"
     var isEdit = false
 
     var occupancyStr = "Vacant"
@@ -78,6 +81,13 @@ class PostPropertyStep3Fragment : Fragment() {
 
         if (Const.REQUESDTED) {
             binding.screenTitle.text = "Post a Request"
+
+            Log.e("Tag213","purpose "+propertyData.purpose )
+            Log.e("Tag213","purpose_type "+propertyData.purpose_type )
+
+            binding.cbBalconyAny.visibility=View.VISIBLE
+            binding.cbMaidAny.visibility=View.VISIBLE
+
             if (propertyData.purpose == "Sale" && propertyData.purpose_type == "Residential") {
 
                 binding.clProcessBarForRent.visibility = View.VISIBLE
@@ -101,6 +111,11 @@ class PostPropertyStep3Fragment : Fragment() {
                 binding.spinnerPurchase.visibility = View.VISIBLE
                 binding.purchaseTitle.visibility = View.VISIBLE
                 binding.purchaseIcArrow.visibility = View.VISIBLE
+
+                binding.groupRent.gone()
+
+
+
 
             } else {
                 binding.clProcessBarForRent.visibility = View.VISIBLE
@@ -160,8 +175,14 @@ class PostPropertyStep3Fragment : Fragment() {
 
 
     private fun byDefaultData() {
-        binding.cbMaidNo.isChecked = true
-        binding.cbBalconyNo.isChecked = true
+        if(Const.REQUESDTED){
+            binding.cbBalconyAny.isChecked = true
+            binding.cbMaidAny.isChecked = true
+        }else {
+            binding.cbMaidNo.isChecked = true
+            binding.cbBalconyNo.isChecked = true
+        }
+
     }
 
 
@@ -174,6 +195,9 @@ class PostPropertyStep3Fragment : Fragment() {
         fittingSpinner()
         movingTimeSpinner()
         furnitureSpinner()
+
+
+
     }
 
     private fun occupancySpinner() {
@@ -279,6 +303,8 @@ class PostPropertyStep3Fragment : Fragment() {
     private fun numberOfCheckSpinner() {
         val adapter = CustomSpinnerAdapter(requireContext(), SpinnersHelper.numberOfChecksList())
 
+
+
         binding.numberOfChecks.adapter = adapter
         binding.numberOfChecks.onItemSelectedListener =
             object : AdapterView.OnItemSelectedListener {
@@ -371,25 +397,51 @@ class PostPropertyStep3Fragment : Fragment() {
 
     private fun maidCheckManager() {
 
-        binding.cbMaidYes.setOnCheckedChangeListener { _, b ->
-            binding.cbMaidNo.isChecked = !b
+        binding.cbMaidYes.setOnClickListener {
+            binding.cbMaidYes.isChecked = true
+            binding.cbMaidNo.isChecked = false
+            binding.cbMaidAny.isChecked = false
+            reqMainCheckStatus= "Yes"
         }
 
-        binding.cbMaidNo.setOnCheckedChangeListener { _, b ->
-            binding.cbMaidYes.isChecked = !b
+        binding.cbMaidNo.setOnClickListener {
+            binding.cbMaidNo.isChecked = true
+            binding.cbMaidYes.isChecked =false
+            reqMainCheckStatus= "No"
+            binding.cbMaidAny.isChecked =false
+        }
+        binding.cbMaidAny.setOnClickListener {
+            binding.cbMaidAny.isChecked = true
+            binding.cbMaidYes.isChecked = false
+            binding.cbMaidNo.isChecked = false
+            reqMainCheckStatus= "Any"
         }
 
 
     }
 
+
+
     private fun balconyCheckManager() {
 
-        binding.cbBalconyYes.setOnCheckedChangeListener { _, b ->
-            binding.cbBalconyNo.isChecked = !b
+        binding.cbBalconyYes.setOnClickListener {
+            binding.cbBalconyYes.isChecked = true
+            binding.cbBalconyNo.isChecked = false
+            binding.cbBalconyAny.isChecked = false
+            reqBalconyCheckStatus="Yes"
         }
 
-        binding.cbBalconyNo.setOnCheckedChangeListener { _, b ->
-            binding.cbBalconyYes.isChecked = !b
+        binding.cbBalconyNo.setOnClickListener {
+            binding.cbBalconyNo.isChecked = true
+            binding.cbBalconyYes.isChecked = false
+            binding.cbBalconyAny.isChecked = false
+            reqBalconyCheckStatus="No"
+        }
+        binding.cbBalconyAny.setOnClickListener {
+            binding.cbBalconyAny.isChecked = true
+            binding.cbBalconyYes.isChecked = false
+            binding.cbBalconyNo.isChecked = false
+            reqBalconyCheckStatus="Any"
         }
 
 
@@ -419,37 +471,122 @@ class PostPropertyStep3Fragment : Fragment() {
         binding.rentedFor.setText(propertyData.rented_for)
 //        binding.rentedTill.setText(propertyData.rented_till)
 
-        if (propertyData.maidroom) {
-            binding.cbMaidNo.isChecked = false
-            binding.cbMaidYes.isChecked = true
-        } else {
-            binding.cbMaidNo.isChecked = true
-            binding.cbMaidYes.isChecked = false
+
+
+        if(REQUESDTED){
+            if(propertyData.reqMaidStatus=="Yes"){
+                binding.cbMaidYes.isChecked = true
+                binding.cbMaidNo.isChecked = false
+                binding.cbMaidAny.isChecked = false
+            }
+            else if(propertyData.reqMaidStatus=="No"){
+                binding.cbMaidYes.isChecked = false
+                binding.cbMaidNo.isChecked = true
+                binding.cbMaidAny.isChecked = false
+            }
+            else {
+                binding.cbMaidYes.isChecked = false
+                binding.cbMaidNo.isChecked = false
+                binding.cbMaidAny.isChecked = true
+            }
+
+            if(propertyData.reqBalconyStatus=="Yes"){
+                binding.cbBalconyYes.isChecked = true
+                binding.cbBalconyNo.isChecked = false
+                binding.cbBalconyAny.isChecked = false
+            }
+            else if(propertyData.reqMaidStatus=="No"){
+                binding.cbBalconyYes.isChecked = false
+                binding.cbBalconyNo.isChecked = true
+                binding.cbBalconyAny.isChecked = false
+            }
+            else {
+                binding.cbBalconyYes.isChecked = false
+                binding.cbBalconyNo.isChecked = false
+                binding.cbBalconyAny.isChecked = true
+            }
+
+
+
+        }else {
+            if (propertyData.maidroom) {
+                binding.cbMaidNo.isChecked = false
+                binding.cbMaidYes.isChecked = true
+            } else {
+                binding.cbMaidNo.isChecked = true
+                binding.cbMaidYes.isChecked = false
+            }
+
+            if (propertyData.balcony) {
+                binding.cbBalconyNo.isChecked = false
+                binding.cbBalconyYes.isChecked = true
+            } else {
+                binding.cbBalconyNo.isChecked = true
+                binding.cbBalconyYes.isChecked = false
+            }
+
         }
 
-        if (propertyData.balcony) {
-            binding.cbBalconyNo.isChecked = false
-            binding.cbBalconyYes.isChecked = true
-        } else {
-            binding.cbBalconyNo.isChecked = true
-            binding.cbBalconyYes.isChecked = false
+
+
+
+            SpinnersHelper.numberOfChecksList().forEachIndexed { index, s ->
+                if(  propertyData.number_of_checks==s){
+                    binding.numberOfChecks.setSelection(index)
+                }
+            }
+
+        SpinnersHelper.fittingList().forEachIndexed { index, s ->
+            if(  propertyData.fitting==s){
+                binding.fitting.setSelection(index)
+            }
         }
 
-        SpinnersHelper.occupancyList().forEachIndexed { index, item ->
-            if (item.equals(propertyData.occupancy, true)) {
-                binding.spinnerOccupancy.setSelection(index)
+        if(Const.REQUESDTED){
+            binding.budgetMin.setText(propertyData.budget_min)
+            binding.budgetMax.setText(propertyData.budget_max)
+            binding.propertyMin.setText(propertyData.property_size_min)
+            binding.propertyMax.setText(propertyData.property_size_max)
 
-                isRentedSelected = if (item.equals("Rented", true)) {
-                    binding.groupPrice.gone()
-                    binding.groupRent.visible()
-                    true
-                } else {
-                    binding.groupPrice.visible()
-                    binding.groupRent.gone()
-                    false
+            SpinnersHelper.occupancyList1().forEachIndexed { index, s ->
+                if(  propertyData.occupancy==s){
+                    binding.spinnerOccupancy1.setSelection(index)
+                }
+            }
+
+            SpinnersHelper.purchaseGaolList().forEachIndexed { index, s ->
+                if(  propertyData.purchase_goal==s){
+                    binding.spinnerPurchase.setSelection(index)
+                }
+            }
+
+            SpinnersHelper.paymentList().forEachIndexed { index, s ->
+                if(  propertyData.purchase_goal==s){
+                    binding.spinnerPurchase.setSelection(index)
+                }
+            }
+        }else {
+
+            SpinnersHelper.occupancyList().forEachIndexed { index, item ->
+                if (item.equals(propertyData.occupancy, true)) {
+                    binding.spinnerOccupancy.setSelection(index)
+
+                    isRentedSelected = if (item.equals("Rented", true)) {
+                        binding.groupPrice.gone()
+                        binding.groupRent.visible()
+                        true
+                    } else {
+                        binding.groupPrice.visible()
+                        binding.groupRent.gone()
+                        false
+                    }
                 }
             }
         }
+
+
+
+
     }
 
     private fun verifyData() {
@@ -472,8 +609,13 @@ class PostPropertyStep3Fragment : Fragment() {
                             propertyData.occupancy = occupancyStr
                             propertyData.purchase_goal = purchaseStr
                             propertyData.payment_method = paymentStr
-                            propertyData.maidroom = binding.cbMaidYes.isChecked
-                            propertyData.balcony = binding.cbBalconyYes.isChecked
+
+
+
+
+                            propertyData.reqBalconyStatus=reqBalconyCheckStatus
+                            propertyData.reqMaidStatus=reqMainCheckStatus
+
                             propertyData.number_of_checks = numberOfCheckStr
                             propertyData.property_moving_time = movingTimeStr
                             propertyData.property_furniture = furnitureStr

@@ -619,6 +619,7 @@
                 android:id="@+id/cl_maid_section"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_100sdp"
+                android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -650,8 +651,11 @@
                     android:textColor="@color/color_black_shade_1"
                     android:textSize="@dimen/_11sdp"
                     app:layout_constraintBottom_toBottomOf="@+id/maid_room_title"
+                    app:layout_constraintEnd_toStartOf="@+id/cb_maid_no"
+                    app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toEndOf="@+id/maid_room_title"
                     app:layout_constraintTop_toTopOf="@+id/maid_room_title" />
+
 
                 <androidx.appcompat.widget.AppCompatCheckBox
                     android:id="@+id/cb_maid_no"
@@ -665,9 +669,29 @@
                     android:textColor="@color/color_black_shade_1"
                     android:textSize="@dimen/_11sdp"
                     app:layout_constraintBottom_toBottomOf="@+id/maid_room_title"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/cb_maid_any"
+                    app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toEndOf="@+id/cb_maid_yes"
                     app:layout_constraintTop_toTopOf="@+id/maid_room_title" />
+
+
+                <androidx.appcompat.widget.AppCompatCheckBox
+                    android:id="@+id/cb_maid_any"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@drawable/selector_checkbox_black"
+                    android:fontFamily="@font/roboto_regular"
+                    android:paddingStart="@dimen/_4sdp"
+                    android:text="Any"
+            android:visibility="gone"
+                    android:textColor="@color/color_black_shade_1"
+                    android:textSize="@dimen/_11sdp"
+                    app:layout_constraintBottom_toBottomOf="@+id/maid_room_title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/cb_maid_no"
+                    app:layout_constraintTop_toTopOf="@+id/maid_room_title" />
+
 
                 <TextView
                     android:id="@+id/balcony_room_title"
@@ -695,6 +719,9 @@
                     android:textColor="@color/color_black_shade_1"
                     android:textSize="@dimen/_11sdp"
                     app:layout_constraintBottom_toBottomOf="@+id/balcony_room_title"
+                    app:layout_constraintEnd_toEndOf="@+id/cb_maid_yes"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintHorizontal_chainStyle="spread"
                     app:layout_constraintStart_toStartOf="@+id/cb_maid_yes"
                     app:layout_constraintTop_toTopOf="@+id/balcony_room_title" />
 
@@ -702,7 +729,6 @@
                     android:id="@+id/cb_balcony_no"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_10sdp"
                     android:button="@drawable/selector_checkbox_black"
                     android:fontFamily="@font/roboto_regular"
                     android:paddingStart="@dimen/_4sdp"
@@ -710,8 +736,27 @@
                     android:textColor="@color/color_black_shade_1"
                     android:textSize="@dimen/_11sdp"
                     app:layout_constraintBottom_toBottomOf="@+id/balcony_room_title"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/cb_balcony_yes"
+                    app:layout_constraintEnd_toEndOf="@+id/cb_maid_no"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="@+id/cb_maid_no"
+                    app:layout_constraintTop_toTopOf="@+id/balcony_room_title" />
+
+
+                <androidx.appcompat.widget.AppCompatCheckBox
+                    android:id="@+id/cb_balcony_any"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:button="@drawable/selector_checkbox_black"
+                    android:fontFamily="@font/roboto_regular"
+                    android:paddingStart="@dimen/_4sdp"
+                    android:text="Any"
+                    android:visibility="gone"
+                    android:textColor="@color/color_black_shade_1"
+                    android:textSize="@dimen/_11sdp"
+                    app:layout_constraintBottom_toBottomOf="@+id/balcony_room_title"
+                    app:layout_constraintEnd_toEndOf="@+id/cb_maid_any"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="@+id/cb_maid_any"
                     app:layout_constraintTop_toTopOf="@+id/balcony_room_title" />
 
                 <androidx.constraintlayout.widget.Guideline

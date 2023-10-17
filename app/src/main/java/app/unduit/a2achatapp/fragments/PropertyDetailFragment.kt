@@ -10,13 +10,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.compose.ui.text.capitalize
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import app.unduit.a2achatapp.Application
 import app.unduit.a2achatapp.R
 import app.unduit.a2achatapp.adapters.PropertyFeaturesAdapter
 import app.unduit.a2achatapp.databinding.FragmentPropertyDetailBinding
+
 import app.unduit.a2achatapp.helpers.Const
+import app.unduit.a2achatapp.helpers.Const.userName
 
 import app.unduit.a2achatapp.helpers.DateHelper
 import app.unduit.a2achatapp.helpers.ProgressDialog
@@ -25,6 +30,7 @@ import app.unduit.a2achatapp.helpers.gone
 import app.unduit.a2achatapp.helpers.showToast
 import app.unduit.a2achatapp.helpers.visible
 import app.unduit.a2achatapp.models.PropertyData
+import app.unduit.a2achatapp.models.roomModels.ExceptData
 import com.bumptech.glide.Glide
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.interfaces.ItemClickListener
@@ -37,6 +43,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.launch
 
 class PropertyDetailFragment : Fragment(), View.OnClickListener {
 
@@ -44,7 +51,7 @@ class PropertyDetailFragment : Fragment(), View.OnClickListener {
 
     private lateinit var auth: FirebaseAuth
 
-    private lateinit var binding: app.unduit.a2achatapp.databinding.FragmentPropertyDetailBinding
+    private lateinit var binding: FragmentPropertyDetailBinding
     private val args: PropertyDetailFragmentArgs by navArgs()
 
     private var propertyData: PropertyData? = null
@@ -75,7 +82,7 @@ class PropertyDetailFragment : Fragment(), View.OnClickListener {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        binding = FragmentPropertyDetailBinding.inflate(inflater)
+        binding = app.unduit.a2achatapp.databinding.FragmentPropertyDetailBinding.inflate(inflater)
         binding.lifecycleOwner = this
 
         return binding.root
@@ -89,8 +96,31 @@ class PropertyDetailFragment : Fragment(), View.OnClickListener {
 
 
     private fun init() {
+
+
+
         propertyData = args.propertyData
         isFrom = args.isFrom
+
+        lifecycleScope.launch {
+            val database = Application.database
+
+
+
+            if( database.exceptDataDao().isUserIdAvailable(propertyData!!.uid)){
+
+                    binding.sendRequest.visibility = View.GONE
+
+            }
+            else {
+                if(Const.userId!= propertyData!!.user_id){
+                    binding.sendRequest.visibility=View.VISIBLE
+                }else {
+                    binding.sendRequest.visibility = View.GONE
+                }
+
+            }
+        }
 
         binding.btnBack.setOnClickListener {
             if (isFrom == "home") {
@@ -112,6 +142,7 @@ class PropertyDetailFragment : Fragment(), View.OnClickListener {
         binding.btnWhatsapp.setOnClickListener(this)
         binding.agentInfoBtn.setOnClickListener(this)
         binding.ivPropertySlider.setOnClickListener(this)
+        binding.sendRequest.setOnClickListener(this)
     }
 
     private fun getData() {
@@ -153,6 +184,7 @@ class PropertyDetailFragment : Fragment(), View.OnClickListener {
 
 
 
+    @SuppressLint("SetTextI18n")
     private fun buyAndResidence(data: PropertyData) {
         binding.propertyPrice.visibility = View.GONE
 
@@ -252,7 +284,7 @@ class PropertyDetailFragment : Fragment(), View.OnClickListener {
         val description = data.property_description.ifEmpty { "N/A" }
         binding.propertyDescription.text = description
 
-        binding.propertyCategory.text = data.property_type
+        binding.propertyCategory.text = data.property_type +" For "+data.purpose
 
 //        binding.agentSpecialty.text = specialty
 
@@ -331,7 +363,7 @@ class PropertyDetailFragment : Fragment(), View.OnClickListener {
 
 
 
-            binding.propertyCategory.text = data.property_type
+            binding.propertyCategory.text = data.property_type +" For "+data.purpose
 
             val price =
                 if (data.sp.isNotEmpty()) addComma(data.sp) + " AED" else addComma(data.rented_for) + " AED/month"
@@ -369,7 +401,7 @@ class PropertyDetailFragment : Fragment(), View.OnClickListener {
 
             val imageSliderList = ArrayList<SlideModel>()
             data.property_images?.forEach { image ->
-                imageSliderList.add(SlideModel(image, ScaleTypes.CENTER_INSIDE))
+                imageSliderList.add(SlideModel(image, ScaleTypes.CENTER_CROP))
             }
             binding.ivPropertySlider.setImageList(imageSliderList)
 
@@ -656,6 +688,11 @@ class PropertyDetailFragment : Fragment(), View.OnClickListener {
 
 
             }
+            R.id.send_request->{
+                Log.e("Tag213","send_request ")
+                progressDialog.progressBarVisibility(true)
+                moveToSenderData()
+            }
 
 
         }
@@ -665,6 +702,160 @@ class PropertyDetailFragment : Fragment(), View.OnClickListener {
     fun saleAndResidentsHideData() {
 
     }
+
+    private fun moveToSenderData(){
+        val db = FirebaseFirestore.getInstance()
+
+        auth = Firebase.auth
+        val currentUser = auth.currentUser
+
+        Log.e("Tag123","Post uid "+ propertyData!!.uid)
+
+
+        if (currentUser != null) {
+            Log.e("Tag21345","Created Sender user  "+ currentUser.uid)
+            val currentTimeMillis = System.currentTimeMillis()
+            var path ="requests/${currentUser.uid}/sender/${currentTimeMillis.toString()}"
+            val collectionReference = db.collection("requests").document(currentUser.uid).collection("posts").document(
+                propertyData!!.uid)
+            propertyData!!.property_status="sender"
+            propertyData!!.created_date=currentTimeMillis.toString()
+            collectionReference.set(propertyData!!)
+                .addOnSuccessListener { documentReference ->
+                    // Data added successfully
+                    // You can get the document ID using documentReference.id
+                    Log.e("Tafg213","Uplaod")
+                    moveToReceiverData(propertyData!!.uid)
+
+
+                    // Handle success here
+                }
+                .addOnFailureListener { e ->
+                    progressDialog.progressBarVisibility(false)
+                    // Handle errors here
+                    Log.e("Tafg213", "Fail$e")
+                }
+        }
+
+
+
+    }
+    private fun moveToReceiverData(postId:String){
+        val db = FirebaseFirestore.getInstance()
+
+        auth = Firebase.auth
+        val currentUser = auth.currentUser
+
+
+        Log.e("Tag21345","Created Property user  "+ propertyData!!.user_id.toString())
+        if (currentUser != null) {
+            val currentTimeMillis = System.currentTimeMillis()
+            var path ="requests/${currentUser.uid}/sender/${currentTimeMillis.toString()}"
+            val collectionReference = db.collection("requests").document(propertyData!!.user_id.toString()).collection("posts").document(postId)
+            propertyData!!.property_status="receiver"
+
+            propertyData!!.sender_name=userName
+            propertyData!!.sender_id=currentUser.uid
+
+
+
+            collectionReference.set(propertyData!!)
+                .addOnSuccessListener { documentReference ->
+                    // Data added successfully
+                    // You can get the document ID using documentReference.id
+                    Log.e("Tafg213","Uplaod")
+                    moveToNotificationData(propertyData!!.uid)
+
+                    // Handle success here
+                }
+                .addOnFailureListener { e ->
+                    progressDialog.progressBarVisibility(false)
+                    // Handle errors here
+                    Log.e("Tafg213", "Fail$e")
+                }
+        }
+
+
+
+    }
+
+    @SuppressLint("SuspiciousIndentation")
+    private fun moveToNotificationData(postId:String){
+        val db = FirebaseFirestore.getInstance()
+
+        auth = Firebase.auth
+        val currentUser = auth.currentUser
+
+
+        Log.e("Tag21345","Created Property user  "+ propertyData!!.user_id.toString())
+        if (currentUser != null) {
+            val currentTimeMillis = System.currentTimeMillis()
+            var path ="requests/${currentUser.uid}/sender/${currentTimeMillis.toString()}"
+            val collectionReference = db.collection("notifications").document(propertyData!!.user_id.toString()).collection("posts").document(postId)
+            propertyData!!.property_status="receiver"
+
+          propertyData!!.sender_name=userName
+          propertyData!!.sender_id=currentUser.uid
+
+
+
+            collectionReference.set(propertyData!!)
+                .addOnSuccessListener { documentReference ->
+                    // Data added successfully
+                    // You can get the document ID using documentReference.id
+                    Log.e("Tafg213","Uplaod moveToNotificationData")
+                    addExceptDataUploadOnFirebase()
+
+                    // Handle success here
+                }
+                .addOnFailureListener { e ->
+                    // Handle errors here
+                    progressDialog.progressBarVisibility(false)
+                    Log.e("Tafg213", "Fail$e")
+                }
+        }
+
+
+
+    }
+
+    private fun addExceptDataUploadOnFirebase(){
+        val db = FirebaseFirestore.getInstance()
+
+        auth = Firebase.auth
+        val currentUser = auth.currentUser
+
+        val collectionReference = db.collection("excepted").document(currentUser!!.uid).collection("posts").document(
+            propertyData!!.uid)
+        collectionReference.set(ExceptData(post_id = propertyData!!.uid.toString()))
+            .addOnSuccessListener { documentReference ->
+                // Data added successfully
+                // You can get the document ID using documentReference.id
+                Log.e("Tafg213","Uplaod addExceptDataUploadOnFirebase")
+                addExceptDataLocalDb()
+
+                // Handle success here
+            }
+            .addOnFailureListener { e ->
+                // Handle errors here
+                progressDialog.progressBarVisibility(false)
+                Log.e("Tafg213", "Fail$e")
+            }
+    }
+    private  fun addExceptDataLocalDb(){
+
+        lifecycleScope.launch {
+            val database = Application.database
+
+            database.exceptDataDao()
+                .insert(ExceptData(post_id = propertyData!!.uid.toString()))
+
+            binding.sendRequest.visibility=View.GONE
+            progressDialog.progressBarVisibility(false)
+
+        }
+    }
+
 
     private fun rentAndResidentsHideData() {
         binding.floorStatus.visibility = View.GONE
@@ -831,12 +1022,8 @@ class PropertyDetailFragment : Fragment(), View.OnClickListener {
     private fun saleAndResidenceRequest(data: PropertyData){
         propertyFeaturesList.clear()
 
-        if(data.maidroom){
-            propertyFeaturesList.add("Maid Room")
-        }
-        if(data.balcony){
-            propertyFeaturesList.add("Balcony Room")
-        }
+        propertyFeaturesList.add("Maid Room "+ propertyData!!.reqMaidStatus)
+        propertyFeaturesList.add("Balcony Room "+ propertyData!!.reqBalconyStatus)
         propertyFeaturesList.add("Occupancy : " + data.occupancy)
         propertyFeaturesList.add("Purchase Goal : " + data.purchase_goal )
         propertyFeaturesList.add("Payment Method : " + data.payment_method)
@@ -995,12 +1182,12 @@ class PropertyDetailFragment : Fragment(), View.OnClickListener {
         propertyFeaturesList.clear()
 
 
-        if(data.maidroom){
-            propertyFeaturesList.add("Maid Room")
-        }
-        if(data.balcony){
-            propertyFeaturesList.add("Balcony Room")
-        }
+
+            propertyFeaturesList.add("Maid Room "+ propertyData!!.reqMaidStatus)
+
+
+            propertyFeaturesList.add("Balcony Room "+ propertyData!!.reqBalconyStatus)
+
 
         propertyFeaturesList.add("Furniture : "+data.furnishing)
         propertyFeaturesList.add( "Number of checks : " + data.number_of_checks)

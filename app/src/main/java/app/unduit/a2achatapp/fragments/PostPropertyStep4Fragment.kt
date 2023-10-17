@@ -135,6 +135,7 @@ class PostPropertyStep4Fragment : Fragment() {
         binding.duringConstruction.setText(propertyData.payment_during_construction)
         binding.onHandover.setText(propertyData.payment_on_handover)
         binding.postHandover.setText(propertyData.payment_post_handover)
+        binding.postPaidOwner.setText(propertyData.paid_by_owner)
 
         SpinnersHelper.floorList().forEachIndexed { index, item ->
             if(item.equals(propertyData.floor, true)) {
@@ -157,6 +158,7 @@ class PostPropertyStep4Fragment : Fragment() {
         propertyData.payment_during_construction = binding.duringConstruction.text.toString()
         propertyData.payment_on_handover = binding.onHandover.text.toString()
         propertyData.payment_post_handover = binding.postHandover.text.toString()
+        propertyData.paid_by_owner = binding.postPaidOwner.text.toString()
 
         findNavController().navigate(PostPropertyStep4FragmentDirections.actionPostPropertyStep4FragmentToPostPropertyStep5Fragment(propertyData, isEdit))
     }

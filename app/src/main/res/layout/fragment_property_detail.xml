@@ -21,7 +21,6 @@
             android:layout_height="@dimen/_180sdp"
             android:background="@color/black"
             android:visibility="gone"
-
             app:iss_auto_cycle="false"
             app:layout_constraintTop_toTopOf="parent"
             tools:layout_editor_absoluteX="0dp" />
@@ -650,14 +649,19 @@
 
                     <TextView
                         android:id="@+id/agent_company"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="@dimen/_6sdp"
+                        android:layout_marginEnd="@dimen/_5sdp"
+                        android:ellipsize="end"
+                        android:layout_marginTop="@dimen/_3sdp"
                         android:fontFamily="@font/roboto_regular"
+                        android:maxLines="1"
                         android:textColor="#B0ADAD"
                         android:textSize="@dimen/_10ssp"
-                        app:layout_constraintBottom_toBottomOf="@+id/agent_image"
-                        app:layout_constraintStart_toEndOf="@id/agent_image"
+                        app:layout_constraintEnd_toStartOf="@+id/send_request"
+                        app:layout_constraintStart_toStartOf="@+id/agent_name"
+                        app:layout_constraintTop_toBottomOf="@+id/agent_name"
                         tools:text="AL FIROUZ REAL ESTATE BROKER" />
 
                     <View
@@ -677,7 +681,7 @@
                         android:layout_height="wrap_content"
 
 
-                        android:layout_marginTop="@dimen/_5sdp"
+                        android:layout_marginTop="@dimen/_3sdp"
                         android:fontFamily="@font/roboto_regular"
                         android:text="BRN:"
                         android:textColor="#B0ADAD"
@@ -808,9 +812,25 @@
                         android:id="@+id/agent_info_btn"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
+                        android:visibility="visible"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        tools:ignore="MissingConstraints" />
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/send_request"
+                        android:layout_width="120dp"
+                        android:layout_height="40dp"
+                        android:visibility="gone"
+                        android:background="@drawable/bg_btn_login"
+                        android:fontFamily="@font/roboto_medium"
+                        android:textSize="@dimen/_10sdp"
+                        android:text="Request Send"
+                        android:textAllCaps="false"
+                        android:textColor="@color/color_white_shade_1"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         tools:ignore="MissingConstraints" />
 
@@ -898,6 +918,7 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rv_features"
                         android:layout_width="match_parent"
+                        android:visibility="visible"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_5sdp"
                         android:layout_marginHorizontal="@dimen/_7sdp"
@@ -1020,7 +1041,7 @@
                 <ImageView
                     android:id="@+id/bottom_bg"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/_30sdp"
                     android:scaleType="fitXY"
                     android:src="@drawable/ic_bottom_property_detail"
                     app:layout_constraintBottom_toBottomOf="parent"

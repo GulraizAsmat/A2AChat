@@ -12,14 +12,18 @@ import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.room.RoomDatabase
 import app.unduit.a2achatapp.Application
+import app.unduit.a2achatapp.Application.Companion.database
 import app.unduit.a2achatapp.R
 import app.unduit.a2achatapp.adapters.HomeSwiperAdapter
 import app.unduit.a2achatapp.databinding.FragmentHomeBinding
 import app.unduit.a2achatapp.helpers.Const
 
 import app.unduit.a2achatapp.helpers.Const.userId
+import app.unduit.a2achatapp.helpers.DateHelper
 import app.unduit.a2achatapp.helpers.ProgressDialog
+import app.unduit.a2achatapp.helpers.Utils
 import app.unduit.a2achatapp.helpers.showToast
 
 import app.unduit.a2achatapp.listeners.AdapterListener
@@ -47,14 +51,14 @@ class HomeFragment : Fragment(), View.OnClickListener, CardStackListener, Adapte
 
     private lateinit var auth: FirebaseAuth
     var cardPos=0
-    var userName=""
-    var userImage=""
-    var userWhatsapp=""
-    var userExperience=""
-    var userSpeciality=""
-    var userPhone=""
+//    var userName=""
+//    var userImage=""
+//    var userWhatsapp=""
+//    var userExperience=""
+//    var userSpeciality=""
+//    var userPhone=""
 
-    var userCompany=""
+//    var Const.userCompany=""
     private lateinit var binding: FragmentHomeBinding
     var propertylist = ArrayList<PropertyData>()
 
@@ -227,14 +231,14 @@ class HomeFragment : Fragment(), View.OnClickListener, CardStackListener, Adapte
             val collectionReference = db.collection("requests").document(propertylist[cardPos].user_id.toString()).collection("posts").document(postId)
             propertylist[cardPos].property_status="receiver"
 
-            propertylist[cardPos].sender_name=userName
+            propertylist[cardPos].sender_name=Const.userName
             propertylist[cardPos].sender_id=currentUser.uid
-            propertylist[cardPos].sender_image=userImage
-            propertylist[cardPos].sender_phone=userPhone
-            propertylist[cardPos].sender_whatsapp=userWhatsapp
-            propertylist[cardPos].sender_experience=userExperience
-            propertylist[cardPos].sender_speciality=userSpeciality
-            propertylist[cardPos].sender_company=userCompany
+            propertylist[cardPos].sender_image=Const.userImage
+            propertylist[cardPos].sender_phone=Const.userPhone
+            propertylist[cardPos].sender_whatsapp=Const.userWhatsapp
+            propertylist[cardPos].sender_experience=Const.userExperience
+            propertylist[cardPos].sender_speciality=Const.userSpeciality
+            propertylist[cardPos].sender_company=Const.userCompany
 
 
             collectionReference.set(propertylist[cardPos])
@@ -271,23 +275,23 @@ class HomeFragment : Fragment(), View.OnClickListener, CardStackListener, Adapte
             val collectionReference = db.collection("notifications").document(propertylist[cardPos].user_id.toString()).collection("posts").document(postId)
             propertylist[cardPos].property_status="receiver"
 
-            propertylist[cardPos].sender_name=userName
+            propertylist[cardPos].sender_name=Const.userName
             propertylist[cardPos].sender_id=currentUser.uid
-            propertylist[cardPos].sender_image=userImage
-            propertylist[cardPos].sender_phone=userPhone
-            propertylist[cardPos].sender_whatsapp=userWhatsapp
-            propertylist[cardPos].sender_experience=userExperience
-            propertylist[cardPos].sender_speciality=userSpeciality
-            propertylist[cardPos].sender_company=userCompany
+            propertylist[cardPos].sender_image=Const.userImage
+            propertylist[cardPos].sender_phone=Const.userPhone
+            propertylist[cardPos].sender_whatsapp=Const.userWhatsapp
+            propertylist[cardPos].sender_experience=Const.userExperience
+            propertylist[cardPos].sender_speciality=Const.userSpeciality
+            propertylist[cardPos].sender_company=Const.userCompany
 
 
             collectionReference.set(propertylist[cardPos])
                 .addOnSuccessListener { documentReference ->
                     // Data added successfully
                     // You can get the document ID using documentReference.id
-                    Log.e("Tafg213","Uplaod")
-                    addExceptDataLocalDb()
-                    cardPos++
+                    Log.e("Tafg213","Uplaod moveToNotificationData")
+                    addExceptDataUploadOnFirebase()
+
                     // Handle success here
                 }
                 .addOnFailureListener { e ->
@@ -300,6 +304,28 @@ class HomeFragment : Fragment(), View.OnClickListener, CardStackListener, Adapte
 
     }
 
+    private fun addExceptDataUploadOnFirebase(){
+        val db = FirebaseFirestore.getInstance()
+
+        auth = Firebase.auth
+        val currentUser = auth.currentUser
+
+        val collectionReference = db.collection("excepted").document(currentUser!!.uid).collection("posts").document(propertylist[cardPos].uid)
+        collectionReference.set(ExceptData(post_id = propertylist[cardPos].uid.toString()))
+            .addOnSuccessListener { documentReference ->
+                // Data added successfully
+                // You can get the document ID using documentReference.id
+                Log.e("Tafg213","Uplaod addExceptDataUploadOnFirebase")
+                addExceptDataLocalDb()
+
+                // Handle success here
+            }
+            .addOnFailureListener { e ->
+                // Handle errors here
+                Log.e("Tafg213", "Fail$e")
+            }
+    }
+
 
 
     private  fun addExceptDataLocalDb(){
@@ -309,6 +335,7 @@ class HomeFragment : Fragment(), View.OnClickListener, CardStackListener, Adapte
 
             database.exceptDataDao()
                 .insert(ExceptData(post_id = propertylist[cardPos].uid.toString()))
+            cardPos++
         }
     }
 
@@ -323,8 +350,9 @@ class HomeFragment : Fragment(), View.OnClickListener, CardStackListener, Adapte
         if(direction.toString()=="Right"){
             Log.e("Tag2345", "onCardSwiped ::$direction  :: $cardPos")
             moveToSenderData()
-        }else {
-            addExceptDataLocalDb()
+        }
+        else {
+            addExceptDataUploadOnFirebase()
         }
 
 
@@ -358,6 +386,13 @@ class HomeFragment : Fragment(), View.OnClickListener, CardStackListener, Adapte
         when(key){
 
             "view_detail"->{
+                propertylist[cardPos].sender_name=Const.userName
+                propertylist[cardPos].sender_image=Const.userImage
+                propertylist[cardPos].sender_phone=Const.userPhone
+                propertylist[cardPos].sender_whatsapp=Const.userWhatsapp
+                propertylist[cardPos].sender_experience=Const.userExperience
+                propertylist[cardPos].sender_speciality=Const.userSpeciality
+                propertylist[cardPos].sender_company=Const.userCompany
                 Const.screenName="Property_detail"
                 findNavController().navigate(HomeFragmentDirections.actionHomeFragmentToPropertyDetailFragment(
                     propertylist[position], "home"
@@ -375,26 +410,31 @@ class HomeFragment : Fragment(), View.OnClickListener, CardStackListener, Adapte
         currentUser?.let { cUser ->
             val db = Firebase.firestore
             val ref = db.collection("users").document(cUser.uid)
+
             userId=cUser.uid
             ref.get().addOnSuccessListener { snapshot ->
+
+                Log.e("Tag23","user Data "+ snapshot.data)
+
                 snapshot?.let {
                     val data = it.data
 
-                 userName= (data?.get("name") as String?).toString()
-                    Const.userName=userName
+                    Const.userName= (data?.get("name") as String?).toString()
 
-                 userImage= (data?.get("profile_image") as String?).toString()
-                    userPhone= (data?.get("phone") as String?).toString()
-                    userWhatsapp= (data?.get("whatsapp") as String?).toString()
+
+                    Const.userImage= (data?.get("profile_image") as String?).toString()
+                    Const. userPhone= (data?.get("phone") as String?).toString()
+                    Const. userWhatsapp= (data?.get("whatsapp") as String?).toString()
+                    Const.userCompany= (data?.get("company") as String?).toString()
                     try{
-                        userSpeciality= (data?.get("speciality") as String?).toString()
-                        userExperience= (data?.get("experience") as String?).toString()
+                        Const.  userSpeciality= (data?.get("speciality") as String?).toString()
+                        Const.  userExperience= (data?.get("experience") as String?).toString()
                     }
                     catch (ex:Exception){
 
                     }
 
-                    userCompany= (data?.get("company") as String?).toString()
+
 
 
 
@@ -405,7 +445,7 @@ class HomeFragment : Fragment(), View.OnClickListener, CardStackListener, Adapte
                             .placeholder(R.drawable.ic_deafult_profile_icon)
                             .into(binding.profileImage)
 
-                        Const.userImage=userImage
+                        Const.userImage=image
                     }catch (ex:Exception){
 
                     }
@@ -418,7 +458,43 @@ class HomeFragment : Fragment(), View.OnClickListener, CardStackListener, Adapte
 
 
     }
-    private fun loadHomeData(){
+
+
+    private fun getExcepted(){
+        var exceptedList=ArrayList<ExceptData>()
+        progressDialog.progressBarVisibility(true)
+        auth = Firebase.auth
+        val currentUser = auth.currentUser
+
+        val db = Firebase.firestore
+        val ref = db.collection("excepted/${currentUser!!.uid}/posts")
+
+        ref.get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    Log.e(TAG, "${document.id} => ${document.data}")
+                    exceptedList.add(document.toObject(ExceptData::class.java))
+
+                }
+                lifecycleScope.launch {
+                    val database = Application.database
+
+                    database.exceptDataDao()
+                        .insertAll(exceptedList)
+                }
+
+
+            }
+                    .addOnFailureListener { exception ->
+                    Log.e(TAG, "Error getting documents: ", exception)
+                    requireContext().showToast("An error occurred. Please try again later")
+                    progressDialog.progressBarVisibility(false)
+                }
+
+
+
+                }
+    private fun loadHomeData(list: ArrayList<String>){
         progressDialog.progressBarVisibility(true)
 
         auth = Firebase.auth
@@ -435,11 +511,45 @@ class HomeFragment : Fragment(), View.OnClickListener, CardStackListener, Adapte
 
                         propertylist.add(document.toObject(PropertyData::class.java))
                     }
-                    val list =propertylist.sortedByDescending { it.created_date }
+                    val filteredList = propertylist.filter { it.user_id != cUser.uid  && it.post_type!="request"}.distinctBy { it.uid }
+
                     propertylist.clear()
-                    propertylist.addAll(list)
+                    propertylist.addAll(filteredList)
+
+
+                    Log.e("Raf","filteredList :: "+filteredList.size)
+
+                    list.forEach {  local->
+                        propertylist.apply {  forEachIndexed { index, main ->
+
+                            if(main.uid==local){
+                                Log.e("Raf","main.uid :: "+ main.uid +" local "+local +"propertylistTenp "+propertylist[index].uid  )
+
+                                propertylist.removeAt(index)
+                                return@apply
+
+                            }
+
+                        }
+                        }
+                    }
+
+
+
+
+                    Log.e("Raf", "-------------------")
+                 val data= propertylist.sortedByDescending { it.created_date }.distinctBy { it.uid }
+
+                    data.forEach { it->
+                         Log.e("Raf","Date :: "+  DateHelper.convertTimestampToTimeAgo(it.created_date.toLong()))
+
+                     }
+
+                    propertylist.clear()
+                    propertylist.addAll(data)
+
                     homeSliderAdapter.notifyDataSetChanged()
-                    Log.d(TAG, "propertylist size => ${propertylist.size}")
+                    Log.e("Raf", "propertylist size => ${propertylist.size}")
                     progressDialog.progressBarVisibility(false)
                 }
                 .addOnFailureListener { exception ->
@@ -500,6 +610,7 @@ class HomeFragment : Fragment(), View.OnClickListener, CardStackListener, Adapte
 
 
     private fun getExceptedData(){
+
         lifecycleScope.launch {
             val database = Application.database
 
@@ -521,19 +632,23 @@ class HomeFragment : Fragment(), View.OnClickListener, CardStackListener, Adapte
                }
                else {
                    Log.e("Tag21345","DB is  not Empty "+stringList.size)
-                   loadHomeDataWithExcepted(stringList)
+
                }
 
 //                   loadHomeDataWithExcepted(stringList)
 
 
 
-
+               loadHomeData(stringList)
 
            }else {
                Log.e("Tag21345","DB is Empty")
-               loadHomeData()
+               getExcepted()
+               val stringList =ArrayList<String>()
+               loadHomeData(stringList)
+
            }
+
 
 
 

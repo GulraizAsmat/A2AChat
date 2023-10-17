@@ -99,7 +99,9 @@ class PostPropertyStep5Fragment : Fragment() {
         binding.postListBtn.setOnClickListener {
             uploadData()
         }
-
+        binding.postListBtnEdit.setOnClickListener {
+            uploadData()
+        }
         binding.backIcon.setOnClickListener {
             requireActivity().onBackPressedDispatcher.onBackPressed()
         }
@@ -123,10 +125,11 @@ class PostPropertyStep5Fragment : Fragment() {
         }
 
         if(isEdit) {
+
             setData()
             binding.saveDraft.gone()
-            binding.postListBtn.gone()
-            binding.postListBtnEdit.visible()
+            binding.postListBtn.visibility=View.INVISIBLE
+            binding.postListBtnEdit.visibility=View.VISIBLE
         }
         defaultData(propertyData)
     }
@@ -244,6 +247,12 @@ class PostPropertyStep5Fragment : Fragment() {
         SpinnersHelper.finishingList().forEachIndexed { index, item ->
             if(item.equals(propertyData.furnishing, true)) {
                 binding.spinnerFinishing.setSelection(index)
+            }
+        }
+
+        SpinnersHelper.commissionList().forEachIndexed { index, s ->
+            if(  propertyData.commission==s){
+                binding.spinnerCommission.setSelection(index)
             }
         }
     }

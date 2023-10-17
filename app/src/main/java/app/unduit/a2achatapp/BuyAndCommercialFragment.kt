@@ -65,6 +65,53 @@ class BuyAndCommercialFragment : Fragment(),View.OnClickListener {
         Const.screenName = ""
         listeners()
         spinnersManager()
+
+        if(isEdit){
+            binding.areaCommunity.setText(propertyData.area_community)
+            binding.budgetMin.setText(propertyData.budget_min)
+            binding.budgetMax.setText(propertyData.budget_max)
+            binding.propertyMin.setText(propertyData.property_size_min)
+            binding.propertyMax.setText(propertyData.property_size_max)
+
+
+            SpinnersHelper.fittingList().forEachIndexed { index, s ->
+                if(  propertyData.fitting==s){
+                    binding.fitting.setSelection(index)
+                }
+            }
+
+            SpinnersHelper.occupancyList1().forEachIndexed { index, s ->
+                if(  propertyData.occupancy==s){
+                    binding.spinnerOccupancy1.setSelection(index)
+                }
+            }
+
+            SpinnersHelper.purchaseGaolList().forEachIndexed { index, s ->
+                if(  propertyData.purchase_goal==s){
+                    binding.spinnerPurchase.setSelection(index)
+                }
+            }
+
+            SpinnersHelper.paymentList().forEachIndexed { index, s ->
+                if(  propertyData.payment_method==s){
+                    binding.spinnerPayment.setSelection(index)
+                }
+            }
+
+
+            SpinnersHelper.movingTimeList().forEachIndexed { index, s ->
+                if(  propertyData.property_moving_time==s){
+                    binding.movingTimeSpinner.setSelection(index)
+                }
+            }
+
+
+            SpinnersHelper.furnitureList().forEachIndexed { index, s ->
+                if(  propertyData.property_furniture==s){
+                    binding.furnitureSpinner.setSelection(index)
+                }
+            }
+        }
     }
 
     fun listeners(){
@@ -258,7 +305,7 @@ class BuyAndCommercialFragment : Fragment(),View.OnClickListener {
                     id: Long
                 ) {
                     val selectedItem = SpinnersHelper.paymentList()[position]
-                    occupancyStr = selectedItem
+                    paymentStr = selectedItem
 
                 }
 
@@ -281,7 +328,7 @@ class BuyAndCommercialFragment : Fragment(),View.OnClickListener {
                     id: Long
                 ) {
                     val selectedItem = SpinnersHelper.purchaseGaolList()[position]
-                    occupancyStr = selectedItem
+                    purchaseStr = selectedItem
 
                 }
 
