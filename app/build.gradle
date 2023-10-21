@@ -14,8 +14,8 @@ android {
         applicationId "app.unduit.a2achatapp"
         minSdk 21
         targetSdk 33
-        versionCode 17
-        versionName "17.0_tesitng"
+        versionCode 18
+        versionName "18.0_tesitng"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
