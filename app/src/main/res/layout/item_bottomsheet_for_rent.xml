@@ -194,11 +194,25 @@
         android:fontFamily="@font/roboto_regular"
         android:textColor="@color/color_white_shade_1"
         android:textSize="@dimen/_12sdp"
-        android:text="View commercial properties only"
+        android:text="View Commercial Properties Only"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout12"
         tools:ignore="MissingConstraints" />
 
+
+    <TextView
+        android:id="@+id/view_residence_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        android:layout_marginVertical="@dimen/_15sdp"
+        android:fontFamily="@font/roboto_regular"
+        android:textColor="@color/color_white_shade_1"
+        android:textSize="@dimen/_12sdp"
+        android:text="View Residential Properties Only"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view_commercial_title"
+        tools:ignore="MissingConstraints" />
 
     <androidx.appcompat.widget.AppCompatCheckBox
         android:id="@+id/cb_commercial"
@@ -212,6 +226,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/view_commercial_title" />
 
+
+
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/cb_residence"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:button="@drawable/selector_checkbox"
+        android:fontFamily="@font/roboto_regular"
+        android:paddingStart="@dimen/_4sdp"
+        android:textColor="@drawable/selector_checkbox_text_color"
+        app:layout_constraintBottom_toBottomOf="@+id/view_residence_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/view_residence_title" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/show_btn"
@@ -237,7 +264,7 @@
         android:layout_marginHorizontal="@dimen/_10sdp"
         android:layout_marginVertical="@dimen/_5ssp"
         android:background="@color/white"
-        app:layout_constraintTop_toBottomOf="@+id/cb_commercial"
+        app:layout_constraintTop_toBottomOf="@+id/cb_residence"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="13dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -67,6 +67,7 @@ class PropertyListFragment : Fragment(), AdapterListener {
     private var minPricePreviousPosition = 0
     private var maxPricePreviousPosition = 0
     var viewOnlyCommercialProperty = false
+    var viewOnlyResidenacialProperty = false
     var bedroomStr = ""
     var bathroomStr = ""
     var selectedPaymentPurpose=0   //all=0, buy=1, rent=2
@@ -522,12 +523,26 @@ class PropertyListFragment : Fragment(), AdapterListener {
 
 
                     propertyList.clear()
+                    propertyListFiltered.clear()
                     propertyList.addAll(list)
 
                     propertyListFiltered.addAll(propertyList)
 
 
 
+                    val list3 = propertyList.filter {
+                        it.purpose_type.equals("Residential", true)
+                    }
+                    val list4 = propertyList.filter {
+                        it.purpose_type.equals("Commercial", true)
+                    }
+
+
+
+
+                    Log.e("poasp12","Residential  :: "+list3.size)
+                    Log.e("poasp12","Commercial  :: "+list4.size)
+                    Log.e("poasp12","propertyListFiltered  :: "+propertyList.size)
                     val list2 = propertyList.filter {
                         it.post_type.equals("request", true)
                     }
@@ -803,9 +818,11 @@ class PropertyListFragment : Fragment(), AdapterListener {
         val buyTitle = view.findViewById<TextView>(R.id.buy_title)
         val requestTitle = view.findViewById<TextView>(R.id.request_title)
         val onlyCommercial = view.findViewById<AppCompatCheckBox>(R.id.cb_commercial)
+        val onlyResidencial = view.findViewById<AppCompatCheckBox>(R.id.cb_residence)
         val showBtn = view.findViewById<AppCompatButton>(R.id.show_btn)
 
         onlyCommercial.isChecked = viewOnlyCommercialProperty
+        onlyResidencial.isChecked = viewOnlyResidenacialProperty
 
         when (selectedCategory) {
             "All" -> {
@@ -1075,8 +1092,34 @@ class PropertyListFragment : Fragment(), AdapterListener {
             showBtn.text = "Show ${propertyListFiltered.size} properties"
         }
 
-        onlyCommercial.setOnCheckedChangeListener { _, b ->
-            viewOnlyCommercialProperty = b
+        onlyCommercial.setOnClickListener {
+
+            if(viewOnlyCommercialProperty){
+                viewOnlyCommercialProperty = false
+            }else {
+                viewOnlyCommercialProperty = true
+                viewOnlyResidenacialProperty = false
+                onlyResidencial.isChecked=false
+            }
+
+
+
+            filterCategory(selectedCategory, selectedPropertyType, selectedBed, selectedBath, selectedMinPrice, selectedMaxPrice)
+            showBtn.text = "Show ${propertyListFiltered.size} properties"
+        }
+
+        onlyResidencial.setOnClickListener {
+
+            if(viewOnlyResidenacialProperty){
+                viewOnlyResidenacialProperty = false
+            }else {
+                onlyCommercial.isChecked=false
+                viewOnlyResidenacialProperty = true
+                viewOnlyCommercialProperty = false
+            }
+
+
+
             filterCategory(selectedCategory, selectedPropertyType, selectedBed, selectedBath, selectedMinPrice, selectedMaxPrice)
             showBtn.text = "Show ${propertyListFiltered.size} properties"
         }
@@ -1105,6 +1148,13 @@ class PropertyListFragment : Fragment(), AdapterListener {
                     setSelection=true
                 }
                 propertyFilterList[1] = PropertyType(name = "Commercial | $titleShow", selected = setSelection)
+            }
+            else if(viewOnlyResidenacialProperty){
+                if(!setSelection){
+                    titleShow="All"
+                    setSelection=true
+                }
+                propertyFilterList[1] = PropertyType(name = "Residential | $titleShow", selected = setSelection)
             }
             else {
                 if(!setSelection) {
@@ -1314,7 +1364,7 @@ class PropertyListFragment : Fragment(), AdapterListener {
             selectedPostType="All"
             filterCategory(selectedCategory, selectedPropertyType, selectedBed, selectedBath, selectedMinPrice, selectedMaxPrice)
 
-            Log.e("Gul21","property"  +propertyListFiltered.size)
+            Log.e("filterCategory","property"  +propertyListFiltered.size)
 
 
             showBtn.text = "Show ${propertyListFiltered.size} properties"
@@ -1682,17 +1732,37 @@ class PropertyListFragment : Fragment(), AdapterListener {
             }
             propertyListFiltered.clear()
             propertyListFiltered.addAll(list)
-        } else {
+        } else if(viewOnlyResidenacialProperty){
             val list = list.filter {
                 it.purpose_type.equals("Residential", true)
             }
             propertyListFiltered.clear()
             propertyListFiltered.addAll(list)
             Log.e("Gul21","filterPropertyCategory "+propertyListFiltered.size)
+        }else {
+
+            if(selectedPostType=="All") {
+                val list = propertyList.filter {
+                    it.purpose_type.equals(
+                        "Residential",
+                        true
+                    ) || it.purpose_type.equals("Commercial", true)
+                }
+                propertyListFiltered.clear()
+                propertyListFiltered.addAll(list)
+                Log.e("Gul21", "propertyListFiltered " + list.size)
+            }
         }
     }
     private fun filterCategory(category: String, type: String, beds: String, baths: String, minPrice: String, maxPrice: String) {
 
+
+        Log.e("filterCategory", "category :: $category")
+        Log.e("filterCategory", "type :: $type")
+        Log.e("filterCategory", "beds :: $beds")
+        Log.e("filterCategory", "baths :: $baths")
+        Log.e("filterCategory", "minPrice :: $minPrice")
+        Log.e("filterCategory", "maxPrice :: $maxPrice")
 
         when (selectedPostType) {
             "request" -> {
@@ -1718,23 +1788,23 @@ class PropertyListFragment : Fragment(), AdapterListener {
 
             }
             else -> {
-                propertyListFiltered.clear()
+//                propertyListFiltered.clear()
                 Log.e("Gul21","ALL "+propertyListFiltered.size)
                 val list = propertyList.filter {
-                    it.post_type.equals("property", true) && it.post_type=="request"
+                    it.post_type.equals("property", true) ||  it.post_type.equals("request", true)
                 }
-                propertyListFiltered.addAll(list)
-                Log.e("Gul21","propertyListFiltered "+propertyListFiltered.size)
-                filterPropertyCategory(propertyListFiltered)
                 propertyListFiltered.clear()
-                propertyListFiltered.addAll(propertyList)
+                propertyListFiltered.addAll(list)
+                Log.e("Gul21","propertyListFiltered "+list.size)
                 filterPropertyCategory(propertyListFiltered)
+//                propertyListFiltered.clear()
+//                propertyListFiltered.addAll(propertyList)
+//                filterPropertyCategory(propertyListFiltered)
             }
         }
 
 
 
-        Log.e("Gul21", "category $category")
 
 
         when (category) {
@@ -1746,7 +1816,20 @@ class PropertyListFragment : Fragment(), AdapterListener {
                     }
                     propertyListFiltered.clear()
                     propertyListFiltered.addAll(list)
-                } else {
+                } else  if(viewOnlyResidenacialProperty){
+
+//                    propertyListFiltered.forEach {
+//
+//                        Log.e("Gul21","purpose_type "+ it.purpose_type)
+//                    }
+
+
+                    val list = propertyListFiltered.filter {
+                        it.purpose_type.equals("Commercial", true)
+                    }
+//                    propertyListFiltered.clear()
+//                    propertyListFiltered.addAll(list)
+                    Log.e("Gul21","viewOnlyResidenacialProperty "+list.size)
 //                    propertyListFiltered.clear()
 //                    propertyListFiltered.addAll(propertyList)
                 }
