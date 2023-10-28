@@ -352,6 +352,7 @@ class PostPropertyStep5Fragment : Fragment() {
                     propertyData.verified = data?.verified == true
                     propertyData.user_phone = data?.phone.toString()
                     propertyData.user_whatsapp = data?.whatsapp.toString()
+                    propertyData.user_fcm = data?.fcm_token.toString()
 
                     db.collection("properties")
                         .document(id)

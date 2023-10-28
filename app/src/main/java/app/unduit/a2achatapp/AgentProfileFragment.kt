@@ -39,7 +39,7 @@ class AgentProfileFragment : Fragment() ,AdapterListener,View.OnClickListener{
 
     var propertylist = ArrayList<PropertyData>()
     var requestList = ArrayList<PropertyData>()
-
+    var picUrl=""
 
     private val agentRequestAdapter by lazy {
         AgentRequestAdapter(
@@ -93,6 +93,7 @@ Const.screenName=""
         binding.requestViewAll.setOnClickListener(this)
         binding.propertiesViewAll.setOnClickListener(this)
         binding.btnBack.setOnClickListener(this)
+        binding.userImage.setOnClickListener(this)
     }
 
 
@@ -145,7 +146,7 @@ Const.screenName=""
 
             binding.userName.text= propertyData!!.sender_name
             binding.companyName.text= propertyData!!.sender_company
-
+            picUrl=propertyData!!.sender_image
             Glide.with(this).load(propertyData!!.sender_image)
                 .fallback(R.drawable.ic_deafult_profile_icon)
                 .placeholder(R.drawable.ic_deafult_profile_icon)
@@ -161,7 +162,7 @@ Const.screenName=""
 
             binding.userName.text= propertyData!!.user_name
             binding.companyName.text= propertyData!!.user_company
-
+            picUrl= propertyData!!.user_picture.toString()
             Glide.with(this).load(propertyData!!.user_picture)
                 .fallback(R.drawable.ic_deafult_profile_icon)
                 .placeholder(R.drawable.ic_deafult_profile_icon)
@@ -258,6 +259,9 @@ Const.screenName=""
             }
             R.id.btn_back->{
                 requireActivity().onBackPressed()
+            }
+            R.id.user_image->{
+                    findNavController().navigate(AgentProfileFragmentDirections.actionAgentProfileFragmentToUserProfileFullViewFragment(picUrl))
             }
         }
     }

@@ -74,6 +74,9 @@
         <entry key="app/src/main/res/layout/item_bottomsheet_add_property_step1.xml" value="0.3729166666666667" />
         <entry key="app/src/main/res/layout/item_bottomsheet_home.xml" value="0.3729166666666667" />
         <entry key="app/src/main/res/layout/item_card_swipe.xml" value="0.19270833333333334" />
+        <entry key="app/src/main/res/layout/item_chat.xml" value="0.3140625" />
+        <entry key="app/src/main/res/layout/item_colors.xml" value="0.3140625" />
+        <entry key="app/src/main/res/layout/item_match_chat.xml" value="0.3140625" />
         <entry key="app/src/main/res/layout/item_notification.xml" value="0.3140625" />
         <entry key="app/src/main/res/layout/item_property_list.xml" value="0.4180199939716233" />
         <entry key="app/src/main/res/layout/item_property_type.xml" value="0.3140625" />

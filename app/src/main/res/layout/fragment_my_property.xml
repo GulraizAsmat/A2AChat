@@ -33,7 +33,7 @@
                 android:layout_height="wrap_content"
 
                 android:fontFamily="@font/roboto_medium"
-                android:text="My Property"
+                android:text="My Inventory"
                 android:textColor="@color/color_black_shade_1"
                 android:textSize="@dimen/_16sdp"
                 app:layout_constraintBottom_toBottomOf="parent"

@@ -141,14 +141,48 @@
                     android:layout_marginStart="@dimen/_10sdp"
                     android:layout_marginBottom="@dimen/_3sdp"
                     android:fontFamily="@font/roboto_medium"
-                    android:text="My Property"
+                    android:text="My Inventory"
                     android:textColor="@color/color_black_shade_1"
                     android:textSize="@dimen/_12sdp"
                     app:layout_constraintBottom_toBottomOf="@+id/property"
                     app:layout_constraintStart_toEndOf="@+id/property"
                     app:layout_constraintTop_toTopOf="@+id/property" />
             </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_request"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_40sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/ic_gray_bg"
+                android:padding="@dimen/_10sdp"
 
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cl_property">
+
+                <ImageView
+                    android:id="@+id/request"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/my_property"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_3sdp"
+                    android:fontFamily="@font/roboto_medium"
+                    android:text="My Property"
+                    android:textColor="@color/color_black_shade_1"
+                    android:textSize="@dimen/_12sdp"
+                    app:layout_constraintBottom_toBottomOf="@+id/request"
+                    app:layout_constraintStart_toEndOf="@+id/request"
+                    app:layout_constraintTop_toTopOf="@+id/request" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
             <TextView
                 android:id="@+id/verify_user_card_title"
                 android:layout_width="wrap_content"
@@ -160,7 +194,7 @@
                 android:textColor="@color/color_black_shade_1"
                 android:textSize="@dimen/_11sdp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/cl_property" />
+                app:layout_constraintTop_toBottomOf="@+id/cl_request" />
 
 
             <androidx.constraintlayout.widget.ConstraintLayout

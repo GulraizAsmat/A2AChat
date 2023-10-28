@@ -228,21 +228,6 @@ class PostPropertyStep1Fragment : Fragment(), View.OnClickListener, AdapterListe
                 selected = false
             )
         )
-        propertyItemList.add(
-            PropertyType(
-                name = "Townhouse",
-                image = R.drawable.ic_penthouse,
-                selected = false
-            )
-        )
-
-        propertyItemList.add(
-            PropertyType(
-                name = "Penthouse",
-                image = R.drawable.ic_penthouse,
-                selected = false
-            )
-        )
 
         propertyItemList.add(
             PropertyType(
@@ -261,6 +246,24 @@ class PostPropertyStep1Fragment : Fragment(), View.OnClickListener, AdapterListe
                 )
             )
         }
+
+        propertyItemList.add(
+            PropertyType(
+                name = "Penthouse",
+                image = R.drawable.ic_penthouse,
+                selected = false
+            )
+        )
+        propertyItemList.add(
+            PropertyType(
+                name = "Townhouse",
+                image = R.drawable.ic_penthouse,
+                selected = false
+            )
+        )
+
+
+
 
         propertyItemList.add(
             PropertyType(
@@ -435,6 +438,14 @@ class PostPropertyStep1Fragment : Fragment(), View.OnClickListener, AdapterListe
                                     )
                                 )
                             }
+                          else   if(property_type=="Land"){
+                                findNavController().navigate(
+                                    PostPropertyStep1FragmentDirections.actionPostPropertyStep1FragmentToPurchaseLandFragment(
+                                        it, isEdit
+                                    )
+                                )
+                            }
+
                             else {
                                 findNavController().navigate(
                                     PostPropertyStep1FragmentDirections.actionPostPropertyStep1FragmentToPostFragment(
@@ -442,6 +453,8 @@ class PostPropertyStep1Fragment : Fragment(), View.OnClickListener, AdapterListe
                                     )
                                 )
                             }
+
+
 
                         }
                         else {

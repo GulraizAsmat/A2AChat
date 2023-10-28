@@ -102,6 +102,10 @@ class EditProfileFragment : Fragment() {
                     userData?.profile_image = data?.get("profile_image") as String?
                     userData?.brn = data?.get("brn") as String?
                     userData?.verified = data?.get("verified") as Boolean?
+                    userData?.status = data?.get("status") as String?
+                    userData?.certified_image = data?.get("certified_image") as String?
+                    userData?.experience = data?.get("experience") as String?
+                    userData?.location = data?.get("location") as String?
 
 
                     setUserData()

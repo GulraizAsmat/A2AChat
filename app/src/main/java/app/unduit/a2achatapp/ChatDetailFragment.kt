@@ -1,5 +1,6 @@
 package app.unduit.a2achatapp
 
+import android.graphics.Rect
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -8,11 +9,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import app.unduit.a2achatapp.adapters.ChatDetailAdapter
 import app.unduit.a2achatapp.databinding.FragmentChat2Binding
+import app.unduit.a2achatapp.fcm.FcmNotificationSend
 import app.unduit.a2achatapp.helpers.Const
 import app.unduit.a2achatapp.listeners.AdapterListener
 import app.unduit.a2achatapp.models.MessageData
@@ -25,10 +28,13 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.Logger
 
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import org.json.JSONObject
 import java.util.ArrayList
 import java.util.Locale
 import java.util.UUID
@@ -43,12 +49,13 @@ class ChatDetailFragment : Fragment(),AdapterListener {
     var receiverId=""
     var receiverName=""
     var receiverImage=""
+    var receiverToken=""
 
 
     var senderId=""
     var senderName=""
     var senderImage=""
-
+    var isMessageSend=true
 
     val args: ChatDetailFragmentArgs by navArgs()
     private var propertyData: PropertyData? = null
@@ -70,6 +77,26 @@ class ChatDetailFragment : Fragment(),AdapterListener {
 
     }
 
+
+    override fun onPause() {
+
+
+        val database1: DatabaseReference =
+            FirebaseDatabase.getInstance().getReference("Chat").child(Const.userId)
+                .child(receiverId)
+                .child("lastseen")
+
+
+
+        val status = java.util.HashMap<String, Any>()
+        status["isSeen"] = true
+        database1.setValue(status).addOnSuccessListener {
+
+        }
+
+        super.onPause()
+    }
+
     private fun updateLastStatusFirebase(){
 
         val database1: DatabaseReference =
@@ -85,7 +112,43 @@ class ChatDetailFragment : Fragment(),AdapterListener {
         }
 
 
+    }
 
+    private fun keyboardShown(rootView: View): Boolean {
+        val softKeyboardHeight = 100
+        val r = Rect()
+        rootView.getWindowVisibleDisplayFrame(r)
+        val dm = rootView.resources.displayMetrics
+        val heightDiff: Int = rootView.bottom - r.bottom
+        return heightDiff > softKeyboardHeight * dm.density
+    }
+
+    private fun checkKeyboardOpen() {
+        try {
+
+            binding.clMain.viewTreeObserver.addOnGlobalLayoutListener(ViewTreeObserver.OnGlobalLayoutListener {
+
+                try {
+                    if (keyboardShown(    binding.clMain.rootView)) {
+                        Log.e("keyboard", "keyboard UP")
+                        if(chatDetailList.isNotEmpty()){
+                            binding.rvChatsDetail.post {
+                                binding.rvChatsDetail.smoothScrollToPosition(chatDetailAdapter.itemCount - 1)
+                            }
+                        }
+
+                    } else {
+                        Log.e("keyboard", "keyboard Down")
+
+                    }
+                } catch (ex: Exception) {
+
+                }
+
+            })
+        } catch (ex: Exception) {
+
+        }
 
 
     }
@@ -126,6 +189,8 @@ class ChatDetailFragment : Fragment(),AdapterListener {
         receiverId=args.chatUserId
         receiverName= args.chatUserName
         receiverImage= args.chatUserImage
+
+        getChatUserDetail()
         binding.userName.text=args.chatUserName
         Glide.with(binding.profileImage).load(receiverImage)
             .into(binding.profileImage)
@@ -162,14 +227,16 @@ class ChatDetailFragment : Fragment(),AdapterListener {
         defaultData()
         listeners()
         chatRecyclerViewManger()
-
+        checkKeyboardOpen()
     }
 
     fun listeners(){
         binding.send.setOnClickListener {
             if(binding.message.text!!.isNotEmpty()){
-
-                sendMessage(binding.message.text!!.toString())
+                if(isMessageSend) {
+                    isMessageSend=false
+                    sendMessage(binding.message.text!!.toString())
+                }
 
             }
 
@@ -371,8 +438,9 @@ class ChatDetailFragment : Fragment(),AdapterListener {
 
                     }
 
+                    sendNotification()
                     binding.message.setText("")
-
+                    isMessageSend=true
                 }.addOnFailureListener {
 
 
@@ -382,24 +450,68 @@ class ChatDetailFragment : Fragment(),AdapterListener {
 
             }.addOnFailureListener {
 
-
             }
 
-
-
         }
-
-
-
-
-
-
-
     }
 
 
 
+    private fun sendNotification(){
 
+
+        val notificationJson = JSONObject()
+
+        notificationJson.put("title",
+            senderName )
+        notificationJson.put("body", "${binding.message.text!!.toString()}" )
+
+
+        val jsonMain = JSONObject()
+
+        jsonMain.put("to", receiverToken)
+        jsonMain.put("notification", notificationJson)
+
+
+
+        Log.e("TAG123","USER oOFFLINE "+jsonMain);
+
+
+
+
+
+        FcmNotificationSend.post("https://fcm.googleapis.com/fcm/send", jsonMain, {
+            Log.e("Notif","SEnd happy mode")
+        }, {
+            Log.e("Notif","SEnd happy Error")
+        })
+    }
+
+    private fun getChatUserDetail() {
+
+        try {
+            val db = Firebase.firestore
+            val ref = db.collection("users").document(receiverId)
+
+
+            ref.get().addOnSuccessListener { snapshot ->
+
+                Log.e("Tag23", "user Data " + snapshot.data)
+
+                snapshot?.let {
+                    val data = it.data
+                    receiverToken= data?.get("fcm_token").toString()
+
+
+
+                }
+            }
+        }
+        catch (ex:Exception){
+
+        }
+
+    }
 
 
 

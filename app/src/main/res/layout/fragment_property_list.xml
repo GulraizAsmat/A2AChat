@@ -40,6 +40,8 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
 
+
+
             <ImageView
                 android:id="@+id/favourite_icon"
                 android:layout_width="@dimen/_28sdp"
@@ -48,16 +50,49 @@
                 android:background="@drawable/ic_icon_bg"
                 android:padding="@dimen/_7sdp"
                 android:src="@drawable/ic_heart"
-
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/notification_icon"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/request_icon"
+                android:layout_width="@dimen/_28sdp"
+                android:layout_height="@dimen/_28sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:background="@drawable/ic_icon_bg"
+                android:paddingTop="@dimen/_4sdp"
+                android:paddingHorizontal="@dimen/_4sdp"
+                android:paddingBottom="2dp"
+
+                android:src="@drawable/aa_ic_request"
+
+
+                app:layout_constraintEnd_toStartOf="@+id/favourite_icon"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/match_icon"
+                android:layout_width="@dimen/_28sdp"
+                android:layout_height="@dimen/_28sdp"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:background="@drawable/ic_icon_bg"
+                android:paddingTop="@dimen/_6sdp"
+                android:paddingHorizontal="@dimen/_6sdp"
+                android:paddingBottom="4dp"
+                android:src="@drawable/aa_ic_matching"
+
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/request_icon"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
 
             <ImageView
                 android:id="@+id/map_pin"
                 android:layout_width="@dimen/_28sdp"
                 android:layout_height="@dimen/_28sdp"
                 android:padding="@dimen/_7sdp"
+                android:visibility="gone"
                 android:src="@drawable/ic_map_pin"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -69,6 +104,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
+                android:visibility="gone"
                 android:fontFamily="@font/roboto_regular"
                 android:gravity="start"
                 android:maxLines="1"
@@ -87,6 +123,7 @@
                 android:layout_width="@dimen/_28sdp"
                 android:layout_height="@dimen/_28sdp"
                 android:padding="@dimen/_7sdp"
+                android:visibility="gone"
                 android:layout_marginTop="@dimen/_3sdp"
                 android:layout_marginEnd="@dimen/_40sdp"
                 android:src="@drawable/ic_down_arrow"
