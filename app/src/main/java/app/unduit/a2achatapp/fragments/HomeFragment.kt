@@ -8,42 +8,48 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.LinearInterpolator
-import android.widget.Toast
 import androidx.appcompat.widget.AppCompatButton
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import androidx.room.RoomDatabase
 import app.unduit.a2achatapp.Application
-import app.unduit.a2achatapp.Application.Companion.database
 import app.unduit.a2achatapp.R
 import app.unduit.a2achatapp.adapters.HomeSwiperAdapter
 import app.unduit.a2achatapp.databinding.FragmentHomeBinding
+import app.unduit.a2achatapp.fcm.FcmNotificationSend
+
 import app.unduit.a2achatapp.helpers.Const
+import app.unduit.a2achatapp.helpers.Const.fcmToken
 
 import app.unduit.a2achatapp.helpers.Const.userId
 import app.unduit.a2achatapp.helpers.DateHelper
 import app.unduit.a2achatapp.helpers.ProgressDialog
-import app.unduit.a2achatapp.helpers.Utils
+import app.unduit.a2achatapp.helpers.SharedPref
 import app.unduit.a2achatapp.helpers.showToast
 
 import app.unduit.a2achatapp.listeners.AdapterListener
 import app.unduit.a2achatapp.models.PropertyData
-import app.unduit.a2achatapp.models.User
 import app.unduit.a2achatapp.models.roomModels.ExceptData
-import app.unduit.a2achatapp.room.Database
 import com.bumptech.glide.Glide
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Tasks
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.Logger
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.firestore.FieldPath
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.messaging.FirebaseMessaging
 
 import com.yuyakaido.android.cardstackview.*
 import kotlinx.coroutines.launch
-import java.security.Timestamp
+import org.json.JSONObject
 
 
 class HomeFragment : Fragment(), View.OnClickListener, CardStackListener, AdapterListener {
@@ -57,10 +63,14 @@ class HomeFragment : Fragment(), View.OnClickListener, CardStackListener, Adapte
 //    var userExperience=""
 //    var userSpeciality=""
 //    var userPhone=""
-
 //    var Const.userCompany=""
+    var userStatus="agent"
+
+
+   var  chatCountArray=0
     private lateinit var binding: FragmentHomeBinding
     var propertylist = ArrayList<PropertyData>()
+    var notificationCountList = ArrayList<PropertyData>()
 
     private val cardStackView by lazy { requireActivity().findViewById<CardStackView>(R.id.card_stack_view) }
     private val manager by lazy { CardStackLayoutManager(requireContext(), this) }
@@ -105,16 +115,21 @@ class HomeFragment : Fragment(), View.OnClickListener, CardStackListener, Adapte
         super.onResume()
         Const.PropertyType=""
         sliderManager()
+        getNotificationCount()
+        firebaseChatCountCalling()
 //        homeDummyData()
     }
 
     private fun init() {
+
+
         Log.e("Tag2345", "init :: ")
         loadUserProfileImage()
 
         getExceptedData()
         listeners()
         sliderManager()
+        getFcmToken()
 //        homeDummyData()
     }
 
@@ -123,8 +138,11 @@ class HomeFragment : Fragment(), View.OnClickListener, CardStackListener, Adapte
         binding.notificationIcon.setOnClickListener(this)
         binding.profileImage.setOnClickListener(this)
         binding.propertyList.setOnClickListener(this)
+        binding.matchIcon.setOnClickListener(this)
+        binding.requestIcon.setOnClickListener(this)
         binding.addProperty.setOnClickListener(this)
         binding.chat.setOnClickListener(this)
+        binding.guideCloseBtn.setOnClickListener(this)
 
     }
 
@@ -147,9 +165,25 @@ class HomeFragment : Fragment(), View.OnClickListener, CardStackListener, Adapte
 
     }
 
+    private fun getFcmToken(){
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
+            Log.e("fcm_token","Fetching FCM registration token failed")
+                return@OnCompleteListener
+            }else {
+                val token = task.result
+                fcmToken=token
+                updateFcmTokenUserTable()
+                Log.e("fcm_token", "FCM token $token")
+            }
+
+            // fetching the token
+
+        })
+    }
 
 
-    fun bottomSheet(){
+    private fun bottomSheet(){
 
         val dialog = BottomSheetDialog(requireContext(), R.style.BottomSheetDialogStyle)
         val view = layoutInflater.inflate(R.layout.item_bottomsheet_home, null)
@@ -158,6 +192,10 @@ class HomeFragment : Fragment(), View.OnClickListener, CardStackListener, Adapte
         val btnPostRequest = view.findViewById<AppCompatButton>(R.id.post_request)
         val btnBulk = view.findViewById<AppCompatButton>(R.id.bulk_upload)
 
+            Log.e("Tag12", "userStatus ::$userStatus")
+        if(userStatus=="User") {
+            btnPostProperty.visibility = View.GONE
+        }
         btnPostProperty.setOnClickListener {
             dialog.dismiss()
             Const.REQUESDTED =false
@@ -181,6 +219,8 @@ class HomeFragment : Fragment(), View.OnClickListener, CardStackListener, Adapte
 
 
     private fun moveToSenderData(){
+        binding.btnNotClickable.visibility=View.VISIBLE
+        progressDialog.progressBarVisibility(true)
         val db = FirebaseFirestore.getInstance()
 
         auth = Firebase.auth
@@ -202,7 +242,8 @@ class HomeFragment : Fragment(), View.OnClickListener, CardStackListener, Adapte
                     // You can get the document ID using documentReference.id
                     Log.e("Tafg213","Uplaod")
                     moveToReceiverData(propertylist[cardPos].uid)
-
+                    moveToNotificationData(propertylist[cardPos].uid)
+                    sendNotification(propertylist[cardPos])
 
                     // Handle success here
                 }
@@ -239,6 +280,7 @@ class HomeFragment : Fragment(), View.OnClickListener, CardStackListener, Adapte
             propertylist[cardPos].sender_experience=Const.userExperience
             propertylist[cardPos].sender_speciality=Const.userSpeciality
             propertylist[cardPos].sender_company=Const.userCompany
+            propertylist[cardPos].sender_fcm=Const.fcmToken
 
 
             collectionReference.set(propertylist[cardPos])
@@ -246,7 +288,7 @@ class HomeFragment : Fragment(), View.OnClickListener, CardStackListener, Adapte
                     // Data added successfully
                     // You can get the document ID using documentReference.id
                     Log.e("Tafg213","Uplaod")
-                    moveToNotificationData(propertylist[cardPos].uid)
+
 
                     // Handle success here
                 }
@@ -283,6 +325,7 @@ class HomeFragment : Fragment(), View.OnClickListener, CardStackListener, Adapte
             propertylist[cardPos].sender_experience=Const.userExperience
             propertylist[cardPos].sender_speciality=Const.userSpeciality
             propertylist[cardPos].sender_company=Const.userCompany
+            propertylist[cardPos].sender_fcm=Const.fcmToken
 
 
             collectionReference.set(propertylist[cardPos])
@@ -290,6 +333,7 @@ class HomeFragment : Fragment(), View.OnClickListener, CardStackListener, Adapte
                     // Data added successfully
                     // You can get the document ID using documentReference.id
                     Log.e("Tafg213","Uplaod moveToNotificationData")
+
                     addExceptDataUploadOnFirebase()
 
                     // Handle success here
@@ -299,11 +343,164 @@ class HomeFragment : Fragment(), View.OnClickListener, CardStackListener, Adapte
                     Log.e("Tafg213", "Fail$e")
                 }
         }
+    }
 
+    private fun sendNotification(data:PropertyData){
+
+
+        val notificationJson = JSONObject()
+
+        notificationJson.put("title",
+           "Property Request" )
+        notificationJson.put("body", Const.userName.toString()+" send the request for "+data.property_type )
+
+
+        val jsonMain = JSONObject()
+
+        jsonMain.put("to", data.user_fcm )
+        jsonMain.put("notification", notificationJson)
+
+
+
+        Log.e("TAG123","USER oOFFLINE "+jsonMain);
+
+
+
+
+
+                FcmNotificationSend.post("https://fcm.googleapis.com/fcm/send", jsonMain, {
+                    Log.e("Notif","SEnd happy mode")
+                }, {
+                    Log.e("Notif","SEnd happy Error")
+                })
+            }
+
+    @SuppressLint("SetTextI18n")
+    private fun getNotificationCount(){
+        propertylist.clear()
+
+
+        auth = Firebase.auth
+        val currentUser = auth.currentUser
+
+        currentUser?.let { cUser ->
+            val db = Firebase.firestore
+
+            val ref = db.collection("notifications/${cUser.uid}/posts").whereEqualTo("property_status","receiver")
+
+            ref.addSnapshotListener { snapshot, e ->
+                if (e != null) {
+                    // Handle the error
+                    return@addSnapshotListener
+                }
+
+                try {
+                    if (snapshot != null) {
+                    // Data has changed or the document was initially fetched
+                    val data = snapshot.documents
+                    if(SharedPref.getInt(requireContext(),Const.matchCount,0)>0) {
+
+
+
+                        binding.clNotificationCount.visibility = View.VISIBLE
+                        binding.notificationCount.text = (data.size + SharedPref.getInt(
+                            requireContext(),
+                            Const.matchCount,
+                            0
+                        )).toString()
+
+                    }else {
+                        if (data.size > 0) {
+                            binding.clNotificationCount.visibility = View.VISIBLE
+                            binding.notificationCount.text = (data.size ).toString()
+                        } else {
+                            binding.clNotificationCount.visibility = View.GONE
+                        }
+                    }
+
+
+
+
+
+                    Log.e("Tag23fd","Count Listener "+ data.size)
+                    // Process the data as needed
+                }
+
+                }catch (ex:Exception){
+
+                }
+
+
+            }
+
+
+        }
 
 
     }
 
+    private fun firebaseChatCountCalling() {
+
+
+        val dbRef: DatabaseReference = FirebaseDatabase.getInstance().getReference("Chat")
+            .child(Const.userId)
+
+
+
+
+
+        dbRef.addValueEventListener(object : ValueEventListener {
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+                chatCountArray = 0
+
+                snapshot.children.forEach { it ->
+
+                    it.child("conversation").children.forEach { data ->
+
+
+                    }
+
+
+                    if (it.child("lastseen").child("isSeen").value == false) {
+
+                        chatCountArray++
+
+                    }
+
+
+                }
+                try {
+                    if (chatCountArray > 0) {
+                        binding.clChatCount.visibility = View.VISIBLE
+
+                        if(chatCountArray>9){
+                            binding.chatCount.text = "9+"
+                        }else {
+                            binding.chatCount.text = chatCountArray.toString()
+                        }
+
+                    } else {
+                        binding.clChatCount.visibility = View.GONE
+                    }
+                }
+                catch (ex:Exception){
+
+                }
+
+
+                Log.e("Tag12354", "chatCountArray $chatCountArray")
+            }
+
+
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+        })
+
+
+    }
     private fun addExceptDataUploadOnFirebase(){
         val db = FirebaseFirestore.getInstance()
 
@@ -336,6 +533,8 @@ class HomeFragment : Fragment(), View.OnClickListener, CardStackListener, Adapte
             database.exceptDataDao()
                 .insert(ExceptData(post_id = propertylist[cardPos].uid.toString()))
             cardPos++
+            binding.btnNotClickable.visibility=View.GONE
+            progressDialog.progressBarVisibility(false)
         }
     }
 
@@ -420,6 +619,9 @@ class HomeFragment : Fragment(), View.OnClickListener, CardStackListener, Adapte
                     val data = it.data
 
                     Const.userName= (data?.get("name") as String?).toString()
+                    if((data?.get("status") as String?).toString().isNotEmpty()) {
+                        userStatus = (data?.get("status") as String?).toString()
+                    }
 
 
                     Const.userImage= (data?.get("profile_image") as String?).toString()
@@ -459,6 +661,29 @@ class HomeFragment : Fragment(), View.OnClickListener, CardStackListener, Adapte
 
     }
 
+    private fun updateFcmTokenUserTable(){
+        val auth = Firebase.auth
+        val currentUser = auth.currentUser
+
+        Log.e("Tsd","User id "+ currentUser!!.uid)
+        currentUser?.let { cUser ->
+            val db = Firebase.firestore
+            val ref = db.collection("users").document(cUser.uid)
+
+            val updates = hashMapOf<String, Any>(
+                "fcm_token" to fcmToken
+            )
+            ref.update(updates)
+                .addOnSuccessListener {
+                    // The update was successful
+                    Log.e("Tagxx23","Data is Update ")
+                }
+                .addOnFailureListener { e ->
+                    Log.e("Tagxx23", "Data is Error $e")
+                    // Handle any errors that occurred during the update
+                }
+        }
+    }
 
     private fun getExcepted(){
         var exceptedList=ArrayList<ExceptData>()
@@ -513,6 +738,8 @@ class HomeFragment : Fragment(), View.OnClickListener, CardStackListener, Adapte
                     }
                     val filteredList = propertylist.filter { it.user_id != cUser.uid  && it.post_type!="request"}.distinctBy { it.uid }
 
+
+
                     propertylist.clear()
                     propertylist.addAll(filteredList)
 
@@ -548,7 +775,33 @@ class HomeFragment : Fragment(), View.OnClickListener, CardStackListener, Adapte
                     propertylist.clear()
                     propertylist.addAll(data)
 
+
+
+
                     homeSliderAdapter.notifyDataSetChanged()
+
+                    if(propertylist.isEmpty()){
+                        if(SharedPref.getBoolean(requireContext(),Const.FirstTimeAppLogin,false)){
+
+                            binding.guideView.visibility=View.VISIBLE
+                            SharedPref.setBoolean(requireContext(),Const.FirstTimeAppLogin,false)
+                        }else {
+                            binding.clEmpty.visibility=View.VISIBLE
+                        }
+
+
+                    }else{
+                        if(SharedPref.getBoolean(requireContext(),Const.FirstTimeAppLogin,false)){
+
+                            binding.guideView.visibility=View.VISIBLE
+
+                            SharedPref.setBoolean(requireContext(),Const.FirstTimeAppLogin,false)
+                        }else {
+                            binding.clEmpty.visibility=View.GONE
+                        }
+
+
+                    }
                     Log.e("Raf", "propertylist size => ${propertylist.size}")
                     progressDialog.progressBarVisibility(false)
                 }
@@ -661,7 +914,9 @@ class HomeFragment : Fragment(), View.OnClickListener, CardStackListener, Adapte
 
             R.id.favourite_icon -> {
                 Const.screenName="favourite_icon"
-                findNavController().navigate(R.id.action_homeFragment_to_favouriteFragment)
+                val bundle =Bundle()
+                bundle.putString("screen_type","favourite")
+                findNavController().navigate(R.id.action_homeFragment_to_favouriteFragment,bundle)
 
             }
 
@@ -691,6 +946,22 @@ class HomeFragment : Fragment(), View.OnClickListener, CardStackListener, Adapte
 
                   Const.screenName="chat"
                 findNavController().navigate(R.id.action_homeFragment_to_chatFragment)
+            }
+            R.id.match_icon->{
+                val bundle =Bundle()
+                bundle.putString("screen_type","match")
+                Const.screenName="favourite_icon"
+                findNavController().navigate(R.id.action_homeFragment_to_favouriteFragment,bundle)
+
+            }
+            R.id.request_icon->{
+                Const.screenName="favourite_icon"
+                val bundle =Bundle()
+                bundle.putString("screen_type","request")
+                findNavController().navigate(R.id.action_homeFragment_to_favouriteFragment,bundle)
+            }
+            R.id.guide_close_btn->{
+                binding.guideView.visibility=View.GONE
             }
 
 

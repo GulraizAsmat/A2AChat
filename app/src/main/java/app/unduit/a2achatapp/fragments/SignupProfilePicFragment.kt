@@ -13,7 +13,9 @@ import androidx.navigation.fragment.navArgs
 import app.unduit.a2achatapp.R
 import app.unduit.a2achatapp.databinding.FragmentSignupBinding
 import app.unduit.a2achatapp.databinding.FragmentSignupProfilePicBinding
+import app.unduit.a2achatapp.helpers.Const
 import app.unduit.a2achatapp.helpers.ProgressDialog
+import app.unduit.a2achatapp.helpers.SharedPref
 import app.unduit.a2achatapp.helpers.showToast
 import app.unduit.a2achatapp.models.User
 import com.github.dhaval2404.imagepicker.ImagePicker
@@ -114,6 +116,7 @@ class SignupProfilePicFragment : Fragment() {
             .set(userData!!)
             .addOnSuccessListener {
                 progressDialog.progressBarVisibility(false)
+                SharedPref.setBoolean(requireContext(), Const.FirstTimeAppLogin,true)
                 findNavController().navigate(SignupProfilePicFragmentDirections.actionSignupProfilePicFragmentToHomeFragment())
             }.addOnFailureListener { e ->
                 progressDialog.progressBarVisibility(false)

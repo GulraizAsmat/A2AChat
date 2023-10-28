@@ -130,8 +130,11 @@ class PropertyListFragment : Fragment(), AdapterListener {
 
     override fun onResume() {
         super.onResume()
-        Const.screenName== "property_list"
+        Const.screenName= "property_list"
+
+
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -393,6 +396,20 @@ class PropertyListFragment : Fragment(), AdapterListener {
         binding.profileImage.setOnClickListener {
             Const.screenName = "profile_image"
             findNavController().navigate(PropertyListFragmentDirections.actionPropertyListFragmentToProfileFragment())
+        }
+
+        binding.matchIcon.setOnClickListener{
+            val bundle =Bundle()
+            bundle.putString("screen_type","match")
+            Const.screenName="favourite_icon"
+            findNavController().navigate(R.id.action_propertyListFragment_to_favouriteFragment,bundle)
+
+        }
+        binding.requestIcon.setOnClickListener{
+            Const.screenName="favourite_icon"
+            val bundle =Bundle()
+            bundle.putString("screen_type","request")
+            findNavController().navigate(R.id.action_propertyListFragment_to_favouriteFragment,bundle)
         }
 
         binding.btnChat.setOnClickListener {

@@ -89,7 +89,22 @@ class FavouriteFragment : Fragment() ,View.OnClickListener ,AdapterListener{
     fun init(){
         listeners()
         recyclerViewManager()
-        selectFavourite()
+        setScreenState()
+    }
+
+
+    private fun setScreenState(){
+        when (requireArguments().getString("screen_type")) {
+            "favourite" -> {
+                selectFavourite()
+            }
+            "request" -> {
+                selectRequest()
+            }
+            else -> {
+            selectMatch()
+            }
+        }
     }
     fun listeners(){
         binding.backIcon.setOnClickListener(this)
@@ -117,7 +132,7 @@ class FavouriteFragment : Fragment() ,View.OnClickListener ,AdapterListener{
     private fun selectRequest(){
         propertylist.clear()
 //            propertyListAdapter.setStatus("request")
-
+        Const.PropertyType="request"
         binding.clFavorite.setBackgroundResource(R.color.white)
         binding.clRequest.setBackgroundResource(R.drawable.ic_dark_purple_bg)
         binding.clMatch.setBackgroundResource(R.color.white)
@@ -130,6 +145,7 @@ class FavouriteFragment : Fragment() ,View.OnClickListener ,AdapterListener{
 
     private fun selectMatch(){
         propertylist.clear()
+        Const.PropertyType="match"
         binding.clFavorite.setBackgroundResource(R.color.white)
         binding.clRequest.setBackgroundResource(R.color.white)
         binding.clMatch.setBackgroundResource(R.drawable.ic_dark_purple_bg)
@@ -172,6 +188,12 @@ class FavouriteFragment : Fragment() ,View.OnClickListener ,AdapterListener{
                     val list =propertylist.sortedByDescending { it.created_date }
                             propertylist.clear()
                             propertylist.addAll(list)
+
+                    if(propertylist.isEmpty()){
+                        binding.clEmpty.visibility=View.VISIBLE
+                    }else {
+                        binding.clEmpty.visibility=View.GONE
+                    }
                     propertyListAdapter.notifyDataSetChanged()
 
                     progressDialog.progressBarVisibility(false)
@@ -212,6 +234,13 @@ class FavouriteFragment : Fragment() ,View.OnClickListener ,AdapterListener{
                     val list =propertylist.sortedByDescending { it.created_date }
                     propertylist.clear()
                     propertylist.addAll(list)
+
+                    if(propertylist.isEmpty()){
+                        binding.clEmpty.visibility=View.VISIBLE
+                    }else {
+                        binding.clEmpty.visibility=View.GONE
+                    }
+
                     propertyListAdapter.notifyDataSetChanged()
                     Log.d(TAG, "propertylist size => ${propertylist.size}")
                     progressDialog.progressBarVisibility(false)
@@ -249,6 +278,13 @@ class FavouriteFragment : Fragment() ,View.OnClickListener ,AdapterListener{
                     val list =propertylist.sortedByDescending { it.created_date }
                     propertylist.clear()
                     propertylist.addAll(list)
+
+
+                    if(propertylist.isEmpty()){
+                        binding.clEmpty.visibility=View.VISIBLE
+                    }else {
+                        binding.clEmpty.visibility=View.GONE
+                    }
                     propertyListAdapter.notifyDataSetChanged()
 
                     progressDialog.progressBarVisibility(false)
@@ -307,17 +343,17 @@ class FavouriteFragment : Fragment() ,View.OnClickListener ,AdapterListener{
                 requireActivity().onBackPressed()
             }
             R.id.cl_favorite->{
-                Const.PropertyType="favourite"
+
                 selectFavourite()
 
             }
             R.id.cl_request->{
-                Const.PropertyType="request"
+
                 selectRequest()
 
             }
             R.id.cl_match->{
-                Const.PropertyType="match"
+
                 selectMatch()
             }
         }

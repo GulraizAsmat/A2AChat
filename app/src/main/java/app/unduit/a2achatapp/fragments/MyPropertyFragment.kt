@@ -77,6 +77,12 @@ class MyPropertyFragment : Fragment(), AdapterListener {
     }
 
     fun init() {
+
+        if(requireArguments().getString("post_type")=="property"){
+            binding.screenTitle.text="My Inventory"
+        }else {
+            binding.screenTitle.text="My Property"
+        }
         recyclerViewManager()
         getData()
 
@@ -85,6 +91,7 @@ class MyPropertyFragment : Fragment(), AdapterListener {
         }
 
     }
+
 
     private fun getData() {
         progressDialog.progressBarVisibility(true)
@@ -106,7 +113,11 @@ class MyPropertyFragment : Fragment(), AdapterListener {
                     }
 
 
-                    val list =propertylist.sortedByDescending { it.created_date }
+
+                    var filterList =propertylist.filter { it.post_type==requireArguments().getString("post_type") }
+
+
+                    val list =filterList.sortedByDescending { it.created_date }
                     propertylist.clear()
                     propertylist.addAll(list)
 

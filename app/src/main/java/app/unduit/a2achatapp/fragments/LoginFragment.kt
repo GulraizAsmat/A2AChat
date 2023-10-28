@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import app.unduit.a2achatapp.helpers.ProgressDialog
 import app.unduit.a2achatapp.databinding.FragmentLoginBinding
+import app.unduit.a2achatapp.helpers.Const
+import app.unduit.a2achatapp.helpers.SharedPref
 import app.unduit.a2achatapp.helpers.showToast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -72,6 +74,7 @@ class LoginFragment : Fragment() {
                 if (task.isSuccessful) {
                     requireContext().showToast("Login successful")
                     //Go to home
+                    SharedPref.setBoolean(requireContext(), Const.FirstTimeAppLogin,true)
                     findNavController().navigate(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
                 } else {
                     requireContext().showToast(task.exception?.message.toString())

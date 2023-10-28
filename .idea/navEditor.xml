@@ -319,6 +319,20 @@
                             <option name="y" value="1080" />
                           </Point>
                         </option>
+                        <option name="myPositions">
+                          <map>
+                            <entry key="action_notificationFragment_to_chatFragment2">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_notificationFragment_to_propertyDetailFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                          </map>
+                        </option>
                       </LayoutPositions>
                     </value>
                   </entry>
@@ -593,6 +607,16 @@
                                 <LayoutPositions />
                               </value>
                             </entry>
+                            <entry key="action_propertyDetailFragment_to_chatFragment2">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_propertyDetailFragment_to_fullViewImageFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
                           </map>
                         </option>
                       </LayoutPositions>
@@ -610,6 +634,11 @@
                         <option name="myPositions">
                           <map>
                             <entry key="action_propertyListFragment_to_chatFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_propertyListFragment_to_chatFragment2">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -651,6 +680,11 @@
                         <option name="myPositions">
                           <map>
                             <entry key="action_purchaseLandFragment_to_postPropertyStep5Fragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_purchaseLandFragment_to_postRequestFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -787,6 +821,18 @@
                               </value>
                             </entry>
                           </map>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
+                  <entry key="userProfileFullViewFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="1472" />
+                            <option name="y" value="1390" />
+                          </Point>
                         </option>
                       </LayoutPositions>
                     </value>

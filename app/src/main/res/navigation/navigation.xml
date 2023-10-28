@@ -526,7 +526,14 @@
                 android:name="user_id"
                 app:argType="string" />
         </action>
+        <action
+            android:id="@+id/action_agentProfileFragment_to_userProfileFullViewFragment"
+            app:destination="@id/userProfileFullViewFragment">
 
+            <argument
+                android:name="chatUserImage"
+                app:argType="string" />
+        </action>
 
 
 
@@ -580,6 +587,24 @@
         <argument
             android:name="isEdit"
             app:argType="boolean" />
+        <action
+            android:id="@+id/action_purchaseLandFragment_to_postRequestFragment"
+            app:destination="@id/postRequestFragment" >
+
+
+            <argument
+                android:name="propertyData"
+                app:argType="app.unduit.a2achatapp.models.PropertyData" />
+            <argument
+                android:name="isEdit"
+                app:argType="boolean" />
+
+            <argument
+                android:name="isLand"
+                app:argType="boolean"
+                android:defaultValue="false"/>
+
+        </action>
 
     </fragment>
     <fragment
@@ -618,4 +643,17 @@
             app:nullable="true"
             android:defaultValue="@null" />
     </fragment>
+    <fragment
+        android:id="@+id/userProfileFullViewFragment"
+        android:name="app.unduit.a2achatapp.UserProfileFullViewFragment"
+        android:label="fragment_user_profile_full_view"
+        tools:layout="@layout/fragment_user_profile_full_view" >
+
+
+        <argument
+            android:name="chatUserImage"
+            app:argType="string" />
+    </fragment>
+
+
 </navigation>

@@ -15,9 +15,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import app.unduit.a2achatapp.R
 import app.unduit.a2achatapp.adapters.NotificationListAdapter
 import app.unduit.a2achatapp.databinding.FragmentNotificationBinding
+import app.unduit.a2achatapp.fcm.FcmNotificationSend
 import app.unduit.a2achatapp.helpers.Const
 import app.unduit.a2achatapp.helpers.DateHelper
 import app.unduit.a2achatapp.helpers.ProgressDialog
+import app.unduit.a2achatapp.helpers.SharedPref
 import app.unduit.a2achatapp.helpers.showToast
 import app.unduit.a2achatapp.listeners.AdapterListener
 
@@ -27,6 +29,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import org.json.JSONObject
 
 
 class NotificationFragment : Fragment() ,View.OnClickListener ,AdapterListener{
@@ -128,6 +131,7 @@ class NotificationFragment : Fragment() ,View.OnClickListener ,AdapterListener{
                     propertylist.addAll(list)
 
                     notificationListAdapter.notifyDataSetChanged()
+                    SharedPref.setInt(requireContext(),Const.matchCount,0)
                     progressDialog.progressBarVisibility(false)
                 }
                 .addOnFailureListener { exception ->
@@ -175,7 +179,7 @@ class NotificationFragment : Fragment() ,View.OnClickListener ,AdapterListener{
                     // Data added successfully
                     // You can get the document ID using documentReference.id
                     Log.e("Tafg213","Uplaod")
-
+                    sendNotification(propertylist[position])
                     moveToSenderMatch(position) // hassam
                     matchRequestUpdateStatus(position) // gull
                     notificationStatusUpdate(position)
@@ -195,6 +199,37 @@ class NotificationFragment : Fragment() ,View.OnClickListener ,AdapterListener{
 
 
     }
+
+    private fun sendNotification(data:PropertyData){
+
+
+        val notificationJson = JSONObject()
+
+        notificationJson.put("title",
+            "Request Matched" )
+        notificationJson.put("body", "${data.user_name} accept the your request for ${data.property_type}" )
+
+
+        val jsonMain = JSONObject()
+
+        jsonMain.put("to", data.sender_fcm )
+        jsonMain.put("notification", notificationJson)
+
+
+
+        Log.e("TAG123","USER oOFFLINE "+jsonMain);
+
+
+
+
+
+        FcmNotificationSend.post("https://fcm.googleapis.com/fcm/send", jsonMain, {
+            Log.e("Notif","SEnd happy mode")
+        }, {
+            Log.e("Notif","SEnd happy Error")
+        })
+    }
+
 
 
     private fun matchRequestUpdateStatus(position: Int){    // gull

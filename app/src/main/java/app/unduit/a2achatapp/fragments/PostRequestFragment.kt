@@ -161,6 +161,7 @@ class PostRequestFragment : Fragment(),View.OnClickListener {
                     propertyData.user_whatsapp = data?.whatsapp.toString()
                     propertyData.brn = data?.brn.toString()
                     propertyData.verified = data?.verified == true
+                    propertyData.user_fcm = data?.fcm_token.toString()
                     db.collection("properties")
                         .document(id)
                         .set(propertyData)

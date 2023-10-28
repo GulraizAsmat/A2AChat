@@ -20,6 +20,7 @@ data class User(
     var speciality: List<String>? = null,
     var status: String? = "",
     var brn: String? = "",
-    var verified: Boolean? = false
+    var verified: Boolean? = false,
+    var fcm_token: String? = ""
 
 ): Parcelable

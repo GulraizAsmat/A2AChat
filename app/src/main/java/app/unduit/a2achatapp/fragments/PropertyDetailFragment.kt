@@ -73,6 +73,7 @@ class PropertyDetailFragment : Fragment(), View.OnClickListener {
     }
 
     override fun onResume() {
+
         super.onResume()
 
     }
@@ -436,17 +437,30 @@ class PropertyDetailFragment : Fragment(), View.OnClickListener {
             binding.groupBottomBar.visible()
             buyAndResidence(data)
             if (data.purpose == "Sale" && data.purpose_type == "Residential") {
-                saleAndResidenceRequest(data)
+
+                if(data.property_type=="Land"){
+                    forLand(data)
+                }else{
+                    saleAndResidenceRequest(data)
+                }
+
             }
             else if(data.purpose == "Sale" && data.purpose_type == "Commercial"){
                 saleAndCommercialRequest(data)
             }
             else if (data.purpose == "Rent" && data.purpose_type == "Residential") {
-                rentAndResidentialRequest(data)
+                if(data.property_type=="Land"){
+                    forLand(data)
+                }else{
+                    rentAndResidentialRequest(data)
+                }
+
             }
             else if(data.purpose == "Rent" && data.purpose_type == "Commercial"){
                 rentAndCommercialRequest(data)
             }
+
+
 
         }else {
             if (data.purpose == "Sale" && data.purpose_type == "Residential") {

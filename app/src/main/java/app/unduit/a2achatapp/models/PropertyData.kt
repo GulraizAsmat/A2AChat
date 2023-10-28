@@ -74,10 +74,12 @@ class PropertyData(
     var sender_phone : String="",
     var sender_whatsapp : String="",
     var user_whatsapp : String="",
+    var user_fcm : String="",
     var user_phone : String="",
     var sender_experience : String="",
     var sender_speciality : String="",
     var sender_company : String="",
+    var sender_fcm : String="",
     var post_type : String = "",
 
     //Land Data

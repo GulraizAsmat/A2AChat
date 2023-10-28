@@ -16,6 +16,7 @@ import app.unduit.a2achatapp.adapters.ChatAdapter
 import app.unduit.a2achatapp.adapters.MatchAdapter
 import app.unduit.a2achatapp.databinding.FragmentChatBinding
 import app.unduit.a2achatapp.helpers.Const
+import app.unduit.a2achatapp.helpers.Const.sendNotificationFcm
 import app.unduit.a2achatapp.helpers.Const.tempValue
 import app.unduit.a2achatapp.helpers.ProgressDialog
 import app.unduit.a2achatapp.helpers.showToast
@@ -59,6 +60,7 @@ class ChatFragment : Fragment() ,AdapterListener{
 
 
     private var matchList=ArrayList<PropertyData>()
+    private var matchTempList=ArrayList<PropertyData>()
 
 
     private val progressDialog by lazy {
@@ -170,19 +172,47 @@ class ChatFragment : Fragment() ,AdapterListener{
 
                         matchList.add(document.toObject(PropertyData::class.java))
                     }
-
+                    Log.e("Tagh234","user id : "+ Const.userId )
+                    Log.e("Tagh234","--------------------")
                     matchList.forEach { it.sender_id
                         Log.e("Tagh234","Sender id : "+ it.sender_id)
                         Log.e("Tagh234","user id : "+ it.user_id)
-                        Log.e("Tagh234","user id : "+ Const.userId )
+                        Log.e("Tagh234","--------------------")
 
                     }
 
 
-                    val list =matchList.filter { it.user_id!=Const.userId }.sortedByDescending { it.created_date  }.distinctBy { it.sender_id }
+
+
+
+                    val list =matchList.sortedByDescending { it.created_date  }.distinctBy {  it.sender_id}
+                    val list1 =matchList.sortedByDescending { it.created_date  }.distinctBy {  it.user_id}
+
+                    matchTempList.clear()
+                    Log.e("Tagh234","---------list-----------")
+                    list.forEach {
+                        if(Const.userId!=it.sender_id){
+                            Log.e("Tagh234","Name  : "+ it.sender_name)
+                            matchTempList.add(it)
+                        }
+
+                    }
+
+
+                    Log.e("Tagh234","---------list1-----------")
+                    list1.forEach {
+                        if(Const.userId!=it.user_id) {
+                            Log.e("Tagh234", "Name  : " + it.user_name)
+                            matchTempList.add(it)
+
+
+                        }
+                    }
+
+
 
                     matchList.clear()
-                    matchList.addAll(list)
+                    matchList.addAll(matchTempList)
                     matchAdapter.notifyDataSetChanged()
 
                     progressDialog.progressBarVisibility(false)
@@ -439,6 +469,8 @@ class ChatFragment : Fragment() ,AdapterListener{
         })
 
     }
+
+
     
     private fun loadUserProfileImage() {
         val auth = Firebase.auth
@@ -491,10 +523,12 @@ class ChatFragment : Fragment() ,AdapterListener{
             "chat_detail"->{
 
                 if(Const.userId== matchList[position].user_id){
+                    sendNotificationFcm=matchList[position].sender_fcm
                     findNavController().navigate(ChatFragmentDirections.actionChatFragmentToChatFragment2(
                         matchList[position].sender_id, matchList[position].sender_name,matchList[position].sender_image ,matchList[position],false
                     ))
                 }else {
+                    sendNotificationFcm=matchList[position].user_fcm
                     findNavController().navigate(ChatFragmentDirections.actionChatFragmentToChatFragment2(
                         matchList[position].user_id.toString(), matchList[position].user_name.toString(),matchList[position].user_picture.toString() ,matchList[position],false
                     ))
@@ -504,10 +538,12 @@ class ChatFragment : Fragment() ,AdapterListener{
             }
             "chat_detail_with_chat"->{
                 if(Const.userId== chatList[position].sender_id){
+                    sendNotificationFcm=matchList[position].sender_fcm
                     findNavController().navigate(ChatFragmentDirections.actionChatFragmentToChatFragment2(
                         chatList[position].receiverId, chatList[position].receiverName,chatList[position].receiverImage ,matchList[position],false
                     ))
                 }else {
+                    sendNotificationFcm=matchList[position].user_fcm
                     findNavController().navigate(ChatFragmentDirections.actionChatFragmentToChatFragment2(
                         chatList[position].sender_id, chatList[position].sender_name,chatList[position].sender_image ,matchList[position],false
                     ))

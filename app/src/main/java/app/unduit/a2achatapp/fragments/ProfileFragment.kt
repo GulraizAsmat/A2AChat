@@ -6,14 +6,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import app.unduit.a2achatapp.Application
 import app.unduit.a2achatapp.R
 import app.unduit.a2achatapp.databinding.FragmentProfileBinding
 import app.unduit.a2achatapp.helpers.Const
 import app.unduit.a2achatapp.helpers.ProgressDialog
 import app.unduit.a2achatapp.helpers.showToast
+import app.unduit.a2achatapp.models.roomModels.ExceptData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import kotlinx.coroutines.launch
 
 class ProfileFragment : Fragment(), View.OnClickListener {
 
@@ -57,6 +61,7 @@ class ProfileFragment : Fragment(), View.OnClickListener {
         binding.clVerify.setOnClickListener(this)
         binding.logout.setOnClickListener(this)
         binding.clProperty.setOnClickListener(this)
+        binding.clRequest.setOnClickListener(this)
     }
 
     private fun setScreenTitle() {
@@ -73,6 +78,17 @@ class ProfileFragment : Fragment(), View.OnClickListener {
         builder.show()
     }
 
+
+    private  fun deleteDataBase(){
+
+        lifecycleScope.launch {
+            val database = Application.database
+
+            database.exceptDataDao()
+                .deleteAllData()
+
+        }
+    }
     override fun onClick(v: View?) {
         when (v!!.id) {
             R.id.back_icon -> {
@@ -92,11 +108,16 @@ class ProfileFragment : Fragment(), View.OnClickListener {
 
             R.id.logout -> {
                 progressDialog.progressBarVisibility(true)
-                 val auth = FirebaseAuth.getInstance()
+                deleteDataBase()
+                val auth = FirebaseAuth.getInstance()
+
                 auth.signOut()
+
+
 
                 val user: FirebaseUser? = auth.currentUser
                 if (user == null) {
+
                     progressDialog.progressBarVisibility(false)
                     findNavController().navigate(R.id.action_profileFragment_to_loginFragment)
                 } else {
@@ -110,7 +131,14 @@ class ProfileFragment : Fragment(), View.OnClickListener {
 
             }
             R.id.cl_property->{
-                findNavController().navigate(R.id.action_profileFragment_to_myPropertyFragment)
+                val bundle =Bundle()
+                bundle.putString("post_type","property")
+                findNavController().navigate(R.id.action_profileFragment_to_myPropertyFragment,bundle)
+            }
+            R.id.cl_request->{
+                val bundle =Bundle()
+                bundle.putString("post_type","request")
+                findNavController().navigate(R.id.action_profileFragment_to_myPropertyFragment,bundle)
             }
         }
     }

@@ -14,8 +14,8 @@ android {
         applicationId "app.unduit.a2achatapp"
         minSdk 21
         targetSdk 33
-        versionCode 18
-        versionName "18.0_tesitng"
+        versionCode 19
+        versionName "19.0_tesitng"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -122,5 +122,11 @@ dependencies {
     //Places Api
     implementation 'com.google.android.libraries.places:places:2.7.0' // Use the latest version available
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2' // For asynchronous operations (optional)
+
+//    firebase messages
+    implementation 'com.google.firebase:firebase-messaging:23.3.0'
+
+    //REST API Networking Client
+    implementation 'com.amitshekhar.android:android-networking:1.0.2'
 
 }

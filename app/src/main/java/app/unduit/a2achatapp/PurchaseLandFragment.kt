@@ -1,6 +1,9 @@
 package app.unduit.a2achatapp
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +21,9 @@ import app.unduit.a2achatapp.helpers.SpinnersHelper
 import app.unduit.a2achatapp.helpers.gone
 import app.unduit.a2achatapp.helpers.visible
 import app.unduit.a2achatapp.models.PropertyData
+import java.text.DecimalFormat
+import java.text.NumberFormat
+import java.util.Locale
 
 
 class PurchaseLandFragment : Fragment(),View.OnClickListener {
@@ -58,6 +64,11 @@ class PurchaseLandFragment : Fragment(),View.OnClickListener {
         Const.screenName=""
         propertyData =args.propertyData
 
+        if(Const.REQUESDTED){
+            binding.screenTitle.text="Post a Request"
+
+        }
+
         spinnersManager()
         listeners()
         try {
@@ -75,6 +86,40 @@ class PurchaseLandFragment : Fragment(),View.OnClickListener {
             setData()
 
         }
+
+
+        binding.spValue.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            }
+
+            override fun afterTextChanged(text: Editable?) {
+                try {
+                    binding.spValue.removeTextChangedListener(this)
+
+                    var origStr = text.toString()
+                    if(origStr.isNotEmpty()) {
+                        if (origStr.contains(",")) {
+                            origStr = origStr.replace(",", "");
+                        }
+
+                        val formatter = NumberFormat.getInstance(Locale.US) as DecimalFormat
+                        formatter.applyPattern("###,###,###,###,###")
+                        val s = formatter.format(origStr.toLong())
+
+                        binding.spValue.setText(s)
+                        binding.spValue.setSelection(binding.spValue.text.length)
+                    }
+                    binding.spValue .addTextChangedListener(this)
+                } catch (e: java.lang.Exception) {
+                    Log.e("TextWatch", e.message.toString())
+                }
+            }
+        })
 
 
 
@@ -120,6 +165,8 @@ class PurchaseLandFragment : Fragment(),View.OnClickListener {
 
 
    }
+
+
 
     private fun ownerSpinner() {
         val adapter = CustomSpinnerAdapter(requireContext(), SpinnersHelper.ownerShipList())
@@ -224,8 +271,18 @@ class PurchaseLandFragment : Fragment(),View.OnClickListener {
                                 propertyData!!.g_value=binding.gValue.text.toString()
                                 propertyData!!.sp=binding.spValue.text.toString()
 
-                                findNavController().navigate(PurchaseLandFragmentDirections.actionPurchaseLandFragmentToPostPropertyStep5Fragment(
-                                    propertyData!!,args.isEdit,true))
+
+
+                                if(Const.REQUESDTED){
+                                    findNavController().navigate(PurchaseLandFragmentDirections.actionPurchaseLandFragmentToPostRequestFragment(
+                                        propertyData!!,args.isEdit,true))
+
+                                }else {
+
+                                    findNavController().navigate(PurchaseLandFragmentDirections.actionPurchaseLandFragmentToPostPropertyStep5Fragment(
+                                        propertyData!!,args.isEdit,true))
+                                }
+
                             }else {
                                 Toast.makeText(requireContext(),"Please enter the Sp ",Toast.LENGTH_LONG).show()
                             }
