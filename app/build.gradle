@@ -1,17 +1,21 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'androidx.navigation.safeargs.kotlin'
+    id 'com.google.gms.google-services'
+    id 'kotlin-kapt'
+    id 'kotlin-parcelize'
 }
 
 android {
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "app.unduit.a2achatapp"
         minSdk 21
-        targetSdk 32
-        versionCode 1
-        versionName "1.0"
+        targetSdk 33
+        versionCode 19
+        versionName "19.0_tesitng"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -29,15 +33,19 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
-
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     implementation 'androidx.core:core-ktx:1.8.0'
     implementation 'androidx.appcompat:appcompat:1.4.2'
     implementation 'com.google.android.material:material:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation 'com.google.firebase:firebase-database-ktx:20.2.2'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
@@ -72,4 +80,53 @@ dependencies {
 
     //glide
     implementation 'com.github.bumptech.glide:glide:4.12.0'
+
+    //firebase
+    implementation platform('com.google.firebase:firebase-bom:32.2.0')
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation("com.google.firebase:firebase-auth-ktx")
+    implementation("com.google.firebase:firebase-storage-ktx")
+    implementation("com.google.firebase:firebase-firestore-ktx")
+
+    //Card Swiper
+    implementation "com.yuyakaido.android:card-stack-view:2.3.4"
+
+    //Image picker
+    implementation 'com.github.dhaval2404:imagepicker:2.1'
+    implementation 'com.github.esafirm:android-image-picker:3.1.0'
+
+    //Circle imageview
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+    //Glide
+    implementation 'com.github.bumptech.glide:glide:4.16.0'
+
+//    FLexBox
+    implementation 'com.google.android:flexbox:2.0.1'
+
+//Room DataBase ::
+    implementation 'androidx.room:room-runtime:2.5.2'
+    kapt 'androidx.room:room-compiler:2.5.2'
+    implementation "androidx.room:room-ktx:2.5.2"
+
+    //Slider
+    implementation 'com.github.denzcoskun:ImageSlideshow:0.1.2'
+
+//    pretty Time
+    implementation 'org.ocpsoft.prettytime:prettytime:5.0.0.Final'
+
+    //Retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+
+    //Places Api
+    implementation 'com.google.android.libraries.places:places:2.7.0' // Use the latest version available
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2' // For asynchronous operations (optional)
+
+//    firebase messages
+    implementation 'com.google.firebase:firebase-messaging:23.3.0'
+
+    //REST API Networking Client
+    implementation 'com.amitshekhar.android:android-networking:1.0.2'
+
 }

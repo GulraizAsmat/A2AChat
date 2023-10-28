@@ -1,13 +1,89 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/aa.xml" value="0.1965" />
+        <entry key="app/src/main/res/drawable/aa_ic_next_arrow.xml" value="0.246" />
+        <entry key="app/src/main/res/drawable/aa_ic_round_corner_search_bar.xml" value="0.1965" />
+        <entry key="app/src/main/res/drawable/bg_bottom_purple.xml" value="0.2405" />
+        <entry key="app/src/main/res/drawable/cb_checked.xml" value="0.201" />
+        <entry key="app/src/main/res/drawable/cb_unchecked.xml" value="0.201" />
+        <entry key="app/src/main/res/drawable/cb_unchecked_black.xml" value="0.201" />
+        <entry key="app/src/main/res/drawable/ic_add_property.xml" value="0.1965" />
+        <entry key="app/src/main/res/drawable/ic_app_icon.xml" value="0.163" />
+        <entry key="app/src/main/res/drawable/ic_app_icon_white.xml" value="0.163" />
+        <entry key="app/src/main/res/drawable/ic_arrow_down.xml" value="0.201" />
+        <entry key="app/src/main/res/drawable/ic_back_icon_without_bg.xml" value="0.1935" />
+        <entry key="app/src/main/res/drawable/ic_black_light_bg.xml" value="0.201" />
+        <entry key="app/src/main/res/drawable/ic_bulk_upload.xml" value="0.2405" />
+        <entry key="app/src/main/res/drawable/ic_chat.xml" value="0.1965" />
+        <entry key="app/src/main/res/drawable/ic_commercial.xml" value="0.2405" />
+        <entry key="app/src/main/res/drawable/ic_commercial_white.xml" value="0.2405" />
+        <entry key="app/src/main/res/drawable/ic_cross.xml" value="0.2405" />
+        <entry key="app/src/main/res/drawable/ic_dark_purple_bg.xml" value="0.2405" />
+        <entry key="app/src/main/res/drawable/ic_gray_bg.xml" value="0.1935" />
+        <entry key="app/src/main/res/drawable/ic_heart.xml" value="0.1965" />
+        <entry key="app/src/main/res/drawable/ic_icon_bg.xml" value="0.1965" />
+        <entry key="app/src/main/res/drawable/ic_labour_camp.xml" value="0.2405" />
+        <entry key="app/src/main/res/drawable/ic_light_orange_bg_1.xml" value="0.2405" />
+        <entry key="app/src/main/res/drawable/ic_light_purple_bg.xml" value="0.1935" />
+        <entry key="app/src/main/res/drawable/ic_light_purple_bg_1.xml" value="0.2405" />
+        <entry key="app/src/main/res/drawable/ic_map_pin.xml" value="0.201" />
+        <entry key="app/src/main/res/drawable/ic_map_pin_white.xml" value="0.201" />
+        <entry key="app/src/main/res/drawable/ic_office.xml" value="0.2405" />
+        <entry key="app/src/main/res/drawable/ic_orange_btn_bg.xml" value="0.2405" />
+        <entry key="app/src/main/res/drawable/ic_penthouse.xml" value="0.2405" />
+        <entry key="app/src/main/res/drawable/ic_process_step.xml" value="0.2405" />
+        <entry key="app/src/main/res/drawable/ic_profile_without_bg.xml" value="0.1935" />
+        <entry key="app/src/main/res/drawable/ic_profile_without_icon.xml" value="0.1935" />
+        <entry key="app/src/main/res/drawable/ic_resident.xml" value="0.2405" />
+        <entry key="app/src/main/res/drawable/ic_resident_purple.xml" value="0.2405" />
+        <entry key="app/src/main/res/drawable/ic_round_corner_search_bar.xml" value="0.1935" />
+        <entry key="app/src/main/res/drawable/ic_shop.xml" value="0.2405" />
+        <entry key="app/src/main/res/drawable/ic_tick.xml" value="0.201" />
+        <entry key="app/src/main/res/drawable/ic_warehouse.xml" value="0.2405" />
+        <entry key="app/src/main/res/drawable/ic_whatsapp.xml" value="0.2385" />
+        <entry key="app/src/main/res/drawable/ic_whatsapp_green.xml" value="0.2385" />
+        <entry key="app/src/main/res/drawable/selector_checkbox.xml" value="0.201" />
+        <entry key="app/src/main/res/drawable/selector_checkbox_black.xml" value="0.201" />
+        <entry key="app/src/main/res/drawable/selector_checkbox_text_color.xml" value="0.201" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.3729166666666667" />
-        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.3729166666666667" />
+        <entry key="app/src/main/res/layout/fragment_agent_profile.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/fragment_certification_check.xml" value="0.15364583333333334" />
+        <entry key="app/src/main/res/layout/fragment_edit_profile.xml" value="0.3140625" />
+        <entry key="app/src/main/res/layout/fragment_favourite.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.3086313883463542" />
+        <entry key="app/src/main/res/layout/fragment_item_list_dialog_list_dialog.xml" value="0.3729166666666667" />
+        <entry key="app/src/main/res/layout/fragment_login.xml" value="0.15364583333333334" />
+        <entry key="app/src/main/res/layout/fragment_my_property.xml" value="0.165" />
+        <entry key="app/src/main/res/layout/fragment_notification.xml" value="0.3880208333333333" />
+        <entry key="app/src/main/res/layout/fragment_post.xml" value="0.3140625" />
+        <entry key="app/src/main/res/layout/fragment_post_property_step1.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_post_property_step2.xml" value="0.3140625" />
+        <entry key="app/src/main/res/layout/fragment_post_property_step3.xml" value="0.3140625" />
+        <entry key="app/src/main/res/layout/fragment_post_property_step4.xml" value="0.3140625" />
+        <entry key="app/src/main/res/layout/fragment_post_property_step5.xml" value="0.3140625" />
+        <entry key="app/src/main/res/layout/fragment_post_property_step6.xml" value="0.3140625" />
+        <entry key="app/src/main/res/layout/fragment_post_property_step7.xml" value="0.3140625" />
+        <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.34176422119140626" />
+        <entry key="app/src/main/res/layout/fragment_property_bottom_sheet.xml" value="0.3140625" />
+        <entry key="app/src/main/res/layout/fragment_signup.xml" value="0.3140625" />
+        <entry key="app/src/main/res/layout/fragment_signup_speciality.xml" value="0.3140625" />
+        <entry key="app/src/main/res/layout/item_baths_spinner.xml" value="0.3140625" />
+        <entry key="app/src/main/res/layout/item_bedrooms_spinner.xml" value="0.3140625" />
+        <entry key="app/src/main/res/layout/item_bottomsheet_add_property_step1.xml" value="0.3729166666666667" />
+        <entry key="app/src/main/res/layout/item_bottomsheet_home.xml" value="0.3729166666666667" />
+        <entry key="app/src/main/res/layout/item_card_swipe.xml" value="0.19270833333333334" />
+        <entry key="app/src/main/res/layout/item_chat.xml" value="0.3140625" />
+        <entry key="app/src/main/res/layout/item_colors.xml" value="0.3140625" />
+        <entry key="app/src/main/res/layout/item_match_chat.xml" value="0.3140625" />
+        <entry key="app/src/main/res/layout/item_notification.xml" value="0.3140625" />
+        <entry key="app/src/main/res/layout/item_property_list.xml" value="0.4180199939716233" />
+        <entry key="app/src/main/res/layout/item_property_type.xml" value="0.3140625" />
+        <entry key="app/src/main/res/layout/item_user_category_spinner.xml" value="0.3140625" />
       </map>
     </option>
   </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="corretto-11" project-jdk-type="JavaSDK" />
 </project>

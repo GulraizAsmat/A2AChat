@@ -3,11 +3,657 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/splashFragment">
 
     <fragment
+        android:id="@+id/splashFragment"
+        android:name="app.unduit.a2achatapp.fragments.SplashFragment"
+        android:label="fragment_splash"
+        tools:layout="@layout/fragment_splash" >
+        <action
+            android:id="@+id/action_splashFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/navigation"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_splashFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/navigation"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="app.unduit.a2achatapp.fragments.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_signupFragment"
+            app:destination="@id/signupFragment"
+            app:popUpTo="@id/loginFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/navigation"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/signupFragment"
+        android:name="app.unduit.a2achatapp.fragments.SignupFragment"
+        android:label="fragment_signup"
+        tools:layout="@layout/fragment_signup" >
+        <action
+            android:id="@+id/action_signupFragment_to_certificationCheckFragment"
+            app:destination="@id/certificationCheckFragment" />
+    </fragment>
+    <fragment
         android:id="@+id/homeFragment"
-        android:name="app.unduit.a2achatapp.HomeFragment"
+        android:name="app.unduit.a2achatapp.fragments.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_notificationFragment"
+            app:destination="@id/notificationFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_favouriteFragment"
+            app:destination="@id/favouriteFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_propertyListFragment"
+            app:destination="@id/propertyListFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_chatFragment"
+            app:destination="@id/chatFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_propertyBottomSheetFragment"
+            app:destination="@id/propertyBottomSheetFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_propertyDetailFragment"
+            app:destination="@id/propertyDetailFragment" />
+        <action
+            android:id="@+id/action_homeFragment_self"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_postPropertyStep1Fragment"
+            app:destination="@id/postPropertyStep1Fragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_postRequestFragment"
+            app:destination="@id/postRequestFragment" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="app.unduit.a2achatapp.fragments.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/navigation"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_profileFragment_to_myPropertyFragment"
+            app:destination="@id/myPropertyFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/notificationFragment"
+        android:name="app.unduit.a2achatapp.fragments.NotificationFragment"
+        android:label="fragment_notification"
+        tools:layout="@layout/fragment_notification" >
+        <action
+            android:id="@+id/action_notificationFragment_to_propertyDetailFragment"
+            app:destination="@id/propertyDetailFragment" />
+        <action
+            android:id="@+id/action_notificationFragment_to_chatFragment2"
+            app:destination="@id/chatFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/favouriteFragment"
+        android:name="app.unduit.a2achatapp.fragments.FavouriteFragment"
+        android:label="fragment_favourite"
+        tools:layout="@layout/fragment_favourite" >
+        <action
+            android:id="@+id/action_favouriteFragment_to_propertyDetailFragment"
+            app:destination="@id/propertyDetailFragment" />
+        <action
+            android:id="@+id/action_favouriteFragment_to_chatFragment"
+            app:destination="@id/chatFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/propertyListFragment"
+        android:name="app.unduit.a2achatapp.fragments.PropertyListFragment"
+        android:label="fragment_property_list"
+        tools:layout="@layout/fragment_property_list" >
+        <action
+            android:id="@+id/action_propertyListFragment_to_propertyDetailFragment"
+            app:destination="@id/propertyDetailFragment" />
+        <action
+            android:id="@+id/action_propertyListFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_propertyListFragment_to_chatFragment"
+            app:destination="@id/chatFragment" />
+        <action
+            android:id="@+id/action_propertyListFragment_to_notificationFragment"
+            app:destination="@id/notificationFragment" />
+        <action
+            android:id="@+id/action_propertyListFragment_to_favouriteFragment"
+            app:destination="@id/favouriteFragment" />
+        <action
+            android:id="@+id/action_propertyListFragment_to_chatFragment2"
+            app:destination="@id/chatFragment2" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/addPropertyFragment"
+        android:name="app.unduit.a2achatapp.fragments.AddPropertyFragment"
+        android:label="fragment_add_property"
+        tools:layout="@layout/fragment_add_property" />
+    <fragment
+        android:id="@+id/chatFragment"
+        android:name="app.unduit.a2achatapp.fragments.ChatFragment"
+        android:label="fragment_chat"
+        tools:layout="@layout/fragment_chat" >
+        <action
+            android:id="@+id/action_chatFragment_to_chatFragment2"
+            app:destination="@id/chatFragment2">
+
+        <argument
+            android:name="chatUserId"
+            app:argType="string" />
+
+            <argument
+                android:name="chatUserName"
+                app:argType="string" />
+
+            <argument
+                android:name="chatUserImage"
+                app:argType="string" />
+
+
+
+
+        </action>
+        />
+    </fragment>
+    <fragment
+        android:id="@+id/certificationCheckFragment"
+        android:name="app.unduit.a2achatapp.fragments.CertificationCheckFragment"
+        android:label="CertificationCheckFragment" >
+        <action
+            android:id="@+id/action_certificationCheckFragment_to_signupSpecialityFragment"
+            app:destination="@id/signupSpecialityFragment" />
+        <argument
+            android:name="userData"
+            app:argType="app.unduit.a2achatapp.models.User" />
+    </fragment>
+    <fragment
+        android:id="@+id/signupSpecialityFragment"
+        android:name="app.unduit.a2achatapp.fragments.SignupSpecialityFragment"
+        android:label="SignupSpecialityFragment" >
+        <action
+            android:id="@+id/action_signupSpecialityFragment_to_signupAreasFragment"
+            app:destination="@id/signupAreasFragment" />
+        <argument
+            android:name="userData"
+            app:argType="app.unduit.a2achatapp.models.User" />
+    </fragment>
+    <fragment
+        android:id="@+id/signupAreasFragment"
+        android:name="app.unduit.a2achatapp.fragments.SignupAreasFragment"
+        android:label="SignupAreasFragment" >
+        <action
+            android:id="@+id/action_signupAreasFragment_to_signupExperienceFragment"
+            app:destination="@id/signupExperienceFragment" />
+        <argument
+            android:name="userData"
+            app:argType="app.unduit.a2achatapp.models.User" />
+    </fragment>
+    <fragment
+        android:id="@+id/signupExperienceFragment"
+        android:name="app.unduit.a2achatapp.fragments.SignupExperienceFragment"
+        android:label="SignupExperienceFragment" >
+        <action
+            android:id="@+id/action_signupExperienceFragment_to_signupProfilePicFragment"
+            app:destination="@id/signupProfilePicFragment" />
+        <argument
+            android:name="userData"
+            app:argType="app.unduit.a2achatapp.models.User" />
+    </fragment>
+    <fragment
+        android:id="@+id/signupProfilePicFragment"
+        android:name="app.unduit.a2achatapp.fragments.SignupProfilePicFragment"
+        android:label="SignupProfilePicFragment" >
+        <action
+            android:id="@+id/action_signupProfilePicFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/navigation"
+            app:popUpToInclusive="true" />
+        <argument
+            android:name="userData"
+            app:argType="app.unduit.a2achatapp.models.User" />
+    </fragment>
+    <fragment
+        android:id="@+id/propertyBottomSheetFragment"
+        android:name="app.unduit.a2achatapp.fragments.PropertyBottomSheetFragment"
+        android:label="fragment_property_bottom_sheet"
+        tools:layout="@layout/fragment_property_bottom_sheet" >
+        <action
+            android:id="@+id/action_propertyBottomSheetFragment_to_postPropertyStep1Fragment"
+            app:destination="@id/postPropertyStep1Fragment" />
+        <action
+            android:id="@+id/action_propertyBottomSheetFragment_to_postRequestFragment"
+            app:destination="@id/postRequestFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/postPropertyStep1Fragment"
+        android:name="app.unduit.a2achatapp.fragments.PostPropertyStep1Fragment"
+        android:label="fragment_post_property_step1"
+        tools:layout="@layout/fragment_post_property_step1" >
+        <action
+            android:id="@+id/action_postPropertyStep1Fragment_to_postFragment"
+            app:destination="@id/postFragment" />
+        <argument
+            android:name="propertyData"
+            app:argType="app.unduit.a2achatapp.models.PropertyData"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <action
+            android:id="@+id/action_postPropertyStep1Fragment_to_buyAndCommercialFragment2"
+            app:destination="@id/buyAndCommercialFragment" />
+        <action
+            android:id="@+id/action_postPropertyStep1Fragment_to_purchaseLandFragment"
+            app:destination="@id/purchaseLandFragment" >
+                    <argument
+                        android:name="propertyData"
+                        app:argType="app.unduit.a2achatapp.models.PropertyData"
+
+                        />
+                    <argument
+                        android:name="isEdit"
+                        app:argType="boolean" />
+        </action>
+        <!--        <argument-->
+<!--            android:name="propertyData"-->
+<!--            app:argType="app.unduit.a2achatapp.models.PropertyData"-->
+<!--           -->
+<!--            />-->
+<!--        <argument-->
+<!--            android:name="isEdit"-->
+<!--            app:argType="boolean" />-->
+<!--        </action>-->
+    </fragment>
+    <fragment
+        android:id="@+id/postFragment"
+        android:name="app.unduit.a2achatapp.fragments.PostPropertyStep2Fragment"
+        android:label="fragment_post"
+        tools:layout="@layout/fragment_post_property_step2" >
+        <action
+            android:id="@+id/action_postFragment_to_postPropertyStep3Fragment"
+            app:destination="@id/postPropertyStep3Fragment" />
+        <argument
+            android:name="propertyData"
+            app:argType="app.unduit.a2achatapp.models.PropertyData" />
+        <argument
+            android:name="isEdit"
+            app:argType="boolean" />
+    </fragment>
+    <fragment
+        android:id="@+id/postPropertyStep3Fragment"
+        android:name="app.unduit.a2achatapp.fragments.PostPropertyStep3Fragment"
+        android:label="fragment_post_property_step3"
+        tools:layout="@layout/fragment_post_property_step3" >
+        <action
+            android:id="@+id/action_postPropertyStep3Fragment_to_postPropertyStep4Fragment"
+            app:destination="@id/postPropertyStep4Fragment" />
+        <argument
+            android:name="propertyData"
+            app:argType="app.unduit.a2achatapp.models.PropertyData" />
+        <argument
+            android:name="isEdit"
+            app:argType="boolean" />
+        <action
+            android:id="@+id/action_postPropertyStep3Fragment_to_postPropertyStep5Fragment"
+            app:destination="@id/postPropertyStep5Fragment" />
+        <action
+            android:id="@+id/action_postPropertyStep3Fragment_to_postRequestFragment"
+            app:destination="@id/postRequestFragment" >
+        <argument
+            android:name="propertyData"
+            app:argType="app.unduit.a2achatapp.models.PropertyData" />
+        <argument
+            android:name="isEdit"
+            app:argType="boolean" />
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/postPropertyStep4Fragment"
+        android:name="app.unduit.a2achatapp.fragments.PostPropertyStep4Fragment"
+        android:label="fragment_post_property_step4"
+        tools:layout="@layout/fragment_post_property_step4" >
+        <action
+            android:id="@+id/action_postPropertyStep4Fragment_to_postPropertyStep5Fragment"
+            app:destination="@id/postPropertyStep5Fragment" />
+        <argument
+            android:name="propertyData"
+            app:argType="app.unduit.a2achatapp.models.PropertyData" />
+        <argument
+            android:name="isEdit"
+            app:argType="boolean" />
+    </fragment>
+    <fragment
+        android:id="@+id/postPropertyStep5Fragment"
+        android:name="app.unduit.a2achatapp.fragments.PostPropertyStep5Fragment"
+        android:label="fragment_post_property_step5"
+        tools:layout="@layout/fragment_post_property_step5" >
+        <action
+            android:id="@+id/action_postPropertyStep5Fragment_to_postPropertyStep6Fragment"
+            app:destination="@id/postPropertyStep6Fragment" />
+        <action
+            android:id="@+id/action_postPropertyStep5Fragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true" />
+        <argument
+            android:name="propertyData"
+            app:argType="app.unduit.a2achatapp.models.PropertyData" />
+        <argument
+            android:name="isEdit"
+            app:argType="boolean" />
+        <argument
+            android:name="isLand"
+            app:argType="boolean"
+            android:defaultValue="false"/>
+    </fragment>
+    <fragment
+        android:id="@+id/postPropertyStep6Fragment"
+        android:name="app.unduit.a2achatapp.PostPropertyStep6Fragment"
+        android:label="fragment_post_property_step6"
+        tools:layout="@layout/fragment_post_property_step6" >
+        <action
+            android:id="@+id/action_postPropertyStep6Fragment_to_postPropertyStep7Fragment"
+            app:destination="@id/postPropertyStep7Fragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/postPropertyStep7Fragment"
+        android:name="app.unduit.a2achatapp.PostPropertyStep7Fragment"
+        android:label="fragment_post_property_step7"
+        tools:layout="@layout/fragment_post_property_step7" >
+        <action
+            android:id="@+id/action_postPropertyStep7Fragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="app.unduit.a2achatapp.fragments.EditProfileFragment"
+        android:label="EditProfileFragment" />
+    <fragment
+        android:id="@+id/propertyDetailFragment"
+        android:name="app.unduit.a2achatapp.fragments.PropertyDetailFragment"
+        android:label="PropertyDetailFragment" >
+        <action
+            android:id="@+id/action_propertyDetailFragment_to_chatFragment"
+            app:destination="@id/chatFragment" />
+        <argument
+            android:name="propertyData"
+            app:argType="app.unduit.a2achatapp.models.PropertyData"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <argument
+            android:name="isFrom"
+            app:argType="string"
+            android:defaultValue='""' />
+        <action
+            android:id="@+id/action_propertyDetailFragment_to_agentProfileFragment"
+            app:destination="@id/agentProfileFragment" >
+            <argument
+                android:name="propertyData"
+                app:argType="app.unduit.a2achatapp.models.PropertyData"
+                app:nullable="true"
+                android:defaultValue="@null" />
+        </action>
+        <action
+            android:id="@+id/action_propertyDetailFragment_to_fullViewImageFragment"
+            app:destination="@id/fullViewImageFragment" >
+            <argument
+                android:name="propertyData"
+                app:argType="app.unduit.a2achatapp.models.PropertyData"
+                app:nullable="true"
+                android:defaultValue="@null" />
+        </action>
+        <action
+            android:id="@+id/action_propertyDetailFragment_to_chatFragment2"
+            app:destination="@id/chatFragment2" />
+
+
+    </fragment>
+    <fragment
+        android:id="@+id/myPropertyFragment"
+        android:name="app.unduit.a2achatapp.fragments.MyPropertyFragment"
+        android:label="fragment_my_property"
+        tools:layout="@layout/fragment_my_property" >
+        <action
+            android:id="@+id/action_myPropertyFragment_to_propertyDetailFragment"
+            app:destination="@id/propertyDetailFragment" />
+        <action
+            android:id="@+id/action_myPropertyFragment_to_postPropertyStep1Fragment"
+            app:destination="@id/postPropertyStep1Fragment" >
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/postRequestFragment"
+        android:name="app.unduit.a2achatapp.fragments.PostRequestFragment"
+        android:label="fragment_post_request"
+        tools:layout="@layout/fragment_post_request">
+
+
+
+
+
+    <argument
+        android:name="propertyData"
+        app:argType="app.unduit.a2achatapp.models.PropertyData" />
+    <argument
+        android:name="isEdit"
+        app:argType="boolean" />
+        <action
+            android:id="@+id/action_postRequestFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true" />
+
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/buyAndCommercialFragment"
+        android:name="app.unduit.a2achatapp.BuyAndCommercialFragment"
+        android:label="fragment_buy_and_commercial"
+        tools:layout="@layout/fragment_buy_and_commercial" >
+        <action
+            android:id="@+id/action_buyAndCommercialFragment_to_postRequestFragment2"
+            app:destination="@id/postRequestFragment" >
+
+        <argument
+            android:name="propertyData"
+            app:argType="app.unduit.a2achatapp.models.PropertyData" />
+        <argument
+            android:name="isEdit"
+            app:argType="boolean" />
+        </action>
+
+        <argument
+            android:name="propertyData"
+            app:argType="app.unduit.a2achatapp.models.PropertyData" />
+        <argument
+            android:name="isEdit"
+            app:argType="boolean" />
+    </fragment>
+    <fragment
+        android:id="@+id/agentProfileFragment"
+        android:name="app.unduit.a2achatapp.AgentProfileFragment"
+        android:label="fragment_agent_profile"
+        tools:layout="@layout/fragment_agent_profile" >
+
+
+        <argument
+            android:name="propertyData"
+            app:argType="app.unduit.a2achatapp.models.PropertyData" />
+
+
+        <action
+            android:id="@+id/action_agentProfileFragment_to_propertyDetailFragment"
+            app:destination="@id/propertyDetailFragment" >
+
+            <argument
+                android:name="propertyData"
+                app:argType="app.unduit.a2achatapp.models.PropertyData" />
+        </action>
+        <action
+            android:id="@+id/action_agentProfileFragment_to_agentPropertiesViewAllFragment"
+            app:destination="@id/agentPropertiesViewAllFragment" >
+            <argument
+                android:name="post_type"
+                app:argType="string" />
+
+            <argument
+                android:name="user_id"
+                app:argType="string" />
+        </action>
+        <action
+            android:id="@+id/action_agentProfileFragment_to_userProfileFullViewFragment"
+            app:destination="@id/userProfileFullViewFragment">
+
+            <argument
+                android:name="chatUserImage"
+                app:argType="string" />
+        </action>
+
+
+
+
+
+    </fragment>
+    <fragment
+        android:id="@+id/agentPropertiesViewAllFragment"
+        android:name="app.unduit.a2achatapp.AgentPropertiesViewAllFragment"
+        android:label="fragment_agent_properties_view_all"
+        tools:layout="@layout/fragment_agent_properties_view_all">
+    <argument
+        android:name="post_type"
+        app:argType="string" />
+
+        <argument
+            android:name="user_id"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_agentPropertiesViewAllFragment_to_propertyDetailFragment"
+            app:destination="@id/propertyDetailFragment" >
+            <argument
+                android:name="propertyData"
+                app:argType="app.unduit.a2achatapp.models.PropertyData" />
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/purchaseLandFragment"
+        android:name="app.unduit.a2achatapp.PurchaseLandFragment"
+        android:label="fragment_purchase_land"
+        tools:layout="@layout/fragment_purchase_land" >
+        <action
+            android:id="@+id/action_purchaseLandFragment_to_postPropertyStep5Fragment"
+            app:destination="@id/postPropertyStep5Fragment" >
+            <argument
+                android:name="propertyData"
+                app:argType="app.unduit.a2achatapp.models.PropertyData" />
+            <argument
+                android:name="isEdit"
+                app:argType="boolean" />
+
+            <argument
+                android:name="isLand"
+                app:argType="boolean"
+                android:defaultValue="false"/>
+        </action>
+
+        <argument
+            android:name="propertyData"
+            app:argType="app.unduit.a2achatapp.models.PropertyData" />
+        <argument
+            android:name="isEdit"
+            app:argType="boolean" />
+        <action
+            android:id="@+id/action_purchaseLandFragment_to_postRequestFragment"
+            app:destination="@id/postRequestFragment" >
+
+
+            <argument
+                android:name="propertyData"
+                app:argType="app.unduit.a2achatapp.models.PropertyData" />
+            <argument
+                android:name="isEdit"
+                app:argType="boolean" />
+
+            <argument
+                android:name="isLand"
+                app:argType="boolean"
+                android:defaultValue="false"/>
+
+        </action>
+
+    </fragment>
+    <fragment
+        android:id="@+id/chatFragment2"
+        android:name="app.unduit.a2achatapp.ChatDetailFragment"
+        android:label="fragment_chat2"
+        tools:layout="@layout/fragment_chat2" >
+        <argument
+            android:name="propertyData"
+            app:argType="app.unduit.a2achatapp.models.PropertyData" />
+        <argument
+            android:name="isEdit"
+            app:argType="boolean" />
+
+        <argument
+            android:name="chatUserId"
+            app:argType="string" />
+
+        <argument
+            android:name="chatUserName"
+            app:argType="string" />
+
+        <argument
+            android:name="chatUserImage"
+            app:argType="string" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/fullViewImageFragment"
+        android:name="app.unduit.a2achatapp.FullViewImageFragment"
+        android:label="fragment_full_view_image"
+        tools:layout="@layout/fragment_full_view_image" >
+        <argument
+            android:name="propertyData"
+            app:argType="app.unduit.a2achatapp.models.PropertyData"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
+    <fragment
+        android:id="@+id/userProfileFullViewFragment"
+        android:name="app.unduit.a2achatapp.UserProfileFullViewFragment"
+        android:label="fragment_user_profile_full_view"
+        tools:layout="@layout/fragment_user_profile_full_view" >
+
+
+        <argument
+            android:name="chatUserImage"
+            app:argType="string" />
+    </fragment>
+
+
 </navigation>

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".fragments.SignupSpecialityFragment">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/appCompatImageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/bg_splash" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/btn_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_25sdp"
+            android:padding="@dimen/_8sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_back_white" />
+
+        <TextView
+            android:id="@+id/tv_heading"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_30sdp"
+            android:layout_marginTop="@dimen/_140sdp"
+            android:fontFamily="@font/roboto_medium"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:text="Your speciality"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/_18ssp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/cb_offplan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@drawable/selector_checkbox"
+            android:text="Off-Plan"
+            android:fontFamily="@font/roboto_regular"
+            android:paddingStart="@dimen/_4sdp"
+            android:textSize="@dimen/_16sdp"
+            android:textColor="@drawable/selector_checkbox_text_color"
+            android:layout_marginTop="@dimen/_30sdp"
+            app:layout_constraintStart_toStartOf="@+id/tv_heading"
+            app:layout_constraintTop_toBottomOf="@+id/tv_heading" />
+
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/cb_secondary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@drawable/selector_checkbox"
+            android:text="Secondary"
+            android:fontFamily="@font/roboto_regular"
+            android:paddingStart="@dimen/_4sdp"
+            android:textSize="@dimen/_16sdp"
+            android:textColor="@drawable/selector_checkbox_text_color"
+            android:layout_marginTop="@dimen/_5sdp"
+            app:layout_constraintStart_toStartOf="@+id/tv_heading"
+            app:layout_constraintTop_toBottomOf="@+id/cb_offplan" />
+
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/cb_rentals"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@drawable/selector_checkbox"
+            android:text="Rentals"
+            android:fontFamily="@font/roboto_regular"
+            android:paddingStart="@dimen/_4sdp"
+            android:textSize="@dimen/_16sdp"
+            android:textColor="@drawable/selector_checkbox_text_color"
+            android:layout_marginTop="@dimen/_5sdp"
+            app:layout_constraintStart_toStartOf="@+id/tv_heading"
+            app:layout_constraintTop_toBottomOf="@+id/cb_secondary" />
+
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/cb_lands"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@drawable/selector_checkbox"
+            android:text="Lands"
+            android:fontFamily="@font/roboto_regular"
+            android:paddingStart="@dimen/_4sdp"
+            android:textSize="@dimen/_16sdp"
+            android:textColor="@drawable/selector_checkbox_text_color"
+            android:layout_marginTop="@dimen/_5sdp"
+            app:layout_constraintStart_toStartOf="@+id/tv_heading"
+            app:layout_constraintTop_toBottomOf="@+id/cb_rentals" />
+
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/cb_buildings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@drawable/selector_checkbox"
+            android:text="Buildings"
+            android:fontFamily="@font/roboto_regular"
+            android:paddingStart="@dimen/_4sdp"
+            android:textSize="@dimen/_16sdp"
+            android:textColor="@drawable/selector_checkbox_text_color"
+            android:layout_marginTop="@dimen/_5sdp"
+            app:layout_constraintStart_toStartOf="@+id/tv_heading"
+            app:layout_constraintTop_toBottomOf="@+id/cb_lands" />
+
+        <TextView
+            android:id="@+id/btn_next"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_marginHorizontal="@dimen/_30sdp"
+            android:layout_marginTop="@dimen/_38sdp"
+            android:background="@drawable/selector_btn_signup"
+            android:enabled="false"
+            android:fontFamily="@font/roboto_medium"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="@string/text_next"
+            android:textColor="@drawable/selector_btn_color"
+            android:textSize="@dimen/_13ssp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cb_buildings" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
